@@ -48,6 +48,7 @@ namespace Threax.IdServer
                     ClientId = "mvc",
                     ClientName = "MVC Client",
                     AllowedGrantTypes = GrantTypes.Implicit,
+                    RequireConsent = false,
 
                     // where to redirect to after login
                     RedirectUris = { "https://localhost:44341/signin-oidc" },
