@@ -4,7 +4,7 @@
 
 @{
     var error = Model?.Error?.Error;
-    var errorDescription = host.IsDevelopment() ? Model?.Error?.ErrorDescription : null;
+    var errorDescription = host.IsDevelopment() ? Model?.Error?.Error : null;
     var request_id = Model?.Error?.RequestId;
 }
 
