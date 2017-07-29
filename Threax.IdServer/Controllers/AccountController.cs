@@ -155,13 +155,22 @@ namespace Threax.IdServer.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public IActionResult Logout(LogoutInputModel model)
+        {
+            var vm = new LogoutViewModel()
+            {
+                LogoutId = model.LogoutId
+            };
 
+            return View(vm);
+        }
 
         /// <summary>
         /// Show logout page
         /// </summary>
-        [HttpGet]
-        public async Task<IActionResult> Logout(string logoutId)
+        [HttpPost("[controller]/Logout")]
+        public async Task<IActionResult> LoggedOut(LogoutInputModel model)
         {
             ApplicationUser user = null;
             if (HttpContext.User.Identity != null && HttpContext.User.Identity.Name != null)
@@ -176,7 +185,7 @@ namespace Threax.IdServer.Controllers
             HttpContext.User = new ClaimsPrincipal(new ClaimsIdentity());
 
             // get context information (client name, post logout redirect URI and iframe for federated signout)
-            var logout = await interaction.GetLogoutContextAsync(logoutId);
+            var logout = await interaction.GetLogoutContextAsync(model.LogoutId);
 
             var vm = new LoggedOutViewModel
             {

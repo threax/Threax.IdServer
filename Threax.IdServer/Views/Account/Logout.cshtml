@@ -1,0 +1,12 @@
+@model Threax.IdServer.Models.AccountViewModels.LogoutViewModel
+
+<div class="page-header">
+    <h1>
+        Logout
+    </h1>
+    <p>Are you sure you want to logout?</p>
+    <form method="post">
+        <input type="hidden" value="@Model.LogoutId"/>
+        <button type="submit">Yes</button>
+    </form>
+</div>
