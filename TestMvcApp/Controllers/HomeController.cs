@@ -33,5 +33,13 @@ namespace TestMvcApp.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.Authentication.SignOutAsync("Cookies");
+            await HttpContext.Authentication.SignOutAsync("oidc");
+
+            return new EmptyResult();
+        }
     }
 }

@@ -1,22 +1,28 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Threax.IdServer.Models.AccountInputModels;
 
 namespace Threax.IdServer.Models.AccountViewModels
 {
-    public class LoginViewModel
+    public class LoginViewModel : LoginInputModel
     {
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
+        public LoginViewModel(HttpContext httpContext)
+        {
+            
+        }
 
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public LoginViewModel(HttpContext httpContext, LoginInputModel other)
+            : this(httpContext)
+        {
+            Username = other.Username;
+            Password = other.Password;
+            ReturnUrl = other.ReturnUrl;
+        }
 
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }

@@ -12,6 +12,9 @@ using Microsoft.Extensions.Options;
 using Threax.IdServer.Models;
 using Threax.IdServer.Models.AccountViewModels;
 using Threax.IdServer.Services;
+using Microsoft.AspNetCore.Http.Authentication;
+using IdentityServer4.Services;
+using Threax.IdServer.Models.AccountInputModels;
 
 namespace Threax.IdServer.Controllers
 {
@@ -24,11 +27,13 @@ namespace Threax.IdServer.Controllers
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
         private readonly string _externalCookieScheme;
+        private readonly IIdentityServerInteractionService interaction;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IOptions<IdentityCookieOptions> identityCookieOptions,
+            IIdentityServerInteractionService interaction,
             IEmailSender emailSender,
             ISmsSender smsSender,
             ILoggerFactory loggerFactory)
@@ -39,6 +44,7 @@ namespace Threax.IdServer.Controllers
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
+            this.interaction = interaction;
         }
 
         //
@@ -47,11 +53,21 @@ namespace Threax.IdServer.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
         {
-            // Clear the existing external cookie to ensure a clean login process
-            await HttpContext.Authentication.SignOutAsync(_externalCookieScheme);
+            var vm = new LoginViewModel(HttpContext);
 
-            ViewData["ReturnUrl"] = returnUrl;
-            return View();
+            var context = await interaction.GetAuthorizationContextAsync(returnUrl);
+            if (context != null)
+            {
+                vm.Username = context.LoginHint;
+                vm.ReturnUrl = returnUrl;
+            }
+
+            //Something along these lines will skip the login page, but need to detect if
+            //external to spc users are allowed, which I can't currently figure out.
+            //var baseUrl = "/Account/External?provider=wsfed&returnUrl=";
+            //return Redirect(baseUrl + Uri.EscapeDataString(returnUrl));
+
+            return View(vm);
         }
 
         //
@@ -59,22 +75,28 @@ namespace Threax.IdServer.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Login(LoginInputModel model)
         {
-            ViewData["ReturnUrl"] = returnUrl;
+            var vm = new LoginViewModel(HttpContext, model);
+
+            ViewData["ReturnUrl"] = model.ReturnUrl;
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
-                    return RedirectToLocal(returnUrl);
+                    if (model.ReturnUrl == null)
+                    {
+                        model.ReturnUrl = "/";
+                    }
+                    return Redirect(model.ReturnUrl);
                 }
                 if (result.RequiresTwoFactor)
                 {
-                    return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    return RedirectToAction(nameof(SendCode), new { ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
                 }
                 if (result.IsLockedOut)
                 {
@@ -84,12 +106,12 @@ namespace Threax.IdServer.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return View(model);
+                    vm.ErrorMessage = "Invalid login attempt.";
                 }
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return View(vm);
         }
 
         //
@@ -133,104 +155,78 @@ namespace Threax.IdServer.Controllers
             return View(model);
         }
 
-        //
-        // POST: /Account/Logout
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-            _logger.LogInformation(4, "User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
-        }
 
-        //
-        // POST: /Account/ExternalLogin
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public IActionResult ExternalLogin(string provider, string returnUrl = null)
-        {
-            // Request a redirect to the external login provider.
-            var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account", new { ReturnUrl = returnUrl });
-            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
-            return Challenge(properties, provider);
-        }
 
-        //
-        // GET: /Account/ExternalLoginCallback
+        /// <summary>
+        /// Show logout page
+        /// </summary>
         [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
+        public async Task<IActionResult> Logout(string logoutId)
         {
-            if (remoteError != null)
+            ApplicationUser user = null;
+            if (HttpContext.User.Identity != null && HttpContext.User.Identity.Name != null)
             {
-                ModelState.AddModelError(string.Empty, $"Error from external provider: {remoteError}");
-                return View(nameof(Login));
+                user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
             }
-            var info = await _signInManager.GetExternalLoginInfoAsync();
-            if (info == null)
-            {
-                return RedirectToAction(nameof(Login));
-            }
+            
+            // delete authentication cookie
+            await HttpContext.Authentication.SignOutAsync();
 
-            // Sign in the user with this external login provider if the user already has a login.
-            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
-            if (result.Succeeded)
+            // set this so UI rendering sees an anonymous user
+            HttpContext.User = new ClaimsPrincipal(new ClaimsIdentity());
+
+            // get context information (client name, post logout redirect URI and iframe for federated signout)
+            var logout = await interaction.GetLogoutContextAsync(logoutId);
+
+            var vm = new LoggedOutViewModel
             {
-                _logger.LogInformation(5, "User logged in with {Name} provider.", info.LoginProvider);
-                return RedirectToLocal(returnUrl);
-            }
-            if (result.RequiresTwoFactor)
-            {
-                return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl });
-            }
-            if (result.IsLockedOut)
-            {
-                return View("Lockout");
-            }
-            else
-            {
-                // If the user does not have an account, then ask the user to create an account.
-                ViewData["ReturnUrl"] = returnUrl;
-                ViewData["LoginProvider"] = info.LoginProvider;
-                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-                return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = email });
-            }
+                PostLogoutRedirectUri = logout?.PostLogoutRedirectUri,
+                ClientName = logout?.ClientId,
+                SignOutIframeUrl = logout?.SignOutIFrameUrl
+            };
+
+            return View("LoggedOut", vm);
         }
 
-        //
-        // POST: /Account/ExternalLoginConfirmation
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl = null)
+        /// <summary>
+        /// Handle logout page postback
+        /// </summary>
+        [HttpGet]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Cleanup(LogoutViewModel model)
         {
-            if (ModelState.IsValid)
+            if (model.LogoutId == null)
             {
-                // Get the information about the user from the external login provider
-                var info = await _signInManager.GetExternalLoginInfoAsync();
-                if (info == null)
-                {
-                    return View("ExternalLoginFailure");
-                }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await _userManager.CreateAsync(user);
-                if (result.Succeeded)
-                {
-                    result = await _userManager.AddLoginAsync(user, info);
-                    if (result.Succeeded)
-                    {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        _logger.LogInformation(6, "User created an account using {Name} provider.", info.LoginProvider);
-                        return RedirectToLocal(returnUrl);
-                    }
-                }
-                AddErrors(result);
+                model.LogoutId = Request.Cookies["logoutid"];
             }
 
-            ViewData["ReturnUrl"] = returnUrl;
-            return View(model);
+            // delete authentication cookie
+            await HttpContext.Authentication.SignOutAsync();
+
+            // set this so UI rendering sees an anonymous user
+            HttpContext.User = new ClaimsPrincipal(new ClaimsIdentity());
+
+            // get context information (client name, post logout redirect URI and iframe for federated signout)
+            var logout = await this.interaction.GetLogoutContextAsync(model.LogoutId);
+
+            var vm = new LoggedOutViewModel
+            {
+                PostLogoutRedirectUri = logout?.PostLogoutRedirectUri,
+                ClientName = logout?.ClientId,
+                SignOutIframeUrl = logout?.SignOutIFrameUrl
+            };
+
+            addPotato();
+
+            return View("LoggedOut", vm);
+        }
+
+        /// <summary>
+        /// This function adds a potato p3p header to make ie happy when setting cookies in iframes.
+        /// </summary>
+        private void addPotato()
+        {
+            Response.Headers.Add("P3P", "CP=\"Potato\""); //For IE iframe cookies
         }
 
         // GET: /Account/ConfirmEmail
