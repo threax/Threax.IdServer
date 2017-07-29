@@ -11,11 +11,12 @@
     "htmlrapier.halcyon": "^6.0.2",
     "htmlrapier.halcyon-explorer": "^6.0.1",
     "htmlrapier.widgets": "^8.2.0",
-    "jsns": "^5.0.0"
+    "jsns": "^5.0.0",
+    "threax.bootstrap": ">=0.0.1"
   },
   "scripts": {
     "build": "node Build/build.js",
-    "yarn-install": "yarn install --flat && yarn link threax.bootstrap && yarn link threax-npm-tk",
+    "yarn-install": "yarn install --flat && yarn link threax-npm-tk",
     "clean": "powershell -Command Remove-Item 'wwwroot\\*' -Recurse -Force",
     "trash-modules": "powershell -Command Remove-Item 'node_modules\\*' -Recurse -Force",
     "import-tsconfig": "node node_modules/threax-npm-tk/tsimport.js",
