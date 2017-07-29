@@ -15,7 +15,7 @@
   },
   "scripts": {
     "build": "node Build/build.js",
-    "yarn-install": "yarn install --flat && yarn link threax-npm-tk",
+    "yarn-install": "yarn install --flat && yarn link threax.bootstrap && yarn link threax-npm-tk",
     "clean": "powershell -Command Remove-Item 'wwwroot\\*' -Recurse -Force",
     "trash-modules": "powershell -Command Remove-Item 'node_modules\\*' -Recurse -Force",
     "import-tsconfig": "node node_modules/threax-npm-tk/tsimport.js",
