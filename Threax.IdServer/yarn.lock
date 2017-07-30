@@ -36,8 +36,8 @@ htmlrapier.halcyon@>=6.0.0, htmlrapier.halcyon@>=6.0.1, htmlrapier.halcyon@^6.0.
     htmlrapier ">=10.0.2"
 
 htmlrapier.widgets@^8.2.0:
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/htmlrapier.widgets/-/htmlrapier.widgets-8.2.0.tgz#dea518fa0a17da6ebd91175ca9d31fccc1c1f8d0"
+  version "8.2.1"
+  resolved "https://registry.yarnpkg.com/htmlrapier.widgets/-/htmlrapier.widgets-8.2.1.tgz#e9d05343444aa70e59534f5b74141af1479ca1f0"
   dependencies:
     htmlrapier ">=10.1.0"
     htmlrapier.halcyon ">=6.0.1"
@@ -58,8 +58,8 @@ jsns@^5.0.0:
   resolved "https://registry.yarnpkg.com/jsns/-/jsns-5.0.0.tgz#c76429b822a68100eef8d4b8d3f1172b028664e4"
 
 threax.bootstrap@>=0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/threax.bootstrap/-/threax.bootstrap-0.0.1.tgz#6fe0378bfee3218211fbf497b0deeff03b89c4b8"
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/threax.bootstrap/-/threax.bootstrap-0.0.3.tgz#7527b1b9a901d42d329a3c00a352335c48378298"
   dependencies:
     bootstrap "~3.3.7"
 
