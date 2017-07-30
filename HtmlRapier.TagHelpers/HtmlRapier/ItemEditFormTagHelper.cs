@@ -42,7 +42,7 @@ namespace HtmlRapier.TagHelpers
 
         private const String StartContent = @"
             <div class=""modal-body"">
-                <p class=""bg-danger hiddenToggler"" data-hr-toggle=""{1}"" data-hr-view=""{1}"" data-hr-style-on=""display:block;"">{{{{message}}}}</p>
+                <div class=""alert alert-danger hiddenToggler"" role=""alert"" data-hr-toggle=""{1}"" data-hr-view=""{1}"" data-hr-style-on=""display:block;"">{{{{message}}}}</div>
                 <span data-hr-form-end></span>
             </div>
             <div class=""modal-footer"">
@@ -50,10 +50,3 @@ namespace HtmlRapier.TagHelpers
             </div>";
     }
 }
-
-        //<form data-hr-on-submit="submit" data-hr-form="input">
-        //    <div class="modal-body"><span data-hr-form-end></span></div>
-        //    <div class="modal-footer">
-        //        <button type = "submit" class="btn btn-primary">Save changes</button>
-        //      </div>
-        //</form>
