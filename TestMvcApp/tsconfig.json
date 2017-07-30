@@ -12,6 +12,9 @@
     "noEmitHelpers": true,
     "moduleResolution": "node",
     "paths": {
+      "clientlibs.*": [
+        "Client\\Libs\\*"
+      ],
       "hr.bootstrap.*": [
         "node_modules\\htmlrapier.bootstrap\\src\\*"
       ],
@@ -31,6 +34,8 @@
   },
   "compileOnSave": true,
   "include": [
+    "Client\\Libs\\**\\*.ts",
+    "Views\\**\\*.ts",
     "node_modules\\htmlrapier.bootstrap\\src\\**\\*.ts",
     "node_modules\\htmlrapier.halcyon-explorer\\src\\**\\*.ts",
     "node_modules\\htmlrapier.halcyon\\src\\**\\*.ts",

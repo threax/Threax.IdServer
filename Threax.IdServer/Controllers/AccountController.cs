@@ -62,11 +62,6 @@ namespace Threax.IdServer.Controllers
                 vm.ReturnUrl = returnUrl;
             }
 
-            //Something along these lines will skip the login page, but need to detect if
-            //external to spc users are allowed, which I can't currently figure out.
-            //var baseUrl = "/Account/External?provider=wsfed&returnUrl=";
-            //return Redirect(baseUrl + Uri.EscapeDataString(returnUrl));
-
             return View(vm);
         }
 

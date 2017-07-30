@@ -14,6 +14,8 @@ using System.Reflection;
 using Threax.AspNetCore.Halcyon.Ext;
 using TestApi.Database;
 using TestApi.Controllers;
+using Threax.AspNetCore.CorsManager;
+using System.IO;
 
 namespace TestApi
 {
@@ -25,15 +27,22 @@ namespace TestApi
         //End user replace
 
         private AppConfig appConfig = new AppConfig();
+        private CorsManagerOptions corsOptions = new CorsManagerOptions();
 
         public Startup(IHostingEnvironment env)
         {
+            var productionConfig = Path.GetFullPath($"../appsettings.{env.EnvironmentName}.json");
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile(productionConfig, optional: !env.IsProduction(), reloadOnChange: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            ConfigurationBinder.Bind(Configuration.GetSection("Cors"), corsOptions);
+            ConfigurationBinder.Bind(Configuration.GetSection("AppConfig"), appConfig);
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -91,6 +100,8 @@ namespace TestApi
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            app.UseCorsManager(corsOptions, loggerFactory);
 
             app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
             {
