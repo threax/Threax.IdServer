@@ -261,3 +261,4 @@ __pycache__/
 *.pyc
 /TestMvcApp/wwwroot
 /Threax.IdServer/wwwroot
+/TestJavascriptApp/wwwroot
