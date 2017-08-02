@@ -6,13 +6,13 @@
     "@types/node": "^6.0.69"
   },
   "dependencies": {
-    "htmlrapier": "^10.3.0",
+    "htmlrapier": "^11.0.0",
     "htmlrapier.bootstrap": "^6.0.2",
     "htmlrapier.halcyon": "^6.0.2",
     "htmlrapier.halcyon-explorer": "^6.0.1",
-    "htmlrapier.widgets": "^8.2.0",
+    "htmlrapier.widgets": "^9.0.0",
     "jsns": "^5.0.0",
-    "threax.bootstrap": ">=0.0.1"
+    "threax.bootstrap": "^0.0.3"
   },
   "scripts": {
     "build": "node Build/build.js",
