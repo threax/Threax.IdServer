@@ -7,19 +7,29 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.IO;
+using HtmlRapier.TagHelpers;
 
 namespace TestJavascriptApp
 {
     public class Startup
     {
+        private ClientConfig clientConfig = new ClientConfig();
+
         public Startup(IHostingEnvironment env)
         {
+            var productionConfig = Path.GetFullPath($"../appsettings.{env.EnvironmentName}.json");
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile(productionConfig, optional: !env.IsProduction(), reloadOnChange: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            //ConfigurationBinder.Bind(Configuration.GetSection("AppConfig"), appConfig);
+            ConfigurationBinder.Bind(Configuration.GetSection("ClientConfig"), clientConfig);
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -27,6 +37,8 @@ namespace TestJavascriptApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IClientConfig>(clientConfig);
+
             // Add framework services.
             services.AddMvc();
         }
