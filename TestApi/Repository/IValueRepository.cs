@@ -1,17 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TestApi.InputModels;
 using TestApi.ViewModels;
 using Threax.AspNetCore.Halcyon.Ext;
-using Threax.AspNetCore.Crud;
 
 namespace TestApi.Repository
 {
-    /// <summary>
-    /// The IValueRepository just inherits all the functions from the ICrudRepo, but if you had more you can define them here.
-    /// </summary>
-    public interface IValueRepository : ICrudRepo<Guid, PagedCollectionQuery, ValueInput, Value, ValueCollection>
+    public interface IValueRepository
     {
-        
+        Task<Value> Add(ValueInput value);
+        Task AddRange(IEnumerable<ValueInput> values);
+        Task Delete(Guid id);
+        Task<Value> Get(Guid valueId);
+        Task<bool> HasValues();
+        Task<ValueCollection> List(PagedCollectionQuery query);
+        Task<Value> Update(Guid valueId, ValueInput value);
     }
 }

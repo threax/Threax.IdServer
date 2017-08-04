@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Threax.AspNetCore.Crud;
 using Threax.AspNetCore.Halcyon.Ext;
 
 namespace TestApi.ViewModels
@@ -23,13 +22,14 @@ namespace TestApi.ViewModels
     /// Declaring the links makes the documentation and code generators aware that they exist.
     /// </summary>
     [HalModel]
-    [HalSelfActionLink(ValuesController.Rels.List, typeof(ValuesController))]
-    [HalActionLink(CrudRels.List, ValuesController.Rels.List, typeof(ValuesController), DocsOnly = true)]
-    [HalActionLink(CrudRels.Add, ValuesController.Rels.Add, typeof(ValuesController))]
-    [DeclareHalLink(PagedCollectionView<Object>.Rels.Next, ValuesController.Rels.List, typeof(ValuesController), ResponseOnly = true)]
-    [DeclareHalLink(PagedCollectionView<Object>.Rels.Previous, ValuesController.Rels.List, typeof(ValuesController), ResponseOnly = true)]
-    [DeclareHalLink(PagedCollectionView<Object>.Rels.First, ValuesController.Rels.List, typeof(ValuesController), ResponseOnly = true)]
-    [DeclareHalLink(PagedCollectionView<Object>.Rels.Last, ValuesController.Rels.List, typeof(ValuesController), ResponseOnly = true)]
+    [HalSelfActionLink(CrudRels.List, typeof(ValuesController))]
+    [HalActionLink(CrudRels.Get, typeof(ValuesController), DocsOnly = true)] //This provides access to docs for showing items
+    [HalActionLink(CrudRels.List, typeof(ValuesController), DocsOnly = true)] //This provides docs for searching the list
+    [HalActionLink(CrudRels.Add, typeof(ValuesController))]
+    [DeclareHalLink(PagedCollectionView<Object>.Rels.Next, CrudRels.List, typeof(ValuesController), ResponseOnly = true)]
+    [DeclareHalLink(PagedCollectionView<Object>.Rels.Previous, CrudRels.List, typeof(ValuesController), ResponseOnly = true)]
+    [DeclareHalLink(PagedCollectionView<Object>.Rels.First, CrudRels.List, typeof(ValuesController), ResponseOnly = true)]
+    [DeclareHalLink(PagedCollectionView<Object>.Rels.Last, CrudRels.List, typeof(ValuesController), ResponseOnly = true)]
     public class ValueCollection : PagedCollectionView<Value>
     {
         public ValueCollection(PagedCollectionQuery query, int total, IEnumerable<Value> items) : base(query, total, items)

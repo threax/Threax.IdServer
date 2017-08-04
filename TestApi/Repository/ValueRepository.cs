@@ -8,51 +8,92 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Threax.AspNetCore.Crud;
 using Threax.AspNetCore.Halcyon.Ext;
 
 namespace TestApi.Repository
 {
-    /// <summary>
-    /// This shows how to use the CrudRepo base class to implement a crud repository for values.
-    /// </summary>
-    public class ValueRepository : CrudRepo<Guid, PagedCollectionQuery, ValueInput, ValueEntity, Value, ValueCollection, AppDbContext>, IValueRepository
+    public class ValueRepository : IValueRepository
     {
-        public ValueRepository(AppDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        private AppDbContext dbContext;
+        private IMapper mapper;
+
+        public ValueRepository(AppDbContext dbContext, IMapper mapper)
         {
+            this.dbContext = dbContext;
+            this.mapper = mapper;
         }
 
-        /// <summary>
-        /// Get the list of all entities, usually good enough to return just the DbSet from the DbContext.
-        /// </summary>
-        protected override DbSet<ValueEntity> Entities
+        public async Task<ValueCollection> List(PagedCollectionQuery query)
         {
-            get
-            {
-                return DbContext.Values;
-            }
-        }
+            IQueryable<ValueEntity> dbQuery = this.Entities;
 
-        /// <summary>
-        /// Create the result collection. Since this is defined in your app it must be constructed somewhere.
-        /// </summary>
-        /// <param name="query">The query that was used to build the results.</param>
-        /// <param name="total">The total number of results.</param>
-        /// <param name="results">The actual results.</param>
-        /// <returns></returns>
-        protected override ValueCollection CreateCollection(PagedCollectionQuery query, int total, IEnumerable<Value> results)
-        {
+            var total = await dbQuery.CountAsync();
+            dbQuery = dbQuery.Skip(query.SkipTo(total)).Take(query.Limit);
+            var resultQuery = dbQuery.Select(i => mapper.Map<Value>(i));
+            var results = await resultQuery.ToListAsync();
+
             return new ValueCollection(query, total, results);
         }
 
-        /// <summary>
-        /// Find an individual entity by id.
-        /// </summary>
-        /// <param name="key">The key to lookup.</param>
-        /// <returns>The entity.</returns>
-        protected override Task<ValueEntity> Entity(Guid key)
+        public async Task<Value> Get(Guid valueId)
         {
-            return Entities.Where(i => i.ValueId == key).FirstOrDefaultAsync();
+            var entity = await this.Entity(valueId);
+            return mapper.Map<Value>(entity);
+        }
+
+        public async Task<Value> Add(ValueInput value)
+        {
+            var entity = mapper.Map<ValueEntity>(value);
+            this.dbContext.Add(entity);
+            await this.dbContext.SaveChangesAsync();
+            return mapper.Map<Value>(entity);
+        }
+
+        public async Task<Value> Update(Guid valueId, ValueInput value)
+        {
+            var entity = await this.Entity(valueId);
+            if (entity != null)
+            {
+                mapper.Map(value, entity);
+                await this.dbContext.SaveChangesAsync();
+                return mapper.Map<Value>(entity);
+            }
+            throw new KeyNotFoundException($"Cannot find item {valueId.ToString()}");
+        }
+
+        public async Task Delete(Guid id)
+        {
+            var entity = await this.Entity(id);
+            if (entity != null)
+            {
+                Entities.Remove(entity);
+                await this.dbContext.SaveChangesAsync();
+            }
+        }
+
+        public virtual async Task<bool> HasValues()
+        {
+            return await Entities.CountAsync() > 0;
+        }
+
+        public virtual async Task AddRange(IEnumerable<ValueInput> values)
+        {
+            var entities = values.Select(i => mapper.Map<ValueEntity>(i));
+            this.dbContext.Values.AddRange(entities);
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        private DbSet<ValueEntity> Entities
+        {
+            get
+            {
+                return dbContext.Values;
+            }
+        }
+
+        private Task<ValueEntity> Entity(Guid valueId)
+        {
+            return Entities.Where(i => i.ValueId == valueId).FirstOrDefaultAsync();
         }
     }
 }

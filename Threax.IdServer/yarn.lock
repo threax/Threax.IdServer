@@ -36,15 +36,15 @@ htmlrapier.halcyon@>=6.0.0, htmlrapier.halcyon@>=6.0.1, htmlrapier.halcyon@^6.0.
     htmlrapier ">=10.0.2"
 
 htmlrapier.widgets@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/htmlrapier.widgets/-/htmlrapier.widgets-9.0.0.tgz#b5f906aecba97bd54a9b6ff660c0541b012a31f2"
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/htmlrapier.widgets/-/htmlrapier.widgets-9.0.2.tgz#1e52cc9f01388d42f3ceaf326dcfe94977c58eea"
   dependencies:
     htmlrapier ">=11.0.0"
     htmlrapier.halcyon ">=6.0.1"
 
 htmlrapier@>=10.0.2, htmlrapier@>=11.0.0, htmlrapier@>=8.1.0, htmlrapier@>=9.0.0, htmlrapier@^11.0.0:
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/htmlrapier/-/htmlrapier-11.0.0.tgz#7e998e2deffe5d3bb8d8bb5d24f0e625fd484591"
+  version "11.2.2"
+  resolved "https://registry.yarnpkg.com/htmlrapier/-/htmlrapier-11.2.2.tgz#655b9c6a0e65cf77fa29afaeab6ff39700794903"
   dependencies:
     "@types/es6-promise" "^0.0.32"
     tslib "^1.6.1"

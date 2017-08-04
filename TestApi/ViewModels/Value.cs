@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using Threax.AspNetCore.Crud;
 using Threax.AspNetCore.Halcyon.Ext;
 
 namespace TestApi.ViewModels
@@ -19,9 +18,9 @@ namespace TestApi.ViewModels
     /// that point to themselves.
     /// </summary>
     [HalModel]
-    [HalSelfActionLink(ValuesController.Rels.Get, typeof(ValuesController))]
-    [HalActionLink(CrudRels.Update, ValuesController.Rels.Update, typeof(ValuesController))]
-    [HalActionLink(CrudRels.Delete, ValuesController.Rels.Delete, typeof(ValuesController))]
+    [HalSelfActionLink(CrudRels.Get, typeof(ValuesController))]
+    [HalActionLink(CrudRels.Update, typeof(ValuesController))]
+    [HalActionLink(CrudRels.Delete, typeof(ValuesController))]
     public class Value : IValue, IValueId
     {
         /// <summary>
