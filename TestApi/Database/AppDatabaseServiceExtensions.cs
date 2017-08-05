@@ -28,13 +28,6 @@ namespace TestApi.Database
             //https://github.com/AutoMapper/AutoMapper/wiki
             var mapperConfig = new MapperConfiguration(cfg =>
             {
-                //Map the input model to the entity
-                cfg.CreateMap<ValueInput, ValueEntity>()
-                    .ForMember(d => d.ValueId, opt => opt.Ignore());
-
-                //Map the entity to the view model.
-                cfg.CreateMap<ValueEntity, Value>();
-
                 cfg.SetupReflectedMappings(typeof(Startup).GetTypeInfo().Assembly);
             });
 
@@ -58,9 +51,6 @@ namespace TestApi.Database
             //Setup the mapper
             var mapperConfig = SetupMappings();
             services.AddScoped<IMapper>(i => mapperConfig.CreateMapper());
-
-            //Setup repositories
-            services.AddScoped<IValueRepository, ValueRepository>();
 
             return services;
         }
