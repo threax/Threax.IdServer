@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NJsonSchema" Version="9.4.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Threax.AspNetCore.Models\Threax.AspNetCore.Models.csproj" />
   </ItemGroup>
 

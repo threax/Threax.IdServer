@@ -8,8 +8,7 @@ namespace Threax.ModelGen
     {
         public static String Get(String ns, String modelName)
         {
-            var modelSuffix = modelName.Length > 0 ? modelName.Substring(1) : "";
-            var Model = modelName[0].ToString().ToUpperInvariant() + modelSuffix;
+            String Model = NameGenerator.CreatePascal(modelName);
             return Create(ns, Model);
         }
 
