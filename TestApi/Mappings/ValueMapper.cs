@@ -9,7 +9,7 @@ using TestApi.ViewModels;
 
 namespace TestApi.Mappers
 {
-    partial class ValueMapper : IAutomapperSetup
+    public partial class ValueMapper : IAutomapperSetup
     {
         public void Configure(IMapperConfigurationExpression cfg)
         {

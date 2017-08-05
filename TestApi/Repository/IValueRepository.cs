@@ -7,7 +7,7 @@ using Threax.AspNetCore.Halcyon.Ext;
 
 namespace TestApi.Repository
 {
-    public interface IValueRepository
+    public partial interface IValueRepository
     {
         Task<Value> Add(ValueInput value);
         Task AddRange(IEnumerable<ValueInput> values);

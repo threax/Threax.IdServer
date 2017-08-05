@@ -24,7 +24,7 @@ using Threax.AspNetCore.Halcyon.Ext;
 
 namespace {ns}.Repository
 {{
-    public interface I{Model}Repository
+    public partial interface I{Model}Repository
     {{
         Task<{Model}> Add({Model}Input value);
         Task AddRange(IEnumerable<{Model}Input> values);

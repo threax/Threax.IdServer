@@ -26,7 +26,7 @@ using {ns}.ViewModels;
 
 namespace {ns}.Mappers
 {{
-    partial class {Model}Mapper : IAutomapperSetup
+    public partial class {Model}Mapper : IAutomapperSetup
     {{
         public void Configure(IMapperConfigurationExpression cfg)
         {{

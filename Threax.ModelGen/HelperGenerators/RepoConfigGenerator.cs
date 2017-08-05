@@ -27,7 +27,7 @@ using {ns}.Repository;
 
 namespace {ns}.Mappers
 {{
-    partial class {Model}RepoConfig : IServiceSetup
+    public partial class {Model}RepoConfig : IServiceSetup
     {{
         public void ConfigureServices(IServiceCollection services)
         {{

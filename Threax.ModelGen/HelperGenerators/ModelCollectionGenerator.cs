@@ -35,7 +35,7 @@ namespace TestApi.ViewModels
     [DeclareHalLink(PagedCollectionView<Object>.Rels.Previous, CrudRels.List, typeof({Model}sController), ResponseOnly = true)]
     [DeclareHalLink(PagedCollectionView<Object>.Rels.First, CrudRels.List, typeof({Model}sController), ResponseOnly = true)]
     [DeclareHalLink(PagedCollectionView<Object>.Rels.Last, CrudRels.List, typeof({Model}sController), ResponseOnly = true)]
-    public class {Model}Collection : PagedCollectionView<{Model}>
+    public partial class {Model}Collection : PagedCollectionView<{Model}>
     {{
         public {Model}Collection(PagedCollectionQuery query, int total, IEnumerable<{Model}> items) : base(query, total, items)
         {{

@@ -29,7 +29,7 @@ using Threax.AspNetCore.Halcyon.Ext;
 
 namespace {ns}.Repository
 {{
-    public class {Model}Repository : I{Model}Repository
+    public partial class {Model}Repository : I{Model}Repository
     {{
         private AppDbContext dbContext;
         private IMapper mapper;

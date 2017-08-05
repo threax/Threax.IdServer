@@ -9,7 +9,7 @@ using TestApi.Repository;
 
 namespace TestApi.Mappers
 {
-    partial class ValueRepoConfig : IServiceSetup
+    public partial class ValueRepoConfig : IServiceSetup
     {
         public void ConfigureServices(IServiceCollection services)
         {

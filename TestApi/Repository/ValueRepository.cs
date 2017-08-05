@@ -12,7 +12,7 @@ using Threax.AspNetCore.Halcyon.Ext;
 
 namespace TestApi.Repository
 {
-    public class ValueRepository : IValueRepository
+    public partial class ValueRepository : IValueRepository
     {
         private AppDbContext dbContext;
         private IMapper mapper;
