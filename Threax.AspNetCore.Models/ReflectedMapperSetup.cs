@@ -22,16 +22,8 @@ namespace Threax.AspNetCore.Models
             });
             foreach(var type in types)
             {
-                try
-                {
-                    var instance = (IAutomapperSetup)Activator.CreateInstance(type);
-                    instance.Configure(cfg);
-                }
-                catch (Exception)
-                {
-                    //this handles any errors creating a type, not really a big deal, could be an abstract class or something else, just ignore it
-                    //Probably should make this better later
-                }
+                var instance = (IAutomapperSetup)Activator.CreateInstance(type);
+                instance.Configure(cfg);
             }
         }
     }
