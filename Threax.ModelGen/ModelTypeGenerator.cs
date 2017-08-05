@@ -9,6 +9,25 @@ namespace Threax.ModelGen
 {
     class ModelTypeGenerator
     {
+        public static String Create(String name, ITypeWriter typeWriter, String usings, String ns, String prettyName = null)
+        {
+            var sb = new StringBuilder(usings);
+            sb.AppendLine();
+            sb.AppendLine(typeWriter.StartNamespace(ns));
+
+            if (!String.IsNullOrWhiteSpace(prettyName))
+            {
+                sb.AppendLine(typeWriter.AddTypeDisplay(NameGenerator.CreatePascal(prettyName)));
+            }
+
+            sb.AppendLine(typeWriter.StartType(name));
+
+            sb.AppendLine(typeWriter.EndType());
+            sb.AppendLine(typeWriter.EndNamespace());
+
+            return sb.ToString();
+        }
+
         public static String Create(JsonSchema4 schema, ITypeWriter typeWriter, JsonSchema4 rootSchema, String usings, String ns)
         {
             var sb = new StringBuilder(usings);
