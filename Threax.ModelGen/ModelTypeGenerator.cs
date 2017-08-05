@@ -22,7 +22,7 @@ namespace Threax.ModelGen
 
             sb.AppendLine(typeWriter.StartType(name));
 
-            sb.AppendLine(typeWriter.EndType());
+            sb.AppendLine(typeWriter.EndType(name));
             sb.Append(typeWriter.EndNamespace());
 
             return sb.ToString();
@@ -79,8 +79,8 @@ namespace Threax.ModelGen
                 sb.AppendLine(typeWriter.CreateProperty(GetType(prop), NameGenerator.CreatePascal(propName)));
             }
 
-            sb.AppendLine(typeWriter.EndType());
-            sb.AppendLine(typeWriter.EndNamespace());
+            sb.AppendLine(typeWriter.EndType(schema.Title));
+            sb.Append(typeWriter.EndNamespace());
 
             return sb.ToString();
         }

@@ -10,14 +10,15 @@ namespace Threax.ModelGen
 {
     public class IdInterfaceWriter : InterfaceWriter
     {
-        public override String StartType(String name)
+        public override string EndType(String name)
         {
-            return $@"    public interface I{name}Id
+            return $@"
+{base.EndType(name)}
+
+    public interface I{name}Id
     {{
         Guid {name}Id {{ get; set; }}
-    }}
-
-{base.StartType(name)}";
+    }}";
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Threax.ModelGen
         string AddMaxLength(int length, string errorMessage);
         string AddRequired(string errorMessage);
         string CreateProperty(string type, string name);
-        string EndType();
+        string EndType(String name);
         string StartType(string name);
         String AddTypeDisplay(String name);
         string EndNamespace();

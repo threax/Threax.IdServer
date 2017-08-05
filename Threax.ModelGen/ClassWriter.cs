@@ -24,7 +24,7 @@ using Threax.AspNetCore.Halcyon.Ext.UIAttrs;";
     {{";
         }
 
-        public virtual String EndType()
+        public virtual String EndType(String name)
         {
             return "    }";
         }
