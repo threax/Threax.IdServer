@@ -8,12 +8,14 @@ namespace Threax.ModelGen
     {
         static void Main(string[] args)
         {
-            GenerateClasses(args[0], args[1]);
+            GenerateClasses(args[0], args[1], args[2]);
         }
 
-        private static void GenerateClasses(String ns, String source)
+        private static void GenerateClasses(String ns, String source, String outDir)
         {
             String modelName;
+
+            String model, entity, inputModel, viewModel;
 
             try
             {
@@ -37,10 +39,10 @@ namespace Threax.ModelGen
                         schema = schemaTask.Result;
                     }
                 }
-                Console.WriteLine(ModelTypeGenerator.Create(schema, new IdInterfaceWriter(), schema, "", ns + ".Models"));
-                Console.WriteLine(ModelTypeGenerator.Create(schema, new EntityWriter(), schema, "", ns + ".Database"));
-                Console.WriteLine(ModelTypeGenerator.Create(schema, new InputModelWriter(), schema, "", ns + ".InputModels"));
-                Console.WriteLine(ModelTypeGenerator.Create(schema, new ViewModelWriter(), schema, "", ns + ".ViewModels"));
+                model = ModelTypeGenerator.Create(schema, new IdInterfaceWriter(), schema, "", ns + ".Models");
+                entity = ModelTypeGenerator.Create(schema, new EntityWriter(), schema, "", ns + ".Database");
+                inputModel = ModelTypeGenerator.Create(schema, new InputModelWriter(), schema, "", ns + ".InputModels");
+                viewModel = ModelTypeGenerator.Create(schema, new ViewModelWriter(), schema, "", ns + ".ViewModels");
                 modelName = schema.Title;
             }
             catch (Exception) //If there was a problem tread source as the name, if it has no whitespace in it
@@ -50,23 +52,25 @@ namespace Threax.ModelGen
                     throw;
                 }
 
-                Console.WriteLine(ModelTypeGenerator.Create(source, new IdInterfaceWriter(), "", ns + ".Models"));
-                Console.WriteLine(ModelTypeGenerator.Create(source, new EntityWriter(), "", ns + ".Database"));
-                Console.WriteLine(ModelTypeGenerator.Create(source, new InputModelWriter(), "", ns + ".InputModels"));
-                Console.WriteLine(ModelTypeGenerator.Create(source, new ViewModelWriter(), "", ns + ".ViewModels"));
-
+                model = ModelTypeGenerator.Create(source, new IdInterfaceWriter(), "", ns + ".Models");
+                entity = ModelTypeGenerator.Create(source, new EntityWriter(), "", ns + ".Database");
+                inputModel = ModelTypeGenerator.Create(source, new InputModelWriter(), "", ns + ".InputModels");
+                viewModel = ModelTypeGenerator.Create(source, new ViewModelWriter(), "", ns + ".ViewModels");
 
                 modelName = source;
             }
 
-            Console.WriteLine(RepoGenerator.Get(ns, modelName));
-            Console.WriteLine(RepoInterfaceGenerator.Get(ns, modelName));
-            Console.WriteLine(ControllerGenerator.Get(ns, modelName));
-            Console.WriteLine(MappingGenerator.Get(ns, modelName));
-            Console.WriteLine(RepoConfigGenerator.Get(ns, modelName));
-            Console.WriteLine(AppDbContextGenerator.Get(ns, modelName));
+            WriteFile(Path.Combine(outDir, $"Models/I{modelName}.cs"), model);
+            WriteFile(Path.Combine(outDir, $"Database/{modelName}Entity.cs"), model);
+            WriteFile(Path.Combine(outDir, $"InputModels/{modelName}Input.cs"), model);
+            WriteFile(Path.Combine(outDir, $"ViewModels/{modelName}.cs"), model);
 
-            Console.ReadKey();
+            WriteFile(Path.Combine(outDir, $"Repository/{modelName}Repository.cs"), RepoGenerator.Get(ns, modelName));
+            WriteFile(Path.Combine(outDir, $"Repository/I{modelName}Repository.cs"), RepoInterfaceGenerator.Get(ns, modelName));
+            WriteFile(Path.Combine(outDir, $"Repository/{modelName}RepoConfig.cs"), RepoConfigGenerator.Get(ns, modelName));
+            WriteFile(Path.Combine(outDir, $"Controllers/{modelName}Controller.cs"), ControllerGenerator.Get(ns, modelName));
+            WriteFile(Path.Combine(outDir, $"Mappings/{modelName}Mapper.cs"), MappingGenerator.Get(ns, modelName));
+            WriteFile(Path.Combine(outDir, $"Database/AppDbContext{modelName}.cs"), AppDbContextGenerator.Get(ns, modelName));
         }
 
         private static bool HasWhitespace(String test)
@@ -79,6 +83,20 @@ namespace Threax.ModelGen
                 }
             }
             return false;
+        }
+
+        private static void WriteFile(String file, String content)
+        {
+            var folder = Path.GetDirectoryName(file);
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
+
+            using(var writer = new StreamWriter(File.Open(file, FileMode.Create, FileAccess.Write, FileShare.None)))
+            {
+                writer.Write(content);
+            }
         }
     }
 }
