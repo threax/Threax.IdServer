@@ -6,6 +6,12 @@ namespace Threax.ModelGen
 {
     class EntityWriter : ClassWriter
     {
+        public override string AddUsings(string ns)
+        {
+            return $@"{base.AddUsings(ns)}
+using {ns}.Models;";
+        }
+
         public override String StartType(String name)
         {
             return $@"    public class {name}Entity : I{name}, I{name}Id{AdditionalInterfacesText}

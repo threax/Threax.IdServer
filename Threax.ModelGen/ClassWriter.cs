@@ -6,6 +6,15 @@ namespace Threax.ModelGen
 {
     public class ClassWriter : ITypeWriter
     {
+        public virtual String AddUsings(String ns)
+        {
+            return @"using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;";
+        }
+
         public virtual String StartType(String name)
         {
             return $@"    public class {name} 

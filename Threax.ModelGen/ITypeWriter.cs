@@ -4,6 +4,7 @@ namespace Threax.ModelGen
 {
     public interface ITypeWriter
     {
+        string AddUsings(String ns);
         string AddDisplay(string name);
         string AddMaxLength(int length, string errorMessage);
         string AddRequired(string errorMessage);

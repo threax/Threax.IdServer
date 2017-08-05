@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NJsonSchema;
+using System;
+using System.IO;
 
 namespace Threax.ModelGen
 {
@@ -15,9 +17,26 @@ namespace Threax.ModelGen
 
             try
             {
-                var schemaTask = NJsonSchema.JsonSchema4.FromJsonAsync(source);
-                schemaTask.Wait();
-                var schema = schemaTask.Result;
+                JsonSchema4 schema;
+                try
+                {
+                    var schemaTask = NJsonSchema.JsonSchema4.FromJsonAsync(source);
+                    schemaTask.Wait();
+                    schema = schemaTask.Result;
+                }
+                catch (Exception)
+                {
+                    if (!File.Exists(source))
+                    {
+                        throw;
+                    }
+                    else
+                    {
+                        var schemaTask = NJsonSchema.JsonSchema4.FromFileAsync(source);
+                        schemaTask.Wait();
+                        schema = schemaTask.Result;
+                    }
+                }
                 Console.WriteLine(ModelTypeGenerator.Create(schema, new IdInterfaceWriter(), schema, "", ns + ".Models"));
                 Console.WriteLine(ModelTypeGenerator.Create(schema, new EntityWriter(), schema, "", ns + ".Database"));
                 Console.WriteLine(ModelTypeGenerator.Create(schema, new InputModelWriter(), schema, "", ns + ".InputModels"));

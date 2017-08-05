@@ -1,0 +1,11 @@
+{
+  "Title": "Value",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "Type": "String"
+    }
+  }
+}
