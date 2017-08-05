@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Threax.AspNetCore.BuiltInTools;
+using Threax.AspNetCore.Models;
 
 namespace TestApi.Database
 {
@@ -33,6 +34,8 @@ namespace TestApi.Database
 
                 //Map the entity to the view model.
                 cfg.CreateMap<ValueEntity, Value>();
+
+                cfg.SetupReflectedMappings(typeof(Startup).GetTypeInfo().Assembly);
             });
 
             return mapperConfig;

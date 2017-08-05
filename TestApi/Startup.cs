@@ -16,6 +16,7 @@ using TestApi.Database;
 using TestApi.Controllers;
 using Threax.AspNetCore.CorsManager;
 using System.IO;
+using Threax.AspNetCore.Models;
 
 namespace TestApi
 {
@@ -56,6 +57,7 @@ namespace TestApi
             });
 
             services.UseAppDatabase(appConfig.ConnectionString);
+            services.ConfigureReflectedServices(this.GetType().GetTypeInfo().Assembly);
 
             var halOptions = new HalcyonConventionOptions()
             {

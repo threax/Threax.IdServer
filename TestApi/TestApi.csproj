@@ -30,6 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Threax.AspNetCore.CorsManager\Threax.AspNetCore.CorsManager.csproj" />
+    <ProjectReference Include="..\Threax.AspNetCore.Models\Threax.AspNetCore.Models.csproj" />
   </ItemGroup>
 
 </Project>
