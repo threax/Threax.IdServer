@@ -41,5 +41,15 @@ $@"    [HalModel]
                 }
             }
         }
+
+        public override string AddMaxLength(int length, string errorMessage)
+        {
+            return "";
+        }
+
+        public override string AddRequired(string errorMessage)
+        {
+            return "";
+        }
     }
 }

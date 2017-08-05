@@ -16,8 +16,28 @@ using {ns}.Models;";
         {
             return $@"    public class {name}Entity : I{name}, I{name}Id{AdditionalInterfacesText}
     {{
-    [Key]
+        [Key]
 {CreateProperty("Guid", $"{name}Id")}";
+        }
+
+        public override string AddTypeDisplay(string name)
+        {
+            return "";
+        }
+
+        public override string AddDisplay(string name)
+        {
+            return "";
+        }
+
+        public override string AddMaxLength(int length, string errorMessage)
+        {
+            return "";
+        }
+
+        public override string AddRequired(string errorMessage)
+        {
+            return "";
         }
 
         public String AdditionalInterfaces { get; set; }

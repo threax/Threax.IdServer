@@ -7,22 +7,33 @@ using Threax.AspNetCore.Models;
 
 namespace Threax.ModelGen
 {
+    static class SBExt
+    {
+        public static void AppendLineWithContent(this StringBuilder sb, String content)
+        {
+            if (!String.IsNullOrEmpty(content))
+            {
+                sb.AppendLine(content);
+            }
+        }
+    }
+
     class ModelTypeGenerator
     {
         public static String Create(String name, ITypeWriter typeWriter, String defaultNs, String ns, String prettyName = null)
         {
             var sb = new StringBuilder(typeWriter.AddUsings(defaultNs));
             sb.AppendLine();
-            sb.AppendLine(typeWriter.StartNamespace(ns));
+            sb.AppendLineWithContent(typeWriter.StartNamespace(ns));
 
             if (!String.IsNullOrWhiteSpace(prettyName))
             {
-                sb.AppendLine(typeWriter.AddTypeDisplay(NameGenerator.CreatePascal(prettyName)));
+                sb.AppendLineWithContent(typeWriter.AddTypeDisplay(NameGenerator.CreatePascal(prettyName)));
             }
 
-            sb.AppendLine(typeWriter.StartType(name));
+            sb.AppendLineWithContent(typeWriter.StartType(name));
 
-            sb.AppendLine(typeWriter.EndType(name));
+            sb.AppendLineWithContent(typeWriter.EndType(name));
             sb.Append(typeWriter.EndNamespace());
 
             return sb.ToString();
@@ -32,10 +43,10 @@ namespace Threax.ModelGen
         {
             var sb = new StringBuilder(typeWriter.AddUsings(defaultNs));
             sb.AppendLine();
-            sb.AppendLine(typeWriter.StartNamespace(ns));
+            sb.AppendLineWithContent(typeWriter.StartNamespace(ns));
             if (!String.IsNullOrWhiteSpace(schema.Title))
             {
-                sb.AppendLine(typeWriter.AddTypeDisplay(schema.Title)); //Probably not right
+                sb.AppendLineWithContent(typeWriter.AddTypeDisplay(schema.Title)); //Probably not right
             }
             sb.Append(typeWriter.StartType(schema.Title));
 
@@ -46,6 +57,7 @@ namespace Threax.ModelGen
 
             foreach (var propPair in schema.Properties)
             {
+                sb.AppendLine();
                 sb.AppendLine();
 
                 var propName = propPair.Key;
@@ -58,7 +70,7 @@ namespace Threax.ModelGen
                     {
                         error = $"{prettyNamePascal} must be less than {prop.MaxLength} characters.";
                     }
-                    sb.AppendLine(typeWriter.AddMaxLength(prop.MaxLength.Value, error));
+                    sb.AppendLineWithContent(typeWriter.AddMaxLength(prop.MaxLength.Value, error));
                 }
 
                 if (prop.IsRequired)
@@ -68,18 +80,18 @@ namespace Threax.ModelGen
                     {
                         error = $"{prettyNamePascal} must have a value.";
                     }
-                    sb.AppendLine(typeWriter.AddRequired(error));
+                    sb.AppendLineWithContent(typeWriter.AddRequired(error));
                 }
 
                 if (!String.IsNullOrWhiteSpace(prop.Title))
                 {
-                    sb.AppendLine(typeWriter.AddDisplay(prop.Title));
+                    sb.AppendLineWithContent(typeWriter.AddDisplay(prop.Title));
                 }
 
-                sb.AppendLine(typeWriter.CreateProperty(GetType(prop), NameGenerator.CreatePascal(propName)));
+                sb.AppendLineWithContent(typeWriter.CreateProperty(GetType(prop), NameGenerator.CreatePascal(propName)));
             }
 
-            sb.AppendLine(typeWriter.EndType(schema.Title));
+            sb.AppendLineWithContent(typeWriter.EndType(schema.Title));
             sb.Append(typeWriter.EndNamespace());
 
             return sb.ToString();
