@@ -11,8 +11,12 @@ namespace Threax.AspNetCore.Models
     {
         public static void ConfigureReflectedServices(this IServiceCollection services, Assembly assembly)
         {
-            var mapperSetupType = typeof(IServiceSetup);
-            var types = assembly.GetTypes().Where(i => mapperSetupType.IsAssignableFrom(i));
+            var setupType = typeof(IServiceSetup);
+            var types = assembly.GetTypes().Where(i =>
+            {
+                var typeInfo = i.GetTypeInfo();
+                return setupType.IsAssignableFrom(i) && !typeInfo.IsAbstract && !typeInfo.IsInterface;
+            });
             foreach (var type in types)
             {
                 try

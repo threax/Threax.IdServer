@@ -14,8 +14,12 @@ namespace Threax.AspNetCore.Models
     {
         public static void SetupReflectedMappings(this IMapperConfigurationExpression cfg, Assembly assembly)
         {
-            var mapperSetupType = typeof(IAutomapperSetup);
-            var types = assembly.GetTypes().Where(i => mapperSetupType.IsAssignableFrom(i));
+            var setupType = typeof(IAutomapperSetup);
+            var types = assembly.GetTypes().Where(i =>
+            {
+                var typeInfo = i.GetTypeInfo();
+                return setupType.IsAssignableFrom(i) && !typeInfo.IsAbstract && !typeInfo.IsInterface;
+            });
             foreach(var type in types)
             {
                 try
