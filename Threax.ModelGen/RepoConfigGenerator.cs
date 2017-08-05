@@ -33,7 +33,7 @@ namespace {ns}.Mappers
         {{
             OnConfigureServices(services);
 
-            services.TryAddScoped<I{Model}ModelRepository, {Model}ModelRepository>();
+            services.TryAddScoped<I{Model}Repository, {Model}Repository>();
         }}
 
         partial void OnConfigureServices(IServiceCollection services);

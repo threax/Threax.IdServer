@@ -16,5 +16,25 @@ namespace Threax.ModelGen
         {
             return $"        {type} {name} {{ get; set; }}";
         }
+
+        public override string AddTypeDisplay(string name)
+        {
+            return "";
+        }
+
+        public override string AddDisplay(string name)
+        {
+            return "";
+        }
+
+        public override string AddMaxLength(int length, string errorMessage)
+        {
+            return "";
+        }
+
+        public override string AddRequired(string errorMessage)
+        {
+            return "";
+        }
     }
 }

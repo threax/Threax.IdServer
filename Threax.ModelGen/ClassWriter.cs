@@ -12,7 +12,10 @@ namespace Threax.ModelGen
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;";
+using System.Threading.Tasks;
+using Halcyon.HAL.Attributes;
+using Threax.AspNetCore.Halcyon.Ext;
+using Threax.AspNetCore.Halcyon.Ext.UIAttrs;";
         }
 
         public virtual String StartType(String name)
@@ -38,7 +41,7 @@ using System.Threading.Tasks;";
 
         public virtual String AddTypeDisplay(String name)
         {
-            return $@"    [Display(Name = ""{name}"")]";
+            return $@"    [UiTitle(""{name}"")]";
         }
 
         public virtual String AddDisplay(String name)

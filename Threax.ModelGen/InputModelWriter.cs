@@ -16,7 +16,9 @@ using {ns}.Models;";
 
         public override String StartType(String name)
         {
-            return $@"    public class {name}Input : I{name}
+            return 
+$@"    [HalModel]
+    public class {name}Input : I{name}
     {{";
         }
     }

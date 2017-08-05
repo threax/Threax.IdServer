@@ -6,9 +6,21 @@ namespace Threax.ModelGen
 {
     class ViewModelWriter : ClassWriter
     {
+        public override string AddUsings(string ns)
+        {
+            return $@"{base.AddUsings(ns)}
+using {ns}.Models;
+using {ns}.Controllers;";
+        }
+
         public override String StartType(String name)
         {
-            return $@"    public class {name} : I{name}, I{name}Id{AdditionalInterfacesText}
+            return 
+$@"    [HalModel]
+    [HalSelfActionLink(CrudRels.Get, typeof(ValuesController))]
+    [HalActionLink(CrudRels.Update, typeof(ValuesController))]
+    [HalActionLink(CrudRels.Delete, typeof(ValuesController))]
+    public class {name} : I{name}, I{name}Id{AdditionalInterfacesText}
     {{
 {CreateProperty("Guid", $"{name}Id")}";
         }

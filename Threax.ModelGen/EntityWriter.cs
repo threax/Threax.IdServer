@@ -16,6 +16,7 @@ using {ns}.Models;";
         {
             return $@"    public class {name}Entity : I{name}, I{name}Id{AdditionalInterfacesText}
     {{
+    [Key]
 {CreateProperty("Guid", $"{name}Id")}";
         }
 
