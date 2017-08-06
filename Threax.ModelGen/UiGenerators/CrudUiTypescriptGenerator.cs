@@ -13,11 +13,11 @@ namespace Threax.ModelGen
 
         private static String Create(String Model) {
             return
-$@"import * as injector from 'clientlibs.{Model}CrudInjector';
+$@"import {{ {Model}CrudInjector }} from 'clientlibs.{Model}CrudInjector';
 import * as crudPageCore from 'hr.widgets.CrudPageCore';
 import * as startup from 'clientlibs.startup';
 
-var injector = injector.{Model}CrudInjector;
+var injector = {Model}CrudInjector;
 var builder = startup.createBuilder();
 crudPageCore.addServices(builder, injector);
 crudPageCore.createControllers(builder, new crudPageCore.Settings());";
