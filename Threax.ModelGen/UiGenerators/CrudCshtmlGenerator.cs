@@ -13,15 +13,21 @@ namespace Threax.ModelGen
         /// <param name="modelName">The name of the model.</param>
         /// <param name="outDir">The directory the view will be placed in.</param>
         /// <returns></returns>
-        public static String Get(String modelName, String outDir = "Views/Home")
+        public static String Get(String modelName, String outDir = "Views/Home", IEnumerable<String> propertyNames = null)
         {
             String Model, model;
             NameGenerator.CreatePascalAndCamel(modelName, out Model, out model);
-            return Create(Model, model, outDir);
+
+            if(propertyNames == null)
+            {
+                propertyNames = new String[] { "Thing" };
+            }
+
+            return Create(Model, model, outDir, propertyNames);
         }
 
-        private static String Create(String Model, String model, String outDir) {
-            return
+        private static String Create(String Model, String model, String outDir, IEnumerable<String> propertyNames) {
+            var sb = new StringBuilder(
 $@"@{{
     ViewData[""Title""] = ""{Model}s"";
 }}
@@ -35,18 +41,32 @@ $@"@{{
         <div class=""table-responsive"">
             <table class=""table table-bordered"">
                 <thead>
-                    <tr>
-                        <th>Thing</th>
-                        <th>Edit</th>
+                    <tr>");
+
+            sb.AppendLine();
+            foreach(var name in propertyNames)
+            {
+                sb.AppendLine($"<th>{NameGenerator.CreatePascal(name)}</th>");
+            }
+            sb.Append(
+
+$@"                        <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody data-hr-model=""listing"" data-hr-model-component=""mainTableBody""></tbody>
             </table>
             <template data-hr-component=""mainTableBody"">
                 <table>
-                    <tr>
-                        <td>{{{{thing}}}}</td>
-                        <td>
+                    <tr>");
+
+            sb.AppendLine();
+            foreach (var name in propertyNames)
+            {
+                sb.AppendLine($"<td>{{{{{NameGenerator.CreateCamel(name)}}}}}</td>");
+            }
+            sb.Append(
+
+$@"                        <td>
                             <button data-hr-on-click=""edit"" class=""btn btn-default"" data-hr-toggle=""edit"" data-hr-style-off=""display:none;"">Edit</button>
                             <button data-hr-on-click=""del"" class=""btn btn-default"" data-hr-toggle=""del"" data-hr-style-off=""display:none;"">Delete</button>
                         </td>
@@ -74,7 +94,9 @@ $@"@{{
     <error class=""modal-body"">
         <p>An error occured loading the value. Please try again later.</p>
     </error>
-</modal>";
+</modal>");
+
+            return sb.ToString();
         }
     }
 }

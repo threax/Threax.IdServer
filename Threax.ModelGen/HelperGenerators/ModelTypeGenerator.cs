@@ -20,8 +20,20 @@ namespace Threax.ModelGen
 
     class ModelTypeGenerator
     {
+        private static List<String> lastPropertyNames = new List<string>();
+
+        public static IEnumerable<String> LastPropertyNames
+        {
+            get
+            {
+                return lastPropertyNames;
+            }
+        }
+
         public static String Create(String name, ITypeWriter typeWriter, String defaultNs, String ns, String prettyName = null)
         {
+            lastPropertyNames.Clear();
+
             var sb = new StringBuilder(typeWriter.AddUsings(defaultNs));
             sb.AppendLine();
             sb.AppendLineWithContent(typeWriter.StartNamespace(ns));
@@ -41,6 +53,8 @@ namespace Threax.ModelGen
 
         public static String Create(JsonSchema4 schema, ITypeWriter typeWriter, JsonSchema4 rootSchema, String defaultNs, String ns)
         {
+            lastPropertyNames.Clear();
+
             var sb = new StringBuilder(typeWriter.AddUsings(defaultNs));
             sb.AppendLine();
             sb.AppendLineWithContent(typeWriter.StartNamespace(ns));
@@ -88,7 +102,9 @@ namespace Threax.ModelGen
                     sb.AppendLineWithContent(typeWriter.AddDisplay(prop.Title));
                 }
 
-                sb.AppendLineWithContent(typeWriter.CreateProperty(GetType(prop), NameGenerator.CreatePascal(propName)));
+                var pascalPropName = NameGenerator.CreatePascal(propName);
+                lastPropertyNames.Add(pascalPropName);
+                sb.AppendLineWithContent(typeWriter.CreateProperty(GetType(prop), pascalPropName));
             }
 
             sb.AppendLineWithContent(typeWriter.EndType(schema.Title));

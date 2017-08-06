@@ -1,6 +1,8 @@
 ﻿using NJsonSchema;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Threax.ModelGen
 {
@@ -75,6 +77,8 @@ namespace Threax.ModelGen
                 modelName = settings.Source;
             }
 
+            List<String> propertyNames = null;
+
             if (settings.ServiceOutDir != null && settings.ServiceNamespace != null)
             {
 
@@ -93,6 +97,8 @@ namespace Threax.ModelGen
                     viewModel = ModelTypeGenerator.Create(settings.Source, new ViewModelWriter(), settings.ServiceNamespace, settings.ServiceNamespace + ".ViewModels");
                 }
 
+                propertyNames = ModelTypeGenerator.LastPropertyNames.ToList();
+
                 WriteFile(Path.Combine(settings.ServiceOutDir, $"Models/I{modelName}.cs"), model);
                 WriteFile(Path.Combine(settings.ServiceOutDir, $"Database/{modelName}Entity.cs"), entity);
                 WriteFile(Path.Combine(settings.ServiceOutDir, $"InputModels/{modelName}Input.cs"), inputModel);
@@ -109,7 +115,7 @@ namespace Threax.ModelGen
 
             if(settings.UiNamespace != null && settings.UiOutDir != null)
             {
-                WriteFile(Path.Combine(settings.UiOutDir, $"Views/{settings.UiController}/{modelName}s.cshtml"), CrudCshtmlInjectorGenerator.Get(modelName));
+                WriteFile(Path.Combine(settings.UiOutDir, $"Views/{settings.UiController}/{modelName}s.cshtml"), CrudCshtmlInjectorGenerator.Get(modelName, propertyNames: propertyNames));
                 WriteFile(Path.Combine(settings.UiOutDir, $"Client/Libs/{modelName}CrudInjector.ts"), CrudInjectorGenerator.Get(modelName));
                 WriteFile(Path.Combine(settings.UiOutDir, $"Views/{settings.UiController}/{modelName}s.ts"), CrudUiTypescriptGenerator.Get(modelName));
                 WriteFile(Path.Combine(settings.UiOutDir, $"Controllers/{settings.UiController}{modelName}s.cs"), UiControllerGenerator.Get(settings.UiNamespace, settings.UiController, modelName));
