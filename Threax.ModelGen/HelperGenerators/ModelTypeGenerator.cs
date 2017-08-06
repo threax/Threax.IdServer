@@ -111,6 +111,11 @@ namespace Threax.ModelGen
 
         private static string GetNonArrayType(JsonObjectType types, String format)
         {
+            if(format != null)
+            {
+                format = format.ToLowerInvariant();
+            }
+
             var type = "String";
 
             if (IsType(types, JsonObjectType.Integer) || IsType(types, JsonObjectType.Number))

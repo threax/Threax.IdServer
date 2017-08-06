@@ -16,6 +16,8 @@ namespace TestApi.ViewModels
     [HalActionLink("ListValues", CrudRels.List, typeof(ValuesController))]
     [HalActionLink("AddValue", CrudRels.Add, typeof(ValuesController))]
     //Add HalActionLinks below for any controlers actions you create that should be linked from the entry point.
+    [HalActionLink("ListHorribleBeasts", CrudRels.List, typeof(HorribleBeastsController))]
+    [HalActionLink("AddHorribleBeast", CrudRels.Add, typeof(HorribleBeastsController))]
     public class EntryPoint
     {
     }

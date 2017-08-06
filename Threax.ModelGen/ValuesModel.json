@@ -1,11 +1,17 @@
 {
-  "Title": "Value",
+  "title": "HorribleBeast",
   "required": [
     "name"
   ],
   "properties": {
     "name": {
-      "Type": "String"
+      "type": "string"
+    },
+    "numLegs": {
+      "type": "integer"
+    },
+    "numEyes": {
+      "type": "integer"
     }
   }
 }
