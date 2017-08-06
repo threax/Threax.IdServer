@@ -35,9 +35,9 @@ htmlrapier.halcyon@>=6.0.0, htmlrapier.halcyon@>=6.0.1, htmlrapier.halcyon@^6.0.
   dependencies:
     htmlrapier ">=10.0.2"
 
-htmlrapier.widgets@^9.0.0:
-  version "9.0.2"
-  resolved "https://registry.yarnpkg.com/htmlrapier.widgets/-/htmlrapier.widgets-9.0.2.tgz#1e52cc9f01388d42f3ceaf326dcfe94977c58eea"
+htmlrapier.widgets@^9.1.0:
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/htmlrapier.widgets/-/htmlrapier.widgets-9.1.0.tgz#98cc7d7da203a773282975fb026f0912b10364bf"
   dependencies:
     htmlrapier ">=11.0.0"
     htmlrapier.halcyon ">=6.0.1"

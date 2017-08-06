@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using Halcyon.HAL.Attributes;
 using Threax.AspNetCore.Halcyon.Ext;
 using Threax.AspNetCore.Halcyon.Ext.UIAttrs;
-using Halcyon.HAL.Attributes;
-using Newtonsoft.Json;
 using TestApi.Models;
 namespace TestApi.InputModels 
 {

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TestMvcApp.Controllers
 {
-    public class HomeController : Controller
+    public partial class HomeController : Controller
     {
         public IActionResult Index()
         {
