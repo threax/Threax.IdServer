@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Threax.ModelGen
 {
-    static class MappingGenerator
+    static class MappingProfileGenerator
     {
         public static String Get(String ns, String modelName)
         {
@@ -26,25 +26,17 @@ using {ns}.ViewModels;
 
 namespace {ns}.Mappers
 {{
-    public partial class {Model}Mapper : IAutomapperSetup
+    public partial class {Model}Mapper : Profile
     {{
-        public void Configure(IMapperConfigurationExpression cfg)
+        public {Model}Mapper()
         {{
             //Map the input model to the entity
-            var inputToEntity = cfg.CreateMap<{Model}Input, {Model}Entity>()
+            CreateMap<{Model}Input, {Model}Entity>()
                 .ForMember(d => d.{Model}Id, opt => opt.Ignore());
 
-            OnInputToEntity(inputToEntity);
-
             //Map the entity to the view model.
-            var entityToView = cfg.CreateMap<{Model}Entity, {Model}>();
-
-            OnEntityToView(entityToView);
+            CreateMap<{Model}Entity, {Model}>();
         }}
-
-        partial void OnInputToEntity(IMappingExpression<{Model}Input, {Model}Entity> expr);
-
-        partial void OnEntityToView(IMappingExpression<{Model}Entity, {Model}> expr);
     }}
 }}";
         }
