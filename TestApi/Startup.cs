@@ -66,11 +66,15 @@ namespace TestApi
             };
 
             services.AddConventionalHalcyon(halOptions);
+            services.AddExceptionErrorFilters(new ExceptionFilterOptions()
+            {
+                DetailedErrors = appConfig.DetailedErrors
+            });
 
             // Add framework services.
             services.AddMvc(o =>
             {
-                o.UseExceptionErrorFilters(appConfig.DetailedErrors);
+                o.UseExceptionErrorFilters();
                 o.UseConventionalHalcyon(halOptions);
             })
             .AddJsonOptions(o =>
