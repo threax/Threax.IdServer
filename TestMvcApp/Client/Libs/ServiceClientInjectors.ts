@@ -2,13 +2,13 @@
 import * as hyperCrud from 'hr.widgets.HypermediaCrudService';
 import * as di from 'hr.di';
 
-export class ValueCrudInjector implements hyperCrud.HypermediaPageInjector {
+export class ValueCrudInjector extends hyperCrud.AbstractHypermediaPageInjector {
     public static get InjectorArgs(): di.DiFunction<any>[] {
         return [client.EntryPointInjector];
     }
 
     constructor(private injector: client.EntryPointInjector) {
-
+        super()
     }
 
     async list(query: any): Promise<hyperCrud.HypermediaCrudCollection> {
