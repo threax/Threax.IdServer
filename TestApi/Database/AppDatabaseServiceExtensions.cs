@@ -28,7 +28,7 @@ namespace TestApi.Database
             //https://github.com/AutoMapper/AutoMapper/wiki
             var mapperConfig = new MapperConfiguration(cfg =>
             {
-                cfg.SetupReflectedMappings(typeof(Startup).GetTypeInfo().Assembly);
+                cfg.AddProfiles(typeof(AppDatabaseServiceExtensions).GetTypeInfo().Assembly);
             });
 
             return mapperConfig;

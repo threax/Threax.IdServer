@@ -16,6 +16,7 @@
     <None Remove="NewFolder\**" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="HtmlRapier.TagHelpers" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="1.1.2" />
@@ -26,9 +27,6 @@
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HtmlRapier.TagHelpers\HtmlRapier.TagHelpers.csproj" />
   </ItemGroup>
 
 </Project>

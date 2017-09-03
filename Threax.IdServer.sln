@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.IdServer", "Threax.IdServer\Threax.IdServer.csproj", "{1E79813A-53E8-48F8-A861-0452519027D8}"
 EndProject
@@ -11,13 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestClient", "TestClient\Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMvcApp", "TestMvcApp\TestMvcApp.csproj", "{96760423-0B52-438E-9477-A4318485E9B2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HtmlRapier.TagHelpers", "HtmlRapier.TagHelpers\HtmlRapier.TagHelpers.csproj", "{B88383F3-2FC5-4B17-ABBB-5883CD85527B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.AspNetCore.CorsManager", "Threax.AspNetCore.CorsManager\Threax.AspNetCore.CorsManager.csproj", "{46C415B7-B59E-4442-8071-F3BF5F462058}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Threax.ModelGen", "Threax.ModelGen\Threax.ModelGen.csproj", "{32125D1F-2FCC-45A9-B357-78CD5CB79FFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.ModelGen", "Threax.ModelGen\Threax.ModelGen.csproj", "{32125D1F-2FCC-45A9-B357-78CD5CB79FFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Threax.AspNetCore.Models", "Threax.AspNetCore.Models\Threax.AspNetCore.Models.csproj", "{3CE531D4-9506-45BE-9E1B-AEC72351C776}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.AspNetCore.Models", "Threax.AspNetCore.Models\Threax.AspNetCore.Models.csproj", "{3CE531D4-9506-45BE-9E1B-AEC72351C776}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +39,6 @@ Global
 		{96760423-0B52-438E-9477-A4318485E9B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96760423-0B52-438E-9477-A4318485E9B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96760423-0B52-438E-9477-A4318485E9B2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B88383F3-2FC5-4B17-ABBB-5883CD85527B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B88383F3-2FC5-4B17-ABBB-5883CD85527B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B88383F3-2FC5-4B17-ABBB-5883CD85527B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B88383F3-2FC5-4B17-ABBB-5883CD85527B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{46C415B7-B59E-4442-8071-F3BF5F462058}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{46C415B7-B59E-4442-8071-F3BF5F462058}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46C415B7-B59E-4442-8071-F3BF5F462058}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -60,5 +54,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D5D68F17-E2D2-46F6-8171-6E79415B9BDB}
 	EndGlobalSection
 EndGlobal
