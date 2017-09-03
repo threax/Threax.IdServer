@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestClient", "TestClient\Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMvcApp", "TestMvcApp\TestMvcApp.csproj", "{96760423-0B52-438E-9477-A4318485E9B2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.AspNetCore.CorsManager", "Threax.AspNetCore.CorsManager\Threax.AspNetCore.CorsManager.csproj", "{46C415B7-B59E-4442-8071-F3BF5F462058}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.ModelGen", "Threax.ModelGen\Threax.ModelGen.csproj", "{32125D1F-2FCC-45A9-B357-78CD5CB79FFD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.AspNetCore.Models", "Threax.AspNetCore.Models\Threax.AspNetCore.Models.csproj", "{3CE531D4-9506-45BE-9E1B-AEC72351C776}"
@@ -39,10 +37,6 @@ Global
 		{96760423-0B52-438E-9477-A4318485E9B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96760423-0B52-438E-9477-A4318485E9B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96760423-0B52-438E-9477-A4318485E9B2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{46C415B7-B59E-4442-8071-F3BF5F462058}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{46C415B7-B59E-4442-8071-F3BF5F462058}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{46C415B7-B59E-4442-8071-F3BF5F462058}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{46C415B7-B59E-4442-8071-F3BF5F462058}.Release|Any CPU.Build.0 = Release|Any CPU
 		{32125D1F-2FCC-45A9-B357-78CD5CB79FFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{32125D1F-2FCC-45A9-B357-78CD5CB79FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32125D1F-2FCC-45A9-B357-78CD5CB79FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
