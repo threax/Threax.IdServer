@@ -18,18 +18,18 @@ namespace Threax.IdServer.Services
 
         }
 
-        public override async Task<IEnumerable<Claim>> GetAccessTokenClaimsAsync(ClaimsPrincipal subject, Client client, Resources resources, ValidatedRequest request)
+        public override async Task<IEnumerable<Claim>> GetAccessTokenClaimsAsync(ClaimsPrincipal subject, Resources resources, ValidatedRequest request)
         {
-            var claims = await base.GetAccessTokenClaimsAsync(subject, client, resources, request);
+            var claims = await base.GetAccessTokenClaimsAsync(subject, resources, request);
             claims = claims.Concat(GetUserInfoClaims(subject));
             return claims;
         }
 
-        public override async Task<IEnumerable<Claim>> GetIdentityTokenClaimsAsync(ClaimsPrincipal subject, Client client, Resources resources, bool includeAllIdentityClaims, ValidatedRequest request)
+        public override async Task<IEnumerable<Claim>> GetIdentityTokenClaimsAsync(ClaimsPrincipal subject, Resources resources, bool includeAllIdentityClaims, ValidatedRequest request)
         {
-            var baseClaims = await base.GetIdentityTokenClaimsAsync(subject, client, resources, includeAllIdentityClaims, request);
-            IEnumerable<Claim> claims = GetUserInfoClaims(subject);
-            return baseClaims.Concat(claims);
+            var claims = await base.GetIdentityTokenClaimsAsync(subject, resources, includeAllIdentityClaims, request);
+            claims = claims.Concat(GetUserInfoClaims(subject));
+            return claims;
         }
 
         private static IEnumerable<Claim> GetUserInfoClaims(ClaimsPrincipal subject)

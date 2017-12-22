@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.IdServer", "Threax.IdServer\Threax.IdServer.csproj", "{1E79813A-53E8-48F8-A861-0452519027D8}"
 EndProject
@@ -14,6 +14,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.ModelGen", "Threax.ModelGen\Threax.ModelGen.csproj", "{32125D1F-2FCC-45A9-B357-78CD5CB79FFD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.AspNetCore.Models", "Threax.AspNetCore.Models\Threax.AspNetCore.Models.csproj", "{3CE531D4-9506-45BE-9E1B-AEC72351C776}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{7D9AA893-2789-4D2D-B2FD-56507FD74CFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication2", "WebApplication2\WebApplication2.csproj", "{22F8694F-6649-4572-926B-D54792393B9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{3CE531D4-9506-45BE-9E1B-AEC72351C776}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CE531D4-9506-45BE-9E1B-AEC72351C776}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CE531D4-9506-45BE-9E1B-AEC72351C776}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D9AA893-2789-4D2D-B2FD-56507FD74CFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D9AA893-2789-4D2D-B2FD-56507FD74CFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D9AA893-2789-4D2D-B2FD-56507FD74CFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D9AA893-2789-4D2D-B2FD-56507FD74CFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22F8694F-6649-4572-926B-D54792393B9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22F8694F-6649-4572-926B-D54792393B9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22F8694F-6649-4572-926B-D54792393B9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22F8694F-6649-4572-926B-D54792393B9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
