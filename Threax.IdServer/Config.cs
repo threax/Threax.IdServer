@@ -14,7 +14,8 @@ namespace Threax.IdServer
         {
             return new List<ApiResource>
             {
-                new ApiResource("api1", "My API")
+                new ApiResource("api1", "My API"),
+                new ApiResource("CoinExchange.Web", "Coin Exchange")
             };
         }
 
@@ -32,35 +33,62 @@ namespace Threax.IdServer
         {
             return new List<Client>
             {
-                new Client
-                {
-                    ClientId = "client",
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                //new Client
+                //{
+                //    ClientId = "client",
+                //    AllowedGrantTypes = GrantTypes.ClientCredentials,
 
-                    ClientSecrets =
-                    {
-                        new Secret("secret".Sha256())
-                    },
-                    AllowedScopes = { "api1" }
-                },
+                //    ClientSecrets =
+                //    {
+                //        new Secret("secret".Sha256())
+                //    },
+                //    AllowedScopes = { "api1" }
+                //},
+                //new Client
+                //{
+                //    ClientId = "mvc",
+                //    ClientName = "MVC Client",
+                //    AllowedGrantTypes = GrantTypes.Implicit,
+                //    RequireConsent = false,
+
+                //    // where to redirect to after login
+                //    RedirectUris = { "https://localhost:44341/signin-oidc" },
+
+                //    // where to redirect to after logout
+                //    PostLogoutRedirectUris = { "https://localhost:44341/signout-callback-oidc" },
+
+                //    AllowedScopes = new List<string>
+                //    {
+                //        IdentityServerConstants.StandardScopes.OpenId,
+                //        IdentityServerConstants.StandardScopes.Profile
+                //    }
+                //},
                 new Client
                 {
-                    ClientId = "mvc",
-                    ClientName = "MVC Client",
-                    AllowedGrantTypes = GrantTypes.Implicit,
+                    ClientId = "CoinExchange.WebClient",
+                    ClientName = "Coin Exchange",
+                    AllowedGrantTypes = GrantTypes.Hybrid,
                     RequireConsent = false,
+                    AllowOfflineAccess = true,
 
                     // where to redirect to after login
-                    RedirectUris = { "https://localhost:44341/signin-oidc" },
+                    RedirectUris = { "https://localhost:44321/signin-oidc" },
 
                     // where to redirect to after logout
-                    PostLogoutRedirectUris = { "https://localhost:44341/signout-callback-oidc" },
+                    PostLogoutRedirectUris = { "https://localhost:44321/signout-callback-oidc" },
 
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile
-                    }
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
+                        "CoinExchange.Web"
+                    },
+
+                    ClientSecrets =
+                    {
+                        new Secret("notyetdefined".Sha256())
+                    },
                 }
             };
         }
