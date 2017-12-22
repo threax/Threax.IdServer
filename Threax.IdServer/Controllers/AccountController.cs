@@ -13,7 +13,6 @@ using Microsoft.Extensions.Options;
 using Threax.IdServer.Models;
 using Threax.IdServer.Models.AccountViewModels;
 using Threax.IdServer.Services;
-using Threax.IdServer.ViewModels.AccountViewModels;
 
 namespace Threax.IdServer.Controllers
 {

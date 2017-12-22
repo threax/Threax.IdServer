@@ -495,7 +495,7 @@ namespace Threax.IdServer.Controllers
         {
             return string.Format(
                 AuthenicatorUriFormat,
-                _urlEncoder.Encode("WebApplication2"),
+                _urlEncoder.Encode("Threax.IdServer"),
                 _urlEncoder.Encode(email),
                 unformattedKey);
         }

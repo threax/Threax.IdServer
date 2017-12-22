@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Threax.IdServer.ViewModels.AccountViewModels
+namespace Threax.IdServer.Models.AccountViewModels
 {
     public class LoginWithRecoveryCodeViewModel
     {
