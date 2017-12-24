@@ -39,6 +39,14 @@ namespace Threax.IdServer
 
             services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AppUserClaimsPrincipalFactory>();
 
+            // Adds IdentityServer
+            services.AddIdentityServer()
+                .AddDeveloperSigningCredential(false)
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddInMemoryApiResources(Config.GetApiResources())
+                .AddInMemoryClients(Config.GetClients())
+                .AddAspNetIdentity<ApplicationUser>();
+
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
@@ -62,6 +70,9 @@ namespace Threax.IdServer
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            // Adds IdentityServer
+            app.UseIdentityServer();
 
             app.UseMvc(routes =>
             {
