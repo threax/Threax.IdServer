@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  threax.idserver:
+    image: threax.idserver
+    build:
+      context: .
+      dockerfile: Threax.IdServer/Dockerfile
+    networks:
+      - public_proxy
+
+networks:
+  public_proxy:
+    external: true

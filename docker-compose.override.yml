@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  threax.idserver:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
