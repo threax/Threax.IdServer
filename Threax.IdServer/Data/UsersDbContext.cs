@@ -8,9 +8,9 @@ using Threax.IdServer.Models;
 
 namespace Threax.IdServer.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class UsersDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public UsersDbContext(DbContextOptions<UsersDbContext> options)
             : base(options)
         {
         }

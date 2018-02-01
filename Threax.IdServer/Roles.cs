@@ -13,7 +13,7 @@ namespace Threax.IdServer
         public const String EditClients = "EditClients";
         public const String EditApiResources = "EditApiResources";
 
-        public static IEnumerable<String> All()
+        public static IEnumerable<String> DatabaseRoles()
         {
             yield return EditClients;
             yield return EditApiResources;
