@@ -8,8 +8,10 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Threax.AspNetCore.AuthCore;
 using Threax.AspNetCore.ExceptionFilter;
 using Threax.AspNetCore.Halcyon.Ext;
+using Threax.AspNetCore.IdServerMetadata.Client;
 using Threax.IdServer.Areas.Api.InputModels;
 using Threax.IdServer.Areas.Api.Models;
 
@@ -151,7 +153,7 @@ namespace Threax.IdServer.Areas.Api.Controllers
         public async Task<ApiResourceMetadataView> FromMetadata([FromQuery] MetadataLookup lookupInfo, [FromServices] MetadataClient client, [FromServices] IMapper mapper)
         {
             client.BaseUrl = lookupInfo.TargetUrl;
-            return mapper.Map<ApiResourceMetadataView>(await client.ScopeAsync(null, this.HttpContext.User.GetBearerToken()));
+            return mapper.Map<ApiResourceMetadataView>(await client.ScopeAsync(null, this.HttpContext.User.GetAccessToken()));
         }
 
         /// <summary>

@@ -15,21 +15,22 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" PrivateAssets="All" />
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="2.1.0" />
     <PackageReference Include="IdentityServer4.EntityFramework" Version="2.1.1" />
-    <PackageReference Include="Threax.AspNetCore.BuiltInTools" Version="5.0.2" />
+    <PackageReference Include="Threax.AspNetCore.BuiltInTools" Version="5.1.0" />
     <PackageReference Include="Threax.AspNetCore.CorsManager" Version="3.0.2" />
     <PackageReference Include="Threax.AspNetCore.ExceptionFilter" Version="5.0.2" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen.Tools" Version="2.0.1" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen" Version="5.0.1" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="8.0.0" />
     <PackageReference Include="Threax.AspNetCore.Halcyon" Version="3.0.1" />
-    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="2.1.2" />
-    <PackageReference Include="Threax.AspNetCore.IdServerMetadata" Version="1.0.3" />
+    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="2.1.3" />
+    <PackageReference Include="Threax.AspNetCore.IdServerMetadata" Version="1.0.4" />
+    <PackageReference Include="Threax.AspNetCore.IdServerMetadata.Client" Version="1.0.2" />
     <PackageReference Include="Threax.AspNetCore.Models" Version="3.1.0" />
     <PackageReference Include="Threax.AspNetCore.Tracking" Version="2.0.3" />
-    <PackageReference Include="Threax.AspNetCore.UrlFix" Version="1.1.1" />
-    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities.Mvc" Version="3.0.0" />
-    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities" Version="2.5.0" />
-    <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="3.1.1" />
+    <PackageReference Include="Threax.AspNetCore.UrlFix" Version="1.1.4" />
+    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities.Mvc" Version="3.0.1" />
+    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities" Version="2.5.1" />
+    <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="3.1.2" />
     <PackageReference Include="Threax.AspNetCore.Validators" Version="2.0.1" />
   </ItemGroup>
 
