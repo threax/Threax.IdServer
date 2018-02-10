@@ -93,12 +93,14 @@ namespace Threax.IdServer
 
             services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AppUserClaimsPrincipalFactory>();
 
+
             // Adds IdentityServer
             services.AddIdentityServer()
-                .AddDeveloperSigningCredential(false)
-                .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                .AddInMemoryApiResources(Config.GetApiResources())
-                .AddInMemoryClients(Config.GetClients())
+                //.AddDeveloperSigningCredential(false)
+                //.AddInMemoryIdentityResources(Config.GetIdentityResources())
+                //.AddInMemoryApiResources(Config.GetApiResources())
+                //.AddInMemoryClients(Config.GetClients())
+                .AddThreaxConfig(appConfig)
                 .AddAspNetIdentity<ApplicationUser>();
 
             // Add application services.
@@ -139,10 +141,12 @@ namespace Threax.IdServer
                 return new ToolRunner()
                 .AddTool("migrate", new ToolCommand("Migrate database to newest version. Run anytime new migrations have been added.", async a =>
                 {
+                    a.Scope.MigrateIdServerDatabase();
                     await a.Migrate();
                 }))
                 .AddTool("seed", new ToolCommand("Seed database data. Only needed for an empty database.", async a =>
                 {
+                    a.Scope.SeedIdServerDatabase(appConfig.AppDashboardHost);
                     await a.Seed();
                 }))
                 .AddTool("addadmin", new ToolCommand("Add given guids as a user with permissions to all roles in the database.", async a =>

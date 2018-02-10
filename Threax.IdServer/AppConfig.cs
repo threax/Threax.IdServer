@@ -41,5 +41,15 @@ namespace Threax.IdServer
         /// Set this to true to use asset bundles instead of individual client side files.
         /// </summary>
         public bool UseAssetBundles { get; set; } = false;
+
+        /// <summary>
+        /// The server signing credentials certififcate thumbprint. Must be stored in LocalMachine -> My.
+        /// </summary>
+        public string SigningCredentialCertThumb { get; set; }
+
+        /// <summary>
+        /// The app dashboard host url. Do not include https://
+        /// </summary>
+        public String AppDashboardHost { get; set; }
     }
 }
