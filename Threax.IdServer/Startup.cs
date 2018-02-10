@@ -83,7 +83,7 @@ namespace Threax.IdServer
 
             services.AddDbContext<UsersDbContext>(options =>
             {
-                options.UseSqlServer(appConfig.ConnectionString);
+                options.UseSqlite(appConfig.ConnectionString);
             });
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<UsersDbContext>()

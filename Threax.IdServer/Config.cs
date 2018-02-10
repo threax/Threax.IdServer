@@ -15,7 +15,8 @@ namespace Threax.IdServer
             return new List<ApiResource>
             {
                 new ApiResource("api1", "My API"),
-                new ApiResource("CoinExchange.Web", "Coin Exchange")
+                new ApiResource("CoinExchange.Web", "Coin Exchange"),
+                new ApiResource("AppTemplate", "App Template")
             };
         }
 
@@ -83,6 +84,34 @@ namespace Threax.IdServer
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.OfflineAccess,
                         "CoinExchange.Web"
+                    },
+
+                    ClientSecrets =
+                    {
+                        new Secret("notyetdefined".Sha256())
+                    },
+                },
+
+                new Client
+                {
+                    ClientId = "AppTemplate",
+                    ClientName = "App Template",
+                    AllowedGrantTypes = GrantTypes.Hybrid,
+                    RequireConsent = false,
+                    AllowOfflineAccess = true,
+
+                    // where to redirect to after login
+                    RedirectUris = { "https://localhost:44321/signin-oidc" },
+
+                    // where to redirect to after logout
+                    PostLogoutRedirectUris = { "https://localhost:44321/signout-callback-oidc" },
+
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
+                        "AppTemplate"
                     },
 
                     ClientSecrets =
