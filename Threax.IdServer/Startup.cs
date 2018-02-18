@@ -23,6 +23,7 @@ using System.Reflection;
 using Threax.AspNetCore.UserBuilder;
 using Threax.AspNetCore.UserBuilder.Entities.Mvc;
 using Threax.AspNetCore.IdServerAuth;
+using Microsoft.Extensions.Logging;
 
 namespace Threax.IdServer
 {
@@ -159,8 +160,11 @@ namespace Threax.IdServer
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -173,6 +177,8 @@ namespace Threax.IdServer
             }
 
             app.UseStaticFiles();
+
+            app.UseCorsManager(corsOptions, loggerFactory);
 
             app.UseAuthentication();
 
