@@ -18,10 +18,10 @@ namespace OlsAppDashboard
     {
         private IdServerAuthAppOptions authConfig = new IdServerAuthAppOptions()
         {
-            ClientId = "OlsAppDashboard",
-            DisplayName = "Ols App Dashboard",
+            ClientId = "AppDashboard",
+            DisplayName = "App Dashboard",
             Scope = "identityserver",
-            AdditionalScopes = new List<string>(){ "spcuserdirectory" }
+            AdditionalScopes = new List<string>(){ "userdirectory" }
         };
         private ClientConfig clientConfig = new ClientConfig();
         private AppConfig appConfig = new AppConfig();
