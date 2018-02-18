@@ -67,7 +67,7 @@ namespace OlsAppDashboard
             })
             .AddConventionalIdServerMvc();
 
-            services.AddUserBuilderForUserWhitelistWithRoles(opt =>
+            services.AddUserBuilderForAnybody(opt => //This is anybody, but it is further restricted below
             {
                 opt.ConfigureAddititionalPolicies = arg => new HypermediaUserBuilder(clientConfig.IdentityServerHost + "/entrypoint", arg.Services.GetRequiredService<ILoggerFactory>());
                 opt.UseClaimsCache = false; //Disable claims cache for app dashboard
