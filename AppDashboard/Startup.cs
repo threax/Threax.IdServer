@@ -20,7 +20,7 @@ namespace OlsAppDashboard
         {
             ClientId = "AppDashboard",
             DisplayName = "App Dashboard",
-            Scope = "identityserver",
+            Scope = "Threax.IdServer",
             AdditionalScopes = new List<string>(){ "userdirectory" }
         };
         private ClientConfig clientConfig = new ClientConfig();

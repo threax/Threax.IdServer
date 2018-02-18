@@ -263,3 +263,4 @@ __pycache__/
 /Threax.IdServer/wwwroot
 /TestJavascriptApp/wwwroot
 *.db
+/AppDashboard/wwwroot

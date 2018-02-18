@@ -122,14 +122,14 @@ namespace Threax.IdServer.Data
             {
                 var idServerResource = new ApiResource()
                 {
-                    Name = "identityserver",
+                    Name = "Threax.IdServer",
                     Enabled = true,
                     DisplayName = "Identity Server",
                     Scopes = new List<Scope>()
                         {
                             new Scope()
                             {
-                                Name = "identityserver"
+                                Name = "Threax.IdServer"
                             }
                         }
                 }.ToEntity();
@@ -172,7 +172,7 @@ namespace Threax.IdServer.Data
                             StandardScopes.OpenId,
                             StandardScopes.Profile,
                             StandardScopes.OfflineAccess,
-                            "identityserver",
+                            "Threax.IdServer",
                             "userdirectory"
                         },
                     RequireConsent = false,
