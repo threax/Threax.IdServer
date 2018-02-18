@@ -24,6 +24,8 @@ using Threax.AspNetCore.UserBuilder;
 using Threax.AspNetCore.UserBuilder.Entities.Mvc;
 using Threax.AspNetCore.IdServerAuth;
 using Microsoft.Extensions.Logging;
+using SpcIdentityServer.Services;
+using Threax.IdServer.Areas.Api.ValueProviders;
 
 namespace Threax.IdServer
 {
@@ -55,6 +57,11 @@ namespace Threax.IdServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<GrantTypeValueProvider>();
+
+            services.AddSingleton<IApplicationGuidFactory>(s => new ApplicationGuidFactory(new Guid("65098b58-c5bf-4fc4-ae30-444e274efd7f"))); //This guid can never change, or you will have to fix permissions across all apps
+            services.AddSingleton<ApplicationGuidResolver>();
+
             services.AddConventionalIdServerAuthentication(o =>
             {
                 o.ActAsApi = true;
