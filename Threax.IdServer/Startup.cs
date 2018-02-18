@@ -143,6 +143,7 @@ namespace Threax.IdServer
                 {
                     a.Scope.MigrateIdServerDatabase();
                     await a.Migrate();
+                    await a.MigrateUserDb();
                 }))
                 .AddTool("seed", new ToolCommand("Seed database data. Only needed for an empty database.", async a =>
                 {

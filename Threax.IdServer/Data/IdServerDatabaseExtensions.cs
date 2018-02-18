@@ -178,7 +178,7 @@ namespace Threax.IdServer.Data
                     RequireConsent = false,
                     AllowRememberConsent = true,
                     FrontChannelLogoutSessionRequired = true,
-                    EnableLocalLogin = false,
+                    EnableLocalLogin = true,
                     AllowOfflineAccess = true
                 };
 

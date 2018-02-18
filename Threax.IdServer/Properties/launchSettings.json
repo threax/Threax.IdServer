@@ -13,7 +13,8 @@
       "launchBrowser": true,
       "launchUrl": "https://localhost:44390/",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_preventHostingStartup": "True"
       }
     },
     "Threax.IdServer": {

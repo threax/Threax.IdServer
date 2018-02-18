@@ -72,6 +72,12 @@ namespace Threax.IdServer.Data
             return context.Database.MigrateAsync();
         }
 
+        public static Task MigrateUserDb(this ToolArgs toolArgs)
+        {
+            var context = toolArgs.Scope.ServiceProvider.GetRequiredService<UsersDbContext>();
+            return context.Database.MigrateAsync();
+        }
+
         /// <summary>
         /// Run the seed tool, this should check to make sure that it is safe to apply the seed data.
         /// This means that the seed tool should make sure tables are empty before modifying them
