@@ -1,0 +1,81 @@
+﻿@{
+}
+
+<h1>Clients</h1>
+<div data-hr-controller="mainTable">
+    <load visible="true">
+        <p>Working...</p>
+    </load>
+    <main>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>App User Guid</th>
+                        <th>Secret</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody data-hr-model="listing" data-hr-model-component="clientEditorTable"></tbody>
+            </table>
+        </div>
+        <button data-hr-on-click="add" class="btn btn-default">Add</button>
+        <button data-hr-controller="addFromMetadata" data-hr-on-click="addFromMetadata" class="btn btn-default">Add from Metadata</button>
+
+        <page-numbers></page-numbers>
+    </main>
+    <template data-hr-component="clientEditorTable">
+        <table>
+            <tr>
+                <td>{{clientId}}</td>
+                <td>{{name}}</td>
+                <td>{{applicationGuid}}</td>
+                <td><button data-hr-on-click="createSecret" class="btn btn-default">Create Secret</button></td>
+                <td><button data-hr-on-click="edit" class="btn btn-default">Edit</button></td>
+                <td><button data-hr-on-click="del" class="btn btn-default">Delete</button></td>
+            </tr>
+        </table>
+    </template>
+
+    <error>
+        An error occured loading the clients. Please try again later.
+    </error>
+</div>
+
+<modal data-hr-controller="entryEditor" title-text="Edit Client">
+    <load class="modal-body">
+        <p>Working...</p>
+    </load>
+    <main>
+        <item-edit-form></item-edit-form>
+    </main>
+    <error class="modal-body">
+        <p>An error occured loading the api resource. Please try again later.</p>
+    </error>
+</modal>
+
+<modal data-hr-controller="secretDisplay" title-text="Secret for {{name}}" data-hr-model="secret">
+    <div>
+        <load class="modal-body">
+            <p>Working...</p>
+        </load>
+
+        <form data-hr-toggle="main" data-hr-style-off="display:none;" data-hr-on-submit="submit">
+            <div class="modal-body">
+                <div class="well">{{secret}}</div>
+                <p>This secret will not be accessible again after this window is closed.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-hr-on-click="close">Close</button>
+            </div>
+        </form>
+
+        <error data-hr-model="error" class="modal-body">
+            <p>An error occured while trying to create a new secret. Please try again later.</p>
+            <p>{{message}}</p>
+        </error>
+    </div>
+</modal>

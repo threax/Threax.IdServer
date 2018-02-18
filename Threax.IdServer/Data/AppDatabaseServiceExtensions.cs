@@ -44,6 +44,7 @@ namespace Threax.IdServer.Data
             //Add the database
             services.AddAuthorizationDatabase<AppDbContext>(connectionString, typeof(AppDatabaseServiceExtensions).GetTypeInfo().Assembly, authDbOptions: new AuthorizationDatabaseOptions()
             {
+                UseConnectionPool = false,
                 UseSqlServer = false,
                 OptionsAction = o =>
                 {

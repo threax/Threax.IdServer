@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - OlsAppDashboard</title>
+    <asset-bundle src="~/bundle.min.css"></asset-bundle>
+</head>
+<body>
+    <relogin></relogin>
+
+    <spc-navbar brand-text="OLS App Dashboard">
+        <ul class="nav navbar-nav">
+            <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+            @if (User.IsInRole(Roles.EditClients))
+            {
+                <li><a asp-area="" asp-controller="Home" asp-action="Clients">Clients</a></li>
+            }
+            @if (User.IsInRole(Roles.EditApiResources))
+            {
+                <li><a asp-area="" asp-controller="Home" asp-action="ApiResources">Resources</a></li>
+            }
+            <li><a asp-area="" asp-controller="Home" asp-action="Users">Search Users</a></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="UserRoles">User Roles</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li><a asp-area="" asp-controller="Home" asp-action="Logout">Logout</a></li>
+            }
+        </ul>
+    </spc-navbar>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+    </div>
+
+    <client-config></client-config>
+    <token-config></token-config>
+    <asset-bundle src="~/bundle.min.js"></asset-bundle>
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript" src="~/lib/hr-run.js" asp-append-version="true"></script>
+</body>
+</html>

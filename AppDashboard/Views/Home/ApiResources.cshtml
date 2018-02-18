@@ -1,0 +1,56 @@
+﻿@{
+}
+
+<h1>Resources</h1>
+<div data-hr-controller="mainTable">
+    <load visible="true">
+        <p>Working...</p>
+    </load>
+
+    <main>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody data-hr-model="listing" data-hr-model-component="itemTable"></tbody>
+            </table>
+        </div>
+        <button data-hr-on-click="add" class="btn btn-default">Add</button>
+        <button data-hr-controller="addFromMetadata" data-hr-on-click="addFromMetadata" class="btn btn-default">Add from Metadata</button>
+
+        <page-numbers></page-numbers>
+    </main>
+    <template data-hr-component="itemTable">
+        <table>
+            <tr>
+                <td>{{scopeName}}</td>
+                <td>{{displayName}}</td>
+                <td>
+                    <button data-hr-on-click="edit" class="btn btn-default">Edit</button>
+                    <button data-hr-on-click="del" class="btn btn-default">Delete</button>
+                </td>
+            </tr>
+        </table>
+    </template>
+
+    <error>
+        An error occured loading the resources. Please try again later.
+    </error>
+</div>
+
+<modal data-hr-controller="entryEditor" title-text="Edit Api Resource">
+    <load class="modal-body">
+        <p>Working...</p>
+    </load>
+    <main>
+        <item-edit-form></item-edit-form>
+    </main>
+    <error class="modal-body">
+        <p>An error occured loading the api resource. Please try again later.</p>
+    </error>
+</modal>

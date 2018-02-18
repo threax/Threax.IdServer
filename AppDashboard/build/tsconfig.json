@@ -1,0 +1,47 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "allowJs": true,
+    "target": "es5",
+    "module": "commonjs",
+    "baseUrl": ".",
+    "paths": {
+      "hr.*": [
+        "node_modules/HtmlRapier/src/*",
+        "node_modules/htmlrapier.json-editor/*"
+      ],
+      "hr.widgets.*": [
+        "node_modules/HtmlRapier.Widgets/src/*"
+      ],
+      "hr.bootstrap.*": [
+        "node_modules/HtmlRapier.Bootstrap/lib/*",
+        "node_modules/HtmlRapier.Bootstrap/*"
+      ],
+      "hr.treemenu.*": [
+        "node_modules/HtmlRapier.TreeMenu/src/*"
+      ],
+      "edity.editorcore.*": [
+        "Client/EditorCore/*"
+      ],
+      "edity.widgets.*": [
+        "Client/Widgets/*"
+      ],
+      "hr.halcyon.*": [
+        "node_modules/HtmlRapier.Halcyon/src/*"
+      ],
+      "jdorn.*": [
+        "node_modules/htmlrapier.json-editor/*"
+      ]
+    }
+  },
+  "include": [
+    "../**/Build/*.ts"
+  ],
+  "exclude": [
+    "./**/*.js"
+  ],
+  "compileOnSave": true
+}

@@ -1,0 +1,60 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "allowJs": true,
+    "target": "es5",
+    "outDir": "obj/tscout/lib",
+    "outFile": "wwwroot/lib/tsbin.js",
+    "module": "amd",
+    "baseUrl": ".",
+    "noEmitHelpers": true,
+    "moduleResolution": "node",
+    "paths": {
+      "clientlibs.*": [
+        "Client\\Libs\\*"
+      ],
+      "hr.bootstrap.*": [
+        "node_modules\\htmlrapier.bootstrap\\src\\*"
+      ],
+      "hr.halcyon.*": [
+        "node_modules\\htmlrapier.halcyon\\src\\*"
+      ],
+      "jdorn.*": [
+        "node_modules\\htmlrapier.json-editor\\*"
+      ],
+      "hr.relogin.*": [
+        "node_modules\\htmlrapier.relogin\\src\\*"
+      ],
+      "hr.roleclient.*": [
+        "node_modules\\htmlrapier.roleclient\\src\\*"
+      ],
+      "hr.widgets.*": [
+        "node_modules\\htmlrapier.widgets\\src\\*"
+      ],
+      "hr.*": [
+        "node_modules\\htmlrapier\\src\\*"
+      ]
+    }
+  },
+  "compileOnSave": true,
+  "include": [
+    "Client\\Libs\\**\\*.ts",
+    "Views\\**\\*.ts",
+    "node_modules\\htmlrapier.bootstrap\\src\\**\\*.ts",
+    "node_modules\\htmlrapier.halcyon\\src\\**\\*.ts",
+    "node_modules\\htmlrapier.relogin\\src\\**\\*.ts",
+    "node_modules\\htmlrapier.roleclient\\src\\**\\*.ts",
+    "node_modules\\htmlrapier.widgets\\src\\**\\*.ts",
+    "node_modules\\htmlrapier\\src\\**\\*.ts"
+  ],
+  "files": [
+    "node_modules\\jsns\\jsns.ts",
+    "node_modules\\htmlrapier.json-editor\\bin\\json-editor.js"
+  ],
+  "exclude": [
+    "node_modules\\threax-npm-tk\\**\\*.js"
+  ]
+}
