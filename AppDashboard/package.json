@@ -14,7 +14,7 @@
     "htmlrapier.roleclient": "^1.0.0",
     "htmlrapier.widgets": "^12.0.0",
     "jsns": "^5.0.0",
-    "spc.bootstrap": "git+https://spc-ols.kilnhg.com/Code/Common/Group/SpcBootstrap.git#5.2.0"
+    "threax.bootstrap": "^0.0.4"
   },
   "scripts": {
     "build": "node Build/build.js && dotnet bundle",
@@ -25,6 +25,6 @@
     "yarn-upgrade": "yarn upgrade --flat"
   },
   "resolutions": {
-    "htmlrapier.widgets": "12.1.1"
+    "bootstrap": "3.3.7"
   }
 }

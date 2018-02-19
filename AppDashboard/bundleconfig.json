@@ -4,7 +4,7 @@
   {
     "outputFileName": "wwwroot/bundle.min.css",
     "inputFiles": [
-      "wwwroot/lib/bootstrap/dist/css/SpcBootstrap.css"
+      "wwwroot/lib/bootstrap/dist/css/threax.bootstrap.css"
     ]
   },
   {

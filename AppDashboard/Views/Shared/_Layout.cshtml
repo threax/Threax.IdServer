@@ -9,27 +9,40 @@
 <body>
     <relogin></relogin>
 
-    <spc-navbar brand-text="OLS App Dashboard">
-        <ul class="nav navbar-nav">
-            <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-            @if (User.IsInRole(Roles.EditClients))
-            {
-                <li><a asp-area="" asp-controller="Home" asp-action="Clients">Clients</a></li>
-            }
-            @if (User.IsInRole(Roles.EditApiResources))
-            {
-                <li><a asp-area="" asp-controller="Home" asp-action="ApiResources">Resources</a></li>
-            }
-            <li><a asp-area="" asp-controller="Home" asp-action="Users">Search Users</a></li>
-            <li><a asp-area="" asp-controller="Home" asp-action="UserRoles">User Roles</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            @if (User.Identity.IsAuthenticated)
-            {
-                <li><a asp-area="" asp-controller="Home" asp-action="Logout">Logout</a></li>
-            }
-        </ul>
-    </spc-navbar>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">App Dashboard</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    @if (User.IsInRole(Roles.EditClients))
+                    {
+                        <li><a asp-area="" asp-controller="Home" asp-action="Clients">Clients</a></li>
+                    }
+                    @if (User.IsInRole(Roles.EditApiResources))
+                    {
+                        <li><a asp-area="" asp-controller="Home" asp-action="ApiResources">Resources</a></li>
+                    }
+                    <li><a asp-area="" asp-controller="Home" asp-action="Users">Search Users</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="UserRoles">User Roles</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-area="" asp-controller="Home" asp-action="Logout">Logout</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="container body-content">
         @RenderBody()
         <hr />
