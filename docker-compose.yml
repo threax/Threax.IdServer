@@ -9,6 +9,14 @@ services:
     networks:
       - public_proxy
 
+  appdashboard:
+    image: threax.appdashboard
+    build:
+      context: .
+      dockerfile: AppDashboard/Dockerfile
+    networks:
+      - public_proxy
+
 networks:
   public_proxy:
     external: true

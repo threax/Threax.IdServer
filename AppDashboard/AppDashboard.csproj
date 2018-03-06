@@ -5,9 +5,9 @@
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <PreserveCompilationContext>true</PreserveCompilationContext>
-    <AssemblyName>OlsAppDashboard</AssemblyName>
+    <AssemblyName>AppDashboard</AssemblyName>
     <OutputType>Exe</OutputType>
-    <PackageId>OlsAppDashboard</PackageId>
+    <PackageId>AppDashboard</PackageId>
     <MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>
   </PropertyGroup>
 

@@ -28,7 +28,7 @@ namespace OlsAppDashboard
                     config.SetBasePath(env.ContentRootPath);
                     config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
                     config.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
-                    config.AddJsonFile(productionConfig, optional: !env.IsProduction(), reloadOnChange: true);
+                    config.AddJsonFile(productionConfig, optional: true, reloadOnChange: true);
                     config.AddEnvironmentVariables();
                 })
                 .Build();
