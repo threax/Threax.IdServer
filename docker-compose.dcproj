@@ -6,7 +6,7 @@
     <ProjectGuid>41154534-e27a-4c1f-a2e0-81730b3d695c</ProjectGuid>
     <DockerLaunchBrowser>True</DockerLaunchBrowser>
     <DockerServiceUrl>http://localhost:{ServicePort}/</DockerServiceUrl>
-    <DockerServiceName>threax.idserver</DockerServiceName>
+    <DockerServiceName>id</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">

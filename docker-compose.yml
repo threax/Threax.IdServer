@@ -1,22 +1,28 @@
-version: '3'
+version: '3.1'
 
 services:
-  threax.idserver:
+  id:
     image: threax.idserver
     build:
       context: .
       dockerfile: Threax.IdServer/Dockerfile
     networks:
       - public_proxy
+    secrets:
+      - id.signingcert.p12
 
-  appdashboard:
-    image: threax.appdashboard
-    build:
-      context: .
-      dockerfile: AppDashboard/Dockerfile
-    networks:
-      - public_proxy
+#  appdashboard:
+#    image: threax.appdashboard
+#    build:
+#      context: .
+#      dockerfile: AppDashboard/Dockerfile
+#    networks:
+#      - public_proxy
 
 networks:
   public_proxy:
+    external: true
+
+secrets:
+  id.signingcert.p12:
     external: true

@@ -10,8 +10,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using static IdentityServer4.IdentityServerConstants;
 
@@ -63,15 +65,22 @@ namespace Threax.IdServer.Data
         /// <returns></returns>
         public static X509Certificate2 Load(string thumbprint)
         {
-            var store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
-            store.Open(OpenFlags.ReadOnly);
-            var cert = store.Certificates.OfType<X509Certificate2>().FirstOrDefault(i => thumbprint.Equals(i.Thumbprint, System.StringComparison.OrdinalIgnoreCase));
-            if (cert == null)
+            if (File.Exists(thumbprint))
             {
-                throw new InvalidOperationException($"Cannot find token certificate with thumbprint {thumbprint} in the Local Computer's Personal Certificate Store.");
+                return new X509Certificate2(thumbprint);
             }
+            else
+            {
+                var store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
+                store.Open(OpenFlags.ReadOnly);
+                var cert = store.Certificates.OfType<X509Certificate2>().FirstOrDefault(i => thumbprint.Equals(i.Thumbprint, System.StringComparison.OrdinalIgnoreCase));
+                if (cert == null)
+                {
+                    throw new InvalidOperationException($"Cannot find token certificate with thumbprint {thumbprint} in the Local Computer's Personal Certificate Store.");
+                }
 
-            return cert;
+                return cert;
+            }
         }
 
         /// <summary>
