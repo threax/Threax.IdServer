@@ -26,6 +26,7 @@ using Threax.AspNetCore.IdServerAuth;
 using Microsoft.Extensions.Logging;
 using SpcIdentityServer.Services;
 using Threax.IdServer.Areas.Api.ValueProviders;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace Threax.IdServer
 {
@@ -169,6 +170,13 @@ namespace Threax.IdServer
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedProto
+                //Can add ForwardedHeaders.XForwardedFor later, but tricky with container proxy since we don't know its ip
+                //This is enough to get https detection working again, however.
+            });
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
