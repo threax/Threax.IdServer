@@ -7,6 +7,12 @@ services:
     ports:
       - "80"
 
+#  appdashboard:
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Development
+#    ports:
+#      - "80"
+
 secrets:
   id.signingcert.p12:
     file: ./IdSigningCertDev.p12

@@ -127,6 +127,11 @@ namespace Threax.IdServer.Data
                 configContext.SaveChanges();
             }
 
+            //Uncomment to force db to reload
+            //configContext.Clients.RemoveRange(configContext.Clients);
+            //configContext.ApiResources.RemoveRange(configContext.ApiResources);
+            //configContext.SaveChanges();
+
             if (!configContext.ApiResources.Any())
             {
                 var idServerResource = new ApiResource()
