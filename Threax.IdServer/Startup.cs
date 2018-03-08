@@ -175,6 +175,7 @@ namespace Threax.IdServer
                 ForwardedHeaders = ForwardedHeaders.XForwardedProto
                 //Can add ForwardedHeaders.XForwardedFor later, but tricky with container proxy since we don't know its ip
                 //This is enough to get https detection working again, however.
+                //https://github.com/aspnet/Docs/issues/2384
             });
 
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));

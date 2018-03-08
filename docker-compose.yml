@@ -11,13 +11,13 @@ services:
     secrets:
       - id.signingcert.p12
 
-#  appdashboard:
-#    image: threax.appdashboard
-#    build:
-#      context: .
-#      dockerfile: AppDashboard/Dockerfile
-#    networks:
-#      - public_proxy
+  appdashboard:
+    image: threax.appdashboard
+    build:
+      context: .
+      dockerfile: AppDashboard/Dockerfile
+    networks:
+      - public_proxy
 
 networks:
   public_proxy:
