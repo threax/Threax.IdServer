@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.2'
 
 services:
   id:
@@ -10,6 +10,10 @@ services:
       - public_proxy
     secrets:
       - id.signingcert.p12
+    volumes:
+      - type: bind
+        source: ../TrustedRoots
+        target: /usr/local/share/ca-certificates
 
   appdashboard:
     image: threax.appdashboard
@@ -18,6 +22,10 @@ services:
       dockerfile: AppDashboard/Dockerfile
     networks:
       - public_proxy
+    volumes:
+      - type: bind
+        source: ../TrustedRoots
+        target: /usr/local/share/ca-certificates
 
 networks:
   public_proxy:

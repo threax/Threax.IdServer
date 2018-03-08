@@ -49,6 +49,7 @@
     <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="2.1.2" />
     <PackageReference Include="Threax.AspNetCore.UrlFix" Version="1.1.4" />
     <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="3.1.1" />
+    <PackageReference Include="Threax.AspNetCore.Docker.Certs" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
