@@ -27,9 +27,9 @@
     <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen" Version="6.0.0" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="9.0.0" />
     <PackageReference Include="Threax.AspNetCore.Halcyon" Version="3.0.1" />
-    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="2.5.0" />
-    <PackageReference Include="Threax.AspNetCore.IdServerMetadata" Version="1.0.4" />
-    <PackageReference Include="Threax.AspNetCore.IdServerMetadata.Client" Version="1.0.2" />
+    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="2.7.0" />
+    <PackageReference Include="Threax.AspNetCore.IdServerMetadata" Version="1.2.0" />
+    <PackageReference Include="Threax.AspNetCore.IdServerMetadata.Client" Version="1.1.0" />
     <PackageReference Include="Threax.AspNetCore.Models" Version="3.4.0" />
     <PackageReference Include="Threax.AspNetCore.Tracking" Version="2.0.3" />
     <PackageReference Include="Threax.AspNetCore.UrlFix" Version="1.1.4" />
