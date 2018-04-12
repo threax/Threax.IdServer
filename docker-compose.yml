@@ -15,7 +15,7 @@ services:
         source: ../TrustedRoots
         target: /usr/local/share/ca-certificates
       - type: bind
-        source: $HOMEDRIVE$HOMEPATH/DevData/IdServer
+        source: ../DevData/idserver
         target: /appdata
 
   appdashboard:
