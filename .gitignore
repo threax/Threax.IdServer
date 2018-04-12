@@ -264,3 +264,5 @@ __pycache__/
 /TestJavascriptApp/wwwroot
 *.db
 /AppDashboard/wwwroot
+/AppDashboard/appsettings.production.json
+/Threax.IdServer/appsettings.Production.json
