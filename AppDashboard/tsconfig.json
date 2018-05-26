@@ -22,9 +22,6 @@
       "hr.halcyon.*": [
         "node_modules\\htmlrapier.halcyon\\src\\*"
       ],
-      "jdorn.*": [
-        "node_modules\\htmlrapier.json-editor\\*"
-      ],
       "hr.relogin.*": [
         "node_modules\\htmlrapier.relogin\\src\\*"
       ],
@@ -50,11 +47,10 @@
     "node_modules\\htmlrapier.widgets\\src\\**\\*.ts",
     "node_modules\\htmlrapier\\src\\**\\*.ts"
   ],
-  "files": [
-    "node_modules\\jsns\\jsns.ts",
-    "node_modules\\htmlrapier.json-editor\\bin\\json-editor.js"
-  ],
   "exclude": [
     "node_modules\\threax-npm-tk\\**\\*.js"
+  ],
+  "files": [
+    "node_modules\\jsns\\jsns.ts"
   ]
 }

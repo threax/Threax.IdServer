@@ -14,26 +14,19 @@ bootstrap@>=3.3.7, bootstrap@~3.3.7:
   version "3.3.7"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-3.3.7.tgz#5a389394549f23330875a3b150656574f8a9eb71"
 
-htmlrapier.bootstrap@^6.0.4:
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/htmlrapier.bootstrap/-/htmlrapier.bootstrap-6.0.4.tgz#8687526023a12441508336a03a8c7b657e1eebc7"
+htmlrapier.bootstrap@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/htmlrapier.bootstrap/-/htmlrapier.bootstrap-6.1.0.tgz#26501ad6eab9a51db8f8af9c0c88961ea6979fac"
   dependencies:
     bootstrap ">=3.3.7"
     htmlrapier ">=8.1.0"
     jquery ">=3.2.1"
 
-htmlrapier.halcyon@>=6.0.0, htmlrapier.halcyon@>=6.0.1, htmlrapier.halcyon@^6.0.2:
+htmlrapier.halcyon@>=6.0.0, htmlrapier.halcyon@>=6.0.1, htmlrapier.halcyon@^6.0.3:
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/htmlrapier.halcyon/-/htmlrapier.halcyon-6.0.3.tgz#83576120c2a3e6511fbe1c7d901b1928177c1aa4"
   dependencies:
     htmlrapier ">=10.0.2"
-
-htmlrapier.json-editor@^4.2.1:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/htmlrapier.json-editor/-/htmlrapier.json-editor-4.2.1.tgz#4c04062dbe172d3739bc0c96453efef69d4d8392"
-  dependencies:
-    htmlrapier ">=5.2.0"
-    json-editor "~0.7.28"
 
 htmlrapier.relogin@^1.0.3:
   version "1.0.3"
@@ -49,16 +42,16 @@ htmlrapier.roleclient@^1.0.0:
     htmlrapier.widgets ">=6.1.0"
     jsns ">=4.2.2"
 
-htmlrapier.widgets@>=6.1.0, htmlrapier.widgets@^12.0.0:
-  version "12.3.0"
-  resolved "https://registry.yarnpkg.com/htmlrapier.widgets/-/htmlrapier.widgets-12.3.0.tgz#d45a834c1af22b75db876f2c0b42d1b267885ca9"
+htmlrapier.widgets@>=6.1.0, htmlrapier.widgets@^14.2.0:
+  version "14.2.0"
+  resolved "https://registry.yarnpkg.com/htmlrapier.widgets/-/htmlrapier.widgets-14.2.0.tgz#af915502663d366ba290c4086e2269c258dd215d"
   dependencies:
     htmlrapier ">=14.3.0"
     htmlrapier.halcyon ">=6.0.1"
 
-htmlrapier@>=10.0.2, htmlrapier@>=14.0.0, htmlrapier@>=14.3.0, htmlrapier@>=5.2.0, htmlrapier@>=8.1.0, htmlrapier@^14.0.0:
-  version "14.4.2"
-  resolved "https://registry.yarnpkg.com/htmlrapier/-/htmlrapier-14.4.2.tgz#c51b92c109e22c64d6254c00b7e478af7bd99365"
+htmlrapier@>=10.0.2, htmlrapier@>=14.0.0, htmlrapier@>=14.3.0, htmlrapier@>=8.1.0, htmlrapier@^15.4.2:
+  version "15.4.2"
+  resolved "https://registry.yarnpkg.com/htmlrapier/-/htmlrapier-15.4.2.tgz#c6971b7fe2bdb8094adf2d79f78b53f46562ece9"
   dependencies:
     "@types/es6-promise" "^0.0.32"
     tslib "^1.6.1"
@@ -70,10 +63,6 @@ jquery@>=3.2.1:
 jsns@>=4.2.2, jsns@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/jsns/-/jsns-5.0.0.tgz#c76429b822a68100eef8d4b8d3f1172b028664e4"
-
-json-editor@~0.7.28:
-  version "0.7.28"
-  resolved "https://registry.yarnpkg.com/json-editor/-/json-editor-0.7.28.tgz#2aa5b0990a2b5076789158e7dd8a2d2108ce9cc5"
 
 threax.bootstrap@^0.0.4:
   version "0.0.4"

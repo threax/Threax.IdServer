@@ -6,13 +6,12 @@
     "@types/node": "^6.0.69"
   },
   "dependencies": {
-    "htmlrapier": "^14.0.0",
-    "htmlrapier.bootstrap": "^6.0.4",
-    "htmlrapier.halcyon": "^6.0.2",
-    "htmlrapier.json-editor": "^4.2.1",
+    "htmlrapier": "^15.4.2",
+    "htmlrapier.bootstrap": "^6.1.0",
+    "htmlrapier.halcyon": "^6.0.3",
     "htmlrapier.relogin": "^1.0.3",
     "htmlrapier.roleclient": "^1.0.0",
-    "htmlrapier.widgets": "^12.0.0",
+    "htmlrapier.widgets": "^14.2.0",
     "jsns": "^5.0.0",
     "threax.bootstrap": "^0.0.4"
   },
@@ -25,6 +24,8 @@
     "yarn-upgrade": "yarn upgrade --flat"
   },
   "resolutions": {
-    "bootstrap": "3.3.7"
+    "bootstrap": "3.3.7",
+    "htmlrapier": "15.4.2",
+    "htmlrapier.widgets": "14.2.0"
   }
 }

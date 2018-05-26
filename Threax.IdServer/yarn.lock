@@ -14,9 +14,9 @@ bootstrap@>=3.3.7, bootstrap@~3.3.7:
   version "3.3.7"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-3.3.7.tgz#5a389394549f23330875a3b150656574f8a9eb71"
 
-htmlrapier.bootstrap@^6.0.4:
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/htmlrapier.bootstrap/-/htmlrapier.bootstrap-6.0.4.tgz#8687526023a12441508336a03a8c7b657e1eebc7"
+htmlrapier.bootstrap@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/htmlrapier.bootstrap/-/htmlrapier.bootstrap-6.1.0.tgz#26501ad6eab9a51db8f8af9c0c88961ea6979fac"
   dependencies:
     bootstrap ">=3.3.7"
     htmlrapier ">=8.1.0"
@@ -29,22 +29,22 @@ htmlrapier.halcyon-explorer@^6.0.1:
     htmlrapier ">=9.0.0"
     htmlrapier.halcyon ">=6.0.0"
 
-htmlrapier.halcyon@>=6.0.0, htmlrapier.halcyon@>=6.0.1, htmlrapier.halcyon@^6.0.2:
+htmlrapier.halcyon@>=6.0.0, htmlrapier.halcyon@>=6.0.1, htmlrapier.halcyon@^6.0.3:
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/htmlrapier.halcyon/-/htmlrapier.halcyon-6.0.3.tgz#83576120c2a3e6511fbe1c7d901b1928177c1aa4"
   dependencies:
     htmlrapier ">=10.0.2"
 
-htmlrapier.widgets@^10.0.0:
-  version "10.3.1"
-  resolved "https://registry.yarnpkg.com/htmlrapier.widgets/-/htmlrapier.widgets-10.3.1.tgz#8b05090790c7bf11cb6fdeea69748767b1d9d792"
+htmlrapier.widgets@^14.2.0:
+  version "14.2.0"
+  resolved "https://registry.yarnpkg.com/htmlrapier.widgets/-/htmlrapier.widgets-14.2.0.tgz#af915502663d366ba290c4086e2269c258dd215d"
   dependencies:
-    htmlrapier ">=11.0.0"
+    htmlrapier ">=14.3.0"
     htmlrapier.halcyon ">=6.0.1"
 
-htmlrapier@>=10.0.2, htmlrapier@>=11.0.0, htmlrapier@>=8.1.0, htmlrapier@>=9.0.0, htmlrapier@^12.3.0:
-  version "14.2.0"
-  resolved "https://registry.yarnpkg.com/htmlrapier/-/htmlrapier-14.2.0.tgz#a29de84bfe8d336b6763f84a7bee8fe3a6b5b896"
+htmlrapier@>=10.0.2, htmlrapier@>=14.3.0, htmlrapier@>=8.1.0, htmlrapier@>=9.0.0, htmlrapier@^15.4.2:
+  version "15.4.2"
+  resolved "https://registry.yarnpkg.com/htmlrapier/-/htmlrapier-15.4.2.tgz#c6971b7fe2bdb8094adf2d79f78b53f46562ece9"
   dependencies:
     "@types/es6-promise" "^0.0.32"
     tslib "^1.6.1"
