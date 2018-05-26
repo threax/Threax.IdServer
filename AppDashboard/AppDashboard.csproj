@@ -46,7 +46,7 @@
     </PackageReference>
     <PackageReference Include="Threax.AspNetCore.Halcyon.Client" Version="5.6.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.3" />
-    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="2.8.1" />
+    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="2.8.2" />
     <PackageReference Include="Threax.AspNetCore.UrlFix" Version="1.1.4" />
     <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="3.2.0" />
     <PackageReference Include="Threax.AspNetCore.Docker.Certs" Version="1.0.0" />
