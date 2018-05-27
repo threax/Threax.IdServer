@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -41,6 +42,8 @@ namespace Threax.IdServer.Data
         /// <returns></returns>
         public static IServiceCollection UseAppDatabase(this IServiceCollection services, string connectionString)
         {
+            TryCreateFile(connectionString);
+
             //Add the database
             services.AddAuthorizationDatabase<AppDbContext>(connectionString, typeof(AppDatabaseServiceExtensions).GetTypeInfo().Assembly, authDbOptions: new AuthorizationDatabaseOptions()
             {
@@ -60,6 +63,28 @@ namespace Threax.IdServer.Data
             services.ConfigureReflectedServices(typeof(AppDatabaseServiceExtensions).GetTypeInfo().Assembly);
 
             return services;
+        }
+
+        private static String DataSourceStart = "Data Source=";
+        private static char DataSourceEnd = ';';
+
+        private static void TryCreateFile(string connectionString)
+        {
+            if (connectionString.StartsWith(DataSourceStart) && connectionString.EndsWith(DataSourceEnd))
+            {
+                var file = connectionString.Substring(DataSourceStart.Length);
+                file = file.TrimEnd(DataSourceEnd);
+                file = Path.GetFullPath(file);
+                if (!File.Exists(file))
+                {
+                    var dir = Path.GetDirectoryName(file);
+                    if (!Directory.Exists(dir))
+                    {
+                        Directory.CreateDirectory(dir);
+                    }
+                    File.Create(file);
+                }
+            }
         }
 
         /// <summary>

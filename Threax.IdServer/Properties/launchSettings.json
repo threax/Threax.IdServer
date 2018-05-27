@@ -21,7 +21,7 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "local"
       },
       "applicationUrl": "http://localhost:59411/"
     },
@@ -30,7 +30,7 @@
       "commandLineArgs": "tools migrate seed",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "local"
       },
       "applicationUrl": "http://localhost:64199/"
     }
