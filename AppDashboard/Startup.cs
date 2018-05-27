@@ -14,7 +14,7 @@ using System.IO;
 using Threax.AspNetCore.IdServerAuth;
 using Threax.AspNetCore.UserBuilder;
 
-namespace OlsAppDashboard
+namespace AppDashboard
 {
     public class Startup
     {
@@ -41,7 +41,7 @@ namespace OlsAppDashboard
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            Threax.AspNetCore.Docker.Certs.CertManager.LoadTrustedRoots();
+            Threax.AspNetCore.Docker.Certs.CertManager.LoadTrustedRoots(o => Configuration.Bind("CertManager", o));
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

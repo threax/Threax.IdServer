@@ -1,10 +1,10 @@
 ﻿using HtmlRapier.TagHelpers;
 using System;
 
-namespace OlsAppDashboard
+namespace AppDashboard
 {
     /// <summary>
-    /// Settings specific to the OlsAppDashboard application. Don't put secret info
+    /// Settings specific to the AppDashboard application. Don't put secret info
     /// in here as it is sent to the client also.
     /// </summary>
     public class ClientConfig : ClientConfigBase

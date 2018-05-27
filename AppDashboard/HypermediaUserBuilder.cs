@@ -6,7 +6,7 @@ using Threax.AspNetCore.AuthCore;
 using Threax.AspNetCore.Halcyon.Client;
 using Threax.AspNetCore.UserBuilder;
 
-namespace OlsAppDashboard
+namespace AppDashboard
 {
     public class HypermediaUserBuilder : UserAuthorizerBuilderLink
     {

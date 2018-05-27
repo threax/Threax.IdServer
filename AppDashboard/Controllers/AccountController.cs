@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OlsAppDashboard.Controllers
+namespace AppDashboard.Controllers
 {
     public class AccountController : Controller
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OlsAppDashboard
+namespace AppDashboard
 {
     public class AppConfig
     {

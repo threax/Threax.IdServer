@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Threax.AspNetCore.IdServerAuth;
 
-namespace OlsAppDashboard.Controllers
+namespace AppDashboard.Controllers
 {
     [Authorize(AuthenticationSchemes = AuthCoreSchemes.Cookies)]
     public class HomeController : Controller

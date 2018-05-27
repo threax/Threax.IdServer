@@ -13,15 +13,22 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_preventHostingStartup": "True",
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "local"
       }
     },
-    "OlsAppDashboard": {
+    "AppDashboard": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "Update Config Schema": {
+      "commandName": "Project",
+      "commandLineArgs": "tools updateConfigSchema",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "local"
       }
     }
   }
