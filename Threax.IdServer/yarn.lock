@@ -7,8 +7,8 @@
   resolved "https://registry.yarnpkg.com/@types/es6-promise/-/es6-promise-0.0.32.tgz#3bcf44fb1e429f3df76188c8c6d874463ba371fd"
 
 "@types/node@^6.0.69":
-  version "6.0.95"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.95.tgz#0d027612a77c55b84497ff90a4a7d597e5ac0fab"
+  version "6.0.112"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.112.tgz#0f37473b1d1ecd30c8bf57215ef4fb558f99cc86"
 
 bootstrap@>=3.3.7, bootstrap@~3.3.7:
   version "3.3.7"
@@ -23,8 +23,8 @@ htmlrapier.bootstrap@^6.1.0:
     jquery ">=3.2.1"
 
 htmlrapier.halcyon-explorer@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/htmlrapier.halcyon-explorer/-/htmlrapier.halcyon-explorer-6.0.1.tgz#53352f9e9e461a2d15d325549b92397e920373ac"
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/htmlrapier.halcyon-explorer/-/htmlrapier.halcyon-explorer-6.1.1.tgz#c366398dfb5627103dac8c21a5c0b0c03de985b3"
   dependencies:
     htmlrapier ">=9.0.0"
     htmlrapier.halcyon ">=6.0.0"
@@ -35,23 +35,23 @@ htmlrapier.halcyon@>=6.0.0, htmlrapier.halcyon@>=6.0.1, htmlrapier.halcyon@^6.0.
   dependencies:
     htmlrapier ">=10.0.2"
 
-htmlrapier.widgets@^14.2.0:
-  version "14.2.0"
-  resolved "https://registry.yarnpkg.com/htmlrapier.widgets/-/htmlrapier.widgets-14.2.0.tgz#af915502663d366ba290c4086e2269c258dd215d"
+htmlrapier.widgets@^14.4.0:
+  version "14.4.0"
+  resolved "https://registry.yarnpkg.com/htmlrapier.widgets/-/htmlrapier.widgets-14.4.0.tgz#fb201b283baae741f0a0feafd88b114f78bedbe8"
   dependencies:
     htmlrapier ">=14.3.0"
     htmlrapier.halcyon ">=6.0.1"
 
-htmlrapier@>=10.0.2, htmlrapier@>=14.3.0, htmlrapier@>=8.1.0, htmlrapier@>=9.0.0, htmlrapier@^15.4.2:
-  version "15.4.2"
-  resolved "https://registry.yarnpkg.com/htmlrapier/-/htmlrapier-15.4.2.tgz#c6971b7fe2bdb8094adf2d79f78b53f46562ece9"
+htmlrapier@>=10.0.2, htmlrapier@>=14.3.0, htmlrapier@>=8.1.0, htmlrapier@>=9.0.0, htmlrapier@^15.5.3:
+  version "15.5.3"
+  resolved "https://registry.yarnpkg.com/htmlrapier/-/htmlrapier-15.5.3.tgz#aec04abb1ada12863e64f161bed957586564b258"
   dependencies:
     "@types/es6-promise" "^0.0.32"
     tslib "^1.6.1"
 
 jquery@>=3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
 
 jsns@^5.0.0:
   version "5.0.0"
@@ -64,5 +64,5 @@ threax.bootstrap@^0.0.4:
     bootstrap "~3.3.7"
 
 tslib@^1.6.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.8.1.tgz#6946af2d1d651a7b1863b531d6e5afa41aa44eac"
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.2.tgz#8be0cc9a1f6dc7727c38deb16c2ebd1a2892988e"

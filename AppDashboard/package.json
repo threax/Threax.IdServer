@@ -6,12 +6,12 @@
     "@types/node": "^6.0.69"
   },
   "dependencies": {
-    "htmlrapier": "^15.4.2",
+    "htmlrapier": "^15.5.3",
     "htmlrapier.bootstrap": "^6.1.0",
     "htmlrapier.halcyon": "^6.0.3",
     "htmlrapier.relogin": "^1.0.3",
     "htmlrapier.roleclient": "^1.0.0",
-    "htmlrapier.widgets": "^14.2.0",
+    "htmlrapier.widgets": "^14.4.0",
     "jsns": "^5.0.0",
     "threax.bootstrap": "^0.0.4"
   },
@@ -25,7 +25,7 @@
   },
   "resolutions": {
     "bootstrap": "3.3.7",
-    "htmlrapier": "15.4.2",
-    "htmlrapier.widgets": "14.2.0"
+    "htmlrapier": "15.5.3",
+    "htmlrapier.widgets": "14.4.0"
   }
 }
