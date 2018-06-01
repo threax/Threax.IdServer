@@ -45,15 +45,11 @@ namespace Threax.IdServer.Data
             TryCreateFile(connectionString);
 
             //Add the database
-            services.AddAuthorizationDatabase<AppDbContext>(connectionString, typeof(AppDatabaseServiceExtensions).GetTypeInfo().Assembly, authDbOptions: new AuthorizationDatabaseOptions()
-            {
-                UseConnectionPool = false,
-                UseSqlServer = false,
-                OptionsAction = o =>
+            services.AddAuthorizationDatabase<AppDbContext>()
+                .AddDbContext<AppDbContext>(o =>
                 {
                     o.UseSqlite(connectionString);
-                }
-            });
+                });
 
             //Setup the mapper
             var mapperConfig = SetupMappings();
