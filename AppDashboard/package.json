@@ -24,8 +24,6 @@
     "yarn-upgrade": "yarn upgrade --flat"
   },
   "resolutions": {
-    "bootstrap": "3.3.7",
-    "htmlrapier": "15.5.3",
-    "htmlrapier.widgets": "14.4.0"
+    "bootstrap": "3.3.7"
   }
 }
