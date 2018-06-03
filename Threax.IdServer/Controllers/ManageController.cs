@@ -57,6 +57,7 @@ namespace Threax.IdServer.Controllers
             var model = new IndexViewModel
             {
                 Username = user.UserName,
+                UserId = user.Id,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,

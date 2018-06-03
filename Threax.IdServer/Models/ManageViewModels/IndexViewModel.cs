@@ -21,5 +21,7 @@ namespace Threax.IdServer.Models.ManageViewModels
         public string PhoneNumber { get; set; }
 
         public string StatusMessage { get; set; }
+
+        public string UserId { get; set; }
     }
 }

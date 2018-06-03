@@ -29,6 +29,8 @@
                     <button asp-action="SendVerificationEmail" class="btn btn-link">Send verification email</button>
                 }
                 <span asp-validation-for="Email" class="text-danger"></span>
+                <p><b>User Id</b></p>
+                <p>@Model.UserId</p>
             </div>
             <div class="form-group">
                 <label asp-for="PhoneNumber"></label>
