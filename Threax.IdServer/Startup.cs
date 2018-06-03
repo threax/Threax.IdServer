@@ -180,6 +180,11 @@ namespace Threax.IdServer
                 //https://github.com/aspnet/Docs/issues/2384
             });
 
+            app.UseUrlFix(o =>
+            {
+                o.CorrectPathBase = appConfig.PathBase;
+            });
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
