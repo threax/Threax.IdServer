@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Threax.AspNetCore.BuiltInTools;
 using Threax.AspNetCore.Models;
 using Threax.AspNetCore.UserBuilder.Entities;
+using Threax.Sqlite.Ext;
 
 namespace Threax.IdServer.Data
 {
@@ -42,6 +43,8 @@ namespace Threax.IdServer.Data
         /// <returns></returns>
         public static IServiceCollection UseAppDatabase(this IServiceCollection services, string connectionString)
         {
+            SqliteFileExtensions.TryCreateFile(connectionString);
+
             TryCreateFile(connectionString);
 
             //Add the database
