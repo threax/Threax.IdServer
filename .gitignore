@@ -266,3 +266,4 @@ __pycache__/
 /AppDashboard/wwwroot
 /AppDashboard/appsettings.production.json
 /Threax.IdServer/appsettings.Production.json
+/GitPublish
