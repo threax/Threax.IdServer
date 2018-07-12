@@ -7,8 +7,8 @@
   resolved "https://registry.yarnpkg.com/@types/es6-promise/-/es6-promise-0.0.32.tgz#3bcf44fb1e429f3df76188c8c6d874463ba371fd"
 
 "@types/node@^6.0.69":
-  version "6.0.112"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.112.tgz#0f37473b1d1ecd30c8bf57215ef4fb558f99cc86"
+  version "6.0.114"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.114.tgz#c42cd56479f32bc1576a5cb19f8a208da9a2b052"
 
 bootstrap@>=3.3.7, bootstrap@~3.3.7:
   version "3.3.7"
@@ -22,13 +22,13 @@ htmlrapier.bootstrap@^6.1.0:
     htmlrapier ">=8.1.0"
     jquery ">=3.2.1"
 
-htmlrapier.halcyon@>=6.0.0, htmlrapier.halcyon@>=6.0.1, htmlrapier.halcyon@^6.0.3:
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/htmlrapier.halcyon/-/htmlrapier.halcyon-6.0.3.tgz#83576120c2a3e6511fbe1c7d901b1928177c1aa4"
+htmlrapier.halcyon@>=6.0.0, htmlrapier.halcyon@>=6.0.1, htmlrapier.halcyon@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/htmlrapier.halcyon/-/htmlrapier.halcyon-6.2.0.tgz#59ef07f962e9274fdf056437c1b381709fb5dc2d"
   dependencies:
     htmlrapier ">=10.0.2"
 
-htmlrapier.relogin@^1.0.3:
+htmlrapier.relogin@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/htmlrapier.relogin/-/htmlrapier.relogin-1.0.4.tgz#5ee770018da5dee2215773835ddf2b6120f55c54"
   dependencies:
@@ -42,16 +42,16 @@ htmlrapier.roleclient@^1.0.0:
     htmlrapier.widgets ">=6.1.0"
     jsns ">=4.2.2"
 
-htmlrapier.widgets@>=6.1.0, htmlrapier.widgets@^14.4.0:
-  version "14.4.0"
-  resolved "https://registry.yarnpkg.com/htmlrapier.widgets/-/htmlrapier.widgets-14.4.0.tgz#fb201b283baae741f0a0feafd88b114f78bedbe8"
+htmlrapier.widgets@>=6.1.0, htmlrapier.widgets@^14.5.0:
+  version "14.5.0"
+  resolved "https://registry.yarnpkg.com/htmlrapier.widgets/-/htmlrapier.widgets-14.5.0.tgz#49e6c11f248e40beaddfa7395df681ccba0e6775"
   dependencies:
     htmlrapier ">=14.3.0"
     htmlrapier.halcyon ">=6.0.1"
 
-htmlrapier@>=10.0.2, htmlrapier@>=14.0.0, htmlrapier@>=14.3.0, htmlrapier@>=8.1.0, htmlrapier@^15.5.3:
-  version "15.5.3"
-  resolved "https://registry.yarnpkg.com/htmlrapier/-/htmlrapier-15.5.3.tgz#aec04abb1ada12863e64f161bed957586564b258"
+htmlrapier@>=10.0.2, htmlrapier@>=14.0.0, htmlrapier@>=14.3.0, htmlrapier@>=8.1.0, htmlrapier@^18.0.3:
+  version "18.0.3"
+  resolved "https://registry.yarnpkg.com/htmlrapier/-/htmlrapier-18.0.3.tgz#fc25f79d879e9df1c18efa2c103f710f07a2eeec"
   dependencies:
     "@types/es6-promise" "^0.0.32"
     tslib "^1.6.1"
@@ -71,5 +71,5 @@ threax.bootstrap@^0.0.4:
     bootstrap "~3.3.7"
 
 tslib@^1.6.1:
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.2.tgz#8be0cc9a1f6dc7727c38deb16c2ebd1a2892988e"
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
