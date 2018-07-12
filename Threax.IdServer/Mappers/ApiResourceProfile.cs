@@ -76,6 +76,8 @@ namespace Threax.IdServer.Mappers
                 .ForMember(d => d.Claims, opt => opt.Ignore())
                 .ForMember(d => d.AlwaysSendClientClaims, opt => opt.Ignore())
                 .ForMember(d => d.AllowedCorsOrigins, opt => opt.Ignore())
+                .ForMember(d => d.FrontChannelLogoutUri, opt => opt.ResolveUsing(i => i.LogoutUri))
+                .ForMember(d => d.FrontChannelLogoutSessionRequired, opt => opt.ResolveUsing(i => i.LogoutSessionRequired))
                 .ForMember(d => d.AllowedGrantTypes, opt => opt.ResolveUsing((ClientInput s, Client d) =>
                 {
                     return s.AllowedGrantTypes.Select(i => new ClientGrantType()
@@ -104,6 +106,8 @@ namespace Threax.IdServer.Mappers
             CreateMap<Client, ClientEditModel>()
                 .ForMember(d => d.Name, opt => opt.MapFrom(s => s.ClientName))
                 .ForMember(d => d.ApplicationGuid, opt => opt.ResolveUsing<ApplicationGuidResolver>())
+                .ForMember(d => d.LogoutUri, opt => opt.ResolveUsing(s => s.FrontChannelLogoutUri))
+                .ForMember(d => d.LogoutSessionRequired, opt => opt.ResolveUsing(s => s.FrontChannelLogoutSessionRequired))
                 .ForMember(d => d.AllowedGrantTypes, opt => opt.ResolveUsing((Client s, ClientEditModel d) =>
                 {
                     return s.AllowedGrantTypes.Select(i => i.GrantType);

@@ -4,21 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Threax.IdServer.Models.AccountViewModels
+namespace Threax.IdServer.Models
 {
-    public class LoginViewModel
+    public class LoginInputModel
     {
         [Required]
-        [EmailAddress]
         public string Email { get; set; }
-
         [Required]
-        [DataType(DataType.Password)]
         public string Password { get; set; }
-
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
-
         public string ReturnUrl { get; set; }
     }
 }
