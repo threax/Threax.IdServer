@@ -22,9 +22,9 @@ htmlrapier.bootstrap@^6.1.0:
     htmlrapier ">=8.1.0"
     jquery ">=3.2.1"
 
-htmlrapier.halcyon@>=6.0.0, htmlrapier.halcyon@>=6.0.1, htmlrapier.halcyon@^6.2.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/htmlrapier.halcyon/-/htmlrapier.halcyon-6.2.0.tgz#59ef07f962e9274fdf056437c1b381709fb5dc2d"
+htmlrapier.halcyon@>=6.0.0, htmlrapier.halcyon@>=6.0.1, htmlrapier.halcyon@>=7.0.0, htmlrapier.halcyon@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/htmlrapier.halcyon/-/htmlrapier.halcyon-7.0.0.tgz#3d2d46582a0f7bfbff059a2c72c0a0cb7a496ca3"
   dependencies:
     htmlrapier ">=10.0.2"
 
@@ -42,16 +42,16 @@ htmlrapier.roleclient@^1.0.0:
     htmlrapier.widgets ">=6.1.0"
     jsns ">=4.2.2"
 
-htmlrapier.widgets@>=6.1.0, htmlrapier.widgets@^14.5.0:
-  version "14.5.0"
-  resolved "https://registry.yarnpkg.com/htmlrapier.widgets/-/htmlrapier.widgets-14.5.0.tgz#49e6c11f248e40beaddfa7395df681ccba0e6775"
+htmlrapier.widgets@>=6.1.0, htmlrapier.widgets@^15.0.0:
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/htmlrapier.widgets/-/htmlrapier.widgets-15.0.0.tgz#504aefee9a6a53dc65c398c38c4183ea793549a7"
   dependencies:
     htmlrapier ">=14.3.0"
-    htmlrapier.halcyon ">=6.0.1"
+    htmlrapier.halcyon ">=7.0.0"
 
-htmlrapier@>=10.0.2, htmlrapier@>=14.0.0, htmlrapier@>=14.3.0, htmlrapier@>=8.1.0, htmlrapier@^18.0.3:
-  version "18.0.3"
-  resolved "https://registry.yarnpkg.com/htmlrapier/-/htmlrapier-18.0.3.tgz#fc25f79d879e9df1c18efa2c103f710f07a2eeec"
+htmlrapier@>=10.0.2, htmlrapier@>=14.0.0, htmlrapier@>=14.3.0, htmlrapier@>=8.1.0, htmlrapier@^18.1.1:
+  version "18.1.1"
+  resolved "https://registry.yarnpkg.com/htmlrapier/-/htmlrapier-18.1.1.tgz#8272468e252b52c4e793e104b494c6ca6371d81a"
   dependencies:
     "@types/es6-promise" "^0.0.32"
     tslib "^1.6.1"

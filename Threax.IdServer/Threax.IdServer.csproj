@@ -24,17 +24,17 @@
     <PackageReference Include="Threax.AspNetCore.CorsManager" Version="3.0.2" />
     <PackageReference Include="Threax.AspNetCore.ExceptionFilter" Version="5.0.2" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen.Tools" Version="4.0.0" />
-    <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen" Version="8.0.0" />
-    <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="10.0.1" />
+    <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen" Version="9.0.0" />
+    <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="11.0.0" />
     <PackageReference Include="Threax.AspNetCore.Halcyon" Version="3.2.0" />
     <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="2.8.2" />
     <PackageReference Include="Threax.AspNetCore.IdServerMetadata" Version="1.2.1" />
     <PackageReference Include="Threax.AspNetCore.IdServerMetadata.Client" Version="1.1.0" />
-    <PackageReference Include="Threax.AspNetCore.Models" Version="6.0.1" />
+    <PackageReference Include="Threax.AspNetCore.Models" Version="6.1.0" />
     <PackageReference Include="Threax.AspNetCore.Tracking" Version="2.0.3" />
     <PackageReference Include="Threax.AspNetCore.UrlFix" Version="1.1.4" />
-    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities.Mvc" Version="4.0.0" />
-    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities" Version="4.0.0" />
+    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities.Mvc" Version="4.0.1" />
+    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities" Version="4.0.1" />
     <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="3.2.0" />
     <PackageReference Include="Threax.AspNetCore.Validators" Version="2.0.1" />
     <PackageReference Include="Threax.AspNetCore.Docker.Certs" Version="2.0.0" />

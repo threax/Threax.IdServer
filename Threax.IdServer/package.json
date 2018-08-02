@@ -6,11 +6,11 @@
     "@types/node": "^6.0.69"
   },
   "dependencies": {
-    "htmlrapier": "^18.0.3",
+    "htmlrapier": "^18.1.1",
     "htmlrapier.bootstrap": "^6.1.0",
-    "htmlrapier.halcyon": "^6.2.0",
-    "htmlrapier.halcyon-explorer": "^7.1.0",
-    "htmlrapier.widgets": "^14.5.0",
+    "htmlrapier.halcyon": "^7.0.0",
+    "htmlrapier.halcyon-explorer": "^8.0.0",
+    "htmlrapier.widgets": "^15.0.0",
     "jsns": "^5.0.0",
     "threax.bootstrap": "^0.0.4"
   },
