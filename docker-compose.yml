@@ -38,4 +38,4 @@ networks:
 
 secrets:
   id.signingcert.p12:
-    external: true
+    file: ./IdSigningCertDev.p12
