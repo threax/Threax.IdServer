@@ -3,11 +3,12 @@ version: '3.4'
 services:
   id:
     image: threax.idserver
+    container_name: id
     build:
       context: .
       dockerfile: Threax.IdServer/Dockerfile
     networks:
-      - public_proxy
+      - appnet
     secrets:
       - id.signingcert.p12
     volumes:
@@ -20,18 +21,19 @@ services:
 
   appdashboard:
     image: threax.appdashboard
+    container_name: appdashboard
     build:
       context: .
       dockerfile: AppDashboard/Dockerfile
     networks:
-      - public_proxy
+      - appnet
     volumes:
       - type: bind
         source: ../TrustedRoots
         target: /usr/local/share/ca-certificates
 
 networks:
-  public_proxy:
+  appnet:
     external: true
 
 secrets:

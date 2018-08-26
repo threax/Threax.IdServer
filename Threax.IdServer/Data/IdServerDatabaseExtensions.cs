@@ -22,7 +22,7 @@ namespace Threax.IdServer.Data
     public static class IdServerDatabaseExtensions
     {
         /// <summary>
-        /// Add the spc config to identity server.
+        /// Add the standard config to identity server.
         /// </summary>
         /// <param name="idBuild"></param>
         /// <param name="config"></param>
