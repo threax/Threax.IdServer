@@ -35,7 +35,7 @@ class RowWithSecretController extends crudPage.CrudTableRowControllerExtensions 
     }
 }
 
-export class AddFromMetadataController {
+export abstract class AddFromMetadataControllerBase {
     public static get InjectorArgs(): controller.DiFunction<any>[] {
         return [controller.BindingCollection, crudPage.ICrudService, promptWidget.IPrompt, client.EntryPointsInjector];
     }
@@ -56,13 +56,43 @@ export class AddFromMetadataController {
             var result = await this.prompt.prompt("Enter the target client's base url.", "");
             if (result.isAccepted()) {
                 var entry = await this.entryPointInjector.load();
-                var resource = await entry.loadClientFromMetadata({ targetUrl: result.getData() });
+                var resource = await this.loadMetadata(entry, result.getData());
                 this.crudService.add(resource.data);
             }
         }
         catch (err) {
             alert('Error loading metadata');
         }
+    }
+
+    protected abstract loadMetadata(entry: client.EntryPointsResult, targetUrl: string): Promise<client.ClientMetadataViewResult>;
+}
+
+export class AddFromMetadataController extends AddFromMetadataControllerBase {
+    public static get InjectorArgs(): controller.DiFunction<any>[] {
+        return AddFromMetadataControllerBase.InjectorArgs;
+    }
+
+    constructor(bindings: controller.BindingCollection, crudService: crudPage.ICrudService, prompt: promptWidget.IPrompt, entryPointInjector: client.EntryPointsInjector) {
+        super(bindings, crudService, prompt, entryPointInjector);
+    }
+
+    protected loadMetadata(entry: client.EntryPointsResult, targetUrl: string): Promise<client.ClientMetadataViewResult> {
+        return entry.loadClientFromMetadata({ targetUrl: targetUrl });
+    }
+}
+
+export class AddFromClientCredentialsMetadataController extends AddFromMetadataControllerBase {
+    public static get InjectorArgs(): controller.DiFunction<any>[] {
+        return AddFromMetadataControllerBase.InjectorArgs;
+    }
+
+    constructor(bindings: controller.BindingCollection, crudService: crudPage.ICrudService, prompt: promptWidget.IPrompt, entryPointInjector: client.EntryPointsInjector) {
+        super(bindings, crudService, prompt, entryPointInjector);
+    }
+
+    protected loadMetadata(entry: client.EntryPointsResult, targetUrl: string): Promise<client.ClientMetadataViewResult> {
+        return entry.loadFromClientCredentialsMetadata({ targetUrl: targetUrl });
     }
 }
 
@@ -73,8 +103,10 @@ crudPageCore.addServices(builder, injector);
 secrets.addServices(builder.Services);
 builder.Services.addTransient(crudPage.CrudTableRowControllerExtensions, RowWithSecretController);
 builder.Services.tryAddTransient(AddFromMetadataController, AddFromMetadataController);
+builder.Services.tryAddTransient(AddFromClientCredentialsMetadataController, AddFromClientCredentialsMetadataController);
 builder.Services.tryAddShared(promptWidget.IPrompt, s => new promptWidget.BrowserPrompt());
 
 crudPageCore.createControllers(builder, new crudPageCore.Settings());
 builder.create("secretDisplay", secrets.SecretDisplayController);
 builder.create("addFromMetadata", AddFromMetadataController);
+builder.create("addFromClientCredentialsMetadata", AddFromClientCredentialsMetadataController);

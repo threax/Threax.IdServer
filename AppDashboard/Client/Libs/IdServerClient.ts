@@ -1071,6 +1071,33 @@ export class EntryPointsResult {
         return this.client.HasLinkDoc("loadClientFromMetadata");
     }
 
+    public loadFromClientCredentialsMetadata(data: MetadataLookup): Promise<ClientMetadataViewResult> {
+        return this.client.LoadLinkWithData("LoadFromClientCredentialsMetadata", data)
+               .then(r => {
+                    return new ClientMetadataViewResult(r);
+                });
+
+    }
+
+    public canLoadFromClientCredentialsMetadata(): boolean {
+        return this.client.HasLink("LoadFromClientCredentialsMetadata");
+    }
+
+    public linkForLoadFromClientCredentialsMetadata(): hal.HalLink {
+        return this.client.GetLink("LoadFromClientCredentialsMetadata");
+    }
+
+    public getLoadFromClientCredentialsMetadataDocs(): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("LoadFromClientCredentialsMetadata")
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasLoadFromClientCredentialsMetadataDocs(): boolean {
+        return this.client.HasLinkDoc("LoadFromClientCredentialsMetadata");
+    }
+
     public addClientSecret(): Promise<CreateSecretResultResult> {
         return this.client.LoadLink("addClientSecret")
                .then(r => {

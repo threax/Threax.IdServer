@@ -17,6 +17,7 @@ namespace Threax.IdServer.Areas.Api.Models
     [HalActionLink(ClientController.Rels.Update, typeof(ClientController))]
     [HalActionLink(ClientController.Rels.Delete, typeof(ClientController))]
     [HalActionLink(ClientController.Rels.LoadFromMetadata, typeof(ClientController))]
+    [HalActionLink(typeof(ClientController), nameof(ClientController.FromClientCredentialsMetadata), "LoadFromClientCredentialsMetadata")]
     [HalActionLink(ClientController.Rels.Secret, typeof(ClientController))]
 
     [HalActionLink(ApiResourceController.Rels.List, typeof(ApiResourceController))]
