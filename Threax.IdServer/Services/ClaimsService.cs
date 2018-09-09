@@ -7,29 +7,39 @@ using Microsoft.Extensions.Logging;
 using IdentityServer4.Models;
 using IdentityServer4.Validation;
 using System.Security.Claims;
+using SpcIdentityServer.Services;
 
 namespace Threax.IdServer.Services
 {
     public class ClaimsService : DefaultClaimsService
     {
-        public ClaimsService(IProfileService profile, ILogger<DefaultClaimsService> logger)
+        private IApplicationGuidFactory appGuidFactory;
+
+        public ClaimsService(IProfileService profile, ILogger<DefaultClaimsService> logger, IApplicationGuidFactory appGuidFactory)
             : base(profile, logger)
         {
-
+            this.appGuidFactory = appGuidFactory;
         }
 
         public override async Task<IEnumerable<Claim>> GetAccessTokenClaimsAsync(ClaimsPrincipal subject, Resources resources, ValidatedRequest request)
         {
             var claims = await base.GetAccessTokenClaimsAsync(subject, resources, request);
-            claims = claims.Concat(GetUserInfoClaims(subject));
+            if (request.Client.AllowedGrantTypes.Contains(GrantType.ClientCredentials) && subject == null)
+            {
+                claims = claims.Concat(GetApplicationClaims(request.Client));
+            }
+            else
+            {
+                claims = claims.Concat(GetUserInfoClaims(subject));
+            }
             return claims;
         }
 
         public override async Task<IEnumerable<Claim>> GetIdentityTokenClaimsAsync(ClaimsPrincipal subject, Resources resources, bool includeAllIdentityClaims, ValidatedRequest request)
         {
-            var claims = await base.GetIdentityTokenClaimsAsync(subject, resources, includeAllIdentityClaims, request);
-            claims = claims.Concat(GetUserInfoClaims(subject));
-            return claims;
+            var baseClaims = await base.GetIdentityTokenClaimsAsync(subject, resources, includeAllIdentityClaims, request);
+            IEnumerable<Claim> claims = GetUserInfoClaims(subject);
+            return baseClaims.Concat(claims);
         }
 
         private static IEnumerable<Claim> GetUserInfoClaims(ClaimsPrincipal subject)
@@ -43,6 +53,12 @@ namespace Threax.IdServer.Services
                         break;
                 }
             }
+        }
+
+        private IEnumerable<Claim> GetApplicationClaims(Client client)
+        {
+            //Create a deterministic guid based on the ApplicationGuid namespace and the name of the client.
+            yield return new Claim(AppUserClaimsPrincipalFactory.ObjectGuid, appGuidFactory.CreateGuid(client).ToString());
         }
     }
 }
