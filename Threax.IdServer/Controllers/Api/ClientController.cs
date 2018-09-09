@@ -219,6 +219,21 @@ namespace Threax.IdServer.Areas.Api.Controllers
             return mapper.Map<ClientMetadataView>(await client.ClientAsync(null, this.HttpContext.User.GetAccessToken()));
         }
 
+        /// <summary>
+        /// Get the client metadata from targetUrl.
+        /// </summary>
+        /// <remarks>
+        /// This is useful to have go through the server side so you don't have to deal with cors in client apps.
+        /// </remarks>
+        [HttpGet]
+        [Route("[action]")]
+        [HalRel(nameof(FromClientCredentialsMetadata))]
+        public async Task<ClientMetadataView> FromClientCredentialsMetadata([FromQuery] MetadataLookup lookupInfo, [FromServices] MetadataClient client, [FromServices] IMapper mapper)
+        {
+            client.BaseUrl = lookupInfo.TargetUrl;
+            return mapper.Map<ClientMetadataView>(await client.ClientCredentialsAsync(null, this.HttpContext.User.GetAccessToken()));
+        }
+
         private async Task<Client> GetFullClientEntity(int id)
         {
             var query = from c in configDb.Clients

@@ -33,6 +33,20 @@
         "ASPNETCORE_ENVIRONMENT": "local"
       },
       "applicationUrl": "http://localhost:64199/"
+    },
+    "UpdateClient": {
+      "commandName": "Project",
+      "commandLineArgs": "tools \"clientgen Client\\Libs\\IdServerClient.ts\" \"clientgen ..\\AppDashboard\\Client\\Libs\\IdServerClient.ts\"",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "local"
+      }
+    },
+    "Update Config Schema": {
+      "commandName": "Project",
+      "commandLineArgs": "tools updateConfigSchema",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "local"
+      }
     }
   }
 }
