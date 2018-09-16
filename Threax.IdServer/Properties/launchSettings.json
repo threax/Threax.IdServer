@@ -13,7 +13,7 @@
       "launchBrowser": true,
       "launchUrl": "https://localhost:44390/",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "local",
+        "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_preventHostingStartup": "True"
       }
     },
@@ -21,7 +21,7 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "local"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "http://localhost:59411/"
     },
@@ -30,7 +30,7 @@
       "commandLineArgs": "tools migrate seed",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "local"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "http://localhost:64199/"
     },
@@ -38,14 +38,14 @@
       "commandName": "Project",
       "commandLineArgs": "tools \"clientgen Client\\Libs\\IdServerClient.ts\" \"clientgen ..\\AppDashboard\\Client\\Libs\\IdServerClient.ts\"",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "local"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "Update Config Schema": {
       "commandName": "Project",
       "commandLineArgs": "tools updateConfigSchema",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "local"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
   }
