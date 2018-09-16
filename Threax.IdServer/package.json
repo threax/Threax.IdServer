@@ -6,7 +6,7 @@
     "@types/node": "^6.0.69"
   },
   "dependencies": {
-    "htmlrapier": "^18.1.1",
+    "htmlrapier": "^18.1.3",
     "htmlrapier.bootstrap": "^6.1.0",
     "htmlrapier.halcyon": "^7.0.0",
     "htmlrapier.halcyon-explorer": "^8.0.0",
@@ -15,11 +15,11 @@
     "threax.bootstrap": "^0.0.4"
   },
   "scripts": {
-    "build": "node Build/build.js",
-    "yarn-install": "yarn install --flat && yarn link threax-npm-tk",
-    "clean": "powershell -Command Remove-Item 'wwwroot\\*' -Recurse -Force",
-    "trash-modules": "powershell -Command Remove-Item 'node_modules\\*' -Recurse -Force",
-    "import-tsconfig": "node node_modules/threax-npm-tk/tsimport.js",
+    "build": "threax-npm-tk build",
+    "yarn-install": "yarn install --flat",
+    "clean": "threax-npm-tk clean",
+    "trash-modules": "threax-npm-tk clean -o node_modules",
+    "import-tsconfig": "threax-npm-tk tsconfig",
     "yarn-upgrade": "yarn upgrade --flat"
   },
   "resolutions": {

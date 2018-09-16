@@ -2,7 +2,7 @@
 WORKDIR /app
 EXPOSE 80
 
-FROM microsoft/dotnet:2.1-sdk AS build
+FROM build-threax AS build
 WORKDIR /src
 COPY AppDashboard/AppDashboard.csproj AppDashboard/
 RUN dotnet restore AppDashboard/AppDashboard.csproj
@@ -11,6 +11,9 @@ WORKDIR /src/AppDashboard
 RUN dotnet build AppDashboard.csproj -c Release -o /app
 
 FROM build AS publish
+RUN yarn run yarn-install
+RUN yarn run clean
+RUN yarn run build
 RUN dotnet publish AppDashboard.csproj -c Release -o /app
 
 FROM base AS final
