@@ -18,6 +18,7 @@ using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Threax.IdServer;
+using Threax.IdServer.Controllers;
 using Threax.IdServer.Models;
 using Threax.IdServer.Models.AccountViewModels;
 
@@ -138,6 +139,43 @@ namespace IdentityServer4.Quickstart.UI.Controllers
             });
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Register(string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    logger.LogInformation("User created a new account with password.");
+
+                    //var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+                    //await emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
+
+                    await signInManager.SignInAsync(user, isPersistent: false);
+                    logger.LogInformation("User created a new account with password.");
+                    return RedirectToLocal(returnUrl);
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
         /// <summary>
         /// Show logout page
         /// </summary>
@@ -199,6 +237,26 @@ namespace IdentityServer4.Quickstart.UI.Controllers
             var vm = await BuildLoginViewModelAsync(model.ReturnUrl);
             vm.Email = model.Email;
             return vm;
+        }
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+        }
+
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
         }
     }
 }
