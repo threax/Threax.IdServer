@@ -106,7 +106,7 @@ namespace Threax.IdServer.Areas.Api.Controllers
             var entity = mapper.Map<Client>(value);
 
             //Any new client gets the secret notyetdefined
-            if (value.AllowedGrantTypes.Contains("hybrid"))
+            if (entity.ClientSecrets == null)
             {
                 entity.ClientSecrets = new List<ClientSecret>()
                 {
