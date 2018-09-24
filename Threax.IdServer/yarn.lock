@@ -57,9 +57,9 @@ jsns@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/jsns/-/jsns-5.0.0.tgz#c76429b822a68100eef8d4b8d3f1172b028664e4"
 
-threax.bootstrap@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/threax.bootstrap/-/threax.bootstrap-0.0.4.tgz#5818fd05297092ef132814868c00b4acaa36da78"
+threax.bootstrap@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/threax.bootstrap/-/threax.bootstrap-0.0.5.tgz#f574ea2a423b84dabfe6731a371700d4bb962fe2"
   dependencies:
     bootstrap "~3.3.7"
 
