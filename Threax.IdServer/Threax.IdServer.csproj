@@ -17,7 +17,7 @@
     <PackageReference Include="IdentityServer4.EntityFramework" Version="2.1.1" />
     <PackageReference Include="Threax.AspNetCore.BuiltInTools" Version="5.1.0" />
     <PackageReference Include="Threax.AspNetCore.CorsManager" Version="3.0.2" />
-    <PackageReference Include="Threax.AspNetCore.CSP" Version="1.1.1-pre1" />
+    <PackageReference Include="Threax.AspNetCore.CSP" Version="1.1.1" />
     <PackageReference Include="Threax.AspNetCore.ExceptionFilter" Version="5.0.3" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen.Tools" Version="4.0.0" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen" Version="9.0.0" />
