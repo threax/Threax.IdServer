@@ -3,27 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
-    <NoWarn>$(NoWarn);1591</NoWarn>
-    <PreserveCompilationContext>true</PreserveCompilationContext>
-    <AssemblyName>AppDashboard</AssemblyName>
-    <OutputType>Exe</OutputType>
-    <PackageId>AppDashboard</PackageId>
-    <MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1701;1702;1705;1591</NoWarn>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Properties\PublishProfiles\Docker.pubxml" />
-    <None Remove="Properties\PublishProfiles\FolderProfile.pubxml" />
-    <None Remove="Properties\PublishProfiles\FolderProfile1.pubxml" />
-    <None Remove="Properties\PublishProfiles\LocalInstallation.pubxml" />
-    <None Remove="Properties\PublishProfiles\WebApps.pubxml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="wwwroot\**\*;build\**\*">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </None>
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
@@ -34,6 +16,9 @@
     <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="3.2.0" />
     <PackageReference Include="Threax.AspNetCore.Docker.Certs" Version="2.0.0" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="11.1.0" />
+    <PackageReference Include="Threax.AspNetCore.BuiltInTools" Version="5.1.0" />
+    <PackageReference Include="Threax.Extensions.Configuration.SchemaBinder" Version="1.3.0" />
+    <PackageReference Include="Threax.AspNetCore.CSP" Version="1.1.1-pre1" />
   </ItemGroup>
 
   <ItemGroup>

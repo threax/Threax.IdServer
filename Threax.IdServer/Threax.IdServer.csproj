@@ -4,13 +4,9 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <UserSecretsId>aspnet-Threax.IdServer-e380f0e5-022e-4d78-8466-2d9e8557c2f0</UserSecretsId>
-    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1701;1702;1705;1591</NoWarn>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Page.xaml" />
-  </ItemGroup>
-
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
@@ -21,12 +17,13 @@
     <PackageReference Include="IdentityServer4.EntityFramework" Version="2.1.1" />
     <PackageReference Include="Threax.AspNetCore.BuiltInTools" Version="5.1.0" />
     <PackageReference Include="Threax.AspNetCore.CorsManager" Version="3.0.2" />
-    <PackageReference Include="Threax.AspNetCore.ExceptionFilter" Version="5.0.2" />
+    <PackageReference Include="Threax.AspNetCore.CSP" Version="1.1.1-pre1" />
+    <PackageReference Include="Threax.AspNetCore.ExceptionFilter" Version="5.0.3" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen.Tools" Version="4.0.0" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen" Version="9.0.0" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="11.1.0" />
     <PackageReference Include="Threax.AspNetCore.Halcyon" Version="3.2.0" />
-    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="2.8.2" />
+    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="2.9.0" />
     <PackageReference Include="Threax.AspNetCore.IdServerMetadata" Version="1.2.1" />
     <PackageReference Include="Threax.AspNetCore.IdServerMetadata.Client" Version="1.1.0" />
     <PackageReference Include="Threax.AspNetCore.Models" Version="6.1.0" />
@@ -39,11 +36,7 @@
     <PackageReference Include="Threax.AspNetCore.Docker.Certs" Version="2.0.0" />
     <PackageReference Include="Threax.ReflectedServices" Version="1.0.0" />
     <PackageReference Include="Threax.Sqlite.Ext" Version="1.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Client\Libs\" />
-    <Folder Include="wwwroot\" />
+    <PackageReference Include="Threax.Extensions.Configuration.SchemaBinder" Version="1.3.0" />
   </ItemGroup>
 
 </Project>

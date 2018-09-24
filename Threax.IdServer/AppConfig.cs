@@ -51,5 +51,11 @@ namespace Threax.IdServer
         /// The app dashboard host url. Do not include https://
         /// </summary>
         public String AppDashboardHost { get; set; }
+
+        /// <summary>
+        /// The values for the frame-ancestors CSP directive. Each entry is an item in the array.
+        /// Self is already included.
+        /// </summary>
+        public List<String> FrameAncestors { get; set; }
     }
 }

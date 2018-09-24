@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore;
 using Microsoft.Extensions.Configuration;
+using Threax.AspNetCore.BuiltInTools;
 
 namespace AppDashboard
 {
@@ -13,24 +14,65 @@ namespace AppDashboard
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            var tools = new ToolManager(args);
+            var toolsEnv = tools.GetEnvironment();
+            var toolsConfigName = default(String);
+            if (toolsEnv != null)
+            {
+                //If we are running tools, clear the arguments (this causes an error if the tool args are passed) and set the tools config to the environment name
+                args = new String[0];
+                toolsConfigName = toolsEnv;
+            }
+
+            var host = BuildWebHostWithConfig(args, toolsConfigName);
+
+            if (tools.ProcessTools(host))
+            {
+                host.Run();
+            }
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        /// <summary>
+        /// This version of BuildWebHost allows entity framework commands to work correctly.
+        /// </summary>
+        /// <param name="args">The args to use for the builder.</param>
+        /// <returns>The constructed IWebHost.</returns>
+        public static IWebHost BuildWebHost(string[] args)
+        {
+            return BuildWebHostWithConfig(args);
+        }
+
+        /// <summary>
+        /// The is the real build web host function, you can specify a config name to force load or leave it null to use the current environment.
+        /// </summary>
+        /// <param name="args">The args to use for the builder.</param>
+        /// <param name="toolsConfigName">The name of the tools config to load, or null to not load these configs.</param>
+        /// <returns>The constructed IWebHost.</returns>
+        public static IWebHost BuildWebHostWithConfig(string[] args, String toolsConfigName = null)
+        {
+            var webHostBuilder = WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .ConfigureAppConfiguration((hostContext, config) =>
                 {
                     var env = hostContext.HostingEnvironment;
-                    var productionConfig = Path.GetFullPath($"../appsettings.{env.EnvironmentName}.json");
 
-                    config.Sources.Clear();
-                    config.SetBasePath(env.ContentRootPath);
+                    //./appsettings.json - Main settings file, shared between all instances
                     config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+                    //./appsettings.{environment}.json - Local development settings files, loaded per environment, no need to deploy to server
                     config.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
-                    config.AddJsonFile(productionConfig, optional: true, reloadOnChange: true);
+
+                    //./appsettings.tools.json - Local development tools settings files, loaded in tools mode, no need to deploy to server
+                    if (toolsConfigName != null)
+                    {
+                        config.AddJsonFile($"appsettings.{toolsConfigName}.json", optional: true);
+                    }
+
+                    //Environment variables
                     config.AddEnvironmentVariables();
-                })
-                .Build();
+                });
+
+            return webHostBuilder.Build();
+        }
     }
 }

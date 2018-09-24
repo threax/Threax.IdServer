@@ -27,6 +27,8 @@ using Microsoft.Extensions.Logging;
 using SpcIdentityServer.Services;
 using Threax.IdServer.Areas.Api.ValueProviders;
 using Microsoft.AspNetCore.HttpOverrides;
+using Threax.Extensions.Configuration.SchemaBinder;
+using System.IO;
 
 namespace Threax.IdServer
 {
@@ -46,14 +48,14 @@ namespace Threax.IdServer
 
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
-            ConfigurationBinder.Bind(Configuration.GetSection("JwtAuth"), authConfig);
-            ConfigurationBinder.Bind(Configuration.GetSection("AppConfig"), appConfig);
-            ConfigurationBinder.Bind(Configuration.GetSection("ClientConfig"), clientConfig);
-            ConfigurationBinder.Bind(Configuration.GetSection("Cors"), corsOptions);
+            Configuration = new SchemaConfigurationBinder(configuration);
+            Configuration.Bind("JwtAuth", authConfig);
+            Configuration.Bind("AppConfig", appConfig);
+            Configuration.Bind("ClientConfig", clientConfig);
+            Configuration.Bind("Cors", corsOptions);
         }
 
-        public IConfiguration Configuration { get; }
+        public SchemaConfigurationBinder Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -107,10 +109,6 @@ namespace Threax.IdServer
 
             // Adds IdentityServer
             services.AddIdentityServer()
-                //.AddDeveloperSigningCredential(false)
-                //.AddInMemoryIdentityResources(Config.GetIdentityResources())
-                //.AddInMemoryApiResources(Config.GetApiResources())
-                //.AddInMemoryClients(Config.GetClients())
                 .AddThreaxConfig(appConfig)
                 .AddAspNetIdentity<ApplicationUser>();
 
@@ -165,7 +163,25 @@ namespace Threax.IdServer
                 {
                     await a.AddAdmin();
                 }))
+                .AddTool("updateConfigSchema", new ToolCommand("Update the schema file for this application's configuration.", async a =>
+                {
+                    var json = await Configuration.CreateSchema();
+                    await File.WriteAllTextAsync("appsettings.schema.json", json);
+                }))
                 .UseClientGenTools();
+            });
+
+            services.AddThreaxCSP(o =>
+            {
+                o.AddDefault().AddNone();
+                o.AddImg().AddSelf();
+                o.AddConnect().AddSelf();
+                o.AddManifest().AddSelf();
+                o.AddFont().AddSelf();
+                o.AddFrame().AddSelf().AddEntries(new String[] { authConfig.Authority });
+                o.AddScript().AddSelf().AddUnsafeInline();
+                o.AddStyle().AddSelf().AddUnsafeInline();
+                o.AddFrameAncestors().AddSelf().AddEntries(appConfig.FrameAncestors);
             });
         }
 

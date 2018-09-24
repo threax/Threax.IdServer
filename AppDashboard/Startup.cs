@@ -11,8 +11,10 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Threax.AspNetCore.BuiltInTools;
 using Threax.AspNetCore.IdServerAuth;
 using Threax.AspNetCore.UserBuilder;
+using Threax.Extensions.Configuration.SchemaBinder;
 
 namespace AppDashboard
 {
@@ -30,13 +32,13 @@ namespace AppDashboard
 
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
-            ConfigurationBinder.Bind(Configuration.GetSection("JwtAuth"), authConfig);
-            ConfigurationBinder.Bind(Configuration.GetSection("ClientConfig"), clientConfig);
-            ConfigurationBinder.Bind(Configuration.GetSection("AppConfig"), appConfig);
+            Configuration = new SchemaConfigurationBinder(configuration);
+            Configuration.Bind("JwtAuth", authConfig);
+            Configuration.Bind("ClientConfig", clientConfig);
+            Configuration.Bind("AppConfig", appConfig);
         }
 
-        public IConfiguration Configuration { get; }
+        public SchemaConfigurationBinder Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -75,6 +77,29 @@ namespace AppDashboard
             {
                 opt.ConfigureAddititionalPolicies = arg => new HypermediaUserBuilder(clientConfig.IdentityServerHost + "/entrypoint", arg.Services.GetRequiredService<ILoggerFactory>());
                 opt.UseClaimsCache = false; //Disable claims cache for app dashboard
+            });
+
+            services.AddScoped<IToolRunner>(s =>
+            {
+                return new ToolRunner()
+                .AddTool("updateConfigSchema", new ToolCommand("Update the schema file for this application's configuration.", async a =>
+                {
+                    var json = await Configuration.CreateSchema();
+                    await File.WriteAllTextAsync("appsettings.schema.json", json);
+                }));
+            });
+
+            services.AddThreaxCSP(o =>
+            {
+                o.AddDefault().AddNone();
+                o.AddImg().AddSelf();
+                o.AddConnect().AddSelf().AddEntries(new String[] { $"https://{new Uri(clientConfig.IdentityServerHost).Authority}" });
+                o.AddManifest().AddSelf();
+                o.AddFont().AddSelf();
+                o.AddFrame().AddSelf().AddEntries(new String[] { authConfig.Authority });
+                o.AddScript().AddSelf().AddUnsafeInline();
+                o.AddStyle().AddSelf().AddUnsafeInline();
+                o.AddFrameAncestors().AddSelf();
             });
         }
 
