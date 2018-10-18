@@ -57,6 +57,11 @@ namespace AppDashboard
                 o.UseBundles = appConfig.UseAssetBundles;
             });
 
+            services.ConfigureHtmlRapierTagHelpers(o =>
+            {
+                o.FrontEndLibrary = HtmlRapier.TagHelpers.FrontEndLibrary.Bootstrap3;
+            });
+
             services.AddConventionalIdServerAuthentication(o =>
             {
                 o.AppOptions = authConfig;

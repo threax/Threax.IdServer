@@ -141,6 +141,11 @@ namespace Threax.IdServer
             })
             .AddConventionalIdServerMvc();
 
+            services.ConfigureHtmlRapierTagHelpers(o =>
+            {
+                o.FrontEndLibrary = HtmlRapier.TagHelpers.FrontEndLibrary.Bootstrap3;
+            });
+
             services.AddIdServerMetadataClient();
 
             services.AddUserBuilderForUserWhitelistWithRoles();
