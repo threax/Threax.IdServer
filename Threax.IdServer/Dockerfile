@@ -2,7 +2,7 @@ FROM microsoft/dotnet:2.1.3-aspnetcore-runtime AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM build-threax AS build
+FROM threax/build AS build
 WORKDIR /src
 COPY Threax.IdServer/Threax.IdServer.csproj Threax.IdServer/
 RUN dotnet restore Threax.IdServer/Threax.IdServer.csproj

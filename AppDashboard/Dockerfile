@@ -2,7 +2,7 @@
 WORKDIR /app
 EXPOSE 80
 
-FROM build-threax AS build
+FROM threax/build AS build
 WORKDIR /src
 COPY AppDashboard/AppDashboard.csproj AppDashboard/
 RUN dotnet restore AppDashboard/AppDashboard.csproj
