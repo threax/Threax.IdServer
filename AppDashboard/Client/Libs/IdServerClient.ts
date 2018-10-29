@@ -29,8 +29,8 @@ export class RoleAssignmentsResult {
         return this.client.GetLink("self");
     }
 
-    public getRefreshDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("self")
+    public getRefreshDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("self", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -56,8 +56,8 @@ export class RoleAssignmentsResult {
         return this.client.GetLink("SetUser");
     }
 
-    public getSetUserDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("SetUser")
+    public getSetUserDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("SetUser", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -109,8 +109,8 @@ export class ApiResourceEditModelResult {
         return this.client.GetLink("self");
     }
 
-    public getRefreshDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("self")
+    public getRefreshDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("self", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -136,8 +136,8 @@ export class ApiResourceEditModelResult {
         return this.client.GetLink("getApiResource");
     }
 
-    public getGetApiResourceDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("getApiResource")
+    public getGetApiResourceDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("getApiResource", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -159,8 +159,8 @@ export class ApiResourceEditModelResult {
         return this.client.GetLink("Update");
     }
 
-    public getUpdateDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("Update")
+    public getUpdateDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("Update", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -225,8 +225,8 @@ export class ApiResourceEditModelCollectionResult {
         return this.client.GetLink("self");
     }
 
-    public getRefreshDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("self")
+    public getRefreshDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("self", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -252,8 +252,8 @@ export class ApiResourceEditModelCollectionResult {
         return this.client.GetLink("List");
     }
 
-    public getListDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("List")
+    public getListDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("List", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -275,8 +275,8 @@ export class ApiResourceEditModelCollectionResult {
         return this.client.GetLink("Add");
     }
 
-    public getAddDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("Add")
+    public getAddDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("Add", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -302,8 +302,8 @@ export class ApiResourceEditModelCollectionResult {
         return this.client.GetLink("loadApiResourceFromMetadata");
     }
 
-    public getLoadApiResourceFromMetadataDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("loadApiResourceFromMetadata")
+    public getLoadApiResourceFromMetadataDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("loadApiResourceFromMetadata", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -329,8 +329,8 @@ export class ApiResourceEditModelCollectionResult {
         return this.client.GetLink("next");
     }
 
-    public getNextDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("next")
+    public getNextDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("next", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -356,8 +356,8 @@ export class ApiResourceEditModelCollectionResult {
         return this.client.GetLink("previous");
     }
 
-    public getPreviousDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("previous")
+    public getPreviousDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("previous", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -383,8 +383,8 @@ export class ApiResourceEditModelCollectionResult {
         return this.client.GetLink("first");
     }
 
-    public getFirstDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("first")
+    public getFirstDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("first", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -410,8 +410,8 @@ export class ApiResourceEditModelCollectionResult {
         return this.client.GetLink("last");
     }
 
-    public getLastDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("last")
+    public getLastDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("last", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -451,8 +451,8 @@ export class ApiResourceMetadataViewResult {
         return this.client.GetLink("self");
     }
 
-    public getRefreshDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("self")
+    public getRefreshDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("self", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -492,8 +492,8 @@ export class ClientEditModelResult {
         return this.client.GetLink("self");
     }
 
-    public getRefreshDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("self")
+    public getRefreshDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("self", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -515,8 +515,8 @@ export class ClientEditModelResult {
         return this.client.GetLink("Update");
     }
 
-    public getUpdateDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("Update")
+    public getUpdateDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("Update", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -554,8 +554,8 @@ export class ClientEditModelResult {
         return this.client.GetLink("addClientSecret");
     }
 
-    public getAddClientSecretDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("addClientSecret")
+    public getAddClientSecretDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("addClientSecret", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -608,8 +608,8 @@ export class ClientEditModelCollectionViewResult {
         return this.client.GetLink("self");
     }
 
-    public getRefreshDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("self")
+    public getRefreshDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("self", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -635,8 +635,8 @@ export class ClientEditModelCollectionViewResult {
         return this.client.GetLink("List");
     }
 
-    public getListDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("List")
+    public getListDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("List", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -658,8 +658,8 @@ export class ClientEditModelCollectionViewResult {
         return this.client.GetLink("Add");
     }
 
-    public getAddDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("Add")
+    public getAddDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("Add", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -685,8 +685,8 @@ export class ClientEditModelCollectionViewResult {
         return this.client.GetLink("loadClientFromMetadata");
     }
 
-    public getLoadClientFromMetadataDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("loadClientFromMetadata")
+    public getLoadClientFromMetadataDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("loadClientFromMetadata", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -712,8 +712,8 @@ export class ClientEditModelCollectionViewResult {
         return this.client.GetLink("next");
     }
 
-    public getNextDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("next")
+    public getNextDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("next", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -739,8 +739,8 @@ export class ClientEditModelCollectionViewResult {
         return this.client.GetLink("previous");
     }
 
-    public getPreviousDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("previous")
+    public getPreviousDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("previous", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -766,8 +766,8 @@ export class ClientEditModelCollectionViewResult {
         return this.client.GetLink("first");
     }
 
-    public getFirstDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("first")
+    public getFirstDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("first", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -793,8 +793,8 @@ export class ClientEditModelCollectionViewResult {
         return this.client.GetLink("last");
     }
 
-    public getLastDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("last")
+    public getLastDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("last", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -834,8 +834,8 @@ export class ClientMetadataViewResult {
         return this.client.GetLink("self");
     }
 
-    public getRefreshDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("self")
+    public getRefreshDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("self", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -875,8 +875,8 @@ export class CreateSecretResultResult {
         return this.client.GetLink("self");
     }
 
-    public getRefreshDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("self")
+    public getRefreshDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("self", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -890,7 +890,7 @@ export class CreateSecretResultResult {
 export class EntryPointsInjector {
     private url: string;
     private fetcher: hal.Fetcher;
-    private instance: EntryPointsResult;
+    private instancePromise: Promise<EntryPointsResult>;
 
     constructor(url: string, fetcher: hal.Fetcher) {
         this.url = url;
@@ -898,14 +898,11 @@ export class EntryPointsInjector {
     }
 
     public load(): Promise<EntryPointsResult> {
-        if (!this.instance) {
-            return EntryPointsResult.Load(this.url, this.fetcher).then((r) => {
-                this.instance = r;
-                return r;
-            });
+        if (!this.instancePromise) {
+            this.instancePromise = EntryPointsResult.Load(this.url, this.fetcher);
         }
 
-        return Promise.resolve(this.instance);
+        return this.instancePromise;
     }
 }
 
@@ -948,8 +945,8 @@ export class EntryPointsResult {
         return this.client.GetLink("self");
     }
 
-    public getRefreshDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("self")
+    public getRefreshDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("self", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -975,8 +972,8 @@ export class EntryPointsResult {
         return this.client.GetLink("listClients");
     }
 
-    public getListClientsDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("listClients")
+    public getListClientsDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("listClients", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -998,8 +995,8 @@ export class EntryPointsResult {
         return this.client.GetLink("addClient");
     }
 
-    public getAddClientDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("addClient")
+    public getAddClientDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("addClient", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -1021,8 +1018,8 @@ export class EntryPointsResult {
         return this.client.GetLink("updateClient");
     }
 
-    public getUpdateClientDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("updateClient")
+    public getUpdateClientDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("updateClient", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -1060,8 +1057,8 @@ export class EntryPointsResult {
         return this.client.GetLink("loadClientFromMetadata");
     }
 
-    public getLoadClientFromMetadataDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("loadClientFromMetadata")
+    public getLoadClientFromMetadataDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("loadClientFromMetadata", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -1087,8 +1084,8 @@ export class EntryPointsResult {
         return this.client.GetLink("LoadFromClientCredentialsMetadata");
     }
 
-    public getLoadFromClientCredentialsMetadataDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("LoadFromClientCredentialsMetadata")
+    public getLoadFromClientCredentialsMetadataDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("LoadFromClientCredentialsMetadata", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -1114,8 +1111,8 @@ export class EntryPointsResult {
         return this.client.GetLink("addClientSecret");
     }
 
-    public getAddClientSecretDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("addClientSecret")
+    public getAddClientSecretDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("addClientSecret", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -1141,8 +1138,8 @@ export class EntryPointsResult {
         return this.client.GetLink("listApiResource");
     }
 
-    public getListApiResourceDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("listApiResource")
+    public getListApiResourceDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("listApiResource", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -1164,8 +1161,8 @@ export class EntryPointsResult {
         return this.client.GetLink("addApiResource");
     }
 
-    public getAddApiResourceDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("addApiResource")
+    public getAddApiResourceDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("addApiResource", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -1187,8 +1184,8 @@ export class EntryPointsResult {
         return this.client.GetLink("updateApiResource");
     }
 
-    public getUpdateApiResourceDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("updateApiResource")
+    public getUpdateApiResourceDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("updateApiResource", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -1226,8 +1223,8 @@ export class EntryPointsResult {
         return this.client.GetLink("loadApiResourceFromMetadata");
     }
 
-    public getLoadApiResourceFromMetadataDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("loadApiResourceFromMetadata")
+    public getLoadApiResourceFromMetadataDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("loadApiResourceFromMetadata", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -1253,8 +1250,8 @@ export class EntryPointsResult {
         return this.client.GetLink("GetUser");
     }
 
-    public getGetUserDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("GetUser")
+    public getGetUserDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("GetUser", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -1280,8 +1277,8 @@ export class EntryPointsResult {
         return this.client.GetLink("ListUsers");
     }
 
-    public getListUsersDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("ListUsers")
+    public getListUsersDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("ListUsers", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -1307,8 +1304,8 @@ export class EntryPointsResult {
         return this.client.GetLink("SetUser");
     }
 
-    public getSetUserDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("SetUser")
+    public getSetUserDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("SetUser", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -1361,8 +1358,8 @@ export class UserCollectionResult {
         return this.client.GetLink("self");
     }
 
-    public getRefreshDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("self")
+    public getRefreshDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("self", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -1388,8 +1385,8 @@ export class UserCollectionResult {
         return this.client.GetLink("next");
     }
 
-    public getNextDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("next")
+    public getNextDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("next", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -1415,8 +1412,8 @@ export class UserCollectionResult {
         return this.client.GetLink("previous");
     }
 
-    public getPreviousDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("previous")
+    public getPreviousDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("previous", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -1442,8 +1439,8 @@ export class UserCollectionResult {
         return this.client.GetLink("first");
     }
 
-    public getFirstDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("first")
+    public getFirstDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("first", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -1469,8 +1466,8 @@ export class UserCollectionResult {
         return this.client.GetLink("last");
     }
 
-    public getLastDocs(): Promise<hal.HalEndpointDoc> {
-        return this.client.LoadLinkDoc("last")
+    public getLastDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("last", query)
             .then(r => {
                 return r.GetData<hal.HalEndpointDoc>();
             });
@@ -1510,6 +1507,7 @@ export interface ApiResourceInput {
     displayName: string;
 }
 
+/** View model for collections of clients. */
 export interface ApiResourceEditModelCollection {
     offset?: number;
     limit?: number;
@@ -1524,7 +1522,9 @@ export interface PagedCollectionQuery {
     limit?: number;
 }
 
+/** A model class for looking up metadata. */
 export interface MetadataLookup {
+    /** The url to lookup metadata from. */
     targetUrl?: string;
 }
 
@@ -1534,6 +1534,7 @@ export interface ApiResourceMetadataView {
 }
 
 export interface ClientEditModel {
+    /** The id of the client. */
     id?: number;
     clientId: string;
     name: string;
@@ -1544,6 +1545,9 @@ export interface ClientEditModel {
     allowedScopes?: string[];
     enableLocalLogin?: boolean;
     accessTokenLifetime?: number;
+    /** This Guid is used to identify the client when it is logging in as an application user.
+That is the only time it is used, the integer id is the real id of the item when
+editing. */
     applicationGuid?: string;
 }
 
@@ -1563,6 +1567,7 @@ export interface CreateSecretResult {
     secret?: string;
 }
 
+/** View model for collections of clients. */
 export interface ClientEditModelCollectionView {
     offset?: number;
     limit?: number;
@@ -1581,6 +1586,7 @@ export interface ClientMetadataView {
     accessTokenLifetime?: number;
 }
 
+/** This class returns the entry points to the system using hal links. */
 export interface EntryPoints {
 }
 
@@ -1599,4 +1605,9 @@ export interface UserCollection {
     offset?: number;
     limit?: number;
     total?: number;
+}
+
+export interface HalEndpointDocQuery {
+    includeRequest?: boolean;
+    includeResponse?: boolean;
 }

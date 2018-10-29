@@ -20,8 +20,8 @@
     <PackageReference Include="Threax.AspNetCore.CSP" Version="1.1.1" />
     <PackageReference Include="Threax.AspNetCore.ExceptionFilter" Version="5.0.3" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen.Tools" Version="5.0.0" />
-    <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen" Version="10.0.0" />
-    <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="12.3.0" />
+    <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen" Version="11.0.0" />
+    <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="12.4.0" />
     <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="2.10.0" />
     <PackageReference Include="Threax.AspNetCore.IdServerMetadata" Version="2.0.0" />
     <PackageReference Include="Threax.AspNetCore.IdServerMetadata.Client" Version="1.1.0" />
