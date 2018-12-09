@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SpcIdentityServer.Services
+namespace Threax.IdServer.Services
 {
     public interface IApplicationGuidFactory
     {

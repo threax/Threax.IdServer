@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using IdentityServer4.EntityFramework.Entities;
-using SpcIdentityServer.Services;
+using Threax.IdServer.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;

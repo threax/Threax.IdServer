@@ -24,7 +24,7 @@ using Threax.AspNetCore.UserBuilder;
 using Threax.AspNetCore.UserBuilder.Entities.Mvc;
 using Threax.AspNetCore.IdServerAuth;
 using Microsoft.Extensions.Logging;
-using SpcIdentityServer.Services;
+using Threax.IdServer.Services;
 using Threax.IdServer.Areas.Api.ValueProviders;
 using Microsoft.AspNetCore.HttpOverrides;
 using Threax.Extensions.Configuration.SchemaBinder;

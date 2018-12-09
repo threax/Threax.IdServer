@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using IdentityServer4.Models;
 using IdentityServer4.Validation;
 using System.Security.Claims;
-using SpcIdentityServer.Services;
+using Threax.IdServer.Services;
 
 namespace Threax.IdServer.Services
 {

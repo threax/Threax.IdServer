@@ -12,11 +12,13 @@ namespace Threax.IdServer
     {
         public const String EditClients = "EditClients";
         public const String EditApiResources = "EditApiResources";
+        public const String ViewExternalUsers = "ViewExternalUsers";
 
         public static IEnumerable<String> DatabaseRoles()
         {
             yield return EditClients;
             yield return EditApiResources;
+            yield return ViewExternalUsers;
         }
     }
 
@@ -26,10 +28,10 @@ namespace Threax.IdServer
     [HalActionLink(RolesControllerRels.DeleteUser, typeof(RolesController))]
     public class RoleAssignments : ReflectedRoleAssignments
     {
-        [Display(Name="Edit Clients")]
         public bool EditClients { get; set; }
 
-        [Display(Name = "Edit Api Resources")]
         public bool EditApiResources { get; set; }
+
+        public bool ViewExternalUsers { get; set; }
     }
 }

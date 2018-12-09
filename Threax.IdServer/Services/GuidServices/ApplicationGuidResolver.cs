@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Threax.IdServer.Areas.Api.Models;
 
-namespace SpcIdentityServer.Services
+namespace Threax.IdServer.Services
 {
     public class ApplicationGuidResolver : IValueResolver<Client, ClientEditModel, Guid>
     {
