@@ -10,16 +10,24 @@
   version "6.14.0"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.14.0.tgz#85c6998293fc6f2945915419296c7fbb63384f66"
 
-bootstrap@>=3.3.7, bootstrap@~3.3.7:
+bootstrap@>=3.3.7, bootstrap@^3.3.7, bootstrap@~3.3.7:
   version "3.3.7"
   resolved "http://registry.npmjs.org/bootstrap/-/bootstrap-3.3.7.tgz#5a389394549f23330875a3b150656574f8a9eb71"
 
-htmlrapier.bootstrap@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/htmlrapier.bootstrap/-/htmlrapier.bootstrap-6.1.0.tgz#26501ad6eab9a51db8f8af9c0c88961ea6979fac"
+htmlrapier.bootstrap@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/htmlrapier.bootstrap/-/htmlrapier.bootstrap-7.0.0.tgz#27ccdcdf652a05e0c92978642354f0b203d70a35"
   dependencies:
     bootstrap ">=3.3.7"
     htmlrapier ">=8.1.0"
+    jquery ">=3.2.1"
+
+htmlrapier.form.bootstrap3@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/htmlrapier.form.bootstrap3/-/htmlrapier.form.bootstrap3-1.0.0.tgz#75bd08b70f5dadeb91bccde27861f7f5794854f5"
+  dependencies:
+    bootstrap "^3.3.7"
+    htmlrapier ">=19.0.0"
     jquery ">=3.2.1"
 
 htmlrapier.halcyon-explorer@^8.0.0:
@@ -29,22 +37,22 @@ htmlrapier.halcyon-explorer@^8.0.0:
     htmlrapier ">=14.0.0"
     htmlrapier.halcyon ">=7.0.0"
 
-htmlrapier.halcyon@>=7.0.0, htmlrapier.halcyon@^7.0.0:
+htmlrapier.halcyon@>=7.0.0, htmlrapier.halcyon@^7.1.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/htmlrapier.halcyon/-/htmlrapier.halcyon-7.1.0.tgz#76391959e89ac0b688ae89f06ee05898c6c4213b"
   dependencies:
     htmlrapier ">=10.0.2"
 
-htmlrapier.widgets@^15.0.0:
-  version "15.2.0"
-  resolved "https://registry.yarnpkg.com/htmlrapier.widgets/-/htmlrapier.widgets-15.2.0.tgz#36c6753bfbb779a5e2402b730a906a07d5e13f5d"
+htmlrapier.widgets@^15.5.0:
+  version "15.5.0"
+  resolved "https://registry.yarnpkg.com/htmlrapier.widgets/-/htmlrapier.widgets-15.5.0.tgz#aacc1a01e83bee21d57bef86154f94a32b4c390b"
   dependencies:
     htmlrapier ">=14.3.0"
     htmlrapier.halcyon ">=7.0.0"
 
-htmlrapier@>=10.0.2, htmlrapier@>=14.0.0, htmlrapier@>=14.3.0, htmlrapier@>=8.1.0, htmlrapier@^18.1.3:
-  version "18.4.0"
-  resolved "https://registry.yarnpkg.com/htmlrapier/-/htmlrapier-18.4.0.tgz#1cb582813c6417bda657b24befdb9f0f93a4d37d"
+htmlrapier@>=10.0.2, htmlrapier@>=14.0.0, htmlrapier@>=14.3.0, htmlrapier@>=19.0.0, htmlrapier@>=8.1.0, htmlrapier@^19.1.1:
+  version "19.1.1"
+  resolved "https://registry.yarnpkg.com/htmlrapier/-/htmlrapier-19.1.1.tgz#b54d71d86bcb2a2c70a12d875bbe7ef82a2a193e"
   dependencies:
     "@types/es6-promise" "^0.0.32"
     tslib "^1.6.1"
@@ -57,9 +65,9 @@ jsns@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/jsns/-/jsns-5.0.0.tgz#c76429b822a68100eef8d4b8d3f1172b028664e4"
 
-threax.bootstrap@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/threax.bootstrap/-/threax.bootstrap-0.0.5.tgz#f574ea2a423b84dabfe6731a371700d4bb962fe2"
+threax.bootstrap@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/threax.bootstrap/-/threax.bootstrap-1.0.0.tgz#18c3572df3722bd125de0b0e9b2688681f185093"
   dependencies:
     bootstrap "~3.3.7"
 
