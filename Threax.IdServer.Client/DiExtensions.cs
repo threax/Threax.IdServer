@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Threax.IdServer.Client;
+﻿using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
-using Threax.AspNetCore.AuthCore;
 using Threax.AspNetCore.Halcyon.Client;
-using ServiceClient;
+using Threax.IdServer.Client;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

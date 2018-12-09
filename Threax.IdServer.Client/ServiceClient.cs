@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Linq;
 
-namespace ServiceClient {
+namespace Threax.IdServer.Client {
 
 public class RoleAssignmentsResult 
 {
@@ -2201,7 +2201,7 @@ public class UserCollectionResult
 // </auto-generated>
 //----------------------
 
-namespace ServiceClient
+namespace Threax.IdServer.Client
 {
     #pragma warning disable // Disable all warnings
 

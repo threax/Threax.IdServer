@@ -85,7 +85,11 @@ namespace Threax.IdServer
 
             services.AddHalClientGen(new HalClientGenOptions()
             {
-                SourceAssemblies = new Assembly[] { this.GetType().GetTypeInfo().Assembly }
+                SourceAssemblies = new Assembly[] { this.GetType().GetTypeInfo().Assembly },
+                CSharp = new CSharpOptions()
+                {
+                    Namespace = "Threax.IdServer.Client"
+                }
             });
 
             services.UseAppDatabase(appConfig.ConnectionString);
