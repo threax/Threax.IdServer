@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Threax.AspNetCore.Halcyon.Ext;
 using Threax.AspNetCore.Models;
 using Threax.IdServer.Services;
+using IdentityServer4.EntityFramework.Entities;
 
 namespace Threax.IdServer.InputModels
 {
@@ -24,20 +25,42 @@ namespace Threax.IdServer.InputModels
         [UiOrder]
         public String UserName { get; set; }
 
-        public Task<IQueryable<ApplicationUser>> Create(IQueryable<ApplicationUser> query)
+        public IQueryable<Client> Create(IQueryable<Client> query, IApplicationGuidFactory guidFactory)
+        {
+            query = query.Where(i => i.AllowedGrantTypes.Any(g => g.GrantType == IdentityModel.OidcConstants.GrantTypes.ClientCredentials));
+
+            if (UserId != null)
+            {
+                return query.Where(i => guidFactory.CreateGuid(i) == UserId);
+            }
+
+            if (UserIds?.Count > 0)
+            {
+                return query.Where(i => UserIds.Contains(guidFactory.CreateGuid(i)));
+            }
+
+            if (UserName != null)
+            {
+                query = query.Where(i => EF.Functions.Like(i.ClientId, $"%{UserName}%"));
+            }
+
+            return query;
+        }
+
+        public IQueryable<ApplicationUser> Create(IQueryable<ApplicationUser> query)
         {
             if (UserId != null)
             {
                 var strUserId = TempIdConverter.ConvertId(UserId.Value);//Dont need this temp string if you go all guid
                 query = query.Where(i => i.Id == strUserId);
-                return Task.FromResult(query);
+                return query;
             }
 
             if (UserIds?.Count > 0)
             {
                 var strUserIds = UserIds.Select(i => TempIdConverter.ConvertId(i)).ToList(); //Dont need this temp list if you go all guid
                 query = query.Where(i => strUserIds.Contains(i.Id));
-                return Task.FromResult(query);
+                return query;
             }
 
             if(UserName != null)
@@ -45,7 +68,7 @@ namespace Threax.IdServer.InputModels
                 query = query.Where(i => EF.Functions.Like(i.UserName, $"%{UserName}%"));
             }
 
-            return Task.FromResult(query);
+            return query;
         }
     }
 }
