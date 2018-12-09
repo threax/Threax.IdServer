@@ -1,6 +1,7 @@
 ﻿using Halcyon.HAL.Attributes;
 using Threax.AspNetCore.Halcyon.Ext;
 using Threax.AspNetCore.UserBuilder.Entities.Mvc;
+using Threax.AspNetCore.UserSearchMvc.Controllers;
 using Threax.IdServer.Areas.Api.Controllers;
 
 namespace Threax.IdServer.Areas.Api.Models
@@ -32,6 +33,7 @@ namespace Threax.IdServer.Areas.Api.Models
     [HalActionLink(RolesControllerRels.ListUsers, typeof(RolesController))]
     [HalActionLink(RolesControllerRels.SetUser, typeof(RolesController))]
     [HalActionLink(typeof(IdServerUsersController), nameof(IdServerUsersController.List), "ListIdServerUsers")]
+    [HalActionLink(typeof(UserSearchController), nameof(UserSearchController.List), "ListAppUsers")]
     public class EntryPoints
     {
     }

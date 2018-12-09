@@ -55,7 +55,7 @@ namespace Threax.IdServer.Services
             }
         }
 
-        private IEnumerable<Claim> GetApplicationClaims(Client client)
+        private IEnumerable<Claim> GetApplicationClaims(IdentityServer4.Models.Client client)
         {
             //Create a deterministic guid based on the ApplicationGuid namespace and the name of the client.
             yield return new Claim(AppUserClaimsPrincipalFactory.ObjectGuid, appGuidFactory.CreateGuid(client).ToString());

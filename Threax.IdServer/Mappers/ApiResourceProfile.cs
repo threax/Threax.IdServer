@@ -46,7 +46,7 @@ namespace Threax.IdServer.Mappers
             CreateMap<ApiResource, ApiResourceEditModel>()
                 .ForMember(d => d.ScopeName, opt => opt.MapFrom(s => s.Name));
 
-            CreateMap<ClientInput, Client>()
+            CreateMap<ClientInput, IdentityServer4.EntityFramework.Entities.Client>()
                 .ForMember(d => d.Id, opt => opt.Ignore())
                 .ForMember(d => d.Enabled, opt => opt.ResolveUsing(s => true))
                 .ForMember(d => d.ProtocolType, opt => opt.Ignore())
@@ -78,7 +78,7 @@ namespace Threax.IdServer.Mappers
                 .ForMember(d => d.AllowedCorsOrigins, opt => opt.Ignore())
                 .ForMember(d => d.FrontChannelLogoutUri, opt => opt.ResolveUsing(i => i.LogoutUri))
                 .ForMember(d => d.FrontChannelLogoutSessionRequired, opt => opt.ResolveUsing(i => i.LogoutSessionRequired))
-                .ForMember(d => d.AllowedGrantTypes, opt => opt.ResolveUsing((ClientInput s, Client d) =>
+                .ForMember(d => d.AllowedGrantTypes, opt => opt.ResolveUsing((ClientInput s, IdentityServer4.EntityFramework.Entities.Client d) =>
                 {
                     return s.AllowedGrantTypes.Select(i => new ClientGrantType()
                     {
@@ -86,7 +86,7 @@ namespace Threax.IdServer.Mappers
                         GrantType = i
                     });
                 }))
-                .ForMember(d => d.RedirectUris, opt => opt.ResolveUsing((ClientInput s, Client d) =>
+                .ForMember(d => d.RedirectUris, opt => opt.ResolveUsing((ClientInput s, IdentityServer4.EntityFramework.Entities.Client d) =>
                 {
                     return s.RedirectUris.Select(i => new ClientRedirectUri()
                     {
@@ -94,7 +94,7 @@ namespace Threax.IdServer.Mappers
                         RedirectUri = i
                     });
                 }))
-                .ForMember(d => d.AllowedScopes, opt => opt.ResolveUsing((ClientInput s, Client d) =>
+                .ForMember(d => d.AllowedScopes, opt => opt.ResolveUsing((ClientInput s, IdentityServer4.EntityFramework.Entities.Client d) =>
                 {
                     return s.AllowedScopes.Select(i => new ClientScope()
                     {
@@ -103,20 +103,20 @@ namespace Threax.IdServer.Mappers
                     });
                 }));
 
-            CreateMap<Client, ClientEditModel>()
+            CreateMap<IdentityServer4.EntityFramework.Entities.Client, ClientEditModel>()
                 .ForMember(d => d.Name, opt => opt.MapFrom(s => s.ClientName))
                 .ForMember(d => d.ApplicationGuid, opt => opt.ResolveUsing<ApplicationGuidResolver>())
                 .ForMember(d => d.LogoutUri, opt => opt.ResolveUsing(s => s.FrontChannelLogoutUri))
                 .ForMember(d => d.LogoutSessionRequired, opt => opt.ResolveUsing(s => s.FrontChannelLogoutSessionRequired))
-                .ForMember(d => d.AllowedGrantTypes, opt => opt.ResolveUsing((Client s, ClientEditModel d) =>
+                .ForMember(d => d.AllowedGrantTypes, opt => opt.ResolveUsing((IdentityServer4.EntityFramework.Entities.Client s, ClientEditModel d) =>
                 {
                     return s.AllowedGrantTypes.Select(i => i.GrantType);
                 }))
-                .ForMember(d => d.RedirectUris, opt => opt.ResolveUsing((Client s, ClientEditModel d) =>
+                .ForMember(d => d.RedirectUris, opt => opt.ResolveUsing((IdentityServer4.EntityFramework.Entities.Client s, ClientEditModel d) =>
                 {
                     return s.RedirectUris.Select(i => i.RedirectUri);
                 }))
-                .ForMember(d => d.AllowedScopes, opt => opt.ResolveUsing((Client s, ClientEditModel d) =>
+                .ForMember(d => d.AllowedScopes, opt => opt.ResolveUsing((IdentityServer4.EntityFramework.Entities.Client s, ClientEditModel d) =>
                 {
                     return s.AllowedScopes.Select(i => i.Scope);
                 }));

@@ -94,24 +94,57 @@ public class RoleAssignmentsResult
         return this.client.HasLinkDoc("SetUser");
     }
 
-    public async Task DeleteUser() 
+    public async Task<RoleAssignmentsResult> Update(RoleAssignments data) 
     {
-        var result = await this.client.LoadLink("DeleteUser");
+        var result = await this.client.LoadLinkWithData("Update", data);
+        return new RoleAssignmentsResult(result);
+
     }
 
-    public bool CanDeleteUser 
+    public bool CanUpdate 
     {
         get 
         {
-            return this.client.HasLink("DeleteUser");
+            return this.client.HasLink("Update");
         }
     }
 
-    public HalLink LinkForDeleteUser 
+    public HalLink LinkForUpdate 
     {
         get 
         {
-            return this.client.GetLink("DeleteUser");
+            return this.client.GetLink("Update");
+        }
+    }
+
+    public async Task<HalEndpointDoc> GetUpdateDocs(HalEndpointDocQuery query = null) 
+    {
+        var result = await this.client.LoadLinkDoc("Update", query);
+        return result.GetData<HalEndpointDoc>();
+    }
+
+    public bool HasUpdateDocs() {
+        return this.client.HasLinkDoc("Update");
+    }
+
+    public async Task Delete() 
+    {
+        var result = await this.client.LoadLink("Delete");
+    }
+
+    public bool CanDelete 
+    {
+        get 
+        {
+            return this.client.HasLink("Delete");
+        }
+    }
+
+    public HalLink LinkForDelete 
+    {
+        get 
+        {
+            return this.client.GetLink("Delete");
         }
     }
 }
@@ -2023,6 +2056,39 @@ public class EntryPointsResult
     public bool HasListIdServerUsersDocs() {
         return this.client.HasLinkDoc("ListIdServerUsers");
     }
+
+    public async Task<UserSearchCollectionResult> ListAppUsers(UserSearchQuery data) 
+    {
+        var result = await this.client.LoadLinkWithData("ListAppUsers", data);
+        return new UserSearchCollectionResult(result);
+
+    }
+
+    public bool CanListAppUsers 
+    {
+        get 
+        {
+            return this.client.HasLink("ListAppUsers");
+        }
+    }
+
+    public HalLink LinkForListAppUsers 
+    {
+        get 
+        {
+            return this.client.GetLink("ListAppUsers");
+        }
+    }
+
+    public async Task<HalEndpointDoc> GetListAppUsersDocs(HalEndpointDocQuery query = null) 
+    {
+        var result = await this.client.LoadLinkDoc("ListAppUsers", query);
+        return result.GetData<HalEndpointDoc>();
+    }
+
+    public bool HasListAppUsersDocs() {
+        return this.client.HasLinkDoc("ListAppUsers");
+    }
 }
 
 public class UserCollectionResult 
@@ -2093,6 +2159,69 @@ public class UserCollectionResult
 
     public bool HasRefreshDocs() {
         return this.client.HasLinkDoc("self");
+    }
+
+    public async Task<HalEndpointDoc> GetGetDocs(HalEndpointDocQuery query = null) 
+    {
+        var result = await this.client.LoadLinkDoc("Get", query);
+        return result.GetData<HalEndpointDoc>();
+    }
+
+    public bool HasGetDocs() {
+        return this.client.HasLinkDoc("Get");
+    }
+
+    public async Task<HalEndpointDoc> GetListDocs(HalEndpointDocQuery query = null) 
+    {
+        var result = await this.client.LoadLinkDoc("List", query);
+        return result.GetData<HalEndpointDoc>();
+    }
+
+    public bool HasListDocs() {
+        return this.client.HasLinkDoc("List");
+    }
+
+    public async Task<HalEndpointDoc> GetUpdateDocs(HalEndpointDocQuery query = null) 
+    {
+        var result = await this.client.LoadLinkDoc("Update", query);
+        return result.GetData<HalEndpointDoc>();
+    }
+
+    public bool HasUpdateDocs() {
+        return this.client.HasLinkDoc("Update");
+    }
+
+    public async Task<RoleAssignmentsResult> Add(RoleAssignments data) 
+    {
+        var result = await this.client.LoadLinkWithData("Add", data);
+        return new RoleAssignmentsResult(result);
+
+    }
+
+    public bool CanAdd 
+    {
+        get 
+        {
+            return this.client.HasLink("Add");
+        }
+    }
+
+    public HalLink LinkForAdd 
+    {
+        get 
+        {
+            return this.client.GetLink("Add");
+        }
+    }
+
+    public async Task<HalEndpointDoc> GetAddDocs(HalEndpointDocQuery query = null) 
+    {
+        var result = await this.client.LoadLinkDoc("Add", query);
+        return result.GetData<HalEndpointDoc>();
+    }
+
+    public bool HasAddDocs() {
+        return this.client.HasLinkDoc("Add");
     }
 
     public async Task<UserCollectionResult> Next() 
@@ -2198,6 +2327,285 @@ public class UserCollectionResult
     {
         var result = await this.client.LoadLink("last");
         return new UserCollectionResult(result);
+
+    }
+
+    public bool CanLast 
+    {
+        get 
+        {
+            return this.client.HasLink("last");
+        }
+    }
+
+    public HalLink LinkForLast 
+    {
+        get 
+        {
+            return this.client.GetLink("last");
+        }
+    }
+
+    public async Task<HalEndpointDoc> GetLastDocs(HalEndpointDocQuery query = null) 
+    {
+        var result = await this.client.LoadLinkDoc("last", query);
+        return result.GetData<HalEndpointDoc>();
+    }
+
+    public bool HasLastDocs() {
+        return this.client.HasLinkDoc("last");
+    }
+}
+
+public class UserSearchResult 
+{
+    private HalEndpointClient client;
+
+    public UserSearchResult(HalEndpointClient client) 
+    {
+        this.client = client;
+    }
+
+    private UserSearch strongData = default(UserSearch);
+    public UserSearch Data 
+    {
+        get
+        {
+            if(this.strongData == default(UserSearch))
+            {
+                this.strongData = this.client.GetData<UserSearch>();  
+            }
+            return this.strongData;
+        }
+    }
+
+    public async Task<UserSearchResult> Refresh() 
+    {
+        var result = await this.client.LoadLink("self");
+        return new UserSearchResult(result);
+
+    }
+
+    public bool CanRefresh 
+    {
+        get 
+        {
+            return this.client.HasLink("self");
+        }
+    }
+
+    public HalLink LinkForRefresh 
+    {
+        get 
+        {
+            return this.client.GetLink("self");
+        }
+    }
+
+    public async Task<HalEndpointDoc> GetRefreshDocs(HalEndpointDocQuery query = null) 
+    {
+        var result = await this.client.LoadLinkDoc("self", query);
+        return result.GetData<HalEndpointDoc>();
+    }
+
+    public bool HasRefreshDocs() {
+        return this.client.HasLinkDoc("self");
+    }
+}
+
+public class UserSearchCollectionResult 
+{
+    private HalEndpointClient client;
+
+    public UserSearchCollectionResult(HalEndpointClient client) 
+    {
+        this.client = client;
+    }
+
+    private UserSearchCollection strongData = default(UserSearchCollection);
+    public UserSearchCollection Data 
+    {
+        get
+        {
+            if(this.strongData == default(UserSearchCollection))
+            {
+                this.strongData = this.client.GetData<UserSearchCollection>();  
+            }
+            return this.strongData;
+        }
+    }
+
+    private List<UserSearchResult> strongItems = null;
+    public List<UserSearchResult> Items
+    {
+        get
+        {
+            if (this.strongItems == null) 
+            {
+                var embeds = this.client.GetEmbed("values");
+                var clients = embeds.GetAllClients();
+                this.strongItems = new List<UserSearchResult>(clients.Select(i => new UserSearchResult(i)));
+            }
+            return this.strongItems;
+        }
+    }
+
+    public async Task<UserSearchCollectionResult> Refresh() 
+    {
+        var result = await this.client.LoadLink("self");
+        return new UserSearchCollectionResult(result);
+
+    }
+
+    public bool CanRefresh 
+    {
+        get 
+        {
+            return this.client.HasLink("self");
+        }
+    }
+
+    public HalLink LinkForRefresh 
+    {
+        get 
+        {
+            return this.client.GetLink("self");
+        }
+    }
+
+    public async Task<HalEndpointDoc> GetRefreshDocs(HalEndpointDocQuery query = null) 
+    {
+        var result = await this.client.LoadLinkDoc("self", query);
+        return result.GetData<HalEndpointDoc>();
+    }
+
+    public bool HasRefreshDocs() {
+        return this.client.HasLinkDoc("self");
+    }
+
+    public async Task<HalEndpointDoc> GetGetDocs(HalEndpointDocQuery query = null) 
+    {
+        var result = await this.client.LoadLinkDoc("Get", query);
+        return result.GetData<HalEndpointDoc>();
+    }
+
+    public bool HasGetDocs() {
+        return this.client.HasLinkDoc("Get");
+    }
+
+    public async Task<HalEndpointDoc> GetListDocs(HalEndpointDocQuery query = null) 
+    {
+        var result = await this.client.LoadLinkDoc("List", query);
+        return result.GetData<HalEndpointDoc>();
+    }
+
+    public bool HasListDocs() {
+        return this.client.HasLinkDoc("List");
+    }
+
+    public async Task<UserSearchCollectionResult> Next() 
+    {
+        var result = await this.client.LoadLink("next");
+        return new UserSearchCollectionResult(result);
+
+    }
+
+    public bool CanNext 
+    {
+        get 
+        {
+            return this.client.HasLink("next");
+        }
+    }
+
+    public HalLink LinkForNext 
+    {
+        get 
+        {
+            return this.client.GetLink("next");
+        }
+    }
+
+    public async Task<HalEndpointDoc> GetNextDocs(HalEndpointDocQuery query = null) 
+    {
+        var result = await this.client.LoadLinkDoc("next", query);
+        return result.GetData<HalEndpointDoc>();
+    }
+
+    public bool HasNextDocs() {
+        return this.client.HasLinkDoc("next");
+    }
+
+    public async Task<UserSearchCollectionResult> Previous() 
+    {
+        var result = await this.client.LoadLink("previous");
+        return new UserSearchCollectionResult(result);
+
+    }
+
+    public bool CanPrevious 
+    {
+        get 
+        {
+            return this.client.HasLink("previous");
+        }
+    }
+
+    public HalLink LinkForPrevious 
+    {
+        get 
+        {
+            return this.client.GetLink("previous");
+        }
+    }
+
+    public async Task<HalEndpointDoc> GetPreviousDocs(HalEndpointDocQuery query = null) 
+    {
+        var result = await this.client.LoadLinkDoc("previous", query);
+        return result.GetData<HalEndpointDoc>();
+    }
+
+    public bool HasPreviousDocs() {
+        return this.client.HasLinkDoc("previous");
+    }
+
+    public async Task<UserSearchCollectionResult> First() 
+    {
+        var result = await this.client.LoadLink("first");
+        return new UserSearchCollectionResult(result);
+
+    }
+
+    public bool CanFirst 
+    {
+        get 
+        {
+            return this.client.HasLink("first");
+        }
+    }
+
+    public HalLink LinkForFirst 
+    {
+        get 
+        {
+            return this.client.GetLink("first");
+        }
+    }
+
+    public async Task<HalEndpointDoc> GetFirstDocs(HalEndpointDocQuery query = null) 
+    {
+        var result = await this.client.LoadLinkDoc("first", query);
+        return result.GetData<HalEndpointDoc>();
+    }
+
+    public bool HasFirstDocs() {
+        return this.client.HasLinkDoc("first");
+    }
+
+    public async Task<UserSearchCollectionResult> Last() 
+    {
+        var result = await this.client.LoadLink("last");
+        return new UserSearchCollectionResult(result);
 
     }
 
@@ -2755,6 +3163,88 @@ namespace Threax.IdServer.Client
         public static UserCollection FromJson(string data)
         {
             return Newtonsoft.Json.JsonConvert.DeserializeObject<UserCollection>(data);
+        }
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    public partial class UserSearchQuery 
+    {
+        [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid? UserId { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("userName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string UserName { get; set; }
+    
+        /// <summary>The number of pages (item number = Offset * Limit) into the collection to query.</summary>
+        [Newtonsoft.Json.JsonProperty("offset", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int Offset { get; set; }
+    
+        /// <summary>The limit of the number of items to return.</summary>
+        [Newtonsoft.Json.JsonProperty("limit", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int Limit { get; set; }
+    
+        public string ToJson() 
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
+        
+        public static UserSearchQuery FromJson(string data)
+        {
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<UserSearchQuery>(data);
+        }
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    public partial class UserSearchCollection 
+    {
+        [Newtonsoft.Json.JsonProperty("userName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string UserName { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid? UserId { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("total", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int Total { get; set; }
+    
+        /// <summary>The number of pages (item number = Offset * Limit) into the collection to query.</summary>
+        [Newtonsoft.Json.JsonProperty("offset", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int Offset { get; set; }
+    
+        /// <summary>The limit of the number of items to return.</summary>
+        [Newtonsoft.Json.JsonProperty("limit", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int Limit { get; set; }
+    
+        public string ToJson() 
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
+        
+        public static UserSearchCollection FromJson(string data)
+        {
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<UserSearchCollection>(data);
+        }
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    public partial class UserSearch 
+    {
+        [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid UserId { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("userName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string UserName { get; set; }
+    
+        public string ToJson() 
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
+        
+        public static UserSearch FromJson(string data)
+        {
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<UserSearch>(data);
         }
     
     }

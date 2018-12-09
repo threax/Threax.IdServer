@@ -1,4 +1,8 @@
-﻿<h1>Users</h1>
+﻿@{
+    ViewData["Title"] = "Users";
+}
+
+<h1 data-hr-run="Views/Admin/Users">Users</h1>
 <div data-hr-controller="mainTable">
     <load visible="true">
         <p>Working...</p>
@@ -36,33 +40,41 @@
     </error>
 </div>
 
-<modal data-hr-controller="userSearch" title-text="Find User">
+<modal data-hr-controller="addEntryEditor" title-text="Find User">
     <load class="modal-body" visible="true">
         <p>Working...</p>
     </load>
     <main class="modal-body">
+        <h2>Search Users</h2>
         <form data-hr-on-submit="runSearch" data-hr-model="search">
-            <div class="form-group">
-                <input class="form-control" type="text" name="term" />
-            </div>
-            <button type="submit" class="btn btn-default">Search</button>
+            <button type="submit" class="btn btn-default" data-hr-form-end>Search</button>
         </form>
 
-        <h2>Results</h2>
+        <h3>Search Results</h3>
         <div data-hr-model="searchResults">
             <template>
-                <div>
-                    <h3>{{firstName}} {{lastName}}</h3>
-                    <p>User Name: {{userName}}</p>
-                    <p>Id: {{spcId}}</p>
+                <div data-hr-config-rooturl="@Url.Content("~/")">
+                    <h3>{{userName}}</h3>
                     <p>Guid: {{userId}}</p>
-                    <button data-hr-on-click="editRoles" data-hr-toggle="editRoles" data-hr-style-on="display:block;" style="display:none;">Edit Roles</button>
+                    <button class="btn btn-default" data-hr-on-click="editRoles" data-hr-toggle="editRoles" data-hr-style-on="display:inline;" style="display:none;">Edit Roles</button>
                 </div>
             </template>
         </div>
         <toggle hr-toggle="noResults" data-hr-model="noResults">
             <p>No results found for search <b>{{term}}</b></p>
         </toggle>
+        <h2>Add User Manually</h2>
+        <form data-hr-form="fromGuidForm" data-hr-on-submit="addFromGuid">
+            <div class="form-group">
+                <label>Guid</label>
+                <input class="form-control" type="text" name="id" />
+            </div>
+            <div class="form-group">
+                <label>Name</label>
+                <input class="form-control" type="text" name="name" />
+            </div>
+            <button type="submit" class="btn btn-default">Add Manually</button>
+        </form>
     </main>
     <error class="modal-body">
         <p class="bg-danger">Cannot complete search at this time, please try again later.</p>

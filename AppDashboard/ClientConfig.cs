@@ -13,10 +13,5 @@ namespace AppDashboard
         /// The base url of the identity service to modify.
         /// </summary>
         public String IdentityServerHost { get; set; } = "Set this to something";
-
-        /// <summary>
-        /// The base url of the user directory service.
-        /// </summary>
-        public String UserDirectoryHost { get; set; } = "Set this to something";
     }
 }

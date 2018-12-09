@@ -11,7 +11,7 @@
     "htmlrapier.form.bootstrap3": "^1.0.0",
     "htmlrapier.halcyon": "^7.1.0",
     "htmlrapier.relogin": "^1.0.4",
-    "htmlrapier.roleclient": "^1.0.0",
+    "htmlrapier.roleclient": "^4.0.1",
     "htmlrapier.widgets": "^15.5.0",
     "jsns": "^5.0.0",
     "threax.bootstrap": "^1.0.0"

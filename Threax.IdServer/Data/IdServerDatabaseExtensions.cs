@@ -170,7 +170,7 @@ namespace Threax.IdServer.Data
             if (!configContext.Clients.Any())
             {
                 //A bit hardcoded, but workable enough, activate the admin client
-                var client = new Client
+                var client = new IdentityServer4.Models.Client
                 {
                     ClientId = "AppDashboard",
                     ClientName = "App Dashboard",

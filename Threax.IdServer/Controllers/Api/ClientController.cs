@@ -103,7 +103,7 @@ namespace Threax.IdServer.Areas.Api.Controllers
         [HalRel(Rels.Add)]
         public async Task Post([FromBody] ClientInput value)
         {
-            var entity = mapper.Map<Client>(value);
+            var entity = mapper.Map<IdentityServer4.EntityFramework.Entities.Client>(value);
 
             //Any new client gets the secret notyetdefined
             if (entity.ClientSecrets == null)
@@ -138,7 +138,7 @@ namespace Threax.IdServer.Areas.Api.Controllers
             var client = await GetFullClientEntity(id);
             if (client != null)
             {
-                mapper.Map<ClientInput, Client>(value, client);
+                mapper.Map<ClientInput, IdentityServer4.EntityFramework.Entities.Client>(value, client);
                 configDb.Clients.Update(client);
                 await configDb.SaveChangesAsync();
             }
@@ -234,7 +234,7 @@ namespace Threax.IdServer.Areas.Api.Controllers
             return mapper.Map<ClientMetadataView>(await client.ClientCredentialsAsync(null, this.HttpContext.User.GetAccessToken()));
         }
 
-        private async Task<Client> GetFullClientEntity(int id)
+        private async Task<IdentityServer4.EntityFramework.Entities.Client> GetFullClientEntity(int id)
         {
             var query = from c in configDb.Clients
                             .Include(i => i.AllowedGrantTypes)

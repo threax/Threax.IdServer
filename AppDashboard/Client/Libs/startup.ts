@@ -5,8 +5,7 @@ import * as whitelist from 'hr.whitelist';
 import * as fetcher from 'hr.fetcher';
 import * as bootstrap from 'hr.bootstrap.all';
 import * as client from 'clientlibs.IdServerClient';
-import * as roleClient from 'hr.roleclient.RoleClient';
-import { EntryPointInjector as UserDirectoryEntryPointInjector } from 'hr.roleclient.UserDirectoryClient';
+import * as userSearch from 'clientlibs.UserSearchClientEntryPointInjector';
 import * as loginPopup from 'hr.relogin.LoginPopup';
 import * as deepLink from 'hr.deeplink';
 import * as xsrf from 'hr.xsrftoken';
@@ -15,7 +14,6 @@ import * as pageConfig from 'hr.pageconfig';
 export interface Config {
     client: {
         IdentityServerHost: string,
-        UserDirectoryHost: string,
         PageBasePath: string
     };
     tokens: {
@@ -38,9 +36,8 @@ export function createBuilder() {
         var config = pageConfig.read<Config>();
         builder.Services.tryAddShared(fetcher.Fetcher, s => createFetcher(config));
         builder.Services.tryAddShared(client.EntryPointsInjector, s => new client.EntryPointsInjector(config.client.IdentityServerHost + "/api", s.getRequiredService(fetcher.Fetcher)));
-        //Map the role entry point to the service entry point and add the user directory
-        builder.Services.addShared(roleClient.IRoleEntryInjector, s => s.getRequiredService(client.EntryPointsInjector));
-        builder.Services.addShared(UserDirectoryEntryPointInjector, s => new UserDirectoryEntryPointInjector(config.client.UserDirectoryHost, s.getRequiredService(fetcher.Fetcher)));
+
+        userSearch.addServices(builder);
 
         //Setup Deep Links
         deepLink.setPageUrl(builder.Services, config.client.PageBasePath);
@@ -65,7 +62,7 @@ function createFetcher(config: Config): fetcher.Fetcher {
     if (config.tokens.AccessTokenPath !== undefined) {
         fetcher = new AccessTokens.AccessTokenFetcher(
             config.tokens.AccessTokenPath,
-            new whitelist.Whitelist([config.client.IdentityServerHost, config.client.UserDirectoryHost]),
+            new whitelist.Whitelist([config.client.IdentityServerHost]),
             fetcher);
     }
 

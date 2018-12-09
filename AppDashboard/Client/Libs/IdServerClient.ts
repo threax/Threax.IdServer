@@ -67,16 +67,43 @@ export class RoleAssignmentsResult {
         return this.client.HasLinkDoc("SetUser");
     }
 
-    public deleteUser(): Promise<void> {
-        return this.client.LoadLink("DeleteUser").then(hal.makeVoid);
+    public update(data: RoleAssignments): Promise<RoleAssignmentsResult> {
+        return this.client.LoadLinkWithData("Update", data)
+               .then(r => {
+                    return new RoleAssignmentsResult(r);
+                });
+
     }
 
-    public canDeleteUser(): boolean {
-        return this.client.HasLink("DeleteUser");
+    public canUpdate(): boolean {
+        return this.client.HasLink("Update");
     }
 
-    public linkForDeleteUser(): hal.HalLink {
-        return this.client.GetLink("DeleteUser");
+    public linkForUpdate(): hal.HalLink {
+        return this.client.GetLink("Update");
+    }
+
+    public getUpdateDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("Update", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasUpdateDocs(): boolean {
+        return this.client.HasLinkDoc("Update");
+    }
+
+    public delete(): Promise<void> {
+        return this.client.LoadLink("Delete").then(hal.makeVoid);
+    }
+
+    public canDelete(): boolean {
+        return this.client.HasLink("Delete");
+    }
+
+    public linkForDelete(): hal.HalLink {
+        return this.client.GetLink("Delete");
     }
 }
 
@@ -1566,6 +1593,33 @@ export class EntryPointsResult {
     public hasListIdServerUsersDocs(): boolean {
         return this.client.HasLinkDoc("ListIdServerUsers");
     }
+
+    public listAppUsers(data: UserSearchQuery): Promise<UserSearchCollectionResult> {
+        return this.client.LoadLinkWithData("ListAppUsers", data)
+               .then(r => {
+                    return new UserSearchCollectionResult(r);
+                });
+
+    }
+
+    public canListAppUsers(): boolean {
+        return this.client.HasLink("ListAppUsers");
+    }
+
+    public linkForListAppUsers(): hal.HalLink {
+        return this.client.GetLink("ListAppUsers");
+    }
+
+    public getListAppUsersDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("ListAppUsers", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasListAppUsersDocs(): boolean {
+        return this.client.HasLinkDoc("ListAppUsers");
+    }
 }
 
 export class UserCollectionResult {
@@ -1619,6 +1673,66 @@ export class UserCollectionResult {
 
     public hasRefreshDocs(): boolean {
         return this.client.HasLinkDoc("self");
+    }
+
+    public getGetDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("Get", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasGetDocs(): boolean {
+        return this.client.HasLinkDoc("Get");
+    }
+
+    public getListDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("List", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasListDocs(): boolean {
+        return this.client.HasLinkDoc("List");
+    }
+
+    public getUpdateDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("Update", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasUpdateDocs(): boolean {
+        return this.client.HasLinkDoc("Update");
+    }
+
+    public add(data: RoleAssignments): Promise<RoleAssignmentsResult> {
+        return this.client.LoadLinkWithData("Add", data)
+               .then(r => {
+                    return new RoleAssignmentsResult(r);
+                });
+
+    }
+
+    public canAdd(): boolean {
+        return this.client.HasLink("Add");
+    }
+
+    public linkForAdd(): hal.HalLink {
+        return this.client.GetLink("Add");
+    }
+
+    public getAddDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("Add", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasAddDocs(): boolean {
+        return this.client.HasLinkDoc("Add");
     }
 
     public next(): Promise<UserCollectionResult> {
@@ -1706,6 +1820,231 @@ export class UserCollectionResult {
         return this.client.LoadLink("last")
                .then(r => {
                     return new UserCollectionResult(r);
+                });
+
+    }
+
+    public canLast(): boolean {
+        return this.client.HasLink("last");
+    }
+
+    public linkForLast(): hal.HalLink {
+        return this.client.GetLink("last");
+    }
+
+    public getLastDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("last", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasLastDocs(): boolean {
+        return this.client.HasLinkDoc("last");
+    }
+}
+
+export class UserSearchResult {
+    private client: hal.HalEndpointClient;
+
+    constructor(client: hal.HalEndpointClient) {
+        this.client = client;
+    }
+
+    private strongData: UserSearch = undefined;
+    public get data(): UserSearch {
+        this.strongData = this.strongData || this.client.GetData<UserSearch>();
+        return this.strongData;
+    }
+
+    public refresh(): Promise<UserSearchResult> {
+        return this.client.LoadLink("self")
+               .then(r => {
+                    return new UserSearchResult(r);
+                });
+
+    }
+
+    public canRefresh(): boolean {
+        return this.client.HasLink("self");
+    }
+
+    public linkForRefresh(): hal.HalLink {
+        return this.client.GetLink("self");
+    }
+
+    public getRefreshDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("self", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasRefreshDocs(): boolean {
+        return this.client.HasLinkDoc("self");
+    }
+}
+
+export class UserSearchCollectionResult {
+    private client: hal.HalEndpointClient;
+
+    constructor(client: hal.HalEndpointClient) {
+        this.client = client;
+    }
+
+    private strongData: UserSearchCollection = undefined;
+    public get data(): UserSearchCollection {
+        this.strongData = this.strongData || this.client.GetData<UserSearchCollection>();
+        return this.strongData;
+    }
+
+    private strongItems: UserSearchResult[];
+    public get items(): UserSearchResult[] {
+        if (this.strongItems === undefined) {
+            var embeds = this.client.GetEmbed("values");
+            var clients = embeds.GetAllClients();
+            this.strongItems = [];
+            for (var i = 0; i < clients.length; ++i) {
+                this.strongItems.push(new UserSearchResult(clients[i]));
+            }
+        }
+        return this.strongItems;
+    }
+
+    public refresh(): Promise<UserSearchCollectionResult> {
+        return this.client.LoadLink("self")
+               .then(r => {
+                    return new UserSearchCollectionResult(r);
+                });
+
+    }
+
+    public canRefresh(): boolean {
+        return this.client.HasLink("self");
+    }
+
+    public linkForRefresh(): hal.HalLink {
+        return this.client.GetLink("self");
+    }
+
+    public getRefreshDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("self", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasRefreshDocs(): boolean {
+        return this.client.HasLinkDoc("self");
+    }
+
+    public getGetDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("Get", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasGetDocs(): boolean {
+        return this.client.HasLinkDoc("Get");
+    }
+
+    public getListDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("List", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasListDocs(): boolean {
+        return this.client.HasLinkDoc("List");
+    }
+
+    public next(): Promise<UserSearchCollectionResult> {
+        return this.client.LoadLink("next")
+               .then(r => {
+                    return new UserSearchCollectionResult(r);
+                });
+
+    }
+
+    public canNext(): boolean {
+        return this.client.HasLink("next");
+    }
+
+    public linkForNext(): hal.HalLink {
+        return this.client.GetLink("next");
+    }
+
+    public getNextDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("next", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasNextDocs(): boolean {
+        return this.client.HasLinkDoc("next");
+    }
+
+    public previous(): Promise<UserSearchCollectionResult> {
+        return this.client.LoadLink("previous")
+               .then(r => {
+                    return new UserSearchCollectionResult(r);
+                });
+
+    }
+
+    public canPrevious(): boolean {
+        return this.client.HasLink("previous");
+    }
+
+    public linkForPrevious(): hal.HalLink {
+        return this.client.GetLink("previous");
+    }
+
+    public getPreviousDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("previous", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasPreviousDocs(): boolean {
+        return this.client.HasLinkDoc("previous");
+    }
+
+    public first(): Promise<UserSearchCollectionResult> {
+        return this.client.LoadLink("first")
+               .then(r => {
+                    return new UserSearchCollectionResult(r);
+                });
+
+    }
+
+    public canFirst(): boolean {
+        return this.client.HasLink("first");
+    }
+
+    public linkForFirst(): hal.HalLink {
+        return this.client.GetLink("first");
+    }
+
+    public getFirstDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("first", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasFirstDocs(): boolean {
+        return this.client.HasLinkDoc("first");
+    }
+
+    public last(): Promise<UserSearchCollectionResult> {
+        return this.client.LoadLink("last")
+               .then(r => {
+                    return new UserSearchCollectionResult(r);
                 });
 
     }
@@ -1888,6 +2227,30 @@ export interface UserCollection {
     offset?: number;
     limit?: number;
     total?: number;
+}
+
+export interface UserSearchQuery {
+    userId?: string;
+    userName?: string;
+    /** The number of pages (item number = Offset * Limit) into the collection to query. */
+    offset?: number;
+    /** The limit of the number of items to return. */
+    limit?: number;
+}
+
+export interface UserSearchCollection {
+    userName?: string;
+    userId?: string;
+    total?: number;
+    /** The number of pages (item number = Offset * Limit) into the collection to query. */
+    offset?: number;
+    /** The limit of the number of items to return. */
+    limit?: number;
+}
+
+export interface UserSearch {
+    userId?: string;
+    userName?: string;
 }
 
 export interface HalEndpointDocQuery {

@@ -28,6 +28,10 @@ namespace Threax.IdServer.Areas.Api.Controllers
 
     [HalModel]
     [HalSelfActionLink(RolesControllerRels.ListUsers, typeof(RolesController))]
+    [HalActionLink(typeof(RolesController), nameof(RolesController.GetUser), CrudRels.Get, DocsOnly = true)] //This provides access to docs for showing items
+    [HalActionLink(typeof(RolesController), nameof(RolesController.ListUsers), CrudRels.List, DocsOnly = true)] //Provides docs for search
+    [HalActionLink(typeof(RolesController), nameof(RolesController.SetUser), CrudRels.Update, DocsOnly = true)] //This provides access to docs for updating items if the ui has different modes
+    [HalActionLink(typeof(RolesController), nameof(RolesController.SetUser), CrudRels.Add)]
     [DeclareHalLink(PagedCollectionView<Object>.Rels.Next, RolesControllerRels.ListUsers, typeof(RolesController), ResponseOnly = true)]
     [DeclareHalLink(PagedCollectionView<Object>.Rels.Previous, RolesControllerRels.ListUsers, typeof(RolesController), ResponseOnly = true)]
     [DeclareHalLink(PagedCollectionView<Object>.Rels.First, RolesControllerRels.ListUsers, typeof(RolesController), ResponseOnly = true)]
