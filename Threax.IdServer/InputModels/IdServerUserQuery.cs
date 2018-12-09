@@ -13,7 +13,7 @@ using Threax.IdServer.Services;
 namespace SpcIdentityServer.InputModels
 {
     [HalModel]
-    public class ExternalUserQuery : PagedCollectionQuery
+    public class IdServerUserQuery : PagedCollectionQuery
     {
         [UiSearch]
         public Guid? UserId { get; set; }

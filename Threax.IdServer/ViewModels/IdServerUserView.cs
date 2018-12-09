@@ -9,8 +9,8 @@ using Threax.IdServer.Areas.Api.Controllers;
 namespace SpcIdentityServer.Models.Api
 {
     [HalModel]
-    [HalSelfActionLink(typeof(ExternalUsersController), nameof(ExternalUsersController.Get))]
-    public class ExternalUserView
+    [HalSelfActionLink(typeof(IdServerUsersController), nameof(IdServerUsersController.Get))]
+    public class IdServerUserView
     {
         public Guid UserId { get; set; }
 

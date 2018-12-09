@@ -38,8 +38,4 @@
     <PackageReference Include="Threax.Extensions.Configuration.SchemaBinder" Version="1.3.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
-
 </Project>
