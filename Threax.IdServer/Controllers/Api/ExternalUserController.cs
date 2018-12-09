@@ -1,19 +1,20 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using SpcIdentityServer.InputModels;
+using SpcIdentityServer.Models.Api;
 using System;
 using System.Linq;
-using System.Net;
-using System.Text;
 using System.Threading.Tasks;
-using Threax.AspNetCore.ExceptionFilter;
 using Threax.AspNetCore.Halcyon.Ext;
 using Threax.IdServer.Models;
+using Threax.IdServer.Services;
 
 namespace Threax.IdServer.Areas.Api.Controllers
 {
-    [Authorize(Roles = Roles.ViewExternalUsers, AuthenticationSchemes = AuthCoreSchemes.Bearer)]
+    [Authorize(Roles = Roles.ViewIdServerUsers, AuthenticationSchemes = AuthCoreSchemes.Bearer)]
     [Route("api/[controller]")]
     [ResponseCache(NoStore = true)]
     public class ExternalUsersController : Controller
@@ -45,11 +46,9 @@ namespace Threax.IdServer.Areas.Api.Controllers
             dbQuery = dbQuery.Skip(query.SkipTo(total)).Take(query.Limit);
             var resultQuery = dbQuery.Select(i => new ExternalUserView()
             {
-                DisplayName = $"{i.FirstName} {i.LastName}",
+                DisplayName = i.UserName,
                 Email = i.Email,
-                GivenName = i.FirstName,
-                Surname = i.LastName,
-                UserId = i.Id,
+                UserId = TempIdConverter.ConvertId(i.Id),
                 UserName = i.UserName
             });
             var results = await resultQuery.ToListAsync();
@@ -64,14 +63,13 @@ namespace Threax.IdServer.Areas.Api.Controllers
         [HalRel(CrudRels.Get)]
         public async Task<ExternalUserView> Get(Guid userId, [FromServices] Data.UsersDbContext userDb)
         {
-            var user = await userDb.Users.Where(i => i.Id == userId).FirstAsync();
+            var strUserId = TempIdConverter.ConvertId(userId);//Dont need this temp string if you go all guid
+            var user = await userDb.Users.Where(i => i.Id == strUserId).FirstAsync();
             return new ExternalUserView()
             {
-                DisplayName = $"{user.FirstName} {user.LastName}",
+                DisplayName = user.UserName,
                 Email = user.Email,
-                GivenName = user.FirstName,
-                Surname = user.LastName,
-                UserId = user.Id,
+                UserId = TempIdConverter.ConvertId(user.Id),
                 UserName = user.UserName
             };
         }

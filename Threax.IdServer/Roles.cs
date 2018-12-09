@@ -12,13 +12,13 @@ namespace Threax.IdServer
     {
         public const String EditClients = "EditClients";
         public const String EditApiResources = "EditApiResources";
-        public const String ViewExternalUsers = "ViewExternalUsers";
+        public const String ViewIdServerUsers = "ViewIdServerUsers";
 
         public static IEnumerable<String> DatabaseRoles()
         {
             yield return EditClients;
             yield return EditApiResources;
-            yield return ViewExternalUsers;
+            yield return ViewIdServerUsers;
         }
     }
 
@@ -32,6 +32,6 @@ namespace Threax.IdServer
 
         public bool EditApiResources { get; set; }
 
-        public bool ViewExternalUsers { get; set; }
+        public bool ViewIdServerUsers { get; set; }
     }
 }

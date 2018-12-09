@@ -1,11 +1,11 @@
 ﻿using Halcyon.HAL.Attributes;
-using SpcIdentityServer.Areas.Api.Controllers;
 using SpcIdentityServer.InputModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Threax.AspNetCore.Halcyon.Ext;
+using Threax.IdServer.Areas.Api.Controllers;
 
 namespace SpcIdentityServer.Models.Api
 {
