@@ -1,16 +1,15 @@
 ﻿using Halcyon.HAL.Attributes;
 using Microsoft.EntityFrameworkCore;
-using SpcIdentityServer.Models;
+using Threax.IdServer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Threax.AspNetCore.Halcyon.Ext;
 using Threax.AspNetCore.Models;
-using Threax.IdServer.Models;
 using Threax.IdServer.Services;
 
-namespace SpcIdentityServer.InputModels
+namespace Threax.IdServer.InputModels
 {
     [HalModel]
     public class IdServerUserQuery : PagedCollectionQuery

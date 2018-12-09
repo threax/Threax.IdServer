@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Threax.AspNetCore.Halcyon.Ext;
 using Threax.IdServer.Areas.Api.Controllers;
 
-namespace SpcIdentityServer.Models.Api
+namespace Threax.IdServer.Models.Api
 {
     [HalModel]
     [HalSelfActionLink(typeof(IdServerUsersController), nameof(IdServerUsersController.Get))]

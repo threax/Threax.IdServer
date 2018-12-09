@@ -1,5 +1,5 @@
 ﻿using Halcyon.HAL.Attributes;
-using SpcIdentityServer.InputModels;
+using Threax.IdServer.InputModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Threax.AspNetCore.Halcyon.Ext;
 using Threax.IdServer.Areas.Api.Controllers;
 
-namespace SpcIdentityServer.Models.Api
+namespace Threax.IdServer.Models.Api
 {
     [HalModel]
     [HalSelfActionLink(typeof(IdServerUsersController), nameof(IdServerUsersController.List))]
