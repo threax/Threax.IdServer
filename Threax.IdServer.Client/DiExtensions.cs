@@ -8,14 +8,14 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class DiExtensions
     {
         /// <summary>
-        /// Add the SpcIdentityServer setup to use client credentials to connect to the service.
+        /// Add the Threax.IdServer.Client EntryPointsInjector to the services.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configure">The configure callback.</param>
         /// <returns></returns>
-        public static IServiceCollection AddSpcIdentityServerWithClientCredentials(this IServiceCollection services, Action<SpcIdentityServerOptions> configure)
+        public static IServiceCollection AddThreaxIdServerClient(this IServiceCollection services, Action<ClientOptions> configure)
         {
-            var options = new SpcIdentityServerOptions();
+            var options = new ClientOptions();
             configure?.Invoke(options);
 
             var sharedCredentials = new SharedClientCredentials();

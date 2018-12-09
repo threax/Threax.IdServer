@@ -265,3 +265,4 @@ __pycache__/
 *.db
 /AppDashboard/wwwroot
 /GitPublish
+/nuget

@@ -1990,6 +1990,39 @@ public class EntryPointsResult
     public bool HasSetUserDocs() {
         return this.client.HasLinkDoc("SetUser");
     }
+
+    public async Task<IdServerUserCollectionResult> ListIdServerUsers(IdServerUserQuery data) 
+    {
+        var result = await this.client.LoadLinkWithData("ListIdServerUsers", data);
+        return new IdServerUserCollectionResult(result);
+
+    }
+
+    public bool CanListIdServerUsers 
+    {
+        get 
+        {
+            return this.client.HasLink("ListIdServerUsers");
+        }
+    }
+
+    public HalLink LinkForListIdServerUsers 
+    {
+        get 
+        {
+            return this.client.GetLink("ListIdServerUsers");
+        }
+    }
+
+    public async Task<HalEndpointDoc> GetListIdServerUsersDocs(HalEndpointDocQuery query = null) 
+    {
+        var result = await this.client.LoadLinkDoc("ListIdServerUsers", query);
+        return result.GetData<HalEndpointDoc>();
+    }
+
+    public bool HasListIdServerUsersDocs() {
+        return this.client.HasLinkDoc("ListIdServerUsers");
+    }
 }
 
 public class UserCollectionResult 

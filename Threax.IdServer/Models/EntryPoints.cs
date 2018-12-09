@@ -31,6 +31,7 @@ namespace Threax.IdServer.Areas.Api.Models
     [HalActionLink(RolesControllerRels.GetUser, typeof(RolesController))]
     [HalActionLink(RolesControllerRels.ListUsers, typeof(RolesController))]
     [HalActionLink(RolesControllerRels.SetUser, typeof(RolesController))]
+    [HalActionLink(typeof(IdServerUsersController), nameof(IdServerUsersController.List), "ListIdServerUsers")]
     public class EntryPoints
     {
     }

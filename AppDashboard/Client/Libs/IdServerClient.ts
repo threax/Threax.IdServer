@@ -1539,6 +1539,33 @@ export class EntryPointsResult {
     public hasSetUserDocs(): boolean {
         return this.client.HasLinkDoc("SetUser");
     }
+
+    public listIdServerUsers(data: IdServerUserQuery): Promise<IdServerUserCollectionResult> {
+        return this.client.LoadLinkWithData("ListIdServerUsers", data)
+               .then(r => {
+                    return new IdServerUserCollectionResult(r);
+                });
+
+    }
+
+    public canListIdServerUsers(): boolean {
+        return this.client.HasLink("ListIdServerUsers");
+    }
+
+    public linkForListIdServerUsers(): hal.HalLink {
+        return this.client.GetLink("ListIdServerUsers");
+    }
+
+    public getListIdServerUsersDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("ListIdServerUsers", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasListIdServerUsersDocs(): boolean {
+        return this.client.HasLinkDoc("ListIdServerUsers");
+    }
 }
 
 export class UserCollectionResult {

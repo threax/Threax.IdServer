@@ -4,7 +4,7 @@ using Threax.AspNetCore.Halcyon.Client;
 
 namespace Threax.IdServer.Client
 {
-    public class SpcIdentityServerOptions
+    public class ClientOptions
     {
         /// <summary>
         /// The url of the service.

@@ -9,8 +9,7 @@ using Threax.AspNetCore.Halcyon.Ext;
 
 namespace Threax.IdServer.Areas.Api.Controllers
 {
-    [Route("[controller]")]
-    [Area("Api")]
+    [Route("api")]
     [ResponseCache(NoStore = true)]
     [Authorize(AuthenticationSchemes = AuthCoreSchemes.Bearer)]
     public class EntryPointController : Controller

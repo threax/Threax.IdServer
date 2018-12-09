@@ -37,7 +37,7 @@ export function createBuilder() {
         //Set up the access token fetcher
         var config = pageConfig.read<Config>();
         builder.Services.tryAddShared(fetcher.Fetcher, s => createFetcher(config));
-        builder.Services.tryAddShared(client.EntryPointsInjector, s => new client.EntryPointsInjector(config.client.IdentityServerHost + "/EntryPoint", s.getRequiredService(fetcher.Fetcher)));
+        builder.Services.tryAddShared(client.EntryPointsInjector, s => new client.EntryPointsInjector(config.client.IdentityServerHost + "/api", s.getRequiredService(fetcher.Fetcher)));
         //Map the role entry point to the service entry point and add the user directory
         builder.Services.addShared(roleClient.IRoleEntryInjector, s => s.getRequiredService(client.EntryPointsInjector));
         builder.Services.addShared(UserDirectoryEntryPointInjector, s => new UserDirectoryEntryPointInjector(config.client.UserDirectoryHost, s.getRequiredService(fetcher.Fetcher)));

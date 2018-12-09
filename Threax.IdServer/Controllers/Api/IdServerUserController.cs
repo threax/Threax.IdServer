@@ -61,7 +61,7 @@ namespace Threax.IdServer.Areas.Api.Controllers
             var limit = query.Limit;
 
             //Query users
-            if (skip > userTotal) //If we are past all of these, don't load them
+            if (skip < userTotal) //If we are past all of these, don't load them
             {
                 users = users.Skip(skip).Take(limit);
                 var resultQuery = users.Select(i => new IdServerUserView()
