@@ -80,6 +80,231 @@ export class RoleAssignmentsResult {
     }
 }
 
+export class IdServerUserCollectionResult {
+    private client: hal.HalEndpointClient;
+
+    constructor(client: hal.HalEndpointClient) {
+        this.client = client;
+    }
+
+    private strongData: IdServerUserCollection = undefined;
+    public get data(): IdServerUserCollection {
+        this.strongData = this.strongData || this.client.GetData<IdServerUserCollection>();
+        return this.strongData;
+    }
+
+    private strongItems: IdServerUserViewResult[];
+    public get items(): IdServerUserViewResult[] {
+        if (this.strongItems === undefined) {
+            var embeds = this.client.GetEmbed("values");
+            var clients = embeds.GetAllClients();
+            this.strongItems = [];
+            for (var i = 0; i < clients.length; ++i) {
+                this.strongItems.push(new IdServerUserViewResult(clients[i]));
+            }
+        }
+        return this.strongItems;
+    }
+
+    public refresh(): Promise<IdServerUserCollectionResult> {
+        return this.client.LoadLink("self")
+               .then(r => {
+                    return new IdServerUserCollectionResult(r);
+                });
+
+    }
+
+    public canRefresh(): boolean {
+        return this.client.HasLink("self");
+    }
+
+    public linkForRefresh(): hal.HalLink {
+        return this.client.GetLink("self");
+    }
+
+    public getRefreshDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("self", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasRefreshDocs(): boolean {
+        return this.client.HasLinkDoc("self");
+    }
+
+    public getGetDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("Get", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasGetDocs(): boolean {
+        return this.client.HasLinkDoc("Get");
+    }
+
+    public getListDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("List", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasListDocs(): boolean {
+        return this.client.HasLinkDoc("List");
+    }
+
+    public next(): Promise<IdServerUserCollectionResult> {
+        return this.client.LoadLink("next")
+               .then(r => {
+                    return new IdServerUserCollectionResult(r);
+                });
+
+    }
+
+    public canNext(): boolean {
+        return this.client.HasLink("next");
+    }
+
+    public linkForNext(): hal.HalLink {
+        return this.client.GetLink("next");
+    }
+
+    public getNextDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("next", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasNextDocs(): boolean {
+        return this.client.HasLinkDoc("next");
+    }
+
+    public previous(): Promise<IdServerUserCollectionResult> {
+        return this.client.LoadLink("previous")
+               .then(r => {
+                    return new IdServerUserCollectionResult(r);
+                });
+
+    }
+
+    public canPrevious(): boolean {
+        return this.client.HasLink("previous");
+    }
+
+    public linkForPrevious(): hal.HalLink {
+        return this.client.GetLink("previous");
+    }
+
+    public getPreviousDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("previous", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasPreviousDocs(): boolean {
+        return this.client.HasLinkDoc("previous");
+    }
+
+    public first(): Promise<IdServerUserCollectionResult> {
+        return this.client.LoadLink("first")
+               .then(r => {
+                    return new IdServerUserCollectionResult(r);
+                });
+
+    }
+
+    public canFirst(): boolean {
+        return this.client.HasLink("first");
+    }
+
+    public linkForFirst(): hal.HalLink {
+        return this.client.GetLink("first");
+    }
+
+    public getFirstDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("first", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasFirstDocs(): boolean {
+        return this.client.HasLinkDoc("first");
+    }
+
+    public last(): Promise<IdServerUserCollectionResult> {
+        return this.client.LoadLink("last")
+               .then(r => {
+                    return new IdServerUserCollectionResult(r);
+                });
+
+    }
+
+    public canLast(): boolean {
+        return this.client.HasLink("last");
+    }
+
+    public linkForLast(): hal.HalLink {
+        return this.client.GetLink("last");
+    }
+
+    public getLastDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("last", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasLastDocs(): boolean {
+        return this.client.HasLinkDoc("last");
+    }
+}
+
+export class IdServerUserViewResult {
+    private client: hal.HalEndpointClient;
+
+    constructor(client: hal.HalEndpointClient) {
+        this.client = client;
+    }
+
+    private strongData: IdServerUserView = undefined;
+    public get data(): IdServerUserView {
+        this.strongData = this.strongData || this.client.GetData<IdServerUserView>();
+        return this.strongData;
+    }
+
+    public refresh(): Promise<IdServerUserViewResult> {
+        return this.client.LoadLink("self")
+               .then(r => {
+                    return new IdServerUserViewResult(r);
+                });
+
+    }
+
+    public canRefresh(): boolean {
+        return this.client.HasLink("self");
+    }
+
+    public linkForRefresh(): hal.HalLink {
+        return this.client.GetLink("self");
+    }
+
+    public getRefreshDocs(query?: HalEndpointDocQuery): Promise<hal.HalEndpointDoc> {
+        return this.client.LoadLinkDoc("self", query)
+            .then(r => {
+                return r.GetData<hal.HalEndpointDoc>();
+            });
+    }
+
+    public hasRefreshDocs(): boolean {
+        return this.client.HasLinkDoc("self");
+    }
+}
+
 export class ApiResourceEditModelResult {
     private client: hal.HalEndpointClient;
 
@@ -1490,10 +1715,41 @@ export class UserCollectionResult {
 export interface RoleAssignments {
     editClients?: boolean;
     editApiResources?: boolean;
+    viewIdServerUsers?: boolean;
     userId?: string;
     name?: string;
     editRoles?: boolean;
     superAdmin?: boolean;
+}
+
+export interface IdServerUserCollection {
+    userIds?: string[];
+    userId?: string;
+    total?: number;
+    userName?: string;
+    /** The number of pages (item number = Offset * Limit) into the collection to query. */
+    offset?: number;
+    /** The limit of the number of items to return. */
+    limit?: number;
+}
+
+export interface IdServerUserQuery {
+    userId?: string;
+    userIds?: string[];
+    userName?: string;
+    /** The number of pages (item number = Offset * Limit) into the collection to query. */
+    offset?: number;
+    /** The limit of the number of items to return. */
+    limit?: number;
+}
+
+export interface IdServerUserView {
+    userId?: string;
+    userName?: string;
+    displayName?: string;
+    givenName?: string;
+    surname?: string;
+    email?: string;
 }
 
 export interface ApiResourceEditModel {
