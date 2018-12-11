@@ -9,6 +9,7 @@ using Threax.AspNetCore.Halcyon.Ext;
 using Threax.AspNetCore.Models;
 using Threax.IdServer.Services;
 using IdentityServer4.EntityFramework.Entities;
+using Threax.AspNetCore.UserLookup;
 
 namespace Threax.IdServer.InputModels
 {

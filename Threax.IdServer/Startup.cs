@@ -19,11 +19,14 @@ using Threax.AspNetCore.Halcyon.ClientGen;
 using Threax.AspNetCore.Halcyon.Ext;
 using Threax.AspNetCore.IdServerAuth;
 using Threax.AspNetCore.UserBuilder;
+using Threax.AspNetCore.UserLookup;
+using Threax.AspNetCore.UserLookup.Mvc.Controllers;
 using Threax.Extensions.Configuration.SchemaBinder;
 using Threax.IdServer.Areas.Api.Controllers;
 using Threax.IdServer.Areas.Api.ValueProviders;
 using Threax.IdServer.Data;
 using Threax.IdServer.Models;
+using Threax.IdServer.Repository;
 using Threax.IdServer.Services;
 
 namespace Threax.IdServer
@@ -85,7 +88,7 @@ namespace Threax.IdServer
 
             services.AddHalClientGen(new HalClientGenOptions()
             {
-                SourceAssemblies = new Assembly[] { this.GetType().GetTypeInfo().Assembly, typeof(Threax.AspNetCore.UserSearchMvc.Controllers.UserSearchController).Assembly },
+                SourceAssemblies = new Assembly[] { this.GetType().GetTypeInfo().Assembly, typeof(UserSearchController).Assembly },
                 CSharp = new CSharpOptions()
                 {
                     Namespace = "Threax.IdServer.Client"
@@ -139,6 +142,10 @@ namespace Threax.IdServer
                 o.SerializerSettings.SetToHalcyonDefault();
                 o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             })
+            .AddThreaxUserLookup(o =>
+            {
+                o.UserSearchServiceType = typeof(UserSearchService);
+            })
             .AddConventionalIdServerMvc();
 
             services.ConfigureHtmlRapierTagHelpers(o =>
@@ -188,6 +195,9 @@ namespace Threax.IdServer
                 o.AddStyle().AddSelf().AddUnsafeInline();
                 o.AddFrameAncestors().AddSelf().AddEntries(appConfig.FrameAncestors);
             });
+
+            services.AddScoped<IIdServerUserRepository, IdServerUserRepository>();
+            services.AddScoped<IUserSearchService, UserSearchService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

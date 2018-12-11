@@ -1,16 +1,14 @@
 ﻿using Halcyon.HAL.Attributes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Threax.AspNetCore.Halcyon.Ext;
+using Threax.AspNetCore.UserLookup;
 using Threax.IdServer.Areas.Api.Controllers;
 
 namespace Threax.IdServer.Models.Api
 {
     [HalModel]
     [HalSelfActionLink(typeof(IdServerUsersController), nameof(IdServerUsersController.Get))]
-    public class IdServerUserView
+    public class IdServerUserView : IUserSearch
     {
         public Guid UserId { get; set; }
 

@@ -1,7 +1,7 @@
 ﻿using Halcyon.HAL.Attributes;
 using Threax.AspNetCore.Halcyon.Ext;
 using Threax.AspNetCore.UserBuilder.Entities.Mvc;
-using Threax.AspNetCore.UserSearchMvc.Controllers;
+using Threax.AspNetCore.UserLookup.Mvc.Controllers;
 using Threax.IdServer.Areas.Api.Controllers;
 
 namespace Threax.IdServer.Areas.Api.Models

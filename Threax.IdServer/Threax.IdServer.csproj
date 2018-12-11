@@ -36,7 +36,8 @@
     <PackageReference Include="Threax.ReflectedServices" Version="1.0.0" />
     <PackageReference Include="Threax.Sqlite.Ext" Version="1.0.1" />
     <PackageReference Include="Threax.Extensions.Configuration.SchemaBinder" Version="1.3.0" />
-    <PackageReference Include="Threax.AspNetCore.UserSearch.Mvc" Version="1.0.0" />
+    <PackageReference Include="Threax.AspNetCore.UserLookup" Version="1.0.0" />
+    <PackageReference Include="Threax.AspNetCore.UserLookup.Mvc" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
