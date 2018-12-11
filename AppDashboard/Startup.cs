@@ -70,19 +70,12 @@ namespace AppDashboard
                 o.AccessDeniedPath = "/Account/AccessDenied";
             });
 
-            services.AddThreaxIdServerClient(o =>
-            {
-                o.GetSharedClientCredentials = s => Configuration.Bind("SharedClientCredentials", s);
-                Configuration.Bind("IdServerClient", o);
-            });
-
             services.AddMvc()
             .AddJsonOptions(o =>
             {
                 o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 o.SerializerSettings.Converters.Add(new StringEnumConverter());
             })
-            .AddUserSearchMvc()
             .AddConventionalIdServerMvc();
 
             services.AddUserBuilderForAnybody(opt => //This is anybody, but it is further restricted below
