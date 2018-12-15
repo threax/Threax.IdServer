@@ -170,38 +170,40 @@ namespace Threax.IdServer.Areas.Api.Controllers
         /// Generate a new secret for the client app and return it.
         /// </summary>
         /// <param name="id">The id of the client to create a secret for.</param>
-        /// <param name="numberGen">The random number generator to use to generate secrets.</param>
         /// <returns>The new secret string.</returns>
         [HttpPut("{Id}/[action]")]
         [HalRel(Rels.Secret)]
-        public async Task<CreateSecretResult> Secret(int id, [FromServices] RandomNumberGenerator numberGen)
+        public async Task<CreateSecretResult> Secret(int id)
         {
-            var client = await GetFullClientEntity(id);
-            if (client == null)
+            using (var numberGen = RandomNumberGenerator.Create()) //This is more portable than from services since that does not work on linux correctly
             {
-                throw new ErrorResultException($"Cannot find a client to add a secret to with id {id}.");
+                var client = await GetFullClientEntity(id);
+                if (client == null)
+                {
+                    throw new ErrorResultException($"Cannot find a client to add a secret to with id {id}.");
+                }
+
+                var bytes = new byte[32];
+                numberGen.GetBytes(bytes);
+
+                var secretString = Convert.ToBase64String(bytes);
+                var secret = new IdentityServer4.Models.Secret(IdentityServer4.Models.HashExtensions.Sha256(secretString));
+                client.ClientSecrets.Clear();
+                client.ClientSecrets.Add(new ClientSecret()
+                {
+                    Client = client,
+                    Value = secret.Value,
+                    Description = secret.Description,
+                    Expiration = secret.Expiration,
+                    Type = secret.Type
+                });
+                configDb.Clients.Update(client);
+                await configDb.SaveChangesAsync();
+                return new CreateSecretResult()
+                {
+                    Secret = secretString
+                };
             }
-
-            var bytes = new byte[32];
-            numberGen.GetBytes(bytes);
-
-            var secretString = Convert.ToBase64String(bytes);
-            var secret = new IdentityServer4.Models.Secret(IdentityServer4.Models.HashExtensions.Sha256(secretString));
-            client.ClientSecrets.Clear();
-            client.ClientSecrets.Add(new ClientSecret()
-            {
-                Client = client,
-                Value = secret.Value,
-                Description = secret.Description,
-                Expiration = secret.Expiration,
-                Type = secret.Type
-            });
-            configDb.Clients.Update(client);
-            await configDb.SaveChangesAsync();
-            return new CreateSecretResult()
-            {
-                Secret = secretString
-            };
         }
 
         /// <summary>
