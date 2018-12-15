@@ -28,12 +28,6 @@ namespace AppDashboard.Controllers
         }
 
         [Authorize]
-        public IActionResult Users()
-        {
-            return View();
-        }
-
-        [Authorize]
         public IActionResult UserRoles()
         {
             return View();
