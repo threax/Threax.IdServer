@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>1701;1702;1705;1591</NoWarn>
@@ -9,8 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="HtmlRapier.TagHelpers" Version="6.1.0" />
-    <PackageReference Include="Threax.AspNetCore.Halcyon.Client" Version="7.0.1" />
+    <PackageReference Include="HtmlRapier.TagHelpers" Version="7.0.0" />
+    <PackageReference Include="Threax.AspNetCore.Halcyon.Client" Version="7.0.2" />
     <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="2.10.0" />
     <PackageReference Include="Threax.AspNetCore.UrlFix" Version="1.1.4" />
     <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="3.2.0" />
