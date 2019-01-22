@@ -28,6 +28,7 @@ namespace Threax.IdServer.Services
         }
 
         public const String ObjectGuid = "objectGUID";
+        public const String UserName = "username";
 
         /// <summary>
         /// Create the user.

@@ -51,6 +51,9 @@ namespace Threax.IdServer.Services
                     case AppUserClaimsPrincipalFactory.ObjectGuid:
                         yield return new Claim(claim.Type, claim.Value);
                         break;
+                    case AppUserClaimsPrincipalFactory.UserName:
+                        yield return new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name", claim.Value);
+                        break;
                 }
             }
         }
