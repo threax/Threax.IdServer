@@ -1,18 +1,17 @@
-﻿FROM microsoft/dotnet:2.2.0-aspnetcore-runtime AS base
+﻿FROM microsoft/dotnet:2.2.1-aspnetcore-runtime AS base
 WORKDIR /app
 
 FROM threax/build AS build
 WORKDIR /src
-COPY AppDashboard/AppDashboard.csproj AppDashboard/
-RUN dotnet restore AppDashboard/AppDashboard.csproj
 COPY . .
 WORKDIR /src/AppDashboard
-RUN dotnet build AppDashboard.csproj -c Release -o /app
-
-FROM build AS publish
 RUN yarn run yarn-install
+RUN dotnet restore AppDashboard.csproj
+RUN dotnet build AppDashboard.csproj -c Release -o /app
 RUN yarn run clean
 RUN yarn run build
+
+FROM build AS publish
 RUN dotnet publish AppDashboard.csproj -c Release -o /app
 
 FROM base AS final
