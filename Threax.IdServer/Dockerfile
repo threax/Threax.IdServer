@@ -1,6 +1,5 @@
 FROM microsoft/dotnet:2.2.0-aspnetcore-runtime AS base
 WORKDIR /app
-EXPOSE 80
 
 FROM threax/build AS build
 WORKDIR /src
@@ -17,6 +16,7 @@ FROM build AS publish
 RUN dotnet publish Threax.IdServer.csproj -c Release -o /app
 
 FROM base AS final
+ENV DOTNET_CLI_TELEMETRY_OPTOUT=1
 WORKDIR /app
 COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "Threax.IdServer.dll"]
