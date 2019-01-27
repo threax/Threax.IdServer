@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Identity</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/threax.bootstrap.css" />
+    <asset-bundle src="~/bundle.min.css"></asset-bundle>
 </head>
 <body>
     <nav class="navbar navbar-default">
@@ -31,13 +31,9 @@
         </footer>
     </div>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="~/lib/polyfill.js"></script>
-    <script src="~/lib/tslib.js"></script>
-    <script src="~/lib/tsbin.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
-    <script src="~/lib/hr-run.js"></script>
+    <asset-bundle src="~/bundle.min.js"></asset-bundle>
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript" src="~/lib/hr-run.js" asp-append-version="true"></script>
     <threax-csp></threax-csp>
 </body>
 </html>

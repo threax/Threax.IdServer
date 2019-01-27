@@ -40,4 +40,8 @@
     <PackageReference Include="Threax.AspNetCore.UserLookup.Mvc" Version="1.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.6.362" />
+  </ItemGroup>
+
 </Project>

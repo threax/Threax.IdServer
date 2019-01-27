@@ -16,7 +16,7 @@
     "threax.bootstrap": "^1.0.0"
   },
   "scripts": {
-    "build": "threax-npm-tk build",
+    "build": "threax-npm-tk build && dotnet bundle",
     "yarn-install": "yarn install --flat",
     "clean": "threax-npm-tk clean",
     "trash-modules": "threax-npm-tk clean -o node_modules",

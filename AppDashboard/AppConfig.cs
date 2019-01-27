@@ -9,11 +9,6 @@ namespace AppDashboard
         }
 
         /// <summary>
-        /// True to enable debug logging.
-        /// </summary>
-        public bool EnableDebugLogging { get; set; }
-
-        /// <summary>
         /// The Path Base for the url. The path base url written here will be forced by the
         /// UrlFix middleware, it will also be used as the cookie path.
         /// </summary>
