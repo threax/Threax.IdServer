@@ -19,13 +19,9 @@ services:
     networks:
       appnet:
         aliases:
-          - up_id.dev.threax.com
+          - id.appnet
     environment:
       - ASPNETCORE_URLS=http://*:5000
-    labels:
-      - "threax.nginx.host=id.dev.threax.com"
-      - "threax.nginx.port=5000"
-      - "threax.nginx.alias=up_id.dev.threax.com"
 
   appdashboard:
     image: threax.appdashboard
@@ -40,13 +36,9 @@ services:
     networks:
       appnet:
         aliases:
-          - up_appdashboard.dev.threax.com
+          - appdashboard.appnet
     environment:
       - ASPNETCORE_URLS=http://*:5000
-    labels:
-      - "threax.nginx.host=appdashboard.dev.threax.com"
-      - "threax.nginx.port=5000"
-      - "threax.nginx.alias=up_appdashboard.dev.threax.com"
 
 networks:
   appnet:
