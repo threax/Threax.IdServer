@@ -7,8 +7,6 @@ services:
     build:
       context: .
       dockerfile: Threax.IdServer/Dockerfile
-    networks:
-      - appnet
     secrets:
       - id.signingcert.p12
     volumes:
@@ -18,8 +16,16 @@ services:
       - type: bind
         source: ../DevData/idserver
         target: /appdata
+    networks:
+      appnet:
+        aliases:
+          - up_id.dev.threax.com
+    environment:
+      - ASPNETCORE_URLS=http://*:5000
     labels:
       - "threax.nginx.host=id.dev.threax.com"
+      - "threax.nginx.port=5000"
+      - "threax.nginx.alias=up_id.dev.threax.com"
 
   appdashboard:
     image: threax.appdashboard
@@ -27,14 +33,20 @@ services:
     build:
       context: .
       dockerfile: AppDashboard/Dockerfile
-    networks:
-      - appnet
     volumes:
       - type: bind
         source: ../TrustedRoots
         target: /usr/local/share/ca-certificates
+    networks:
+      appnet:
+        aliases:
+          - up_appdashboard.dev.threax.com
+    environment:
+      - ASPNETCORE_URLS=http://*:5000
     labels:
       - "threax.nginx.host=appdashboard.dev.threax.com"
+      - "threax.nginx.port=5000"
+      - "threax.nginx.alias=up_appdashboard.dev.threax.com"
 
 networks:
   appnet:
