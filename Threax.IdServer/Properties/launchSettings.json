@@ -47,6 +47,13 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    },
+    "Purge Refresh Tokens": {
+      "commandName": "Project",
+      "commandLineArgs": "tools purgeRefreshTokens",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     }
   }
 }

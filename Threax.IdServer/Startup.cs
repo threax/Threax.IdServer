@@ -1,4 +1,5 @@
-﻿using IdentityServer4.Services;
+﻿using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -179,6 +180,12 @@ namespace Threax.IdServer
                 {
                     var json = await Configuration.CreateSchema();
                     await File.WriteAllTextAsync("appsettings.schema.json", json);
+                }))
+                .AddTool("purgeRefreshTokens", new ToolCommand("Remove all the refresh tokens.", async a =>
+                {
+                    var grantsDb = a.Scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>();
+                    grantsDb.PersistedGrants.RemoveRange(grantsDb.PersistedGrants);
+                    await grantsDb.SaveChangesAsync();
                 }))
                 .UseClientGenTools();
             });
