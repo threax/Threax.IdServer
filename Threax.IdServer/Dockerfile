@@ -5,11 +5,11 @@ FROM threax/build AS build
 WORKDIR /src
 COPY . .
 WORKDIR /src/Threax.IdServer
-RUN yarn run yarn-install
+RUN npm install
 RUN dotnet restore Threax.IdServer.csproj
 RUN dotnet build Threax.IdServer.csproj -c Release -o /app
-RUN yarn run clean
-RUN yarn run build
+RUN npm run clean
+RUN npm run build
 
 FROM build AS publish
 RUN dotnet publish Threax.IdServer.csproj -c Release -o /app

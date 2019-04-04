@@ -6,6 +6,7 @@
     "@types/node": "^6.0.69"
   },
   "dependencies": {
+    "bootstrap": "^3.4.1",
     "htmlrapier": "^19.1.1",
     "htmlrapier.bootstrap": "^7.0.0",
     "htmlrapier.form.bootstrap3": "^1.0.0",
@@ -17,13 +18,8 @@
   },
   "scripts": {
     "build": "threax-npm-tk build && dotnet bundle",
-    "yarn-install": "yarn install --flat",
     "clean": "threax-npm-tk clean",
     "trash-modules": "threax-npm-tk clean -o node_modules",
-    "import-tsconfig": "threax-npm-tk tsconfig",
-    "yarn-upgrade": "yarn upgrade --flat"
-  },
-  "resolutions": {
-    "bootstrap": "3.3.7"
+    "import-tsconfig": "threax-npm-tk tsconfig"
   }
 }
