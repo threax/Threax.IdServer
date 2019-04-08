@@ -2,46 +2,66 @@
     ViewData["Title"] = "Resources";
 }
 
-<h1>Resources</h1>
-<div data-hr-controller="mainTable">
-    <load visible="true">
-        <p>Working...</p>
-    </load>
+<div class="row">
+    <div data-hr-controller="mainTable" class="col-sm-8">
+        <h1>Resources</h1>
+        <load visible="true">
+            <p>Working...</p>
+        </load>
 
-    <main>
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Edit</th>
-                    </tr>
-                </thead>
-                <tbody data-hr-model="listing" data-hr-model-component="itemTable"></tbody>
+        <main>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody data-hr-model="listing" data-hr-model-component="itemTable"></tbody>
+                </table>
+            </div>
+            <button data-hr-on-click="add" class="btn btn-default">Add</button>
+            <button data-hr-controller="addFromMetadata" data-hr-on-click="addFromMetadata" class="btn btn-default">Add from Metadata</button>
+
+            <page-numbers></page-numbers>
+        </main>
+        <template data-hr-component="itemTable">
+            <table>
+                <tr>
+                    <td>{{scopeName}}</td>
+                    <td>{{displayName}}</td>
+                    <td>
+                        <button data-hr-on-click="edit" class="btn btn-default">Edit</button>
+                        <button data-hr-on-click="del" class="btn btn-default">Delete</button>
+                    </td>
+                </tr>
             </table>
+        </template>
+
+        <error>
+            An error occured loading the resources. Please try again later.
+        </error>
+    </div>
+    <div class="col-sm-4">
+        <h3>Search</h3>
+        <div data-hr-controller="search">
+            <load visible="true">
+                <p>Loading Search...</p>
+            </load>
+            <main>
+                <form data-hr-on-submit="submit" data-hr-form="input">
+                    <p class="bg-danger hiddenToggler" data-hr-toggle="mainError" data-hr-view="mainError" data-hr-style-on="display:block;">{{message}}</p>
+
+                    <button type="submit" class="btn btn-primary" data-hr-form-end>Search</button>
+                </form>
+            </main>
+            <error>
+                An error occured loading the search form. Please try again later.
+            </error>
         </div>
-        <button data-hr-on-click="add" class="btn btn-default">Add</button>
-        <button data-hr-controller="addFromMetadata" data-hr-on-click="addFromMetadata" class="btn btn-default">Add from Metadata</button>
-
-        <page-numbers></page-numbers>
-    </main>
-    <template data-hr-component="itemTable">
-        <table>
-            <tr>
-                <td>{{scopeName}}</td>
-                <td>{{displayName}}</td>
-                <td>
-                    <button data-hr-on-click="edit" class="btn btn-default">Edit</button>
-                    <button data-hr-on-click="del" class="btn btn-default">Delete</button>
-                </td>
-            </tr>
-        </table>
-    </template>
-
-    <error>
-        An error occured loading the resources. Please try again later.
-    </error>
+    </div>
 </div>
 
 <modal data-hr-controller="entryEditor" title-text="Edit Api Resource">

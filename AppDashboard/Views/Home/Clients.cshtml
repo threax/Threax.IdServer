@@ -2,49 +2,69 @@
     ViewData["Title"] = "Clients";
 }
 
-<h1>Clients</h1>
-<div data-hr-controller="mainTable">
-    <load visible="true">
-        <p>Working...</p>
-    </load>
-    <main>
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>App User Guid</th>
-                        <th>Secret</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody data-hr-model="listing" data-hr-model-component="clientEditorTable"></tbody>
+<div class="row">
+    <div data-hr-controller="mainTable" class="col-sm-8">
+        <h1>Clients</h1>
+        <load visible="true">
+            <p>Working...</p>
+        </load>
+        <main>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>App User Guid</th>
+                            <th>Secret</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody data-hr-model="listing" data-hr-model-component="clientEditorTable"></tbody>
+                </table>
+            </div>
+            <button data-hr-on-click="add" class="btn btn-default">Add</button>
+            <button data-hr-controller="addFromMetadata" data-hr-on-click="addFromMetadata" class="btn btn-default">Add from Metadata</button>
+            <button data-hr-controller="addFromClientCredentialsMetadata" data-hr-on-click="addFromMetadata" class="btn btn-default">Add from Client Credentials Metadata</button>
+
+            <page-numbers></page-numbers>
+        </main>
+        <template data-hr-component="clientEditorTable">
+            <table>
+                <tr>
+                    <td>{{clientId}}</td>
+                    <td>{{name}}</td>
+                    <td>{{applicationGuid}}</td>
+                    <td><button data-hr-on-click="createSecret" class="btn btn-default">Create Secret</button></td>
+                    <td><button data-hr-on-click="edit" class="btn btn-default">Edit</button></td>
+                    <td><button data-hr-on-click="del" class="btn btn-default">Delete</button></td>
+                </tr>
             </table>
+        </template>
+
+        <error>
+            An error occured loading the clients. Please try again later.
+        </error>
+    </div>
+    <div class="col-sm-4">
+        <h3>Search</h3>
+        <div data-hr-controller="search">
+            <load visible="true">
+                <p>Loading Search...</p>
+            </load>
+            <main>
+                <form data-hr-on-submit="submit" data-hr-form="input">
+                    <p class="bg-danger hiddenToggler" data-hr-toggle="mainError" data-hr-view="mainError" data-hr-style-on="display:block;">{{message}}</p>
+
+                    <button type="submit" class="btn btn-primary" data-hr-form-end>Search</button>
+                </form>
+            </main>
+            <error>
+                An error occured loading the search form. Please try again later.
+            </error>
         </div>
-        <button data-hr-on-click="add" class="btn btn-default">Add</button>
-        <button data-hr-controller="addFromMetadata" data-hr-on-click="addFromMetadata" class="btn btn-default">Add from Metadata</button>
-        <button data-hr-controller="addFromClientCredentialsMetadata" data-hr-on-click="addFromMetadata" class="btn btn-default">Add from Client Credentials Metadata</button>
-
-        <page-numbers></page-numbers>
-    </main>
-    <template data-hr-component="clientEditorTable">
-        <table>
-            <tr>
-                <td>{{clientId}}</td>
-                <td>{{name}}</td>
-                <td>{{applicationGuid}}</td>
-                <td><button data-hr-on-click="createSecret" class="btn btn-default">Create Secret</button></td>
-                <td><button data-hr-on-click="edit" class="btn btn-default">Edit</button></td>
-                <td><button data-hr-on-click="del" class="btn btn-default">Delete</button></td>
-            </tr>
-        </table>
-    </template>
-
-    <error>
-        An error occured loading the clients. Please try again later.
-    </error>
+    </div>
 </div>
 
 <modal data-hr-controller="entryEditor" title-text="Edit Client">

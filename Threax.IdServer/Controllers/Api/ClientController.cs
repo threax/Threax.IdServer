@@ -16,6 +16,7 @@ using Threax.AspNetCore.Halcyon.Ext;
 using Threax.AspNetCore.IdServerMetadata.Client;
 using Threax.IdServer.Areas.Api.InputModels;
 using Threax.IdServer.Areas.Api.Models;
+using Threax.IdServer.InputModels;
 
 namespace Threax.IdServer.Areas.Api.Controllers
 {
@@ -59,15 +60,36 @@ namespace Threax.IdServer.Areas.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [HalRel(Rels.List)]
-        public async Task<ClientEditModelCollectionView> Get([FromQuery] PagedCollectionQuery query)
+        public async Task<ClientEditModelCollectionView> Get([FromQuery] ClientQuery query)
         {
+            if (query.Id != null)
+            {
+                var client = await Get(query.Id.Value);
+                if (client == null)
+                {
+                    return new ClientEditModelCollectionView(query, 0, Enumerable.Empty<ClientEditModel>());
+                }
+                return new ClientEditModelCollectionView(query, 1, new ClientEditModel[] { client });
+            }
+
             //Don't want secrets here
-            var clients = configDb.Clients
+            IQueryable<Client> clients = configDb.Clients
                                   .Include(i => i.AllowedGrantTypes)
                                   .Include(i => i.RedirectUris)
                                   .Include(i => i.AllowedScopes);
 
+            if (!String.IsNullOrEmpty(query.ClientId))
+            {
+                clients = clients.Where(i => i.ClientId.Contains(query.ClientId, StringComparison.InvariantCultureIgnoreCase));
+            }
+
+            if (query.GrantTypes != null && query.GrantTypes.Count > 0)
+            {
+                clients = clients.Where(i => i.AllowedGrantTypes.Any(j => query.GrantTypes.Contains(j.GrantType)));
+            }
+
             int total = await clients.CountAsync();
+            clients = clients.OrderBy(i => i.ClientId);
             var results = clients.Skip(query.SkipTo(total)).Take(query.Limit);
             var items = await results.Select(c => mapper.Map<ClientEditModel>(c)).ToListAsync();
 

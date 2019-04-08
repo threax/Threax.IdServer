@@ -3,6 +3,7 @@ using Threax.IdServer.Areas.Api.Controllers;
 using System;
 using System.Collections.Generic;
 using Threax.AspNetCore.Halcyon.Ext;
+using Threax.IdServer.InputModels;
 
 namespace Threax.IdServer.Areas.Api.Models
 {
@@ -18,9 +19,9 @@ namespace Threax.IdServer.Areas.Api.Models
     [DeclareHalLink(PagedCollectionView<Object>.Rels.Previous, ClientController.Rels.List, typeof(ClientController), ResponseOnly = true)]
     [DeclareHalLink(PagedCollectionView<Object>.Rels.First, ClientController.Rels.List, typeof(ClientController), ResponseOnly = true)]
     [DeclareHalLink(PagedCollectionView<Object>.Rels.Last, ClientController.Rels.List, typeof(ClientController), ResponseOnly = true)]
-    public class ClientEditModelCollectionView : PagedCollectionView<ClientEditModel>
+    public class ClientEditModelCollectionView : PagedCollectionViewWithQuery<ClientEditModel, ClientQuery>
     {
-        public ClientEditModelCollectionView(PagedCollectionQuery query, int total, IEnumerable<ClientEditModel> items)
+        public ClientEditModelCollectionView(ClientQuery query, int total, IEnumerable<ClientEditModel> items)
             :base(query, total, items)
         {
             

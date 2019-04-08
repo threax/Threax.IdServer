@@ -14,6 +14,7 @@ using Threax.AspNetCore.Halcyon.Ext;
 using Threax.AspNetCore.IdServerMetadata.Client;
 using Threax.IdServer.Areas.Api.InputModels;
 using Threax.IdServer.Areas.Api.Models;
+using Threax.IdServer.InputModels;
 
 namespace Threax.IdServer.Areas.Api.Controllers
 {
@@ -56,11 +57,27 @@ namespace Threax.IdServer.Areas.Api.Controllers
         /// <returns>All the scopes</returns>
         [HttpGet]
         [HalRel(Rels.List)]
-        public async Task<ApiResourceEditModelCollection> Get([FromQuery] PagedCollectionQuery query)
+        public async Task<ApiResourceEditModelCollection> Get([FromQuery] ApiResourceQuery query)
         {
-            var resources = configDb.ApiResources.Include(i => i.Scopes);
+            if (query.Id != null)
+            {
+                var client = await Get(query.Id.Value);
+                if (client == null)
+                {
+                    return new ApiResourceEditModelCollection(query, 0, Enumerable.Empty<ApiResourceEditModel>());
+                }
+                return new ApiResourceEditModelCollection(query, 1, new ApiResourceEditModel[] { client });
+            }
+
+            IQueryable<ApiResource> resources = configDb.ApiResources.Include(i => i.Scopes);
+
+            if (!String.IsNullOrEmpty(query.Name))
+            {
+                resources = resources.Where(i => i.Name.Contains(query.Name, StringComparison.InvariantCultureIgnoreCase));
+            }
 
             int total = await resources.CountAsync();
+            resources = resources.OrderBy(i => i.Name);
             var results = resources.Skip(query.SkipTo(total)).Take(query.Limit);
             var items = (await results.Select(s => mapper.Map<ApiResourceEditModel>(s)).ToListAsync());
 
