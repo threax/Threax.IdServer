@@ -55,14 +55,14 @@ namespace Threax.IdServer.Data
             })
             .AddSigningCredential(Load(config.SigningCredentialCertThumb));
 
+            if (config.RolloverCertThumb != null)
+            {
+                idBuild.AddValidationKey(Load(config.RolloverCertThumb));
+            }
+
             return idBuild;
         }
 
-        /// <summary>
-        /// Load an x509 certificate
-        /// </summary>
-        /// <param name="thumbprint"></param>
-        /// <returns></returns>
         public static X509Certificate2 Load(string thumbprint)
         {
             if (File.Exists(thumbprint))

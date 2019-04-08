@@ -44,8 +44,15 @@ namespace Threax.IdServer
 
         /// <summary>
         /// The server signing credentials certififcate thumbprint. Must be stored in LocalMachine -> My.
+        /// It can also be a file on the filesystem.
         /// </summary>
         public string SigningCredentialCertThumb { get; set; }
+
+        /// <summary>
+        /// The server rollover certififcate thumbprint. Must be stored in LocalMachine -> My.
+        /// It can also be a file on the filesystem.
+        /// </summary>
+        public string RolloverCertThumb { get; set; }
 
         /// <summary>
         /// The app dashboard host url. Do not include https://

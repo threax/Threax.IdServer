@@ -54,6 +54,13 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    },
+    "Create Test Rollover Cert": {
+      "commandName": "Project",
+      "commandLineArgs": "tools \"createCert rollover 25 ../Rollover.pfx\"",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     }
   }
 }
