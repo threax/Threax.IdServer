@@ -12,23 +12,23 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.0" />
     <PackageReference Include="IdentityServer4" Version="2.2.0" />
-    <PackageReference Include="HtmlRapier.TagHelpers" Version="7.0.0" />
+    <PackageReference Include="HtmlRapier.TagHelpers" Version="7.1.0" />
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="2.1.0" />
     <PackageReference Include="IdentityServer4.EntityFramework" Version="2.1.1" />
-    <PackageReference Include="Threax.AspNetCore.BuiltInTools" Version="5.1.0" />
+    <PackageReference Include="Threax.AspNetCore.BuiltInTools" Version="5.2.0" />
     <PackageReference Include="Threax.AspNetCore.CorsManager" Version="3.1.0" />
-    <PackageReference Include="Threax.AspNetCore.CSP" Version="1.1.1" />
+    <PackageReference Include="Threax.AspNetCore.CSP" Version="1.2.0" />
     <PackageReference Include="Threax.AspNetCore.ExceptionFilter" Version="5.0.3" />
-    <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen.Tools" Version="5.0.0" />
-    <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen" Version="11.0.0" />
-    <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="12.5.0" />
-    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="2.10.0" />
+    <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen.Tools" Version="5.1.0" />
+    <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen" Version="11.2.3" />
+    <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="12.6.3" />
+    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="2.10.1" />
     <PackageReference Include="Threax.AspNetCore.IdServerMetadata" Version="2.0.0" />
     <PackageReference Include="Threax.AspNetCore.IdServerMetadata.Client" Version="1.1.0" />
-    <PackageReference Include="Threax.AspNetCore.Models" Version="6.2.0" />
+    <PackageReference Include="Threax.AspNetCore.Models" Version="6.4.0" />
     <PackageReference Include="Threax.AspNetCore.Tracking" Version="2.0.3" />
     <PackageReference Include="Threax.AspNetCore.UrlFix" Version="1.1.4" />
-    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities.Mvc" Version="5.0.0" />
+    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities.Mvc" Version="5.2.0" />
     <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities" Version="4.0.1" />
     <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="3.2.0" />
     <PackageReference Include="Threax.AspNetCore.Validators" Version="2.0.1" />
