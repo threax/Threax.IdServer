@@ -5,8 +5,8 @@
   "dependencies": {
     "bootstrap": "^3.4.1",
     "htmlrapier": "^19.1.1",
-    "htmlrapier.bootstrap": "^7.0.0",
-    "htmlrapier.form.bootstrap3": "^1.0.0",
+    "htmlrapier.bootstrap": "^7.1.0",
+    "htmlrapier.form.bootstrap3": "^1.1.0",
     "htmlrapier.halcyon": "^7.1.0",
     "htmlrapier.relogin": "^1.0.4",
     "htmlrapier.roleclient": "^4.0.1",
