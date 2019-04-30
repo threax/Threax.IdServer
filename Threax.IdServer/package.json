@@ -11,7 +11,7 @@
     "htmlrapier.halcyon-explorer": "^8.0.0",
     "htmlrapier.widgets": "^15.8.0",
     "jsns": "^5.0.0",
-    "threax.bootstrap": "^1.0.0"
+    "threax.bootstrap": "^1.1.0"
   },
   "scripts": {
     "build": "threax-npm-tk build && dotnet bundle",
