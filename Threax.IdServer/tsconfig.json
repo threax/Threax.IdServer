@@ -11,6 +11,12 @@
     "baseUrl": ".",
     "noEmitHelpers": true,
     "moduleResolution": "node",
+    "alwaysStrict": true,
+    "lib": [
+      "dom",
+      "es5",
+      "es2015.promise"
+    ],
     "paths": {
       "hr.bootstrap.*": [
         "node_modules\\htmlrapier.bootstrap\\src\\*"

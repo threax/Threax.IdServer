@@ -12,6 +12,12 @@
     "baseUrl": ".",
     "noEmitHelpers": true,
     "moduleResolution": "node",
+    "alwaysStrict": true,
+    "lib": [
+      "dom",
+      "es5",
+      "es2015.promise"
+    ],
     "paths": {
       "clientlibs.*": [
         "Client\\Libs\\*"
