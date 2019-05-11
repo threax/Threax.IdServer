@@ -77,6 +77,16 @@ namespace AppDashboard
                         config.AddJsonFile(Path.GetFullPath($"../appsettings.{toolsConfigName}.json"), optional: true);
                     }
 
+                    //Secrets
+                    if (File.Exists("appsettings.secrets.json"))
+                    {
+                        config.AddJsonFileWithInclude(Path.GetFullPath("appsettings.secrets.json"), optional: false);
+                    }
+                    else if (!env.IsProduction())
+                    {
+                        config.AddUserSecrets<Program>();
+                    }
+
                     //Environment variables
                     config.AddEnvironmentVariables();
                 });
