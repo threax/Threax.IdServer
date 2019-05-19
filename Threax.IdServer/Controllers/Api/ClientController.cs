@@ -240,7 +240,9 @@ namespace Threax.IdServer.Areas.Api.Controllers
         public async Task<ClientMetadataView> FromMetadata([FromQuery] MetadataLookup lookupInfo, [FromServices] MetadataClient client, [FromServices] IMapper mapper)
         {
             client.BaseUrl = lookupInfo.TargetUrl;
-            return mapper.Map<ClientMetadataView>(await client.ClientAsync(null, this.HttpContext.User.GetAccessToken()));
+            var metadataView = mapper.Map<ClientMetadataView>(await client.ClientAsync(null, this.HttpContext.User.GetAccessToken()));
+            metadataView.EnableLocalLogin = true;
+            return metadataView;
         }
 
         /// <summary>
