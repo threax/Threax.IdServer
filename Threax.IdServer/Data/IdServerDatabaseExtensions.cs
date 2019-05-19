@@ -52,8 +52,25 @@ namespace Threax.IdServer.Data
                         options.MigrationsAssembly(migrationsAssemblyName);
                     });
                 };
-            })
-            .AddSigningCredential(Load(config.SigningCredentialCertThumb));
+            });
+
+            try
+            {
+                //Its possible this will fail and no cert will be loaded.
+                //This is valid if the program is running in tools mode to make
+                //its cert in the first place.
+                var signingCert = Load(config.SigningCredentialCertThumb);
+                if (signingCert != null)
+                {
+                    idBuild.AddSigningCredential(signingCert);
+                }
+            }
+            catch(CryptographicException ex)
+            {
+                //We don't care that much about this exception, but log something to help with debugging
+                //If any error occures that means no signing cert will be loaded, which will error later
+                Console.WriteLine($"{ex.GetType().Name} loading signing cert. Message: {ex.Message}");
+            }
 
             if (config.RolloverCertThumb != null)
             {
