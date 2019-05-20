@@ -10,7 +10,7 @@ namespace Threax.IdServer.ToolControllers
 {
     public class CreateCertToolController
     {
-        public async Task Run(String cn, int expirationYears, String outFile)
+        public Task Run(String cn, int expirationYears, String outFile)
         {
             using (var rsa = RSA.Create()) // generate asymmetric key pair
             {
@@ -31,6 +31,8 @@ namespace Threax.IdServer.ToolControllers
                     }
                 }
             }
+
+            return Task.CompletedTask;
         }
     }
 }
