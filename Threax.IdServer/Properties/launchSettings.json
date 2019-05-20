@@ -61,6 +61,13 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    },
+    "Setup App Dashboard": {
+      "commandName": "Project",
+      "commandLineArgs": "tools \"setupAppDashboard localhost:44391\"",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     }
   }
 }

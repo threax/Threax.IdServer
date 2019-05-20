@@ -128,8 +128,7 @@ namespace Threax.IdServer.Data
         /// Seed the id server database with fresh data.
         /// </summary>
         /// <param name="scope">The scope to use.</param>
-        /// <param name="appDashboardHost">The base url of the app dashboard host. Do not include https://</param>
-        public static void SeedIdServerDatabase(this IServiceScope scope, String appDashboardHost)
+        public static void SeedIdServerDatabase(this IServiceScope scope)
         {
             var configContext = scope.ServiceProvider.GetRequiredService<IConfigurationDbContext>();
 
@@ -165,61 +164,6 @@ namespace Threax.IdServer.Data
                         }
                 }.ToEntity();
                 configContext.ApiResources.Add(idServerResource);
-
-                var userDirectoryResource = new ApiResource()
-                {
-                    Name = "userdirectory",
-                    Enabled = true,
-                    DisplayName = "User Directory Api",
-                    Scopes = new List<Scope>()
-                        {
-                            new Scope()
-                            {
-                                Name = "userdirectory"
-                            }
-                        }
-                }.ToEntity();
-                configContext.ApiResources.Add(userDirectoryResource);
-
-                configContext.SaveChanges();
-            }
-
-            if (!configContext.Clients.Any())
-            {
-                //A bit hardcoded, but workable enough, activate the admin client
-                var client = new IdentityServer4.Models.Client
-                {
-                    ClientId = "AppDashboard",
-                    ClientName = "App Dashboard",
-                    AllowedGrantTypes = GrantTypes.Hybrid,
-
-                    ClientSecrets = new List<Secret>
-                        {
-                            new Secret("notyetdefined".Sha256())
-                        },
-
-                    AllowedScopes = new List<string>
-                        {
-                            StandardScopes.OpenId,
-                            StandardScopes.Profile,
-                            StandardScopes.OfflineAccess,
-                            "Threax.IdServer",
-                            "userdirectory"
-                        },
-                    RequireConsent = false,
-                    AllowRememberConsent = true,
-                    FrontChannelLogoutSessionRequired = true,
-                    EnableLocalLogin = true,
-                    AllowOfflineAccess = true
-                };
-
-                client.RedirectUris = new List<string>
-                    {
-                        $"https://{appDashboardHost}/signin-oidc"
-                    };
-                client.FrontChannelLogoutUri = $"https://{appDashboardHost}/Account/SignoutCleanup";
-
-                configContext.Clients.Add(client.ToEntity());
 
                 configContext.SaveChanges();
             }

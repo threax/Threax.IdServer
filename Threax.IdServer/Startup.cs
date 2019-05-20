@@ -31,6 +31,7 @@ using Threax.IdServer.Data;
 using Threax.IdServer.Models;
 using Threax.IdServer.Repository;
 using Threax.IdServer.Services;
+using Threax.IdServer.ToolControllers;
 
 namespace Threax.IdServer
 {
@@ -171,7 +172,7 @@ namespace Threax.IdServer
                 }))
                 .AddTool("seed", new ToolCommand("Seed database data. Only needed for an empty database.", async a =>
                 {
-                    a.Scope.SeedIdServerDatabase(appConfig.AppDashboardHost);
+                    a.Scope.SeedIdServerDatabase();
                     await a.Seed();
                 }))
                 .AddTool("addadmin", new ToolCommand("Add given guids as a user with permissions to all roles in the database.", async a =>
@@ -215,6 +216,11 @@ namespace Threax.IdServer
                         }
                     }
                 }))
+                .AddTool("setupAppDashboard", new ToolCommand("Setup the app dashboard, include the host as the first argument, do not include the https:// protocol.", async a =>
+                {
+                    var toolController = a.Scope.ServiceProvider.GetRequiredService<SetupAppDashboardToolController>();
+                    await toolController.Run(a.Args[0]);
+                }))
                 .UseClientGenTools();
             });
 
@@ -233,6 +239,7 @@ namespace Threax.IdServer
 
             services.AddScoped<IIdServerUserRepository, IdServerUserRepository>();
             services.AddScoped<IUserSearchService, UserSearchService>();
+            services.AddScoped<SetupAppDashboardToolController>();
 
             services.AddLogging(o =>
             {

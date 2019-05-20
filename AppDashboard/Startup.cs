@@ -25,7 +25,7 @@ namespace AppDashboard
             ClientId = "AppDashboard",
             DisplayName = "App Dashboard",
             Scope = "Threax.IdServer",
-            AdditionalScopes = new List<string>(){ "userdirectory" }
+            AdditionalScopes = new List<string>(){}
         };
         private ClientConfig clientConfig = new ClientConfig();
         private AppConfig appConfig = new AppConfig();
