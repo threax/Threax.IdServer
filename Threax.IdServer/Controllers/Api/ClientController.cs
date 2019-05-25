@@ -88,6 +88,11 @@ namespace Threax.IdServer.Areas.Api.Controllers
                 clients = clients.Where(i => i.AllowedGrantTypes.Any(j => query.GrantTypes.Contains(j.GrantType)));
             }
 
+            if (query.HasMissingOrDefaultSecret == true)
+            {
+                clients = clients.Where(i => !i.ClientSecrets.Any() || i.ClientSecrets.Where(j => j.Value == DefaultSecret.Secret).Any());
+            }
+
             int total = await clients.CountAsync();
             clients = clients.OrderBy(i => i.ClientId);
             var results = clients.Skip(query.SkipTo(total)).Take(query.Limit);
@@ -135,7 +140,7 @@ namespace Threax.IdServer.Areas.Api.Controllers
                     new ClientSecret()
                     {
                         Client = entity,
-                        Value = IdentityServer4.Models.HashExtensions.Sha256("notyetdefined"),
+                        Value = DefaultSecret.Secret,
                     }
                 };
             }

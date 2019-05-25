@@ -61,7 +61,7 @@ namespace Threax.IdServer.ToolControllers
 
                     ClientSecrets = new List<Secret>
                         {
-                            new Secret("notyetdefined".Sha256())
+                            new Secret(DefaultSecret.Secret)
                         },
 
                     AllowedScopes = new List<string>

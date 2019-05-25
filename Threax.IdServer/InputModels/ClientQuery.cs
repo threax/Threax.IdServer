@@ -20,5 +20,9 @@ namespace Threax.IdServer.InputModels
         [ValueProvider(typeof(GrantTypeValueProvider))]
         [NullValueLabel("Any")]
         public List<String> GrantTypes { get; set; }
+
+        [UiSearch]
+        [UiOrder]
+        public bool? HasMissingOrDefaultSecret { get; set; }
     }
 }
