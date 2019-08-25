@@ -198,6 +198,16 @@ namespace Threax.IdServer
                     var toolController = a.Scope.ServiceProvider.GetRequiredService<SetupAppDashboardToolController>();
                     await toolController.Run(a.Args[0]);
                 }))
+                .AddTool("changePassword", new ToolCommand("Change the password for the given user guid. This is interactive and will prompt for the password.", async a =>
+                {
+                    var toolController = a.Scope.ServiceProvider.GetRequiredService<ChangePassword>();
+                    await toolController.Run(a.Args[0]);
+                }))
+                .AddTool("unlockAccount", new ToolCommand("Unlock the account for the given user guid.", async a =>
+                {
+                    var toolController = a.Scope.ServiceProvider.GetRequiredService<UnlockAccount>();
+                    await toolController.Run(a.Args[0]);
+                }))
                 .UseClientGenTools();
             });
 
@@ -218,6 +228,8 @@ namespace Threax.IdServer
             services.AddScoped<IUserSearchService, UserSearchService>();
             services.AddScoped<SetupAppDashboardToolController>();
             services.AddScoped<CreateCertToolController>();
+            services.AddScoped<ChangePassword>();
+            services.AddScoped<UnlockAccount>();
 
             services.AddLogging(o =>
             {
