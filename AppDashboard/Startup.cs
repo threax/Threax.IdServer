@@ -71,7 +71,7 @@ namespace AppDashboard
             });
 
             services.AddMvc()
-            .AddJsonOptions(o =>
+            .AddNewtonsoftJson(o =>
             {
                 o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 o.SerializerSettings.Converters.Add(new StringEnumConverter());
@@ -116,7 +116,7 @@ namespace AppDashboard
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
@@ -131,7 +131,7 @@ namespace AppDashboard
                 o.CorrectPathBase = appConfig.PathBase;
             });
 
-            if (env.IsDevelopment())
+            if (env.EnvironmentName == "Development")
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -142,18 +142,20 @@ namespace AppDashboard
 
             app.UseStaticFiles();
 
+            app.UseRouting();
             app.UseAuthentication();
+            app.UseAuthorization();
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "root",
-                    template: "{action=Index}/{*inPagePath}",
+                    pattern: "{action=Index}/{*inPagePath}",
                     defaults: new { controller = "Home" });
 
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{*inPagePath}");
+                    pattern: "{controller=Home}/{action=Index}/{*inPagePath}");
             });
         }
     }
