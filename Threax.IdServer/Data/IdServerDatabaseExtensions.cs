@@ -113,25 +113,6 @@ namespace Threax.IdServer.Data
             if (persistedGrantDbContext != null)
             {
                 persistedGrantDbContext.Database.Migrate();
-            }
-
-            //Migrate configuration
-            var configContext = scope.ServiceProvider.GetRequiredService<IConfigurationDbContext>();
-
-            var configDbContext = configContext as DbContext;
-            if (configDbContext != null)
-            {
-                configDbContext.Database.Migrate();
-            }
-        }
-
-        public static void ConvertDbToNetCore3(this IServiceScope scope)
-        {
-            //Migrate persisted grants
-            var persistedGrantContext = scope.ServiceProvider.GetRequiredService<IPersistedGrantDbContext>();
-            var persistedGrantDbContext = persistedGrantContext as DbContext;
-            if (persistedGrantDbContext != null)
-            {
                 persistedGrantDbContext.ConvertToEfCore3();
             }
 
@@ -141,6 +122,7 @@ namespace Threax.IdServer.Data
             var configDbContext = configContext as DbContext;
             if (configDbContext != null)
             {
+                configDbContext.Database.Migrate();
                 configDbContext.ConvertToEfCore3();
             }
         }

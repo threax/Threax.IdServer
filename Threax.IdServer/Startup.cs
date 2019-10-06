@@ -177,13 +177,6 @@ namespace Threax.IdServer
                     a.Scope.SeedIdServerDatabase();
                     await a.Seed();
                 }))
-                .AddTool("sqliteupdate", new ToolCommand("Migrate database to ef core 3.0 format.", a =>
-                {
-                    a.Scope.ConvertDbToNetCore3();
-                    a.Scope.ServiceProvider.GetRequiredService<AppDbContext>().ConvertToEfCore3();
-                    a.Scope.ServiceProvider.GetRequiredService<UsersDbContext>().ConvertToEfCore3();
-                    return Task.CompletedTask;
-                }))
                 .AddTool("addadmin", new ToolCommand("Add given guids as a user with permissions to all roles in the database.", async a =>
                 {
                     await a.AddAdmin();
