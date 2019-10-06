@@ -19,9 +19,14 @@ namespace Threax.IdServer
         public string ConnectionString { get; set; }
 
         /// <summary>
-        /// True to turn on detailed error messages.
+        /// True to turn on detailed error messages. Default: false.
         /// </summary>
         public bool DetailedErrors { get; set; }
+
+        /// <summary>
+        /// True to enable the error pages. Default: false.
+        /// </summary>
+        public bool ErrorPages { get; set; }
 
         /// <summary>
         /// The base path the app lives on. Used for cookie paths and to enforce the url spelling.

@@ -259,10 +259,9 @@ namespace Threax.IdServer
                 o.CorrectPathBase = appConfig.PathBase;
             });
 
-            if (env.EnvironmentName == "Development")
+            if (appConfig.ErrorPages)
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseBrowserLink();
                 app.UseDatabaseErrorPage();
             }
             else
@@ -278,15 +277,7 @@ namespace Threax.IdServer
             app.UseAuthentication();
             app.UseAuthorization();
 
-            // Adds IdentityServer
             app.UseIdentityServer();
-
-            //app.UseMvc(routes =>
-            //{
-            //    routes.MapRoute(
-            //        name: "default",
-            //        template: "{controller=Home}/{action=Index}/{id?}");
-            //});
 
             app.UseEndpoints(endpoints =>
             {
