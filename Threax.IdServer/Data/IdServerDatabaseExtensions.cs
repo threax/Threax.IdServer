@@ -15,6 +15,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using Threax.Sqlite.Ext.EfCore3;
 using static IdentityServer4.IdentityServerConstants;
 
 namespace Threax.IdServer.Data
@@ -121,6 +122,26 @@ namespace Threax.IdServer.Data
             if (configDbContext != null)
             {
                 configDbContext.Database.Migrate();
+            }
+        }
+
+        public static void ConvertDbToNetCore3(this IServiceScope scope)
+        {
+            //Migrate persisted grants
+            var persistedGrantContext = scope.ServiceProvider.GetRequiredService<IPersistedGrantDbContext>();
+            var persistedGrantDbContext = persistedGrantContext as DbContext;
+            if (persistedGrantDbContext != null)
+            {
+                persistedGrantDbContext.ConvertToEfCore3();
+            }
+
+            //Migrate configuration
+            var configContext = scope.ServiceProvider.GetRequiredService<IConfigurationDbContext>();
+
+            var configDbContext = configContext as DbContext;
+            if (configDbContext != null)
+            {
+                configDbContext.ConvertToEfCore3();
             }
         }
 

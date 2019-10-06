@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.IdServer", "Threax.IdServer\Threax.IdServer.csproj", "{972FC8DC-1D9E-4D64-AB0A-1F0FD80281E0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppDashboard", "AppDashboard\AppDashboard.csproj", "{F98EA29C-5980-4E8E-8D47-6DD637C4BA6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Threax.IdServer.Client", "Threax.IdServer.Client\Threax.IdServer.Client.csproj", "{52890D09-2594-49FC-8E32-17808209C2C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.IdServer.Client", "Threax.IdServer.Client\Threax.IdServer.Client.csproj", "{52890D09-2594-49FC-8E32-17808209C2C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

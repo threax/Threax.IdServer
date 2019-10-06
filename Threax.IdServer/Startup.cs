@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using Threax.AspNetCore.BuiltInTools;
 using Threax.AspNetCore.CorsManager;
 using Threax.AspNetCore.Halcyon.ClientGen;
@@ -30,6 +31,7 @@ using Threax.IdServer.Models;
 using Threax.IdServer.Repository;
 using Threax.IdServer.Services;
 using Threax.IdServer.ToolControllers;
+using Threax.Sqlite.Ext.EfCore3;
 
 namespace Threax.IdServer
 {
@@ -139,7 +141,7 @@ namespace Threax.IdServer
                 o.UseExceptionErrorFilters();
                 o.UseConventionalHalcyon(halOptions);
             })
-            .AddJsonOptions(o =>
+            .AddNewtonsoftJson(o =>
             {
                 o.SerializerSettings.SetToHalcyonDefault();
                 o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -166,12 +168,21 @@ namespace Threax.IdServer
                 {
                     a.Scope.MigrateIdServerDatabase();
                     await a.Migrate();
+                    a.Scope.ServiceProvider.GetRequiredService<AppDbContext>().ConvertToEfCore3();
                     await a.MigrateUserDb();
+                    a.Scope.ServiceProvider.GetRequiredService<UsersDbContext>().ConvertToEfCore3();
                 }))
                 .AddTool("seed", new ToolCommand("Seed database data. Only needed for an empty database.", async a =>
                 {
                     a.Scope.SeedIdServerDatabase();
                     await a.Seed();
+                }))
+                .AddTool("sqliteupdate", new ToolCommand("Migrate database to ef core 3.0 format.", a =>
+                {
+                    a.Scope.ConvertDbToNetCore3();
+                    a.Scope.ServiceProvider.GetRequiredService<AppDbContext>().ConvertToEfCore3();
+                    a.Scope.ServiceProvider.GetRequiredService<UsersDbContext>().ConvertToEfCore3();
+                    return Task.CompletedTask;
                 }))
                 .AddTool("addadmin", new ToolCommand("Add given guids as a user with permissions to all roles in the database.", async a =>
                 {
@@ -240,7 +251,7 @@ namespace Threax.IdServer
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
@@ -255,7 +266,7 @@ namespace Threax.IdServer
                 o.CorrectPathBase = appConfig.PathBase;
             });
 
-            if (env.IsDevelopment())
+            if (env.EnvironmentName == "Development")
             {
                 app.UseDeveloperExceptionPage();
                 //app.UseBrowserLink();
@@ -270,16 +281,25 @@ namespace Threax.IdServer
 
             app.UseCorsManager(corsOptions, loggerFactory);
 
+            app.UseRouting();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             // Adds IdentityServer
             app.UseIdentityServer();
 
-            app.UseMvc(routes =>
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller=Home}/{action=Index}/{id?}");
+            //});
+
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
