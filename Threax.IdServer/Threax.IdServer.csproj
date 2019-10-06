@@ -17,6 +17,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="IdentityServer4" Version="2.2.0" />
     <PackageReference Include="HtmlRapier.TagHelpers" Version="8.0.0" />
+    <PackageReference Include="Threax.AspNetCore.Halcyon.Client" Version="7.1.1-pre01" />
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="2.1.0" />
     <PackageReference Include="Threax.AspNetCore.BuiltInTools" Version="5.3.0" />
     <PackageReference Include="Threax.AspNetCore.CorsManager" Version="3.1.0" />
