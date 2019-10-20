@@ -1,7 +1,7 @@
-﻿FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS base
+﻿FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS base
 WORKDIR /app
 
-FROM threax/build AS build
+FROM threax/build-dotnet:3.0.0 AS build
 WORKDIR /src
 COPY . .
 WORKDIR /src/AppDashboard
