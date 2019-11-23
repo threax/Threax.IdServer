@@ -16,5 +16,16 @@ namespace Threax.IdServer.Areas.Api.Models
         /// The url to lookup metadata from.
         /// </summary>
         public String TargetUrl { get; set; }
+
+        public String GetFixedTargetUrl()
+        {
+            var url = TargetUrl;
+            if (url.EndsWith('/') || url.EndsWith('\\'))
+            {
+                url = url.Substring(0, url.Length - 1);
+            }
+
+            return url;
+        }
     }
 }

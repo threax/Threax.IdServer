@@ -244,7 +244,7 @@ namespace Threax.IdServer.Areas.Api.Controllers
         [HalRel(Rels.LoadFromMetadata)]
         public async Task<ClientMetadataView> FromMetadata([FromQuery] MetadataLookup lookupInfo, [FromServices] MetadataClient client, [FromServices] IMapper mapper)
         {
-            client.BaseUrl = lookupInfo.TargetUrl;
+            client.BaseUrl = lookupInfo.GetFixedTargetUrl();
             var metadataView = mapper.Map<ClientMetadataView>(await client.ClientAsync(null, this.HttpContext.User.GetAccessToken()));
             metadataView.EnableLocalLogin = true;
             return metadataView;
@@ -261,7 +261,7 @@ namespace Threax.IdServer.Areas.Api.Controllers
         [HalRel(nameof(FromClientCredentialsMetadata))]
         public async Task<ClientMetadataView> FromClientCredentialsMetadata([FromQuery] MetadataLookup lookupInfo, [FromServices] MetadataClient client, [FromServices] IMapper mapper)
         {
-            client.BaseUrl = lookupInfo.TargetUrl;
+            client.BaseUrl = lookupInfo.GetFixedTargetUrl();
             return mapper.Map<ClientMetadataView>(await client.ClientCredentialsAsync(null, this.HttpContext.User.GetAccessToken()));
         }
 
