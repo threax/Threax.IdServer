@@ -246,6 +246,29 @@ namespace Threax.IdServer
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.Use(async (c, n) =>
+            {
+                var request = c.Request;
+                var response = c.Response;
+                response.OnStarting(() =>
+                {
+                    //For some reason when the antiforgery token header is set x-frame-options is also set to sameorigin.
+                    //This will set the cookie, but it won't display the website. This prevents the login screen from appearing,
+                    //but it works on refresh. When this happens return a redirect, which will set the cookie but then get the
+                    //browser to display the login screen correctly.
+
+                    if (response.Headers.ContainsKey("x-frame-options") && request.Method == "GET")
+                    {
+                        response.Headers.Add("Location", Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedUrl(request));
+                        response.StatusCode = 302;
+                    }
+
+                    return Task.CompletedTask;
+                });
+
+                await n.Invoke();
+            });
+            
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedProto
@@ -278,6 +301,17 @@ namespace Threax.IdServer
             app.UseAuthorization();
 
             app.UseIdentityServer();
+
+            //app.Use(async (context, next) =>
+            //{
+
+            //    //Remove x-frame-options if it has been set. Dunno where it is coming from.
+            //    if (context.Response.Headers.ContainsKey("x-frame-options"))
+            //    {
+            //        context.Response.Headers.Remove("x-frame-options");
+            //    }
+            //    await next.Invoke();
+            //});
 
             app.UseEndpoints(endpoints =>
             {
