@@ -168,9 +168,7 @@ namespace Threax.IdServer
                 {
                     a.Scope.MigrateIdServerDatabase();
                     await a.Migrate();
-                    a.Scope.ServiceProvider.GetRequiredService<AppDbContext>().ConvertToEfCore3();
                     await a.MigrateUserDb();
-                    a.Scope.ServiceProvider.GetRequiredService<UsersDbContext>().ConvertToEfCore3();
                 }))
                 .AddTool("seed", new ToolCommand("Seed database data. Only needed for an empty database.", async a =>
                 {

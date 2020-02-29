@@ -113,7 +113,6 @@ namespace Threax.IdServer.Data
             if (persistedGrantDbContext != null)
             {
                 persistedGrantDbContext.Database.Migrate();
-                persistedGrantDbContext.ConvertToEfCore3();
             }
 
             //Migrate configuration
@@ -123,7 +122,6 @@ namespace Threax.IdServer.Data
             if (configDbContext != null)
             {
                 configDbContext.Database.Migrate();
-                configDbContext.ConvertToEfCore3();
             }
         }
 
