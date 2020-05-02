@@ -10,7 +10,7 @@
     "htmlrapier.halcyon": "^7.1.0",
     "htmlrapier.relogin": "^1.0.4",
     "htmlrapier.roleclient": "^4.0.1",
-    "htmlrapier.widgets": "^15.8.0",
+    "htmlrapier.widgets": "^15.11.0",
     "jsns": "^5.0.0",
     "threax.bootstrap": "^1.1.0"
   },
