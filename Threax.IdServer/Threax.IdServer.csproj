@@ -39,7 +39,6 @@
     <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities" Version="4.1.0" />
     <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="3.3.0" />
     <PackageReference Include="Threax.AspNetCore.Validators" Version="2.0.1" />
-    <PackageReference Include="Threax.AspNetCore.Docker.Certs" Version="2.0.0" />
     <PackageReference Include="Threax.ReflectedServices" Version="1.0.0" />
     <PackageReference Include="Threax.Sqlite.Ext" Version="2.0.0" />
     <PackageReference Include="Threax.Extensions.Configuration.SchemaBinder" Version="1.5.1" />

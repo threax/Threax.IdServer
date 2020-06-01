@@ -23,7 +23,6 @@
     <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="3.0.0" />
     <PackageReference Include="Threax.AspNetCore.UrlFix" Version="1.1.4" />
     <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="3.3.0" />
-    <PackageReference Include="Threax.AspNetCore.Docker.Certs" Version="2.0.0" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="12.8.0" />
     <PackageReference Include="Threax.AspNetCore.BuiltInTools" Version="5.3.0" />
     <PackageReference Include="Threax.Extensions.Configuration.SchemaBinder" Version="1.5.1" />
