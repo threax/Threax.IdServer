@@ -36,6 +36,7 @@ namespace AppDashboard
             Configuration.Bind("JwtAuth", authConfig);
             Configuration.Bind("ClientConfig", clientConfig);
             Configuration.Bind("AppConfig", appConfig);
+            Configuration.Define("K8sDeploy", typeof(Threax.K8sDeploy.Config.K8sDeployConfig));
         }
 
         public SchemaConfigurationBinder Configuration { get; }
