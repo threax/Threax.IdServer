@@ -56,7 +56,7 @@ namespace Threax.IdServer
             Configuration.Bind("AppConfig", appConfig);
             Configuration.Bind("ClientConfig", clientConfig);
             Configuration.Bind("Cors", corsOptions);
-            Configuration.Define("K8sDeploy", typeof(Threax.K8sDeploy.Config.K8sDeployConfig));
+            Configuration.Define("Deploy", typeof(Threax.DeployConfig.DeploymentConfig));
         }
 
         public SchemaConfigurationBinder Configuration { get; }
