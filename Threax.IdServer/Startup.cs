@@ -299,17 +299,6 @@ namespace Threax.IdServer
 
             app.UseIdentityServer();
 
-            //app.Use(async (context, next) =>
-            //{
-
-            //    //Remove x-frame-options if it has been set. Dunno where it is coming from.
-            //    if (context.Response.Headers.ContainsKey("x-frame-options"))
-            //    {
-            //        context.Response.Headers.Remove("x-frame-options");
-            //    }
-            //    await next.Invoke();
-            //});
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
