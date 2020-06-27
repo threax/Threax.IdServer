@@ -8,7 +8,7 @@
     "htmlrapier.bootstrap": "^7.2.0",
     "htmlrapier.bootstrap.datetime": "^3.5.0",
     "htmlrapier.form.bootstrap4": "^2.2.1",
-    "htmlrapier.halcyon": "^7.1.0",
+    "htmlrapier.halcyon": "^8.0.0",
     "htmlrapier.halcyon-explorer": "^8.0.0",
     "htmlrapier.relogin": "^1.0.5",
     "htmlrapier.roleclient": "^4.0.1",
