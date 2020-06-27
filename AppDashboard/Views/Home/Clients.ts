@@ -8,6 +8,7 @@ import { IConfirm } from 'hr.widgets.confirm';
 import { IAlert } from 'hr.widgets.alert';
 import * as secrets from 'clientlibs.SecretDisplayController';
 import * as startup from 'clientlibs.startup';
+import * as deepLink from 'hr.deeplink';
 
 class RowWithSecretController extends crudPage.CrudTableRowControllerExtensions {
     public static get InjectorArgs(): controller.DiFunction<any>[] {
@@ -98,6 +99,7 @@ export class AddFromClientCredentialsMetadataController extends AddFromMetadataC
 
 var injector = injectors.ClientResourceInjector;
 var builder = startup.createBuilder();
+deepLink.addServices(builder.Services);
 
 crudPageCore.addServices(builder, injector);
 secrets.addServices(builder.Services);

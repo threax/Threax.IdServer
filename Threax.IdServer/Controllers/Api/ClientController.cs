@@ -80,7 +80,7 @@ namespace Threax.IdServer.Areas.Api.Controllers
 
             if (!String.IsNullOrEmpty(query.ClientId))
             {
-                clients = clients.Where(i => i.ClientId.Contains(query.ClientId, StringComparison.InvariantCultureIgnoreCase));
+                clients = clients.Where(i => EF.Functions.Like(i.ClientId, $"%{query.ClientId}%"));
             }
 
             if (query.GrantTypes != null && query.GrantTypes.Count > 0)

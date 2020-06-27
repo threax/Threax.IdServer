@@ -19,6 +19,7 @@ namespace Threax.IdServer.InputModels
         [UiOrder]
         [ValueProvider(typeof(GrantTypeValueProvider))]
         [NullValueLabel("Any")]
+        [CheckboxUiType]
         public List<String> GrantTypes { get; set; }
 
         [UiSearch]

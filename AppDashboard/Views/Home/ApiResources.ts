@@ -5,6 +5,7 @@ import * as crudPage from 'hr.widgets.CrudPage';
 import * as controller from 'hr.controller';
 import * as promptWidget from 'hr.widgets.prompt';
 import * as startup from 'clientlibs.startup';
+import * as deepLink from 'hr.deeplink';
 
 export class AddFromMetadataController {
     public static get InjectorArgs(): controller.DiFunction<any>[] {
@@ -40,6 +41,7 @@ export class AddFromMetadataController {
 var injector = injectors.ApiResourceInjector;
 
 var builder = startup.createBuilder();
+deepLink.addServices(builder.Services);
 crudPageCore.addServices(builder, injector);
 builder.Services.tryAddTransient(AddFromMetadataController, AddFromMetadataController);
 builder.Services.tryAddShared(promptWidget.IPrompt, s => new promptWidget.BrowserPrompt());

@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Threax.AspNetCore.Halcyon.Ext.ValueProviders;
 using Threax.AspNetCore.IdServerMetadata;
+using Threax.AspNetCore.Models;
 
 namespace Threax.IdServer.Areas.Api.InputModels
 {
@@ -28,6 +29,7 @@ namespace Threax.IdServer.Areas.Api.InputModels
 
         [DisplayName("Allowed Grant Types")]
         [ValueProvider(typeof(GrantTypeValueProvider))]
+        [CheckboxUiType]
         public List<String> AllowedGrantTypes { get; set; } = new List<string>();
 
         [DisplayName("Redirect Uris")]

@@ -73,7 +73,7 @@ namespace Threax.IdServer.Areas.Api.Controllers
 
             if (!String.IsNullOrEmpty(query.Name))
             {
-                resources = resources.Where(i => i.Name.Contains(query.Name, StringComparison.InvariantCultureIgnoreCase));
+                resources = resources.Where(i => EF.Functions.Like(i.Name, $"%{query.Name}%"));
             }
 
             int total = await resources.CountAsync();
