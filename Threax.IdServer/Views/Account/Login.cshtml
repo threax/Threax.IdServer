@@ -5,35 +5,30 @@
 }
 
 <div class="login-page">
-    <partial name="_ValidationSummary" />
-
     <div class="row">
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-header">
-                    Login
-                </div>
-                <div class="card-body">
-                    <form asp-route="Login">
-                        <input type="hidden" asp-for="ReturnUrl" />
+        <div class="col-lg-6">
+            <partial name="_ValidationSummary" />
+            <h2>
+                Login
+            </h2>
+            <form asp-route="Login">
+                <input type="hidden" asp-for="ReturnUrl" />
 
-                        <fieldset>
-                            <div class="form-group">
-                                <label asp-for="Email">Email</label>
-                                <input class="form-control" placeholder="Email" asp-for="Email">
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Password"></label>
-                                <input type="password" class="form-control" placeholder="Password" asp-for="Password" autocomplete="off">
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-primary">Login</button>
-                            </div>
-                        </fieldset>
-                    </form>
-                    <p>Don't have an account? <a href="/Account/Register?returnUrl=@System.Net.WebUtility.UrlEncode(Model.ReturnUrl)">Register Now.</a></p>
-                </div>
-            </div>
+                <fieldset>
+                    <div class="form-group">
+                        <label asp-for="Email">Email</label>
+                        <input class="form-control" placeholder="Email" asp-for="Email">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password"></label>
+                        <input type="password" class="form-control" placeholder="Password" asp-for="Password" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary">Login</button>
+                    </div>
+                </fieldset>
+            </form>
+            <p>Don't have an account? <a href="/Account/Register?returnUrl=@System.Net.WebUtility.UrlEncode(Model.ReturnUrl)">Register Now.</a></p>
         </div>
     </div>
 </div>
