@@ -1,15 +1,24 @@
 [
   {
-    "typescript": {
-      "compile": true
-    }
-  },
-  {
     "pathBase": "Client",
     "outDir": ".",
     "copy": [
       "Client/Images/*",
       "Client/favicon.ico"
+    ]
+  },
+  {
+    "pathBase": "node_modules/bootstrap/dist/js",
+    "outDir": "lib/bootstrap/dist/js",
+    "copy": [
+      "node_modules/bootstrap/dist/js/bootstrap.min.js"
+    ]
+  },
+  {
+    "pathBase": "node_modules/jquery/dist",
+    "outDir": "lib/jquery/dist",
+    "copy": [
+      "node_modules/jquery/dist/jquery.min.js"
     ]
   }
 ]
