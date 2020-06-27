@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Threax.AspNetCore.AuthCore;
 using Threax.AspNetCore.Halcyon.Client;
 using Threax.AspNetCore.UserBuilder;
+using Threax.AspNetCore.UserBuilder.Entities;
 
 namespace AppDashboard
 {
@@ -42,6 +43,11 @@ namespace AppDashboard
                 {
                     valid = true;
                     claimsId.AddClaim(new Claim(claimsId.RoleClaimType, Roles.EditApiResources));
+                }
+                if (entryPoints.HasLink("SetUser"))
+                {
+                    valid = true;
+                    claimsId.AddClaim(new Claim(claimsId.RoleClaimType, AuthorizationAdminRoles.EditRoles));
                 }
 
                 if (!valid)

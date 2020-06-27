@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Threax.AspNetCore.IdServerAuth;
+using Threax.AspNetCore.UserBuilder.Entities;
 
 namespace AppDashboard.Controllers
 {
@@ -27,7 +28,7 @@ namespace AppDashboard.Controllers
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = AuthorizationAdminRoles.EditRoles)]
         public IActionResult UserRoles()
         {
             return View();

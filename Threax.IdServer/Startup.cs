@@ -64,6 +64,8 @@ namespace Threax.IdServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddThreaxProgressiveWebApp(o => Configuration.Bind("DisplayConfig", o));
+
             services.AddSingleton<GrantTypeValueProvider>();
 
             services.AddSingleton<IApplicationGuidFactory>(s => new ApplicationGuidFactory(new Guid("65098b58-c5bf-4fc4-ae30-444e274efd7f"))); //This guid can never change, or you will have to fix permissions across all apps
@@ -149,11 +151,12 @@ namespace Threax.IdServer
             {
                 o.UserSearchServiceType = typeof(UserSearchService);
             })
+            .AddRazorRuntimeCompilation()
             .AddConventionalIdServerMvc();
 
             services.ConfigureHtmlRapierTagHelpers(o =>
             {
-                o.FrontEndLibrary = HtmlRapier.TagHelpers.FrontEndLibrary.Bootstrap3;
+                o.FrontEndLibrary = HtmlRapier.TagHelpers.FrontEndLibrary.Bootstrap4;
             });
 
             services.AddIdServerMetadataClient();
@@ -215,13 +218,13 @@ namespace Threax.IdServer
             services.AddThreaxCSP(o =>
             {
                 o.AddDefault().AddNone();
-                o.AddImg().AddSelf();
+                o.AddImg().AddSelf().AddData();
                 o.AddConnect().AddSelf();
                 o.AddManifest().AddSelf();
                 o.AddFont().AddSelf();
                 o.AddFrame().AddSelf().AddEntries(new String[] { authConfig.Authority });
-                o.AddScript().AddSelf().AddUnsafeInline();
-                o.AddStyle().AddSelf().AddUnsafeInline();
+                o.AddScript().AddSelf().AddNonce();
+                o.AddStyle().AddSelf().AddNonce();
                 o.AddFrameAncestors().AddSelf().AddEntries(appConfig.FrameAncestors);
             });
 

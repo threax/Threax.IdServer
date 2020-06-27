@@ -45,6 +45,7 @@ namespace AppDashboard
         public void ConfigureServices(IServiceCollection services)
         {
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddThreaxProgressiveWebApp(o => Configuration.Bind("DisplayConfig", o));
 
             services.AddClientConfig(clientConfig, o =>
             {
@@ -58,7 +59,7 @@ namespace AppDashboard
 
             services.ConfigureHtmlRapierTagHelpers(o =>
             {
-                o.FrontEndLibrary = HtmlRapier.TagHelpers.FrontEndLibrary.Bootstrap3;
+                o.FrontEndLibrary = HtmlRapier.TagHelpers.FrontEndLibrary.Bootstrap4;
             });
 
             services.AddConventionalIdServerAuthentication(o =>
@@ -75,6 +76,7 @@ namespace AppDashboard
                 o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 o.SerializerSettings.Converters.Add(new StringEnumConverter());
             })
+            .AddRazorRuntimeCompilation()
             .AddConventionalIdServerMvc();
 
             services.AddUserBuilderForAnybody(opt => //This is anybody, but it is further restricted below
@@ -96,13 +98,13 @@ namespace AppDashboard
             services.AddThreaxCSP(o =>
             {
                 o.AddDefault().AddNone();
-                o.AddImg().AddSelf();
+                o.AddImg().AddSelf().AddData();
                 o.AddConnect().AddSelf().AddEntries(new String[] { $"https://{new Uri(clientConfig.IdentityServerHost).Authority}" });
                 o.AddManifest().AddSelf();
                 o.AddFont().AddSelf();
                 o.AddFrame().AddSelf().AddEntries(new String[] { authConfig.Authority });
-                o.AddScript().AddSelf().AddUnsafeInline();
-                o.AddStyle().AddSelf().AddUnsafeInline();
+                o.AddScript().AddSelf().AddNonce();
+                o.AddStyle().AddSelf().AddNonce();
                 o.AddFrameAncestors().AddSelf();
             });
 

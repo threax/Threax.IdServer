@@ -23,8 +23,14 @@
       "clientlibs.*": [
         "Client\\Libs\\*"
       ],
+      "hr.bootstrap.datetime.*": [
+        "node_modules\\htmlrapier.bootstrap.datetime\\src\\*"
+      ],
       "hr.bootstrap.*": [
         "node_modules\\htmlrapier.bootstrap\\src\\*"
+      ],
+      "hr.halcyon-explorer.*": [
+        "node_modules\\htmlrapier.halcyon-explorer\\src\\*"
       ],
       "hr.halcyon.*": [
         "node_modules\\htmlrapier.halcyon\\src\\*"
@@ -47,8 +53,10 @@
   "include": [
     "Client\\Libs\\**\\*.ts",
     "Views\\**\\*.ts",
+    "node_modules\\htmlrapier.bootstrap.datetime\\src\\**\\*.ts",
     "node_modules\\htmlrapier.bootstrap\\src\\**\\*.ts",
-    "node_modules\\htmlrapier.form.bootstrap3\\**\\*.ts",
+    "node_modules\\htmlrapier.form.bootstrap4\\**\\*.ts",
+    "node_modules\\htmlrapier.halcyon-explorer\\src\\**\\*.ts",
     "node_modules\\htmlrapier.halcyon\\src\\**\\*.ts",
     "node_modules\\htmlrapier.relogin\\src\\**\\*.ts",
     "node_modules\\htmlrapier.roleclient\\src\\**\\*.ts",

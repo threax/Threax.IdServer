@@ -17,6 +17,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="IdentityServer4" Version="3.1.3" />
     <PackageReference Include="HtmlRapier.TagHelpers" Version="8.0.0" />
@@ -45,6 +46,7 @@
     <PackageReference Include="Threax.AspNetCore.UserLookup" Version="1.0.0" />
     <PackageReference Include="Threax.AspNetCore.UserLookup.Mvc" Version="2.1.0" />
     <PackageReference Include="Threax.DeployConfig" Version="1.0.0-pre01" GeneratePathProperty="true" />
+    <PackageReference Include="Threax.ProgressiveWebApp" Version="1.0.0" GeneratePathProperty="true" />
     <PackageReference Include="IdentityModel" Version="4.3.0" />
   </ItemGroup>
 

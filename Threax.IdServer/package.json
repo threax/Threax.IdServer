@@ -3,16 +3,19 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "bootstrap": "^3.4.1",
+    "bootstrap": "^4.5.0",
     "htmlrapier": "^21.0.1",
     "htmlrapier.bootstrap": "^7.2.0",
-    "htmlrapier.form.bootstrap3": "^1.1.0",
+    "htmlrapier.bootstrap.datetime": "^3.5.0",
+    "htmlrapier.form.bootstrap4": "^2.2.1",
     "htmlrapier.halcyon": "^7.1.0",
     "htmlrapier.halcyon-explorer": "^8.0.0",
+    "htmlrapier.relogin": "^1.0.5",
+    "htmlrapier.roleclient": "^4.0.1",
     "htmlrapier.widgets": "^15.12.0",
+    "jquery": "^3.5.1",
     "jsns": "^5.0.0",
-    "threax.bootstrap": "^1.1.0",
-    "jquery": "^3.5.1"
+    "threax.bootstrap4": "^0.0.3"
   },
   "scripts": {
     "build": "threax-npm-tk build && dotnet bundle",

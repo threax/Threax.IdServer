@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject Threax.ProgressiveWebApp.DisplayConfig config;
+<!DOCTYPE html>
 <html>
 <head>
     <style>html{visibility: hidden;opacity:0;background-color:#222;}</style>
@@ -8,22 +9,20 @@
     <asset-bundle src="~/bundle.min.css"></asset-bundle>
 </head>
 <body>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-brand-app">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Identity</a>
-            </div>
-            <div class="navbar-collapse collapse">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@config.SiteName</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse" id="navbarSupportedContent">
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </nav>
+
+
+    
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -31,8 +30,13 @@
             <p>Threax.IdServer</p>
         </footer>
     </div>
-    
-    <style>html{visibility: visible;opacity: 1;}</style>
+
+    <style>
+        html {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
     <asset-bundle src="~/bundle.min.js"></asset-bundle>
     @RenderSection("scripts", required: false)
     <script type="text/javascript" src="~/lib/hr-run.js" asp-append-version="true"></script>
