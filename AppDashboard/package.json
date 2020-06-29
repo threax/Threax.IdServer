@@ -18,7 +18,7 @@
     "threax.bootstrap4": "^0.0.3"
   },
   "scripts": {
-    "build": "threax-npm-tk build && dotnet bundle",
+    "build": "threax-npm-tk build",
     "clean": "threax-npm-tk clean",
     "trash-modules": "threax-npm-tk clean -o node_modules",
     "import-tsconfig": "threax-npm-tk tsconfig"

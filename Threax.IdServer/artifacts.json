@@ -20,5 +20,30 @@
     "copy": [
       "node_modules/jquery/dist/jquery.min.js"
     ]
+  },
+  {
+    "outDir": ".",
+    "bundle": [
+      {
+        "input": [
+          "wwwroot/lib/bootstrap/dist/css/threax.bootstrap.css"
+        ],
+        "out": "bundle.min.css",
+        "minify": true
+      }
+    ]
+  },
+  {
+    "outDir": ".",
+    "bundle": [
+      {
+        "input": [
+          "wwwroot/lib/jquery/dist/jquery.min.js",
+          "wwwroot/lib/bootstrap/dist/js/bootstrap.min.js"
+        ],
+        "out": "bundle.min.js",
+        "minify": true
+      }
+    ]
   }
 ]
