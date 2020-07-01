@@ -1,9 +1,12 @@
-﻿import * as controller from 'hr.controller';
+﻿import * as hr from 'hr.main';
+import * as datetime from 'hr.bootstrap.datetime.main';
+import * as bootstrap from 'hr.bootstrap.main';
+import * as bootstrap4form from 'hr.form.bootstrap4.main';
+import * as controller from 'hr.controller';
 import * as WindowFetch from 'hr.windowfetch';
 import * as AccessTokens from 'hr.accesstokens';
 import * as whitelist from 'hr.whitelist';
 import * as fetcher from 'hr.fetcher';
-import * as bootstrap from 'hr.bootstrap.all';
 import * as client from 'clientlibs.IdServerClient';
 import * as userSearch from 'clientlibs.UserSearchClientEntryPointInjector';
 import * as loginPopup from 'hr.relogin.LoginPopup';
@@ -11,10 +14,16 @@ import * as deepLink from 'hr.deeplink';
 import * as xsrf from 'hr.xsrftoken';
 import * as pageConfig from 'hr.pageconfig';
 
+//Activate htmlrapier
+hr.setup();
+datetime.setup();
+bootstrap.setup();
+bootstrap4form.setup();
+
 export interface Config {
     client: {
-        IdentityServerHost: string,
-        PageBasePath: string
+        IdentityServerHost: string;
+        PageBasePath: string;
     };
     tokens: {
         AccessTokenPath?: string;
@@ -23,17 +32,14 @@ export interface Config {
     };
 }
 
-var builder: controller.InjectedControllerBuilder = null;
+let builder: controller.InjectedControllerBuilder = null;
 
 export function createBuilder() {
     if (builder === null) {
         builder = new controller.InjectedControllerBuilder();
 
-        //Keep this bootstrap activator line, it will ensure that bootstrap is loaded and configured before continuing.
-        bootstrap.activate();
-
         //Set up the access token fetcher
-        var config = pageConfig.read<Config>();
+        const config = pageConfig.read<Config>();
         builder.Services.tryAddShared(fetcher.Fetcher, s => createFetcher(config));
         builder.Services.tryAddShared(client.EntryPointsInjector, s => new client.EntryPointsInjector(config.client.IdentityServerHost + "/api", s.getRequiredService(fetcher.Fetcher)));
 
@@ -50,7 +56,7 @@ export function createBuilder() {
 }
 
 function createFetcher(config: Config): fetcher.Fetcher {
-    var fetcher = new WindowFetch.WindowFetch();
+    let fetcher = new WindowFetch.WindowFetch();
 
     if (config.tokens !== undefined) {
         fetcher = new xsrf.XsrfTokenFetcher(
