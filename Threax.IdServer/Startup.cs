@@ -195,7 +195,8 @@ namespace Threax.IdServer
                 .AddTool("createCert", new ToolCommand("Create a self signed ssl cert. Also good as an id server signing cert. Include a common name as the 1st argument and the number of years until expiration as the 2nd and a filename as the 3rd.", async a =>
                 {
                     var toolController = a.Scope.ServiceProvider.GetRequiredService<CreateCertToolController>();
-                    await toolController.Run(a.Args[0], int.Parse(a.Args[1]), a.Args[2]);
+                    var pass = a.Args.Count > 3 ? a.Args[3] : default(String);
+                    await toolController.Run(a.Args[0], int.Parse(a.Args[1]), a.Args[2], pass);
                 }))
                 .AddTool("setupAppDashboard", new ToolCommand("Setup the app dashboard, include the host as the first argument, do not include the https:// protocol.", async a =>
                 {

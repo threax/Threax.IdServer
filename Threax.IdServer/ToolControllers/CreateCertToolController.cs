@@ -10,7 +10,7 @@ namespace Threax.IdServer.ToolControllers
 {
     public class CreateCertToolController
     {
-        public Task Run(String cn, int expirationYears, String outFile)
+        public Task Run(String cn, int expirationYears, String outFile, String password)
         {
             using (var rsa = RSA.Create()) // generate asymmetric key pair
             {
@@ -26,7 +26,15 @@ namespace Threax.IdServer.ToolControllers
                 {
                     using (var stream = File.Open(outFile, FileMode.Create))
                     {
-                        var bytes = cert.Export(X509ContentType.Pfx);
+                        byte[] bytes;
+                        if (password == null)
+                        {
+                            bytes = cert.Export(X509ContentType.Pfx);
+                        }
+                        else
+                        {
+                            bytes = cert.Export(X509ContentType.Pfx, password);
+                        }
                         stream.Write(bytes);
                     }
                 }
