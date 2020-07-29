@@ -10,11 +10,10 @@
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchBrowser": true,
       "launchUrl": "https://localhost:44390/",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_preventHostingStartup": "True"
+        "ASPNETCORE_preventHostingStartup": "True",
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "Threax.IdServer": {

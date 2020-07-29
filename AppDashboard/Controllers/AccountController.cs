@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Threax.AspNetCore.IdServerAuth;
 
 namespace AppDashboard.Controllers
 {
@@ -17,6 +18,12 @@ namespace AppDashboard.Controllers
 
         public IActionResult AccessDenied()
         {
+            return View();
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutOfIdServer();
             return View();
         }
     }
