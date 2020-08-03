@@ -57,6 +57,8 @@ namespace Threax.IdServer
             Configuration.Bind("ClientConfig", clientConfig);
             Configuration.Bind("Cors", corsOptions);
             Configuration.Define("Deploy", typeof(Threax.DeployConfig.DeploymentConfig));
+
+            clientConfig.BearerCookieName = $"{authConfig.ClientId}.BearerToken";
         }
 
         public SchemaConfigurationBinder Configuration { get; }
@@ -78,6 +80,10 @@ namespace Threax.IdServer
                 o.AppOptions = authConfig;
                 o.CookiePath = appConfig.PathBase;
                 o.AccessDeniedPath = "/Account/AccessDenied";
+                o.CustomizeCookies = cookOpt =>
+                {
+                    cookOpt.BearerHttpOnly = false;
+                };
             });
 
             //Add the client side configuration object
@@ -213,6 +219,11 @@ namespace Threax.IdServer
                     var toolController = a.Scope.ServiceProvider.GetRequiredService<UnlockAccount>();
                     await toolController.Run(a.Args[0]);
                 }))
+                .AddTool("addfrommetadata", new ToolCommand("Unlock the account for the given user guid.", async a =>
+                {
+                    var toolController = a.Scope.ServiceProvider.GetRequiredService<AddFromMetadataToolController>();
+                    await toolController.Run(a.Args[0]);
+                }))
                 .UseClientGenTools();
             });
 
@@ -235,6 +246,7 @@ namespace Threax.IdServer
             services.AddScoped<CreateCertToolController>();
             services.AddScoped<ChangePassword>();
             services.AddScoped<UnlockAccount>();
+            services.AddScoped<AddFromMetadataToolController>();
 
             services.AddLogging(o =>
             {

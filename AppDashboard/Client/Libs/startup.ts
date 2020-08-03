@@ -11,7 +11,7 @@ import * as client from 'clientlibs.IdServerClient';
 import * as userSearch from 'clientlibs.UserSearchClientEntryPointInjector';
 import * as loginPopup from 'hr.relogin.LoginPopup';
 import * as deepLink from 'hr.deeplink';
-import * as xsrf from 'hr.xsrftoken';
+import * as safepost from 'hr.safepostmessage';
 import * as pageConfig from 'hr.pageconfig';
 
 //Activate htmlrapier
@@ -24,11 +24,8 @@ export interface Config {
     client: {
         IdentityServerHost: string;
         PageBasePath: string;
-    };
-    tokens: {
-        AccessTokenPath?: string;
-        XsrfCookie?: string;
-        XsrfPaths?: string[];
+        BearerCookieName?: string;
+        AccessTokenPath?: string; 
     };
 }
 
@@ -42,6 +39,8 @@ export function createBuilder() {
         const config = pageConfig.read<Config>();
         builder.Services.tryAddShared(fetcher.Fetcher, s => createFetcher(config));
         builder.Services.tryAddShared(client.EntryPointsInjector, s => new client.EntryPointsInjector(config.client.IdentityServerHost + "/api", s.getRequiredService(fetcher.Fetcher)));
+        builder.Services.tryAddShared(safepost.MessagePoster, s => new safepost.MessagePoster(window.location.href));
+        builder.Services.tryAddShared(safepost.PostMessageValidator, s => new safepost.PostMessageValidator(window.location.href));
 
         userSearch.addServices(builder);
 
@@ -58,18 +57,14 @@ export function createBuilder() {
 function createFetcher(config: Config): fetcher.Fetcher {
     let fetcher = new WindowFetch.WindowFetch();
 
-    if (config.tokens !== undefined) {
-        fetcher = new xsrf.XsrfTokenFetcher(
-            new xsrf.CookieTokenAccessor(config.tokens.XsrfCookie),
-            new whitelist.Whitelist(config.tokens.XsrfPaths),
-            fetcher);
-    }
-
-    if (config.tokens.AccessTokenPath !== undefined) {
-        fetcher = new AccessTokens.AccessTokenFetcher(
-            config.tokens.AccessTokenPath,
+    if (config.client.AccessTokenPath) {
+        const accessFetcher = new AccessTokens.AccessTokenFetcher(
+            config.client.AccessTokenPath,
             new whitelist.Whitelist([config.client.IdentityServerHost]),
             fetcher);
+        accessFetcher.disableOnNoToken = false;
+        accessFetcher.bearerCookieName = config.client.BearerCookieName;
+        fetcher = accessFetcher;
     }
 
     return fetcher;

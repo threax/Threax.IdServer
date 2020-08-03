@@ -18,6 +18,10 @@ namespace Threax.IdServer.Mappers
             CreateMap<ClientMetadata, ClientMetadataView>();
             CreateMap<ApiResourceMetadata, ApiResourceMetadataView>();
 
+            //These allow us to go straight from client metadata to the input. This is so the tools mode can use it.
+            CreateMap<ClientMetadata, ClientInput>();
+            CreateMap<ApiResourceMetadata, ApiResourceInput>();
+
             CreateMap<ApiResourceInput, ApiResource>()
                 .ForMember(d => d.Id, opt => opt.Ignore())
                 .ForMember(d => d.Enabled, opt => opt.MapFrom(s => true))

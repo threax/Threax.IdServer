@@ -167,10 +167,9 @@ namespace Threax.IdServer.Areas.Api.Controllers
         [HttpGet]
         [Route("[action]")]
         [HalRel(Rels.LoadFromMetadata)]
-        public async Task<ApiResourceMetadataView> FromMetadata([FromQuery] MetadataLookup lookupInfo, [FromServices] MetadataClient client, [FromServices] IMapper mapper)
+        public async Task<ApiResourceMetadataView> FromMetadata([FromQuery] MetadataLookup lookupInfo, [FromServices] IMetadataClient client, [FromServices] IMapper mapper)
         {
-            client.BaseUrl = lookupInfo.GetFixedTargetUrl();
-            return mapper.Map<ApiResourceMetadataView>(await client.ScopeAsync(null, this.HttpContext.User.GetAccessToken()));
+            return mapper.Map<ApiResourceMetadataView>(await client.ScopeAsync(lookupInfo.TargetUrl));
         }
 
         /// <summary>

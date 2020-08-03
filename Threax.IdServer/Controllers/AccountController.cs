@@ -258,5 +258,11 @@ namespace IdentityServer4.Quickstart.UI.Controllers
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
         }
+
+        [HttpPost]
+        public IActionResult AccessToken()
+        {
+            return new EmptyResult();
+        }
     }
 }

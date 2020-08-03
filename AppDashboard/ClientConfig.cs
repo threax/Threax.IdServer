@@ -13,5 +13,13 @@ namespace AppDashboard
         /// The base url of the identity service to modify.
         /// </summary>
         public String IdentityServerHost { get; set; } = "Set this to something";
+
+        [ExpandHostPath]
+        public string AccessTokenPath { get; set; } = "~/Account/AccessToken";
+
+        /// <summary>
+        /// The path to the bearer cookie. Move this somewhere else
+        /// </summary>
+        public String BearerCookieName { get; set; }
     }
 }

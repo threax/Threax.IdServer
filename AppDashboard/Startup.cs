@@ -37,6 +37,8 @@ namespace AppDashboard
             Configuration.Bind("ClientConfig", clientConfig);
             Configuration.Bind("AppConfig", appConfig);
             Configuration.Define("Deploy", typeof(Threax.DeployConfig.DeploymentConfig));
+
+            clientConfig.BearerCookieName = $"{authConfig.ClientId}.BearerToken";
         }
 
         public SchemaConfigurationBinder Configuration { get; }
@@ -68,6 +70,10 @@ namespace AppDashboard
                 o.CookiePath = appConfig.PathBase;
                 o.ActAsApi = false;
                 o.AccessDeniedPath = "/Account/AccessDenied";
+                o.CustomizeCookies = cookOpt =>
+                {
+                    cookOpt.BearerHttpOnly = false;
+                };
             });
 
             services.AddMvc()

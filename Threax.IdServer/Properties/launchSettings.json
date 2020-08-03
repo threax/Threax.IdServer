@@ -67,6 +67,13 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    },
+    "Add Notes Metadata": {
+      "commandName": "Project",
+      "commandLineArgs": "tools \"addfrommetadata https://localhost:44346\"",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     }
   }
 }
