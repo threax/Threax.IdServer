@@ -1141,20 +1141,19 @@ export class CreateSecretResultResult {
 }
 
 export class EntryPointsInjector {
-    private url: string;
-    private fetcher: Fetcher;
     private instancePromise: Promise<EntryPointsResult>;
 
-    constructor(url: string, fetcher: Fetcher) {
-        this.url = url;
-        this.fetcher = fetcher;
-    }
+    constructor(private url: string, private fetcher: Fetcher, private data?: any) {}
 
     public load(): Promise<EntryPointsResult> {
         if (!this.instancePromise) {
-            this.instancePromise = EntryPointsResult.Load(this.url, this.fetcher);
+            if (this.data) {
+                this.instancePromise = Promise.resolve(new EntryPointsResult(new hal.HalEndpointClient(this.data, this.fetcher)));
+            }
+            else {
+                this.instancePromise = EntryPointsResult.Load(this.url, this.fetcher);
+            }
         }
-
         return this.instancePromise;
     }
 }
