@@ -32,7 +32,7 @@
     <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="14.4.0" />
     <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="5.0.0" GeneratePathProperty="true" />
     <PackageReference Include="Threax.AspNetCore.IdServerMetadata" Version="3.0.0" />
-    <PackageReference Include="Threax.AspNetCore.IdServerMetadata.Client" Version="2.0.0-pre01" />
+    <PackageReference Include="Threax.AspNetCore.IdServerMetadata.Client" Version="2.0.0" />
     <PackageReference Include="Threax.AspNetCore.Models" Version="7.0.0" />
     <PackageReference Include="Threax.AspNetCore.Tracking" Version="2.0.3" />
     <PackageReference Include="Threax.AspNetCore.UrlFix" Version="1.1.4" />
