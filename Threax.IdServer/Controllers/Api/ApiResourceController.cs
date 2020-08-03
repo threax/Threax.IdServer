@@ -22,8 +22,7 @@ namespace Threax.IdServer.Areas.Api.Controllers
     /// Api for editing scopes
     /// </summary>
     [Authorize(Roles = Roles.EditApiResources, AuthenticationSchemes = AuthCoreSchemes.Bearer)]
-    [Route("[controller]")]
-    [Area("Api")]
+    [Route("api/[controller]")]
     [ResponseCache(NoStore = true)]
     public class ApiResourceController : Controller
     {

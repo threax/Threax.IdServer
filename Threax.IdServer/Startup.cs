@@ -46,7 +46,6 @@ namespace Threax.IdServer
         };
 
         private AppConfig appConfig = new AppConfig();
-        private ClientConfig clientConfig = new ClientConfig();
         private CorsManagerOptions corsOptions = new CorsManagerOptions();
 
         public Startup(IConfiguration configuration)
@@ -54,11 +53,13 @@ namespace Threax.IdServer
             Configuration = new SchemaConfigurationBinder(configuration);
             Configuration.Bind("JwtAuth", authConfig);
             Configuration.Bind("AppConfig", appConfig);
-            Configuration.Bind("ClientConfig", clientConfig);
             Configuration.Bind("Cors", corsOptions);
             Configuration.Define("Deploy", typeof(Threax.DeployConfig.DeploymentConfig));
 
-            clientConfig.BearerCookieName = $"{authConfig.ClientId}.BearerToken";
+            if (string.IsNullOrWhiteSpace(appConfig.CacheToken))
+            {
+                appConfig.CacheToken = this.GetType().Assembly.ComputeMd5ForAllNearby();
+            }
         }
 
         public SchemaConfigurationBinder Configuration { get; }
@@ -84,12 +85,6 @@ namespace Threax.IdServer
                 {
                     cookOpt.BearerHttpOnly = false;
                 };
-            });
-
-            //Add the client side configuration object
-            services.AddClientConfig(clientConfig, o =>
-            {
-                o.RouteArgsToClear = new List<string>() { "inPagePath" };
             });
             
             services.AddAssetBundle(o =>
@@ -132,7 +127,7 @@ namespace Threax.IdServer
             var halOptions = new HalcyonConventionOptions()
             {
                 BaseUrl = appConfig.BaseUrl,
-                HalDocEndpointInfo = new HalDocEndpointInfo(typeof(EndpointDocController))
+                HalDocEndpointInfo = new HalDocEndpointInfo(typeof(EndpointDocController), appConfig.CacheToken),
             };
 
             services.AddConventionalHalcyon(halOptions);
@@ -254,6 +249,13 @@ namespace Threax.IdServer
                     .AddConsole()
                     .AddDebug();
             });
+
+            services.AddSingleton<AppConfig>(appConfig);
+
+            if (appConfig.EnableResponseCompression)
+            {
+                services.AddResponseCompression();
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -305,7 +307,25 @@ namespace Threax.IdServer
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStaticFiles();
+            if (appConfig.EnableResponseCompression)
+            {
+                app.UseResponseCompression();
+            }
+
+            //Setup static files
+            var staticFileOptions = new StaticFileOptions();
+            if (appConfig.CacheStaticAssets)
+            {
+                staticFileOptions.OnPrepareResponse = ctx =>
+                {
+                    //If the request is coming in with a v query it can be cached
+                    if (!String.IsNullOrWhiteSpace(ctx.Context.Request.Query["v"]))
+                    {
+                        ctx.Context.Response.Headers["Cache-Control"] = appConfig.CacheControlHeaderString;
+                    }
+                };
+            }
+            app.UseStaticFiles(staticFileOptions);
 
             app.UseCorsManager(corsOptions, loggerFactory);
 

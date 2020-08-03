@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Threax.AspNetCore.BuiltInTools;
+using Threax.AspNetCore.Halcyon.Ext;
 using Threax.AspNetCore.IdServerAuth;
 using Threax.AspNetCore.UserBuilder;
 using Threax.Extensions.Configuration.SchemaBinder;
@@ -39,6 +40,11 @@ namespace AppDashboard
             Configuration.Define("Deploy", typeof(Threax.DeployConfig.DeploymentConfig));
 
             clientConfig.BearerCookieName = $"{authConfig.ClientId}.BearerToken";
+
+            if (string.IsNullOrWhiteSpace(appConfig.CacheToken))
+            {
+                appConfig.CacheToken = this.GetType().Assembly.ComputeMd5ForAllNearby();
+            }
         }
 
         public SchemaConfigurationBinder Configuration { get; }
@@ -83,11 +89,15 @@ namespace AppDashboard
                 o.SerializerSettings.Converters.Add(new StringEnumConverter());
             })
             .AddRazorRuntimeCompilation()
-            .AddConventionalIdServerMvc();
+            .AddConventionalIdServerMvc()
+            .AddThreaxCacheUi(appConfig.CacheToken, o =>
+            {
+                o.CacheControlHeader = appConfig.CacheControlHeaderString;
+            });
 
             services.AddUserBuilderForAnybody(opt => //This is anybody, but it is further restricted below
             {
-                opt.ConfigureAddititionalPolicies = arg => new HypermediaUserBuilder(clientConfig.IdentityServerHost + "/api", arg.Services.GetRequiredService<ILoggerFactory>());
+                opt.ConfigureAddititionalPolicies = arg => new HypermediaUserBuilder(clientConfig.ServiceUrl, arg.Services.GetRequiredService<ILoggerFactory>());
                 opt.UseClaimsCache = false; //Disable claims cache for app dashboard
             });
 
@@ -105,7 +115,7 @@ namespace AppDashboard
             {
                 o.AddDefault().AddNone();
                 o.AddImg().AddSelf().AddData();
-                o.AddConnect().AddSelf().AddEntries(new String[] { $"https://{new Uri(clientConfig.IdentityServerHost).Authority}" });
+                o.AddConnect().AddSelf().AddEntries(new String[] { $"https://{new Uri(clientConfig.ServiceUrl).Authority}" });
                 o.AddManifest().AddSelf();
                 o.AddFont().AddSelf();
                 o.AddFrame().AddSelf().AddEntries(new String[] { authConfig.Authority });
@@ -120,6 +130,13 @@ namespace AppDashboard
                     .AddConsole()
                     .AddDebug();
             });
+
+            services.AddSingleton<AppConfig>(appConfig);
+
+            if (appConfig.EnableResponseCompression)
+            {
+                services.AddResponseCompression();
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -149,7 +166,25 @@ namespace AppDashboard
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStaticFiles();
+            if (appConfig.EnableResponseCompression)
+            {
+                app.UseResponseCompression();
+            }
+
+            //Setup static files
+            var staticFileOptions = new StaticFileOptions();
+            if (appConfig.CacheStaticAssets)
+            {
+                staticFileOptions.OnPrepareResponse = ctx =>
+                {
+                    //If the request is coming in with a v query it can be cached
+                    if (!String.IsNullOrWhiteSpace(ctx.Context.Request.Query["v"]))
+                    {
+                        ctx.Context.Response.Headers["Cache-Control"] = appConfig.CacheControlHeaderString;
+                    }
+                };
+            }
+            app.UseStaticFiles(staticFileOptions);
 
             app.UseRouting();
             app.UseAuthentication();
@@ -157,6 +192,10 @@ namespace AppDashboard
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "cacheUi",
+                    pattern: "{controller=Home}/{cacheToken}/{action=Index}/{*inPagePath}");
+
                 endpoints.MapControllerRoute(
                     name: "root",
                     pattern: "{action=Index}/{*inPagePath}",

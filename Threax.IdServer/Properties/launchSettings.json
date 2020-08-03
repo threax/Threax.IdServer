@@ -35,7 +35,7 @@
     },
     "UpdateClient": {
       "commandName": "Project",
-      "commandLineArgs": "tools \"clientgen Client\\Libs\\IdServerClient.ts\" \"clientgen ..\\AppDashboard\\Client\\Libs\\IdServerClient.ts\" \"clientgen ..\\Threax.IdServer.Client\\ServiceClient.cs\"",
+      "commandLineArgs": "tools \"clientgen ..\\AppDashboard\\Client\\Libs\\IdServerClient.ts\" \"clientgen ..\\Threax.IdServer.Client\\ServiceClient.cs\"",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

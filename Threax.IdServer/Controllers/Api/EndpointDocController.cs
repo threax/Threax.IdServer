@@ -1,30 +1,55 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net;
 using System.Threading.Tasks;
+using Threax.AspNetCore.ExceptionFilter;
 using Threax.AspNetCore.Halcyon.Ext;
 
 namespace Threax.IdServer.Areas.Api.Controllers
 {
-    [Area("Api")]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ResponseCache(NoStore = true)]
     [Authorize(AuthenticationSchemes = AuthCoreSchemes.Bearer)]
     public class EndpointDocController : Controller
     {
-        IEndpointDocBuilder descriptionProvider;
+        private readonly IEndpointDocBuilder descriptionProvider;
+        private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly AppConfig appConfig;
 
-        public EndpointDocController(IEndpointDocBuilder descriptionProvider)
+        public EndpointDocController(IEndpointDocBuilder descriptionProvider, IHttpContextAccessor httpContextAccessor, AppConfig appConfig)
         {
             this.descriptionProvider = descriptionProvider;
+            this.httpContextAccessor = httpContextAccessor;
+            this.appConfig = appConfig;
         }
 
-        [HttpGet("{groupName}/{method}/{*relativePath}")]
+        [HttpGet("{version}/{groupName}/{method}/{*relativePath}")]
         [HalRel(HalDocEndpointInfo.DefaultRels.Get)]
         [AllowAnonymous]
-        public Task<EndpointDoc> Get(String groupName, String method, String relativePath)
+        public async Task<EndpointDoc> Get(String version, String groupName, String method, String relativePath, EndpointDocQuery docQuery)
         {
-            return descriptionProvider.GetDoc(groupName, method, relativePath);
+            try
+            {
+                var doc = await descriptionProvider.GetDoc(groupName, method, relativePath, new EndpointDocBuilderOptions()
+                {
+                    User = User,
+                    IncludeRequest = docQuery.IncludeRequest,
+                    IncludeResponse = docQuery.IncludeResponse
+                });
+
+                if (doc.Cacheable && version != "nocache")
+                {
+                    httpContextAccessor.HttpContext.Response.Headers["Cache-Control"] = appConfig.CacheControlHeaderString;
+                }
+
+                return doc;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                throw new ErrorResultException("Unauthorized", HttpStatusCode.Unauthorized);
+            }
         }
     }
 }

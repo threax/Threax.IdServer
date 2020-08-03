@@ -1,4 +1,5 @@
 import * as hal from 'hr.halcyon.EndpointClient';
+import { Fetcher } from 'hr.fetcher';
 
 export class RoleAssignmentsResult {
     private client: hal.HalEndpointClient;
@@ -120,17 +121,17 @@ export class IdServerUserCollectionResult {
         return this.strongData;
     }
 
-    private strongItems: IdServerUserViewResult[];
+    private itemsStrong: IdServerUserViewResult[];
     public get items(): IdServerUserViewResult[] {
-        if (this.strongItems === undefined) {
+        if (this.itemsStrong === undefined) {
             var embeds = this.client.GetEmbed("values");
             var clients = embeds.GetAllClients();
-            this.strongItems = [];
+            this.itemsStrong = [];
             for (var i = 0; i < clients.length; ++i) {
-                this.strongItems.push(new IdServerUserViewResult(clients[i]));
+                this.itemsStrong.push(new IdServerUserViewResult(clients[i]));
             }
         }
-        return this.strongItems;
+        return this.itemsStrong;
     }
 
     public refresh(): Promise<IdServerUserCollectionResult> {
@@ -448,17 +449,17 @@ export class ApiResourceEditModelCollectionResult {
         return this.strongData;
     }
 
-    private strongItems: ApiResourceEditModelResult[];
+    private itemsStrong: ApiResourceEditModelResult[];
     public get items(): ApiResourceEditModelResult[] {
-        if (this.strongItems === undefined) {
+        if (this.itemsStrong === undefined) {
             var embeds = this.client.GetEmbed("values");
             var clients = embeds.GetAllClients();
-            this.strongItems = [];
+            this.itemsStrong = [];
             for (var i = 0; i < clients.length; ++i) {
-                this.strongItems.push(new ApiResourceEditModelResult(clients[i]));
+                this.itemsStrong.push(new ApiResourceEditModelResult(clients[i]));
             }
         }
-        return this.strongItems;
+        return this.itemsStrong;
     }
 
     public refresh(): Promise<ApiResourceEditModelCollectionResult> {
@@ -488,7 +489,7 @@ export class ApiResourceEditModelCollectionResult {
         return this.client.HasLinkDoc("self");
     }
 
-    public list(data: PagedCollectionQuery): Promise<ApiResourceEditModelCollectionResult> {
+    public list(data: ApiResourceQuery): Promise<ApiResourceEditModelCollectionResult> {
         return this.client.LoadLinkWithData("List", data)
                .then(r => {
                     return new ApiResourceEditModelCollectionResult(r);
@@ -831,17 +832,17 @@ export class ClientEditModelCollectionViewResult {
         return this.strongData;
     }
 
-    private strongItems: ClientEditModelResult[];
+    private itemsStrong: ClientEditModelResult[];
     public get items(): ClientEditModelResult[] {
-        if (this.strongItems === undefined) {
+        if (this.itemsStrong === undefined) {
             var embeds = this.client.GetEmbed("values");
             var clients = embeds.GetAllClients();
-            this.strongItems = [];
+            this.itemsStrong = [];
             for (var i = 0; i < clients.length; ++i) {
-                this.strongItems.push(new ClientEditModelResult(clients[i]));
+                this.itemsStrong.push(new ClientEditModelResult(clients[i]));
             }
         }
-        return this.strongItems;
+        return this.itemsStrong;
     }
 
     public refresh(): Promise<ClientEditModelCollectionViewResult> {
@@ -871,7 +872,7 @@ export class ClientEditModelCollectionViewResult {
         return this.client.HasLinkDoc("self");
     }
 
-    public list(data: PagedCollectionQuery): Promise<ClientEditModelCollectionViewResult> {
+    public list(data: ClientQuery): Promise<ClientEditModelCollectionViewResult> {
         return this.client.LoadLinkWithData("List", data)
                .then(r => {
                     return new ClientEditModelCollectionViewResult(r);
@@ -1141,10 +1142,10 @@ export class CreateSecretResultResult {
 
 export class EntryPointsInjector {
     private url: string;
-    private fetcher: hal.Fetcher;
+    private fetcher: Fetcher;
     private instancePromise: Promise<EntryPointsResult>;
 
-    constructor(url: string, fetcher: hal.Fetcher) {
+    constructor(url: string, fetcher: Fetcher) {
         this.url = url;
         this.fetcher = fetcher;
     }
@@ -1161,7 +1162,7 @@ export class EntryPointsInjector {
 export class EntryPointsResult {
     private client: hal.HalEndpointClient;
 
-    public static Load(url: string, fetcher: hal.Fetcher): Promise<EntryPointsResult> {
+    public static Load(url: string, fetcher: Fetcher): Promise<EntryPointsResult> {
         return hal.HalEndpointClient.Load({
             href: url,
             method: "GET"
@@ -1208,7 +1209,7 @@ export class EntryPointsResult {
         return this.client.HasLinkDoc("self");
     }
 
-    public listClients(data: PagedCollectionQuery): Promise<ClientEditModelCollectionViewResult> {
+    public listClients(data: ClientQuery): Promise<ClientEditModelCollectionViewResult> {
         return this.client.LoadLinkWithData("listClients", data)
                .then(r => {
                     return new ClientEditModelCollectionViewResult(r);
@@ -1374,7 +1375,7 @@ export class EntryPointsResult {
         return this.client.HasLinkDoc("addClientSecret");
     }
 
-    public listApiResource(data: PagedCollectionQuery): Promise<ApiResourceEditModelCollectionResult> {
+    public listApiResource(data: ApiResourceQuery): Promise<ApiResourceEditModelCollectionResult> {
         return this.client.LoadLinkWithData("listApiResource", data)
                .then(r => {
                     return new ApiResourceEditModelCollectionResult(r);
@@ -1635,17 +1636,17 @@ export class UserCollectionResult {
         return this.strongData;
     }
 
-    private strongItems: RoleAssignmentsResult[];
+    private itemsStrong: RoleAssignmentsResult[];
     public get items(): RoleAssignmentsResult[] {
-        if (this.strongItems === undefined) {
+        if (this.itemsStrong === undefined) {
             var embeds = this.client.GetEmbed("values");
             var clients = embeds.GetAllClients();
-            this.strongItems = [];
+            this.itemsStrong = [];
             for (var i = 0; i < clients.length; ++i) {
-                this.strongItems.push(new RoleAssignmentsResult(clients[i]));
+                this.itemsStrong.push(new RoleAssignmentsResult(clients[i]));
             }
         }
-        return this.strongItems;
+        return this.itemsStrong;
     }
 
     public refresh(): Promise<UserCollectionResult> {
@@ -1898,17 +1899,17 @@ export class UserSearchCollectionResult {
         return this.strongData;
     }
 
-    private strongItems: UserSearchResult[];
+    private itemsStrong: UserSearchResult[];
     public get items(): UserSearchResult[] {
-        if (this.strongItems === undefined) {
+        if (this.itemsStrong === undefined) {
             var embeds = this.client.GetEmbed("values");
             var clients = embeds.GetAllClients();
-            this.strongItems = [];
+            this.itemsStrong = [];
             for (var i = 0; i < clients.length; ++i) {
-                this.strongItems.push(new UserSearchResult(clients[i]));
+                this.itemsStrong.push(new UserSearchResult(clients[i]));
             }
         }
-        return this.strongItems;
+        return this.itemsStrong;
     }
 
     public refresh(): Promise<UserSearchCollectionResult> {
@@ -2070,7 +2071,7 @@ export class UserSearchCollectionResult {
 }
 //----------------------
 // <auto-generated>
-//     Generated using the NSwag toolchain v9.10.49.0 (Newtonsoft.Json v11.0.0.0) (http://NJsonSchema.org)
+//     Generated using the NSwag toolchain v1.0.0.0 (Newtonsoft.Json v12.0.0.0) (http://NJsonSchema.org)
 // </auto-generated>
 //----------------------
 
@@ -2093,9 +2094,7 @@ export interface IdServerUserCollection {
     userId?: string;
     total?: number;
     userName?: string;
-    /** The number of pages (item number = Offset * Limit) into the collection to query. */
     offset?: number;
-    /** The limit of the number of items to return. */
     limit?: number;
 }
 
@@ -2103,9 +2102,7 @@ export interface IdServerUserQuery {
     userId?: string;
     userIds?: string[];
     userName?: string;
-    /** The number of pages (item number = Offset * Limit) into the collection to query. */
     offset?: number;
-    /** The limit of the number of items to return. */
     limit?: number;
 }
 
@@ -2120,27 +2117,27 @@ export interface IdServerUserView {
 
 export interface ApiResourceEditModel {
     id?: number;
-    scopeName: string;
-    displayName: string;
+    scopeName?: string;
+    displayName?: string;
 }
 
 export interface ApiResourceInput {
-    scopeName: string;
-    displayName: string;
+    scopeName?: string;
+    displayName?: string;
 }
 
-/** View model for collections of clients. */
 export interface ApiResourceEditModelCollection {
+    name?: string;
+    id?: number;
+    total?: number;
     offset?: number;
     limit?: number;
-    total?: number;
 }
 
-/** Default implementation of ICollectionQuery. */
-export interface PagedCollectionQuery {
-    /** The number of pages (item number = Offset * Limit) into the collection to query. */
+export interface ApiResourceQuery {
+    id?: number;
+    name?: string;
     offset?: number;
-    /** The limit of the number of items to return. */
     limit?: number;
 }
 
@@ -2151,15 +2148,15 @@ export interface MetadataLookup {
 }
 
 export interface ApiResourceMetadataView {
-    scopeName: string;
-    displayName: string;
+    scopeName?: string;
+    displayName?: string;
 }
 
 export interface ClientEditModel {
     /** The id of the client. */
     id?: number;
-    clientId: string;
-    name: string;
+    clientId?: string;
+    name?: string;
     logoutUri?: string;
     logoutSessionRequired?: boolean;
     allowedGrantTypes?: string[];
@@ -2174,8 +2171,8 @@ editing. */
 }
 
 export interface ClientInput {
-    clientId: string;
-    name: string;
+    clientId?: string;
+    name?: string;
     logoutUri?: string;
     logoutSessionRequired?: boolean;
     allowedGrantTypes?: string[];
@@ -2189,16 +2186,28 @@ export interface CreateSecretResult {
     secret?: string;
 }
 
-/** View model for collections of clients. */
 export interface ClientEditModelCollectionView {
+    clientId?: string;
+    id?: number;
+    total?: number;
+    grantTypes?: string[];
+    hasMissingOrDefaultSecret?: boolean;
     offset?: number;
     limit?: number;
-    total?: number;
+}
+
+export interface ClientQuery {
+    id?: number;
+    clientId?: string;
+    grantTypes?: string[];
+    hasMissingOrDefaultSecret?: boolean;
+    offset?: number;
+    limit?: number;
 }
 
 export interface ClientMetadataView {
-    clientId: string;
-    name: string;
+    clientId?: string;
+    name?: string;
     logoutUri?: string;
     logoutSessionRequired?: boolean;
     allowedGrantTypes?: string[];
@@ -2213,28 +2222,28 @@ export interface EntryPoints {
 }
 
 export interface RolesQuery {
-    /** The guid for the user, this is used to look up the user. */
     userId?: string[];
-    /** A name for the user. Used only as a reference, will be added to the result if the user is not found. */
     name?: string;
-    /** The number of pages (item number = Offset * Limit) into the collection to query. */
+    editRoles?: boolean;
+    superAdmin?: boolean;
     offset?: number;
-    /** The limit of the number of items to return. */
     limit?: number;
 }
 
 export interface UserCollection {
+    name?: string;
+    userId?: string[];
+    total?: number;
+    editRoles?: boolean;
+    superAdmin?: boolean;
     offset?: number;
     limit?: number;
-    total?: number;
 }
 
 export interface UserSearchQuery {
     userId?: string;
     userName?: string;
-    /** The number of pages (item number = Offset * Limit) into the collection to query. */
     offset?: number;
-    /** The limit of the number of items to return. */
     limit?: number;
 }
 
@@ -2242,9 +2251,7 @@ export interface UserSearchCollection {
     userName?: string;
     userId?: string;
     total?: number;
-    /** The number of pages (item number = Offset * Limit) into the collection to query. */
     offset?: number;
-    /** The limit of the number of items to return. */
     limit?: number;
 }
 

@@ -9,8 +9,7 @@ using Threax.AspNetCore.UserBuilder.Entities.Mvc;
 
 namespace Threax.IdServer.Areas.Api.Controllers
 {
-    [Route("[controller]")]
-    [Area("Api")]
+    [Route("api/[controller]")]
     [ResponseCache(NoStore = true)]
     public class RolesController : RolesControllerBase<RoleAssignments, UserCollection>
     {

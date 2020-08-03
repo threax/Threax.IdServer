@@ -5,15 +5,32 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Threax.AspNetCore.IdServerAuth;
 using Threax.AspNetCore.UserBuilder.Entities;
+using Threax.AspNetCore.Mvc.CacheUi;
 
 namespace AppDashboard.Controllers
 {
     [Authorize(AuthenticationSchemes = AuthCoreSchemes.Cookies)]
-    public class HomeController : Controller
+    public class HomeController : CacheUiController
     {
-        public IActionResult Index()
+        public HomeController(ICacheUiBuilder builder)
+            : base(builder)
         {
-            return View();
+
+        }
+
+        public Task<IActionResult> Index()
+        {
+            return CacheUiView();
+        }
+
+        public Task<IActionResult> Header()
+        {
+            return CacheUiView();
+        }
+
+        public Task<IActionResult> Footer()
+        {
+            return CacheUiView();
         }
 
         [Authorize(Roles = Roles.EditClients)]

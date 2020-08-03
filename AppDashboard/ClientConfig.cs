@@ -12,7 +12,7 @@ namespace AppDashboard
         /// <summary>
         /// The base url of the identity service to modify.
         /// </summary>
-        public String IdentityServerHost { get; set; } = "Set this to something";
+        public String ServiceUrl { get; set; } = "Set this to something";
 
         [ExpandHostPath]
         public string AccessTokenPath { get; set; } = "~/Account/AccessToken";

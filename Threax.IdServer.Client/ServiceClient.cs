@@ -171,18 +171,18 @@ public class IdServerUserCollectionResult
         }
     }
 
-    private List<IdServerUserViewResult> strongItems = null;
+    private List<IdServerUserViewResult> itemsStrong = null;
     public List<IdServerUserViewResult> Items
     {
         get
         {
-            if (this.strongItems == null) 
+            if (this.itemsStrong == null) 
             {
                 var embeds = this.client.GetEmbed("values");
                 var clients = embeds.GetAllClients();
-                this.strongItems = new List<IdServerUserViewResult>(clients.Select(i => new IdServerUserViewResult(i)));
+                this.itemsStrong = new List<IdServerUserViewResult>(clients.Select(i => new IdServerUserViewResult(i)));
             }
-            return this.strongItems;
+            return this.itemsStrong;
         }
     }
 
@@ -591,18 +591,18 @@ public class ApiResourceEditModelCollectionResult
         }
     }
 
-    private List<ApiResourceEditModelResult> strongItems = null;
+    private List<ApiResourceEditModelResult> itemsStrong = null;
     public List<ApiResourceEditModelResult> Items
     {
         get
         {
-            if (this.strongItems == null) 
+            if (this.itemsStrong == null) 
             {
                 var embeds = this.client.GetEmbed("values");
                 var clients = embeds.GetAllClients();
-                this.strongItems = new List<ApiResourceEditModelResult>(clients.Select(i => new ApiResourceEditModelResult(i)));
+                this.itemsStrong = new List<ApiResourceEditModelResult>(clients.Select(i => new ApiResourceEditModelResult(i)));
             }
-            return this.strongItems;
+            return this.itemsStrong;
         }
     }
 
@@ -639,7 +639,7 @@ public class ApiResourceEditModelCollectionResult
         return this.client.HasLinkDoc("self");
     }
 
-    public async Task<ApiResourceEditModelCollectionResult> List(PagedCollectionQuery data) 
+    public async Task<ApiResourceEditModelCollectionResult> List(ApiResourceQuery data) 
     {
         var result = await this.client.LoadLinkWithData("List", data);
         return new ApiResourceEditModelCollectionResult(result);
@@ -1088,18 +1088,18 @@ public class ClientEditModelCollectionViewResult
         }
     }
 
-    private List<ClientEditModelResult> strongItems = null;
+    private List<ClientEditModelResult> itemsStrong = null;
     public List<ClientEditModelResult> Items
     {
         get
         {
-            if (this.strongItems == null) 
+            if (this.itemsStrong == null) 
             {
                 var embeds = this.client.GetEmbed("values");
                 var clients = embeds.GetAllClients();
-                this.strongItems = new List<ClientEditModelResult>(clients.Select(i => new ClientEditModelResult(i)));
+                this.itemsStrong = new List<ClientEditModelResult>(clients.Select(i => new ClientEditModelResult(i)));
             }
-            return this.strongItems;
+            return this.itemsStrong;
         }
     }
 
@@ -1136,7 +1136,7 @@ public class ClientEditModelCollectionViewResult
         return this.client.HasLinkDoc("self");
     }
 
-    public async Task<ClientEditModelCollectionViewResult> List(PagedCollectionQuery data) 
+    public async Task<ClientEditModelCollectionViewResult> List(ClientQuery data) 
     {
         var result = await this.client.LoadLinkWithData("List", data);
         return new ClientEditModelCollectionViewResult(result);
@@ -1561,7 +1561,7 @@ public class EntryPointsResult
         return this.client.HasLinkDoc("self");
     }
 
-    public async Task<ClientEditModelCollectionViewResult> ListClients(PagedCollectionQuery data) 
+    public async Task<ClientEditModelCollectionViewResult> ListClients(ClientQuery data) 
     {
         var result = await this.client.LoadLinkWithData("listClients", data);
         return new ClientEditModelCollectionViewResult(result);
@@ -1776,7 +1776,7 @@ public class EntryPointsResult
         return this.client.HasLinkDoc("addClientSecret");
     }
 
-    public async Task<ApiResourceEditModelCollectionResult> ListApiResource(PagedCollectionQuery data) 
+    public async Task<ApiResourceEditModelCollectionResult> ListApiResource(ApiResourceQuery data) 
     {
         var result = await this.client.LoadLinkWithData("listApiResource", data);
         return new ApiResourceEditModelCollectionResult(result);
@@ -2113,18 +2113,18 @@ public class UserCollectionResult
         }
     }
 
-    private List<RoleAssignmentsResult> strongItems = null;
+    private List<RoleAssignmentsResult> itemsStrong = null;
     public List<RoleAssignmentsResult> Items
     {
         get
         {
-            if (this.strongItems == null) 
+            if (this.itemsStrong == null) 
             {
                 var embeds = this.client.GetEmbed("values");
                 var clients = embeds.GetAllClients();
-                this.strongItems = new List<RoleAssignmentsResult>(clients.Select(i => new RoleAssignmentsResult(i)));
+                this.itemsStrong = new List<RoleAssignmentsResult>(clients.Select(i => new RoleAssignmentsResult(i)));
             }
-            return this.strongItems;
+            return this.itemsStrong;
         }
     }
 
@@ -2435,18 +2435,18 @@ public class UserSearchCollectionResult
         }
     }
 
-    private List<UserSearchResult> strongItems = null;
+    private List<UserSearchResult> itemsStrong = null;
     public List<UserSearchResult> Items
     {
         get
         {
-            if (this.strongItems == null) 
+            if (this.itemsStrong == null) 
             {
                 var embeds = this.client.GetEmbed("values");
                 var clients = embeds.GetAllClients();
-                this.strongItems = new List<UserSearchResult>(clients.Select(i => new UserSearchResult(i)));
+                this.itemsStrong = new List<UserSearchResult>(clients.Select(i => new UserSearchResult(i)));
             }
-            return this.strongItems;
+            return this.itemsStrong;
         }
     }
 
@@ -2638,7 +2638,7 @@ public class UserSearchCollectionResult
 }
 //----------------------
 // <auto-generated>
-//     Generated using the NJsonSchema v9.10.49.0 (Newtonsoft.Json v11.0.0.0) (http://NJsonSchema.org)
+//     Generated using the NJsonSchema v1.0.0.0 (Newtonsoft.Json v12.0.0.0) (http://NJsonSchema.org)
 // </auto-generated>
 //----------------------
 
@@ -2646,7 +2646,7 @@ namespace Threax.IdServer.Client
 {
     #pragma warning disable // Disable all warnings
 
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class RoleAssignments 
     {
         [Newtonsoft.Json.JsonProperty("editClients", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -2682,7 +2682,7 @@ namespace Threax.IdServer.Client
     
     }
     
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class IdServerUserCollection 
     {
         [Newtonsoft.Json.JsonProperty("userIds", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -2697,11 +2697,9 @@ namespace Threax.IdServer.Client
         [Newtonsoft.Json.JsonProperty("userName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string UserName { get; set; }
     
-        /// <summary>The number of pages (item number = Offset * Limit) into the collection to query.</summary>
         [Newtonsoft.Json.JsonProperty("offset", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Offset { get; set; }
     
-        /// <summary>The limit of the number of items to return.</summary>
         [Newtonsoft.Json.JsonProperty("limit", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Limit { get; set; }
     
@@ -2717,7 +2715,7 @@ namespace Threax.IdServer.Client
     
     }
     
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class IdServerUserQuery 
     {
         [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -2729,11 +2727,9 @@ namespace Threax.IdServer.Client
         [Newtonsoft.Json.JsonProperty("userName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string UserName { get; set; }
     
-        /// <summary>The number of pages (item number = Offset * Limit) into the collection to query.</summary>
         [Newtonsoft.Json.JsonProperty("offset", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Offset { get; set; }
     
-        /// <summary>The limit of the number of items to return.</summary>
         [Newtonsoft.Json.JsonProperty("limit", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Limit { get; set; }
     
@@ -2749,7 +2745,7 @@ namespace Threax.IdServer.Client
     
     }
     
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class IdServerUserView 
     {
         [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -2782,7 +2778,7 @@ namespace Threax.IdServer.Client
     
     }
     
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class ApiResourceEditModel 
     {
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -2806,7 +2802,7 @@ namespace Threax.IdServer.Client
     
     }
     
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class ApiResourceInput 
     {
         [Newtonsoft.Json.JsonProperty("scopeName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -2827,18 +2823,23 @@ namespace Threax.IdServer.Client
     
     }
     
-    /// <summary>View model for collections of clients.</summary>
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class ApiResourceEditModelCollection 
     {
+        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Name { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Id { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("total", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int Total { get; set; }
+    
         [Newtonsoft.Json.JsonProperty("offset", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Offset { get; set; }
     
         [Newtonsoft.Json.JsonProperty("limit", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Limit { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("total", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int Total { get; set; }
     
         public string ToJson() 
         {
@@ -2852,15 +2853,18 @@ namespace Threax.IdServer.Client
     
     }
     
-    /// <summary>Default implementation of ICollectionQuery.</summary>
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class PagedCollectionQuery 
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class ApiResourceQuery 
     {
-        /// <summary>The number of pages (item number = Offset * Limit) into the collection to query.</summary>
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Id { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Name { get; set; }
+    
         [Newtonsoft.Json.JsonProperty("offset", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Offset { get; set; }
     
-        /// <summary>The limit of the number of items to return.</summary>
         [Newtonsoft.Json.JsonProperty("limit", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Limit { get; set; }
     
@@ -2869,15 +2873,15 @@ namespace Threax.IdServer.Client
             return Newtonsoft.Json.JsonConvert.SerializeObject(this);
         }
         
-        public static PagedCollectionQuery FromJson(string data)
+        public static ApiResourceQuery FromJson(string data)
         {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<PagedCollectionQuery>(data);
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResourceQuery>(data);
         }
     
     }
     
     /// <summary>A model class for looking up metadata.</summary>
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class MetadataLookup 
     {
         /// <summary>The url to lookup metadata from.</summary>
@@ -2896,7 +2900,7 @@ namespace Threax.IdServer.Client
     
     }
     
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class ApiResourceMetadataView 
     {
         [Newtonsoft.Json.JsonProperty("scopeName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -2917,7 +2921,7 @@ namespace Threax.IdServer.Client
     
     }
     
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class ClientEditModel 
     {
         /// <summary>The id of the client.</summary>
@@ -2969,7 +2973,7 @@ namespace Threax.IdServer.Client
     
     }
     
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class ClientInput 
     {
         [Newtonsoft.Json.JsonProperty("clientId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -3011,7 +3015,7 @@ namespace Threax.IdServer.Client
     
     }
     
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class CreateSecretResult 
     {
         [Newtonsoft.Json.JsonProperty("secret", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -3029,18 +3033,29 @@ namespace Threax.IdServer.Client
     
     }
     
-    /// <summary>View model for collections of clients.</summary>
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class ClientEditModelCollectionView 
     {
+        [Newtonsoft.Json.JsonProperty("clientId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string ClientId { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Id { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("total", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int Total { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("grantTypes", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public List<string> GrantTypes { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("hasMissingOrDefaultSecret", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool? HasMissingOrDefaultSecret { get; set; }
+    
         [Newtonsoft.Json.JsonProperty("offset", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Offset { get; set; }
     
         [Newtonsoft.Json.JsonProperty("limit", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Limit { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("total", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int Total { get; set; }
     
         public string ToJson() 
         {
@@ -3054,7 +3069,40 @@ namespace Threax.IdServer.Client
     
     }
     
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class ClientQuery 
+    {
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Id { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("clientId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string ClientId { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("grantTypes", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public List<string> GrantTypes { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("hasMissingOrDefaultSecret", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool? HasMissingOrDefaultSecret { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("offset", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int Offset { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("limit", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int Limit { get; set; }
+    
+        public string ToJson() 
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
+        
+        public static ClientQuery FromJson(string data)
+        {
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<ClientQuery>(data);
+        }
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class ClientMetadataView 
     {
         [Newtonsoft.Json.JsonProperty("clientId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -3097,7 +3145,7 @@ namespace Threax.IdServer.Client
     }
     
     /// <summary>This class returns the entry points to the system using hal links.</summary>
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class EntryPoints 
     {
         public string ToJson() 
@@ -3112,22 +3160,24 @@ namespace Threax.IdServer.Client
     
     }
     
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class RolesQuery 
     {
-        /// <summary>The guid for the user, this is used to look up the user.</summary>
         [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public List<System.Guid> UserId { get; set; }
     
-        /// <summary>A name for the user. Used only as a reference, will be added to the result if the user is not found.</summary>
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Name { get; set; }
     
-        /// <summary>The number of pages (item number = Offset * Limit) into the collection to query.</summary>
+        [Newtonsoft.Json.JsonProperty("editRoles", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool EditRoles { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("superAdmin", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool SuperAdmin { get; set; }
+    
         [Newtonsoft.Json.JsonProperty("offset", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Offset { get; set; }
     
-        /// <summary>The limit of the number of items to return.</summary>
         [Newtonsoft.Json.JsonProperty("limit", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Limit { get; set; }
     
@@ -3143,17 +3193,29 @@ namespace Threax.IdServer.Client
     
     }
     
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class UserCollection 
     {
+        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Name { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public List<System.Guid> UserId { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("total", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int Total { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("editRoles", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool EditRoles { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("superAdmin", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool SuperAdmin { get; set; }
+    
         [Newtonsoft.Json.JsonProperty("offset", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Offset { get; set; }
     
         [Newtonsoft.Json.JsonProperty("limit", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Limit { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("total", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int Total { get; set; }
     
         public string ToJson() 
         {
@@ -3167,7 +3229,7 @@ namespace Threax.IdServer.Client
     
     }
     
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class UserSearchQuery 
     {
         [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -3176,11 +3238,9 @@ namespace Threax.IdServer.Client
         [Newtonsoft.Json.JsonProperty("userName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string UserName { get; set; }
     
-        /// <summary>The number of pages (item number = Offset * Limit) into the collection to query.</summary>
         [Newtonsoft.Json.JsonProperty("offset", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Offset { get; set; }
     
-        /// <summary>The limit of the number of items to return.</summary>
         [Newtonsoft.Json.JsonProperty("limit", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Limit { get; set; }
     
@@ -3196,7 +3256,7 @@ namespace Threax.IdServer.Client
     
     }
     
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class UserSearchCollection 
     {
         [Newtonsoft.Json.JsonProperty("userName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -3208,11 +3268,9 @@ namespace Threax.IdServer.Client
         [Newtonsoft.Json.JsonProperty("total", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Total { get; set; }
     
-        /// <summary>The number of pages (item number = Offset * Limit) into the collection to query.</summary>
         [Newtonsoft.Json.JsonProperty("offset", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Offset { get; set; }
     
-        /// <summary>The limit of the number of items to return.</summary>
         [Newtonsoft.Json.JsonProperty("limit", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Limit { get; set; }
     
@@ -3228,7 +3286,7 @@ namespace Threax.IdServer.Client
     
     }
     
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.49.0 (Newtonsoft.Json v11.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "1.0.0.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class UserSearch 
     {
         [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]

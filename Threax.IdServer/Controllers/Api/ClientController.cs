@@ -24,8 +24,7 @@ namespace Threax.IdServer.Areas.Api.Controllers
     /// Edit the client applications connected to this server.
     /// </summary>
     [Authorize(Roles = Roles.EditClients, AuthenticationSchemes = AuthCoreSchemes.Bearer)]
-    [Route("[controller]")]
-    [Area("Api")]
+    [Route("api/[controller]")]
     [ResponseCache(NoStore = true)]
     public class ClientController : Controller
     {
