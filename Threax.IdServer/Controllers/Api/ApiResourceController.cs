@@ -24,7 +24,7 @@ namespace Threax.IdServer.Areas.Api.Controllers
     [Authorize(Roles = Roles.EditApiResources, AuthenticationSchemes = AuthCoreSchemes.Bearer)]
     [Route("api/[controller]")]
     [ResponseCache(NoStore = true)]
-    public class ApiResourceController : Controller
+    public class ApiResourceController
     {
         public static class Rels
         {

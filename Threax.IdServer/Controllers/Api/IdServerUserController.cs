@@ -12,7 +12,7 @@ namespace Threax.IdServer.Areas.Api.Controllers
     [Authorize(Roles = Roles.ViewIdServerUsers, AuthenticationSchemes = AuthCoreSchemes.Bearer)]
     [Route("api/[controller]")]
     [ResponseCache(NoStore = true)]
-    public class IdServerUsersController : Controller
+    public class IdServerUsersController
     {
         private readonly IIdServerUserRepository repo;
 

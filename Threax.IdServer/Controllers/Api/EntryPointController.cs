@@ -12,7 +12,7 @@ namespace Threax.IdServer.Areas.Api.Controllers
     [Route("api")]
     [ResponseCache(NoStore = true)]
     [Authorize(AuthenticationSchemes = AuthCoreSchemes.Bearer)]
-    public class EntryPointController : Controller
+    public class EntryPointController
     {
         public class Rels
         {

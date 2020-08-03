@@ -26,7 +26,7 @@ namespace Threax.IdServer.Areas.Api.Controllers
     [Authorize(Roles = Roles.EditClients, AuthenticationSchemes = AuthCoreSchemes.Bearer)]
     [Route("api/[controller]")]
     [ResponseCache(NoStore = true)]
-    public class ClientController : Controller
+    public class ClientController
     {
         public static class Rels
         {

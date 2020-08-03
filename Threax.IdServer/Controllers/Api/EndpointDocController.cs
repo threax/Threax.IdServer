@@ -12,7 +12,7 @@ namespace Threax.IdServer.Areas.Api.Controllers
     [Route("api/[controller]")]
     [ResponseCache(NoStore = true)]
     [Authorize(AuthenticationSchemes = AuthCoreSchemes.Bearer)]
-    public class EndpointDocController : Controller
+    public class EndpointDocController
     {
         private readonly IEndpointDocBuilder descriptionProvider;
         private readonly IHttpContextAccessor httpContextAccessor;
@@ -34,7 +34,7 @@ namespace Threax.IdServer.Areas.Api.Controllers
             {
                 var doc = await descriptionProvider.GetDoc(groupName, method, relativePath, new EndpointDocBuilderOptions()
                 {
-                    User = User,
+                    User = httpContextAccessor.HttpContext.User,
                     IncludeRequest = docQuery.IncludeRequest,
                     IncludeResponse = docQuery.IncludeResponse
                 });
