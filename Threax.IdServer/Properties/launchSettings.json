@@ -70,7 +70,7 @@
     },
     "Add Notes Metadata": {
       "commandName": "Project",
-      "commandLineArgs": "tools \"addfrommetadata https://localhost:44346\"",
+      "commandLineArgs": "tools \"addfrommetadata https://localhost:44346 notyetdefined notyetdefined \"",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

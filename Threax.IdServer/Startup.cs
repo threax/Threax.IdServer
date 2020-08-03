@@ -217,7 +217,7 @@ namespace Threax.IdServer
                 .AddTool("addfrommetadata", new ToolCommand("Unlock the account for the given user guid.", async a =>
                 {
                     var toolController = a.Scope.ServiceProvider.GetRequiredService<AddFromMetadataToolController>();
-                    await toolController.Run(a.Args[0]);
+                    await toolController.Run(a.Args[0], a.Args[1], a.Args[2]);
                 }))
                 .UseClientGenTools();
             });
@@ -242,6 +242,8 @@ namespace Threax.IdServer
             services.AddScoped<ChangePassword>();
             services.AddScoped<UnlockAccount>();
             services.AddScoped<AddFromMetadataToolController>();
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IApiResourceRepository, ApiResourceRepository>();
 
             services.AddLogging(o =>
             {

@@ -17,6 +17,7 @@ using Threax.AspNetCore.IdServerMetadata.Client;
 using Threax.IdServer.Areas.Api.InputModels;
 using Threax.IdServer.Areas.Api.Models;
 using Threax.IdServer.InputModels;
+using Threax.IdServer.Repository;
 
 namespace Threax.IdServer.Areas.Api.Controllers
 {
@@ -28,6 +29,8 @@ namespace Threax.IdServer.Areas.Api.Controllers
     [ResponseCache(NoStore = true)]
     public class ClientController
     {
+        private readonly IClientRepository clientRepository;
+
         public static class Rels
         {
             public const String List = "listClients";
@@ -39,18 +42,9 @@ namespace Threax.IdServer.Areas.Api.Controllers
             public const String LoadFromMetadata = "loadClientFromMetadata";
         }
 
-        private IConfigurationDbContext configDb;
-        private IMapper mapper;
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="mapper">The mapper.</param>
-        /// <param name="configDb">The configuration db context.</param>
-        public ClientController(IConfigurationDbContext configDb, IMapper mapper)
+        public ClientController(IClientRepository clientRepository)
         {
-            this.configDb = configDb;
-            this.mapper = mapper;
+            this.clientRepository = clientRepository;
         }
 
         /// <summary>
@@ -59,45 +53,9 @@ namespace Threax.IdServer.Areas.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [HalRel(Rels.List)]
-        public async Task<ClientEditModelCollectionView> Get([FromQuery] ClientQuery query)
+        public Task<ClientEditModelCollectionView> Get([FromQuery] ClientQuery query)
         {
-            if (query.Id != null)
-            {
-                var client = await Get(query.Id.Value);
-                if (client == null)
-                {
-                    return new ClientEditModelCollectionView(query, 0, Enumerable.Empty<ClientEditModel>());
-                }
-                return new ClientEditModelCollectionView(query, 1, new ClientEditModel[] { client });
-            }
-
-            //Don't want secrets here
-            IQueryable<Client> clients = configDb.Clients
-                                  .Include(i => i.AllowedGrantTypes)
-                                  .Include(i => i.RedirectUris)
-                                  .Include(i => i.AllowedScopes);
-
-            if (!String.IsNullOrEmpty(query.ClientId))
-            {
-                clients = clients.Where(i => EF.Functions.Like(i.ClientId, $"%{query.ClientId}%"));
-            }
-
-            if (query.GrantTypes != null && query.GrantTypes.Count > 0)
-            {
-                clients = clients.Where(i => i.AllowedGrantTypes.Any(j => query.GrantTypes.Contains(j.GrantType)));
-            }
-
-            if (query.HasMissingOrDefaultSecret == true)
-            {
-                clients = clients.Where(i => !i.ClientSecrets.Any() || i.ClientSecrets.Where(j => j.Value == DefaultSecret.Secret).Any());
-            }
-
-            int total = await clients.CountAsync();
-            clients = clients.OrderBy(i => i.ClientId);
-            var results = clients.Skip(query.SkipTo(total)).Take(query.Limit);
-            var items = await results.Select(c => mapper.Map<ClientEditModel>(c)).ToListAsync();
-
-            return new ClientEditModelCollectionView(query, total, items);
+            return clientRepository.Query(query);
         }
 
         /// <summary>
@@ -106,16 +64,9 @@ namespace Threax.IdServer.Areas.Api.Controllers
         /// <returns></returns>
         [HttpGet("{Id}")]
         [HalRel(Rels.Get)]
-        public async Task<ClientEditModel> Get(int id)
+        public Task<ClientEditModel> Get(int id)
         {
-            //Don't want secrets here
-            var clients = configDb.Clients
-                                  .Include(i => i.AllowedGrantTypes)
-                                  .Include(i => i.RedirectUris)
-                                  .Include(i => i.AllowedScopes)
-                                  .Where(i => i.Id == id);
-            var client = await clients.FirstOrDefaultAsync();
-            return mapper.Map<ClientEditModel>(client);
+            return clientRepository.Get(id);
         }
 
         /// <summary>
@@ -127,25 +78,9 @@ namespace Threax.IdServer.Areas.Api.Controllers
         [AutoValidate("Cannot add client.")]
         [ProducesResponseType(typeof(Object), (int)HttpStatusCode.Created)]
         [HalRel(Rels.Add)]
-        public async Task Post([FromBody] ClientInput value)
+        public Task Post([FromBody] ClientInput value)
         {
-            var entity = mapper.Map<IdentityServer4.EntityFramework.Entities.Client>(value);
-
-            //Any new client gets the secret notyetdefined
-            if (entity.ClientSecrets == null)
-            {
-                entity.ClientSecrets = new List<ClientSecret>()
-                {
-                    new ClientSecret()
-                    {
-                        Client = entity,
-                        Value = DefaultSecret.Secret,
-                    }
-                };
-            }
-
-            configDb.Clients.Add(entity);
-            await configDb.SaveChangesAsync();
+            return clientRepository.Add(value);
         }
 
         /// <summary>
@@ -159,19 +94,9 @@ namespace Threax.IdServer.Areas.Api.Controllers
         [ProducesResponseType(typeof(Object), (int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(Object), (int)HttpStatusCode.OK)]
         [HalRel(Rels.Update)]
-        public async Task Put(int id, [FromBody] ClientInput value)
+        public Task Put(int id, [FromBody] ClientInput value)
         {
-            var client = await GetFullClientEntity(id);
-            if (client != null)
-            {
-                mapper.Map<ClientInput, IdentityServer4.EntityFramework.Entities.Client>(value, client);
-                configDb.Clients.Update(client);
-                await configDb.SaveChangesAsync();
-            }
-            else
-            {
-                await Post(value);
-            }
+            return clientRepository.Update(id, value);
         }
 
         /// <summary>
@@ -181,15 +106,9 @@ namespace Threax.IdServer.Areas.Api.Controllers
         /// <returns>Ok if the client was deleted.</returns>
         [HttpDelete("{Id}")]
         [HalRel(Rels.Delete)]
-        public async Task Delete(int id)
+        public Task Delete(int id)
         {
-            var client = await GetFullClientEntity(id);
-            if (client == null)
-            {
-                throw new ErrorResultException($"Cannot find a client to delete to with id {id}.");
-            }
-            configDb.Clients.Remove(client);
-            await configDb.SaveChangesAsync();
+            return clientRepository.Delete(id);
         }
 
         /// <summary>
@@ -199,37 +118,9 @@ namespace Threax.IdServer.Areas.Api.Controllers
         /// <returns>The new secret string.</returns>
         [HttpPut("{Id}/[action]")]
         [HalRel(Rels.Secret)]
-        public async Task<CreateSecretResult> Secret(int id)
+        public Task<CreateSecretResult> Secret(int id)
         {
-            using (var numberGen = RandomNumberGenerator.Create()) //This is more portable than from services since that does not work on linux correctly
-            {
-                var client = await GetFullClientEntity(id);
-                if (client == null)
-                {
-                    throw new ErrorResultException($"Cannot find a client to add a secret to with id {id}.");
-                }
-
-                var bytes = new byte[32];
-                numberGen.GetBytes(bytes);
-
-                var secretString = Convert.ToBase64String(bytes);
-                var secret = new IdentityServer4.Models.Secret(IdentityServer4.Models.HashExtensions.Sha256(secretString));
-                client.ClientSecrets.Clear();
-                client.ClientSecrets.Add(new ClientSecret()
-                {
-                    Client = client,
-                    Value = secret.Value,
-                    Description = secret.Description,
-                    Expiration = secret.Expiration,
-                    Type = secret.Type
-                });
-                configDb.Clients.Update(client);
-                await configDb.SaveChangesAsync();
-                return new CreateSecretResult()
-                {
-                    Secret = secretString
-                };
-            }
+            return clientRepository.CreateSecret(id);
         }
 
         /// <summary>
@@ -244,7 +135,6 @@ namespace Threax.IdServer.Areas.Api.Controllers
         public async Task<ClientMetadataView> FromMetadata([FromQuery] MetadataLookup lookupInfo, [FromServices] IMetadataClient client, [FromServices] IMapper mapper)
         {
             var metadataView = mapper.Map<ClientMetadataView>(await client.ClientAsync(lookupInfo.TargetUrl));
-            metadataView.EnableLocalLogin = true;
             return metadataView;
         }
 
@@ -260,19 +150,6 @@ namespace Threax.IdServer.Areas.Api.Controllers
         public async Task<ClientMetadataView> FromClientCredentialsMetadata([FromQuery] MetadataLookup lookupInfo, [FromServices] IMetadataClient client, [FromServices] IMapper mapper)
         {
             return mapper.Map<ClientMetadataView>(await client.ClientCredentialsAsync(lookupInfo.TargetUrl));
-        }
-
-        private async Task<IdentityServer4.EntityFramework.Entities.Client> GetFullClientEntity(int id)
-        {
-            var query = from c in configDb.Clients
-                            .Include(i => i.AllowedGrantTypes)
-                            .Include(i => i.RedirectUris)
-                            .Include(i => i.AllowedScopes)
-                            .Include(i => i.ClientSecrets)
-                        where c.Id == id
-                        select c;
-
-            return await query.FirstOrDefaultAsync();
         }
     }
 }
