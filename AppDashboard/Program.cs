@@ -55,40 +55,43 @@ namespace AppDashboard
                 .ConfigureAppConfiguration((hostContext, config) =>
                 {
                     var env = hostContext.HostingEnvironment;
+                    config.Sources.Clear();
 
                     //./appsettings.json - Main settings file, shared between all instances
-                    config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                    config.AddJsonFileWithInclude("appsettings.json", optional: true, reloadOnChange: true);
 
                     //./appsettings.{environment}.json - Local development settings files, loaded per environment, no need to deploy to server
-                    config.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+                    config.AddJsonFileWithInclude($"appsettings.{env.EnvironmentName}.json", optional: true);
 
                     //./appsettings.tools.json - Local development tools settings files, loaded in tools mode, no need to deploy to server
                     if (toolsConfigName != null)
                     {
-                        config.AddJsonFile($"appsettings.{toolsConfigName}.json", optional: true);
+                        config.AddJsonFileWithInclude($"appsettings.{toolsConfigName}.json", optional: true);
                     }
 
-                    //./../appsettings.{environment}.json - Deployed settings file, loaded per environment, allows you to put the production configs 1 level above the site in produciton, which keeps that config separate from the code
-                    config.AddJsonFile(Path.GetFullPath($"../appsettings.{env.EnvironmentName}.json"), optional: true, reloadOnChange: true);
-
-                    //./../appsettings.tools.json - Deployed tools settings file, loaded in tools mode, allows you to put the production tools configs 1 level above the site in produciton, which keeps that config separate from the code
-                    if (toolsConfigName != null)
-                    {
-                        config.AddJsonFile(Path.GetFullPath($"../appsettings.{toolsConfigName}.json"), optional: true);
-                    }
-
-                    //Secrets
+                    //Legacy to load local secrets file. Not reccomended, needs to be removed.
                     if (File.Exists("appsettings.secrets.json"))
                     {
                         config.AddJsonFileWithInclude(Path.GetFullPath("appsettings.secrets.json"), optional: false);
                     }
-                    else
+
+                    //Build the config so far and load the KeyPerFilePath.
+                    var built = config.Build();
+                    var keyPerFilePath = built.GetSection("AppConfig")?.GetValue<String>("KeyPerFilePath");
+                    if (!String.IsNullOrEmpty(keyPerFilePath))
+                    {
+                        keyPerFilePath = Path.GetFullPath(keyPerFilePath);
+                        config.AddKeyPerFile(keyPerFilePath, false);
+                    }
+
+                    if (built.GetSection("AppConfig")?.GetValue<bool>("AddUserSecrets") == true)
                     {
                         config.AddUserSecrets<Program>();
                     }
 
                     //Environment variables
                     config.AddEnvironmentVariables();
+                    config.AddCommandLine(args);
                 });
 
             return webHostBuilder.Build();

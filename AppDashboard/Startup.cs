@@ -140,7 +140,7 @@ namespace AppDashboard
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app)
         {
             Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
 
@@ -157,14 +157,7 @@ namespace AppDashboard
                 o.CorrectPathBase = appConfig.PathBase;
             });
 
-            if (env.EnvironmentName == "Development")
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+            app.UseExceptionHandler("/Home/Error");
 
             if (appConfig.EnableResponseCompression)
             {
