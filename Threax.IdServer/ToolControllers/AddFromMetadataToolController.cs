@@ -45,6 +45,8 @@ namespace Threax.IdServer.ToolControllers
             await apiResourceRepository.AddOrUpdate(scope);
 
             logger.LogInformation($"Updated app from '{url}' with latest metadata. Loaded client secret '{clientSecretFile}' and client creds secret '{clientCredsSecretFile}'.");
+            logger.LogDebug($"Client secret '{clientSecret}'");
+            logger.LogDebug($"Client cred secret '{clientCredsSecret}'");
         }
     }
 }
