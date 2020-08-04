@@ -144,6 +144,7 @@ namespace Threax.IdServer.Repository
             {
                 existing = await GetFullClientEntity(existing.Id); //Get the full entity
 
+                mapper.Map<ClientInput, IdentityServer4.EntityFramework.Entities.Client>(value, existing);
                 existing.ClientSecrets.Clear();
                 existing.ClientSecrets.Add(new ClientSecret()
                 {

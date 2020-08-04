@@ -44,7 +44,7 @@ namespace Threax.IdServer.ToolControllers
             await clientRepository.AddOrUpdateWithSecret(clientCreds, clientCredsSecret);
             await apiResourceRepository.AddOrUpdate(scope);
 
-            logger.LogInformation($"Updated app from '{url}' with latest metadata.");
+            logger.LogInformation($"Updated app from '{url}' with latest metadata. ---");
         }
     }
 }
