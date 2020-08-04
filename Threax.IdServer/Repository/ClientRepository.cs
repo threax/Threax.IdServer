@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using IdentityServer4.EntityFramework.Entities;
 using IdentityServer4.EntityFramework.Interfaces;
+using IdentityServer4.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,16 +19,18 @@ namespace Threax.IdServer.Repository
     {
         private IConfigurationDbContext configDb;
         private IMapper mapper;
+        private readonly AppConfig appConfig;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="mapper">The mapper.</param>
         /// <param name="configDb">The configuration db context.</param>
-        public ClientRepository(IConfigurationDbContext configDb, IMapper mapper)
+        public ClientRepository(IConfigurationDbContext configDb, IMapper mapper, AppConfig appConfig)
         {
             this.configDb = configDb;
             this.mapper = mapper;
+            this.appConfig = appConfig;
         }
 
         public async Task<ClientEditModelCollectionView> Query(ClientQuery query)
@@ -60,7 +63,8 @@ namespace Threax.IdServer.Repository
 
             if (query.HasMissingOrDefaultSecret == true)
             {
-                clients = clients.Where(i => !i.ClientSecrets.Any() || i.ClientSecrets.Where(j => j.Value == DefaultSecret.Secret).Any());
+                var hash = appConfig.DefaultSecret.Sha256();
+                clients = clients.Where(i => !i.ClientSecrets.Any() || i.ClientSecrets.Where(j => j.Value == hash).Any());
             }
 
             int total = await clients.CountAsync();
@@ -95,7 +99,7 @@ namespace Threax.IdServer.Repository
                     new ClientSecret()
                     {
                         Client = entity,
-                        Value = DefaultSecret.Secret,
+                        Value = appConfig.DefaultSecret.Sha256(),
                     }
                 };
             }

@@ -25,11 +25,13 @@ namespace Threax.IdServer.ToolControllers
     {
         private IConfigurationDbContext configContext;
         private readonly ILogger<SetupAppDashboardToolController> logger;
+        private readonly AppConfig appConfig;
 
-        public SetupAppDashboardToolController(IConfigurationDbContext configContext, ILogger<SetupAppDashboardToolController> logger)
+        public SetupAppDashboardToolController(IConfigurationDbContext configContext, ILogger<SetupAppDashboardToolController> logger, AppConfig appConfig)
         {
             this.configContext = configContext;
             this.logger = logger;
+            this.appConfig = appConfig;
         }
 
         public async Task Run(String appDashboardHost, String clientSecretFile)
@@ -43,7 +45,7 @@ namespace Threax.IdServer.ToolControllers
             }
             else
             {
-                secret = new Secret(DefaultSecret.Secret);
+                secret = new Secret(appConfig.DefaultSecret.Sha256());
                 logger.LogWarning($"Adding App dashboard '{appDashboardHost}' with default secret. This is not suitable for production deployments.");
             }
 

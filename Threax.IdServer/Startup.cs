@@ -217,7 +217,13 @@ namespace Threax.IdServer
                 .AddTool("addfrommetadata", new ToolCommand("Add an app from metadata. Arguments: https://app.domain.com jwtAuthSecret clientCredentialSecret", async a =>
                 {
                     var toolController = a.Scope.ServiceProvider.GetRequiredService<AddFromMetadataToolController>();
-                    await toolController.Run(a.Args[0], a.Args[1], a.Args[2]);
+                    String jwtKey = null, clientCredsKey = null;
+                    if(a.Args.Count > 2)
+                    {
+                        jwtKey = a.Args[1];
+                        clientCredsKey = a.Args[2];
+                    }
+                    await toolController.Run(a.Args[0], jwtKey, clientCredsKey);
                 }))
                 .UseClientGenTools();
             });

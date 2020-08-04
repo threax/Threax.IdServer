@@ -92,5 +92,11 @@ namespace Threax.IdServer
         /// Default: false (no compression)
         /// </summary>
         public bool EnableResponseCompression { get; set; } = false;
+
+        /// <summary>
+        /// The plain text default secret that will be used when adding clients without any secrets provided.
+        /// It can be overwritten to make that value itself non-public. Default: 'notyetdefined'
+        /// </summary>
+        public String DefaultSecret { get; set; } = "notyetdefined";
     }
 }
