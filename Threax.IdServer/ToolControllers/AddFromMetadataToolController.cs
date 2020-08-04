@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Threax.AspNetCore.IdServerMetadata.Client;
@@ -30,9 +31,10 @@ namespace Threax.IdServer.ToolControllers
             this.apiResourceRepository = apiResourceRepository;
         }
 
-        public async Task Run(String url, String clientSecret, String clientCredsSecret)
+        public async Task Run(String url, String clientSecretFile, String clientCredsSecretFile)
         {
-            //TODO: Load passwords from file
+            var clientSecret = File.ReadAllText(clientSecretFile);
+            var clientCredsSecret = File.ReadAllText(clientCredsSecretFile);
 
             var scope = mapper.Map<ApiResourceInput>(await metadataClient.ScopeAsync(url));
             var client = mapper.Map<ClientInput>(await metadataClient.ClientAsync(url));
