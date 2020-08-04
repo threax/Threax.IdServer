@@ -33,7 +33,11 @@ namespace Threax.IdServer.ToolControllers
 
         public async Task Run(String url, String clientSecretFile, String clientCredsSecretFile)
         {
-            var clientSecret = File.ReadAllText(clientSecretFile);
+            String clientSecret;
+            using (var stream = new StreamReader(File.Open(clientSecretFile, FileMode.Open, FileAccess.Read, FileShare.Read)))
+            {
+                clientSecret = stream.ReadToEnd();
+            }
             var clientCredsSecret = File.ReadAllText(clientCredsSecretFile);
 
             var scope = mapper.Map<ApiResourceInput>(await metadataClient.ScopeAsync(url));
