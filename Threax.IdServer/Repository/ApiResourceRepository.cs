@@ -72,29 +72,28 @@ namespace Threax.IdServer.Repository
         public async Task Update(int id, ApiResourceInput value)
         {
             var resource = await SelectFullEntity().Where(i => i.Id == id).FirstOrDefaultAsync();
-            if (resource != null)
+            if (resource == null)
             {
-                mapper.Map<ApiResourceInput, ApiResource>(value, resource);
-                configDb.ApiResources.Update(resource);
-                await configDb.SaveChangesAsync();
+                throw new InvalidOperationException($"Cannot find resource with id '{id}'.");
             }
-            else
-            {
-                await Add(value);
-            }
+
+            mapper.Map<ApiResourceInput, ApiResource>(value, resource);
+            configDb.ApiResources.Update(resource);
+            await configDb.SaveChangesAsync();
         }
 
         public async Task AddOrUpdate(ApiResourceInput value)
         {
-            var resource = mapper.Map<ApiResource>(value);
-            var existing = await configDb.ApiResources.Where(i => i.Name == value.ScopeName).FirstOrDefaultAsync();
+            var existing = await SelectFullEntity().Where(i => i.Name == value.ScopeName).FirstOrDefaultAsync();
             if (existing == null)
             {
                 await Add(value);
             }
             else
             {
-                await Update(existing.Id, value);
+                mapper.Map<ApiResourceInput, ApiResource>(value, existing);
+                configDb.ApiResources.Update(existing);
+                await configDb.SaveChangesAsync();
             }
         }
 
@@ -112,7 +111,10 @@ namespace Threax.IdServer.Repository
 
         private IQueryable<ApiResource> SelectFullEntity()
         {
-            return configDb.ApiResources.Include(i => i.Scopes).Include(i => i.Secrets).Include(i => i.Scopes);
+            return configDb.ApiResources
+                .Include(i => i.Scopes)
+                .Include(i => i.Secrets)
+                .Include(i => i.UserClaims);
         }
     }
 }

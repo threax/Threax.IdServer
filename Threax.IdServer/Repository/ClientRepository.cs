@@ -125,7 +125,7 @@ namespace Threax.IdServer.Repository
         {
             var clientSecret = new IdentityServer4.Models.Secret(IdentityServer4.Models.HashExtensions.Sha256(secret));
 
-            var existing = await configDb.Clients.Where(i => i.ClientId == value.ClientId).FirstOrDefaultAsync();
+            var existing = await SelectFullEntity().Where(i => i.ClientId == value.ClientId).FirstOrDefaultAsync();
             if(existing == null)
             {
                 var entity = mapper.Map<IdentityServer4.EntityFramework.Entities.Client>(value);
@@ -146,8 +146,6 @@ namespace Threax.IdServer.Repository
             }
             else
             {
-                existing = await GetFullClientEntity(existing.Id); //Get the full entity
-
                 mapper.Map<ClientInput, IdentityServer4.EntityFramework.Entities.Client>(value, existing);
                 existing.ClientSecrets.Clear();
                 existing.ClientSecrets.Add(new ClientSecret()
@@ -219,17 +217,18 @@ namespace Threax.IdServer.Repository
             await configDb.SaveChangesAsync();
         }
 
-        private async Task<IdentityServer4.EntityFramework.Entities.Client> GetFullClientEntity(int id)
+        private Task<IdentityServer4.EntityFramework.Entities.Client> GetFullClientEntity(int id)
         {
-            var query = from c in configDb.Clients
+            return SelectFullEntity().Where(i => i.Id == id).FirstOrDefaultAsync();
+        }
+
+        private IQueryable<IdentityServer4.EntityFramework.Entities.Client> SelectFullEntity()
+        {
+            return configDb.Clients
                             .Include(i => i.AllowedGrantTypes)
                             .Include(i => i.RedirectUris)
                             .Include(i => i.AllowedScopes)
-                            .Include(i => i.ClientSecrets)
-                        where c.Id == id
-                        select c;
-
-            return await query.FirstOrDefaultAsync();
+                            .Include(i => i.ClientSecrets);
         }
     }
 }

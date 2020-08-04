@@ -50,9 +50,9 @@ namespace Threax.IdServer.ToolControllers
             var client = mapper.Map<ClientInput>(await metadataClient.ClientAsync(url));
             var clientCreds = mapper.Map<ClientInput>(await metadataClient.ClientCredentialsAsync(url));
 
+            await apiResourceRepository.AddOrUpdate(scope);
             await clientRepository.AddOrUpdateWithSecret(client, clientSecret);
             await clientRepository.AddOrUpdateWithSecret(clientCreds, clientCredsSecret);
-            await apiResourceRepository.AddOrUpdate(scope);
 
             logger.LogInformation($"Updated app from '{url}' with latest metadata.");
             if(clientSecretFile != null)

@@ -32,7 +32,7 @@ namespace Threax.IdServer.Mappers
                 .ForMember(d => d.Scopes, opt => opt.MapFrom((ApiResourceInput s, ApiResource d) =>
                 {
                     if (d.Scopes == null || d.Scopes.Count == 0) //No scopes yet, create some
-                        {
+                    {
                         var list = new List<ApiScope>();
                         list.Add(new ApiScope()
                         {
@@ -41,9 +41,9 @@ namespace Threax.IdServer.Mappers
                         return list;
                     }
                     else //Already has scopes, update them
-                        {
+                    {
                         d.Scopes[0].Name = s.ScopeName;
-                        return d.Scopes;
+                        return d.Scopes.ToList(); //Make a copy, without this this will be empty in the resulting object
                     }
                 }));
 
