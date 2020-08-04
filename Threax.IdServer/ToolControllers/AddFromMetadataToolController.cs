@@ -31,14 +31,17 @@ namespace Threax.IdServer.ToolControllers
             this.apiResourceRepository = apiResourceRepository;
         }
 
+        //This is used in the KeyPerFile config, so use it here as well. It sucks to modify the original string. It is unknown why it loads with a newline.
+        //https://github.com/dotnet/aspnetcore/blob/master/src/Configuration.KeyPerFile/src/KeyPerFileConfigurationProvider.cs#L42
+        private static string TrimNewLine(string value)
+         => value.EndsWith(Environment.NewLine)
+             ? value.Substring(0, value.Length - Environment.NewLine.Length)
+             : value;
+
         public async Task Run(String url, String clientSecretFile, String clientCredsSecretFile)
         {
-            String clientSecret;
-            using (var stream = new StreamReader(File.Open(clientSecretFile, FileMode.Open, FileAccess.Read, FileShare.Read)))
-            {
-                clientSecret = stream.ReadToEnd();
-            }
-            var clientCredsSecret = File.ReadAllText(clientCredsSecretFile);
+            var clientSecret = TrimNewLine(File.ReadAllText(clientSecretFile));
+            var clientCredsSecret = TrimNewLine(File.ReadAllText(clientCredsSecretFile));
 
             var scope = mapper.Map<ApiResourceInput>(await metadataClient.ScopeAsync(url));
             var client = mapper.Map<ClientInput>(await metadataClient.ClientAsync(url));
