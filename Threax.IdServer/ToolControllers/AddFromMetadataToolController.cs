@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using IdentityServer4.EntityFramework.Entities;
+using IdentityServer4.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System;
@@ -21,14 +22,16 @@ namespace Threax.IdServer.ToolControllers
         private readonly IMapper mapper;
         private readonly IClientRepository clientRepository;
         private readonly IApiResourceRepository apiResourceRepository;
+        private readonly AppConfig appConfig;
 
-        public AddFromMetadataToolController(IMetadataClient metadataClient, ILogger<AddFromMetadataToolController> logger, IMapper mapper, IClientRepository clientRepository, IApiResourceRepository apiResourceRepository)
+        public AddFromMetadataToolController(IMetadataClient metadataClient, ILogger<AddFromMetadataToolController> logger, IMapper mapper, IClientRepository clientRepository, IApiResourceRepository apiResourceRepository, AppConfig appConfig)
         {
             this.metadataClient = metadataClient;
             this.logger = logger;
             this.mapper = mapper;
             this.clientRepository = clientRepository;
             this.apiResourceRepository = apiResourceRepository;
+            this.appConfig = appConfig;
         }
 
         //This is used in the KeyPerFile config, so use it here as well. It sucks to modify the original string. It is unknown why it loads with a newline.
@@ -40,8 +43,8 @@ namespace Threax.IdServer.ToolControllers
 
         public async Task Run(String url, String clientSecretFile, String clientCredsSecretFile)
         {
-            var clientSecret = TrimNewLine(File.ReadAllText(clientSecretFile));
-            var clientCredsSecret = TrimNewLine(File.ReadAllText(clientCredsSecretFile));
+            var clientSecret = clientSecretFile != null ? TrimNewLine(File.ReadAllText(clientSecretFile)) : appConfig.DefaultSecret;
+            var clientCredsSecret = clientCredsSecretFile != null ? TrimNewLine(File.ReadAllText(clientCredsSecretFile)) : appConfig.DefaultSecret;
 
             var scope = mapper.Map<ApiResourceInput>(await metadataClient.ScopeAsync(url));
             var client = mapper.Map<ClientInput>(await metadataClient.ClientAsync(url));
@@ -51,7 +54,24 @@ namespace Threax.IdServer.ToolControllers
             await clientRepository.AddOrUpdateWithSecret(clientCreds, clientCredsSecret);
             await apiResourceRepository.AddOrUpdate(scope);
 
-            logger.LogInformation($"Updated app from '{url}' with latest metadata. Loaded client secret '{clientSecretFile}' and client creds secret '{clientCredsSecretFile}'.");
+            logger.LogInformation($"Updated app from '{url}' with latest metadata.");
+            if(clientSecretFile != null)
+            {
+                logger.LogInformation($"Loaded client secret '{clientSecretFile}'.");
+            }
+            else
+            {
+                logger.LogWarning("Used default client secret. This is not suitable for production. This could allow attackers to grant access tokens for users.");
+            }
+
+            if(clientCredsSecretFile != null)
+            {
+                logger.LogInformation($"Loaded client creds secret '{clientCredsSecretFile}'");
+            }
+            else
+            {
+                logger.LogWarning("Used default client creds secret. This is not suitable for production. This could allow attackers to log in as your client app.");
+            }
         }
     }
 }
