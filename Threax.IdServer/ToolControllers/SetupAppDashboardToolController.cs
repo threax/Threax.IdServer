@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,14 +24,29 @@ namespace Threax.IdServer.ToolControllers
     public class SetupAppDashboardToolController
     {
         private IConfigurationDbContext configContext;
+        private readonly ILogger<SetupAppDashboardToolController> logger;
 
-        public SetupAppDashboardToolController(IConfigurationDbContext configContext)
+        public SetupAppDashboardToolController(IConfigurationDbContext configContext, ILogger<SetupAppDashboardToolController> logger)
         {
             this.configContext = configContext;
+            this.logger = logger;
         }
 
-        public async Task Run(String appDashboardHost)
+        public async Task Run(String appDashboardHost, String clientSecretFile)
         {
+            Secret secret = null;
+            if(clientSecretFile != null)
+            {
+                var secretString = AddFromMetadataToolController.TrimNewLine(File.ReadAllText(clientSecretFile));
+                secret = new Secret(HashExtensions.Sha256(secretString));
+                logger.LogInformation($"Updating app dashboard to host '{appDashboardHost}' with secret from '{clientSecretFile}'.");
+            }
+            else
+            {
+                secret = new Secret(DefaultSecret.Secret);
+                logger.LogWarning($"Adding App dashboard '{appDashboardHost}' with default secret. This is not suitable for production deployments.");
+            }
+
             var redirectUri = $"https://{appDashboardHost}/signin-oidc";
             var frontChannelLogoutUri = $"https://{appDashboardHost}/Account/SignoutCleanup";
             var clientEntity = await configContext.Clients
@@ -50,6 +66,16 @@ namespace Threax.IdServer.ToolControllers
                     }
                 };
                 clientEntity.FrontChannelLogoutUri = frontChannelLogoutUri;
+
+                clientEntity.ClientSecrets.Clear();
+                clientEntity.ClientSecrets.Add(new IdentityServer4.EntityFramework.Entities.ClientSecret()
+                {
+                    Client = clientEntity,
+                    Value = secret.Value,
+                    Description = secret.Description,
+                    Expiration = secret.Expiration,
+                    Type = secret.Type
+                });
             }
             else
             {
@@ -61,7 +87,7 @@ namespace Threax.IdServer.ToolControllers
 
                     ClientSecrets = new List<Secret>
                         {
-                            new Secret(DefaultSecret.Secret)
+                            secret
                         },
 
                     AllowedScopes = new List<string>
@@ -88,6 +114,15 @@ namespace Threax.IdServer.ToolControllers
             }
 
             await configContext.SaveChangesAsync();
+
+            if (clientSecretFile != null)
+            {
+                logger.LogInformation($"Set app dashboard to host '{appDashboardHost}' with secret from '{clientSecretFile}'.");
+            }
+            else
+            {
+                logger.LogWarning($"Set app dashboard '{appDashboardHost}' with default secret. This is not suitable for production deployments.");
+            }
         }
     }
 }

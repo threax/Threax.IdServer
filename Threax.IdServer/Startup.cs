@@ -199,10 +199,10 @@ namespace Threax.IdServer
                     var pass = a.Args.Count > 3 ? a.Args[3] : default(String);
                     await toolController.Run(a.Args[0], int.Parse(a.Args[1]), a.Args[2], pass);
                 }))
-                .AddTool("setupAppDashboard", new ToolCommand("Setup the app dashboard, include the host as the first argument, do not include the https:// protocol.", async a =>
+                .AddTool("setupAppDashboard", new ToolCommand("Setup the app dashboard, include the host as the first argument, do not include the https:// protocol. Optionally include a 2nd argument that is a path to the JwtAuth secret file.", async a =>
                 {
                     var toolController = a.Scope.ServiceProvider.GetRequiredService<SetupAppDashboardToolController>();
-                    await toolController.Run(a.Args[0]);
+                    await toolController.Run(a.Args[0], a.Args.Count > 1 ? a.Args[0] : null);
                 }))
                 .AddTool("changePassword", new ToolCommand("Change the password for the given user guid. This is interactive and will prompt for the password.", async a =>
                 {
@@ -214,7 +214,7 @@ namespace Threax.IdServer
                     var toolController = a.Scope.ServiceProvider.GetRequiredService<UnlockAccount>();
                     await toolController.Run(a.Args[0]);
                 }))
-                .AddTool("addfrommetadata", new ToolCommand("Unlock the account for the given user guid.", async a =>
+                .AddTool("addfrommetadata", new ToolCommand("Add an app from metadata. Arguments: https://app.domain.com jwtAuthSecret clientCredentialSecret", async a =>
                 {
                     var toolController = a.Scope.ServiceProvider.GetRequiredService<AddFromMetadataToolController>();
                     await toolController.Run(a.Args[0], a.Args[1], a.Args[2]);
