@@ -29,7 +29,7 @@ namespace Threax.IdServer.Areas.Api.InputModels
 
         [DisplayName("Allowed Grant Types")]
         [CheckboxUiType]
-        public GrantTypes AllowedGrantTypes { get; set; }
+        public List<GrantTypes> AllowedGrantTypes { get; set; }
 
         [DisplayName("Redirect Uris")]
         public List<String> RedirectUris { get; set; } = new List<string>();

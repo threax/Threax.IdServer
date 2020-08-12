@@ -32,6 +32,16 @@ namespace Threax.IdServer.Mappers
 
             CreateMap<ClientInput, IdentityServer4.EntityFramework.Entities.Client>()
                 .ForMember(d => d.Id, opt => opt.Ignore())
+                .ForMember(d => d.AllowedGrantTypes, o => o.MapFrom((ClientInput s, IdentityServer4.EntityFramework.Entities.Client d) =>
+                {
+                    GrantTypes result = (GrantTypes)0;
+                    foreach(var type in s.AllowedGrantTypes)
+                    {
+                        result |= type;
+                    }
+
+                    return result;
+                }))
                 .ForMember(d => d.RedirectUris, opt => opt.MapFrom((ClientInput s, IdentityServer4.EntityFramework.Entities.Client d) =>
                 {
                     return s.RedirectUris.Select(i => new ClientRedirectUri()
@@ -49,6 +59,23 @@ namespace Threax.IdServer.Mappers
 
             CreateMap<IdentityServer4.EntityFramework.Entities.Client, ClientEditModel>()
                 .ForMember(d => d.ApplicationGuid, opt => opt.MapFrom<ApplicationGuidResolver>())
+                .ForMember(d => d.AllowedGrantTypes, o => o.MapFrom((IdentityServer4.EntityFramework.Entities.Client s, ClientEditModel d) =>
+                {
+                    var grantTypes = new List<GrantTypes>();
+                    if((s.AllowedGrantTypes & GrantTypes.AuthorizationCode) != 0)
+                    {
+                        grantTypes.Add(GrantTypes.AuthorizationCode);
+                    }
+                    if ((s.AllowedGrantTypes & GrantTypes.Hybrid) != 0)
+                    {
+                        grantTypes.Add(GrantTypes.Hybrid);
+                    }
+                    if ((s.AllowedGrantTypes & GrantTypes.ClientCredentials) != 0)
+                    {
+                        grantTypes.Add(GrantTypes.ClientCredentials);
+                    }
+                    return grantTypes;
+                }))
                 .ForMember(d => d.RedirectUris, opt => opt.MapFrom((IdentityServer4.EntityFramework.Entities.Client s, ClientEditModel d) =>
                 {
                     return s.RedirectUris.Select(i => i.Uri);

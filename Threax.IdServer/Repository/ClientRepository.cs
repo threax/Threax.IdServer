@@ -57,7 +57,12 @@ namespace Threax.IdServer.Repository
 
             if (query.GrantTypes != null)
             {
-                clients = clients.Where(i => (i.AllowedGrantTypes & query.GrantTypes) != 0);
+                IdentityServer4.EntityFramework.Entities.GrantTypes grantTypes = (IdentityServer4.EntityFramework.Entities.GrantTypes)0;
+                foreach(var i in query.GrantTypes)
+                {
+                    grantTypes |= i;
+                }
+                clients = clients.Where(i => (i.AllowedGrantTypes & grantTypes) != 0);
             }
 
             if (query.HasMissingOrDefaultSecret == true)

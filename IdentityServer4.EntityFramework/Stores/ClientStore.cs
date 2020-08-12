@@ -44,11 +44,11 @@ namespace IdentityServer4.EntityFramework.Stores
         /// </returns>
         public async Task<Client> FindClientByIdAsync(string clientId)
         {
-            var i = await _context.Clients.Where(i => i.ClientId == clientId)
+            var i = (await _context.Clients.Where(i => i.ClientId == clientId)
                 .Include(i => i.AllowedScopes)
                 .Include(i => i.ClientSecrets)
                 .Include(i => i.RedirectUris)
-                .FirstAsync();
+                .FirstOrDefaultAsync()) ?? throw new InvalidOperationException($"Cannot find client '{clientId}'.");
 
             var allowedGrantTypes = new List<String>();
             if((i.AllowedGrantTypes & Entities.GrantTypes.AuthorizationCode) == Entities.GrantTypes.AuthorizationCode)

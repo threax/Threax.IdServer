@@ -17,7 +17,7 @@ namespace Threax.IdServer.Areas.Api.Models
     [HalActionLink(CrudRels.Update, ClientController.Rels.Update, typeof(ClientController))]
     [HalActionLink(CrudRels.Delete, ClientController.Rels.Delete, typeof(ClientController))]
     [HalActionLink(ClientController.Rels.Secret, typeof(ClientController))]
-    public class ClientEditModel// : IClientMetadata
+    public class ClientEditModel
     {
         /// <summary>
         /// The id of the client.
@@ -41,7 +41,7 @@ namespace Threax.IdServer.Areas.Api.Models
         public bool LogoutSessionRequired { get; set; } = true;
 
         [DisplayName("Allowed Grant Types")]
-        public GrantTypes AllowedGrantTypes { get; set; }
+        public List<GrantTypes> AllowedGrantTypes { get; set; }
 
         [DisplayName("Redirect Uris")]
         public List<String> RedirectUris { get; set; } = new List<string>();
