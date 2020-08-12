@@ -46,6 +46,7 @@ namespace Threax.IdServer.Data
             })
             .AddOperationalStore(builder =>
             {
+                builder.EnableTokenCleanup = true;
                 builder.ConfigureDbContext = o =>
                 {
                     o.UseSqlite(config.ConnectionString, options =>
