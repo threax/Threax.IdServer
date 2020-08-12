@@ -45,7 +45,7 @@ namespace Threax.IdServer.Migrations
                 columns: table => new
                 {
                     ClientRedirectUriId = table.Column<Guid>(nullable: false),
-                    Uri = table.Column<string>(nullable: true),
+                    Uri = table.Column<string>(maxLength: 2000, nullable: true),
                     ClientId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -64,7 +64,7 @@ namespace Threax.IdServer.Migrations
                 columns: table => new
                 {
                     ClientScopeId = table.Column<Guid>(nullable: false),
-                    Scope = table.Column<string>(nullable: true),
+                    Scope = table.Column<string>(maxLength: 2000, nullable: true),
                     ClientId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -83,7 +83,7 @@ namespace Threax.IdServer.Migrations
                 columns: table => new
                 {
                     ClientSecretId = table.Column<Guid>(nullable: false),
-                    Secret = table.Column<string>(nullable: true),
+                    Secret = table.Column<string>(maxLength: 2000, nullable: true),
                     ClientId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

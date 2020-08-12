@@ -62,7 +62,8 @@ namespace Threax.IdServer.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Uri")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(2000);
 
                     b.HasKey("ClientRedirectUriId");
 
@@ -81,7 +82,8 @@ namespace Threax.IdServer.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Scope")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(2000);
 
                     b.HasKey("ClientScopeId");
 
@@ -100,7 +102,8 @@ namespace Threax.IdServer.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Secret")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(2000);
 
                     b.HasKey("ClientSecretId");
 

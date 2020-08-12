@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Threax.IdServer.Migrations
 {
     [DbContext(typeof(ConfigurationDbContext))]
-    [Migration("20200812203250_initial")]
+    [Migration("20200812213454_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,7 +64,8 @@ namespace Threax.IdServer.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Uri")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(2000);
 
                     b.HasKey("ClientRedirectUriId");
 
@@ -83,7 +84,8 @@ namespace Threax.IdServer.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Scope")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(2000);
 
                     b.HasKey("ClientScopeId");
 
@@ -102,7 +104,8 @@ namespace Threax.IdServer.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Secret")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(2000);
 
                     b.HasKey("ClientSecretId");
 
