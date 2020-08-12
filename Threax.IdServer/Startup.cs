@@ -55,6 +55,7 @@ namespace Threax.IdServer
             Configuration.Bind("JwtAuth", authConfig);
             Configuration.Bind("AppConfig", appConfig);
             Configuration.Bind("Cors", corsOptions);
+            Configuration.Define("Build", typeof(Threax.DockerBuildConfig.BuildConfig));
             Configuration.Define("Deploy", typeof(Threax.DeployConfig.DeploymentConfig));
 
             if (string.IsNullOrWhiteSpace(appConfig.CacheToken))

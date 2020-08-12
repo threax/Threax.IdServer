@@ -103,5 +103,10 @@ namespace Threax.IdServer
         /// The path to store data protection keys.
         /// </summary>
         public String DataProtectionKeysPath { get; set; }
+
+        /// <summary>
+        /// Set this to true to add user secrets. Good for development. Default: false
+        /// </summary>
+        public bool AddUserSecrets { get; set; }
     }
 }

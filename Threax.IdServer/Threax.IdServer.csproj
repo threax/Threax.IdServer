@@ -45,9 +45,10 @@
     <PackageReference Include="Threax.Extensions.Configuration.SchemaBinder" Version="2.0.0" />
     <PackageReference Include="Threax.AspNetCore.UserLookup" Version="1.0.0" />
     <PackageReference Include="Threax.AspNetCore.UserLookup.Mvc" Version="2.1.0" />
-    <PackageReference Include="Threax.DeployConfig" Version="1.0.0-pre01" />
     <PackageReference Include="Threax.ProgressiveWebApp" Version="1.0.0" />
     <PackageReference Include="IdentityModel" Version="4.3.1" />
+    <PackageReference Include="Threax.DeployConfig" Version="1.0.0" />
+    <PackageReference Include="Threax.DockerBuildConfig" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
