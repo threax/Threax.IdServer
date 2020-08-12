@@ -47,7 +47,6 @@ namespace Threax.IdServer.Repository
 
             //Don't want secrets here
             IQueryable<IdentityServer4.EntityFramework.Entities.Client> clients = configDb.Clients
-                                  .Include(i => i.AllowedGrantTypes)
                                   .Include(i => i.RedirectUris)
                                   .Include(i => i.AllowedScopes);
 
@@ -79,7 +78,6 @@ namespace Threax.IdServer.Repository
         {
             //Don't want secrets here
             var clients = configDb.Clients
-                                  .Include(i => i.AllowedGrantTypes)
                                   .Include(i => i.RedirectUris)
                                   .Include(i => i.AllowedScopes)
                                   .Where(i => i.Id == id);
@@ -212,7 +210,6 @@ namespace Threax.IdServer.Repository
         private IQueryable<IdentityServer4.EntityFramework.Entities.Client> SelectFullEntity()
         {
             return configDb.Clients
-                            .Include(i => i.AllowedGrantTypes)
                             .Include(i => i.RedirectUris)
                             .Include(i => i.AllowedScopes)
                             .Include(i => i.ClientSecrets);

@@ -3,6 +3,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer4.EntityFramework.Interfaces;
@@ -43,24 +44,47 @@ namespace IdentityServer4.EntityFramework.Stores
         /// </returns>
         public async Task<Client> FindClientByIdAsync(string clientId)
         {
-            //var client = _context.Clients
-            //    .Include(x => x.AllowedGrantTypes)
-            //    .Include(x => x.RedirectUris)
-            //    .Include(x => x.PostLogoutRedirectUris)
-            //    .Include(x => x.AllowedScopes)
-            //    .Include(x => x.ClientSecrets)
-            //    .Include(x => x.Claims)
-            //    .Include(x => x.IdentityProviderRestrictions)
-            //    .Include(x => x.AllowedCorsOrigins)
-            //    .Include(x => x.Properties)
-            //    .FirstOrDefault(x => x.ClientId == clientId);
-            //var model = client?.ToModel();
+            var i = await _context.Clients.Where(i => i.ClientId == clientId)
+                .Include(i => i.AllowedScopes)
+                .Include(i => i.ClientSecrets)
+                .Include(i => i.RedirectUris)
+                .FirstAsync();
 
-            //_logger.LogDebug("{clientId} found in database: {clientIdFound}", clientId, model != null);
+            var allowedGrantTypes = new List<String>();
+            if((i.AllowedGrantTypes & Entities.GrantTypes.AuthorizationCode) == Entities.GrantTypes.AuthorizationCode)
+            {
+                allowedGrantTypes.Add("authorization_code");
+            }
+            if ((i.AllowedGrantTypes & Entities.GrantTypes.Hybrid) == Entities.GrantTypes.Hybrid)
+            {
+                allowedGrantTypes.Add("hybrid");
+            }
+            if ((i.AllowedGrantTypes & Entities.GrantTypes.ClientCredentials) == Entities.GrantTypes.ClientCredentials)
+            {
+                allowedGrantTypes.Add("client_credentials");
+            }
 
-            //return Task.FromResult(model);
+            return new Client()
+            {
+                AccessTokenLifetime = i.AccessTokenLifetime,
+                AllowedGrantTypes = allowedGrantTypes,
+                AllowedScopes = i.AllowedScopes.Select(i => i.Scope).ToList(),
+                ClientId = i.ClientId,
+                ClientSecrets = i.ClientSecrets.Select(i => new Secret(i.Secret)).ToList(),
+                EnableLocalLogin = i.EnableLocalLogin,
+                BackChannelLogoutSessionRequired = i.LogoutSessionRequired,
+                BackChannelLogoutUri = i.LogoutUri,
+                FrontChannelLogoutUri = i.LogoutUri,
+                ClientName = i.Name,
+                RedirectUris = i.RedirectUris.Select(i => i.Uri).ToList(),
 
-            return new Client();
+                //Hardcoded
+                RequireConsent = false,
+                AllowRememberConsent = true,
+                FrontChannelLogoutSessionRequired = true,
+                AllowOfflineAccess = true,
+                RequirePkce = false //Probably want this, but not enabled historically
+            };
         }
     }
 }

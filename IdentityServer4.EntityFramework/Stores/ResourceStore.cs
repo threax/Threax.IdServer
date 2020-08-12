@@ -49,7 +49,9 @@ namespace IdentityServer4.EntityFramework.Stores
         /// <returns></returns>
         public Task<IEnumerable<ApiResource>> FindApiResourcesByNameAsync(IEnumerable<string> apiResourceNames)
         {
-            return Task.FromResult(Enumerable.Empty<ApiResource>());
+            //Return everything incoming as an api resource
+            IEnumerable<ApiResource> result = Context.Scopes.Where(i => apiResourceNames.Contains(i.Name)).Select(i => new ApiResource(i.Name, i.DisplayName));
+            return Task.FromResult(result);
         }
 
         /// <summary>
@@ -59,7 +61,9 @@ namespace IdentityServer4.EntityFramework.Stores
         /// <returns></returns>
         public Task<IEnumerable<ApiResource>> FindApiResourcesByScopeNameAsync(IEnumerable<string> scopeNames)
         {
-            return Task.FromResult(Enumerable.Empty<ApiResource>());
+            //Return everything incoming thats in the scopes table as an api resource
+            IEnumerable<ApiResource> result = Context.Scopes.Where(i => scopeNames.Contains(i.Name)).Select(i => new ApiResource(i.Name, i.DisplayName));
+            return Task.FromResult(result);
         }
 
         /// <summary>
