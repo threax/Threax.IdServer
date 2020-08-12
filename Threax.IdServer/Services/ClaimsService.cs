@@ -21,7 +21,7 @@ namespace Threax.IdServer.Services
             this.appGuidFactory = appGuidFactory;
         }
 
-        public override async Task<IEnumerable<Claim>> GetAccessTokenClaimsAsync(ClaimsPrincipal subject, Resources resources, ValidatedRequest request)
+        public override async Task<IEnumerable<Claim>> GetAccessTokenClaimsAsync(ClaimsPrincipal subject, ResourceValidationResult resources, ValidatedRequest request)
         {
             var claims = await base.GetAccessTokenClaimsAsync(subject, resources, request);
             if (request.Client.AllowedGrantTypes.Contains(GrantType.ClientCredentials) && subject == null)
@@ -35,7 +35,7 @@ namespace Threax.IdServer.Services
             return claims;
         }
 
-        public override async Task<IEnumerable<Claim>> GetIdentityTokenClaimsAsync(ClaimsPrincipal subject, Resources resources, bool includeAllIdentityClaims, ValidatedRequest request)
+        public override async Task<IEnumerable<Claim>> GetIdentityTokenClaimsAsync(ClaimsPrincipal subject, ResourceValidationResult resources, bool includeAllIdentityClaims, ValidatedRequest request)
         {
             var baseClaims = await base.GetIdentityTokenClaimsAsync(subject, resources, includeAllIdentityClaims, request);
             IEnumerable<Claim> claims = GetUserInfoClaims(subject);

@@ -4,7 +4,6 @@
 
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Interfaces;
-using IdentityServer4.EntityFramework.Services;
 using IdentityServer4.EntityFramework.Stores;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
@@ -67,25 +66,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             builder.Services.AddTransient<IClientStore, ClientStore>();
             builder.Services.AddTransient<IResourceStore, ResourceStore>();
-            builder.Services.AddTransient<ICorsPolicyService, CorsPolicyService>();
-
-            return builder;
-        }
-
-        /// <summary>
-        /// Configures caching for IClientStore, IResourceStore, and ICorsPolicyService with IdentityServer.
-        /// </summary>
-        /// <param name="builder">The builder.</param>
-        /// <returns></returns>
-        public static IIdentityServerBuilder AddConfigurationStoreCache(
-            this IIdentityServerBuilder builder)
-        {
-            builder.AddInMemoryCaching();
-
-            // add the caching decorators
-            builder.AddClientStoreCache<ClientStore>();
-            builder.AddResourceStoreCache<ResourceStore>();
-            builder.AddCorsPolicyCache<CorsPolicyService>();
+            //builder.Services.AddTransient<ICorsPolicyService, CorsPolicyService>();
 
             return builder;
         }

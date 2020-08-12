@@ -26,7 +26,6 @@ using Threax.AspNetCore.UserLookup;
 using Threax.AspNetCore.UserLookup.Mvc.Controllers;
 using Threax.Extensions.Configuration.SchemaBinder;
 using Threax.IdServer.Areas.Api.Controllers;
-using Threax.IdServer.Areas.Api.ValueProviders;
 using Threax.IdServer.Data;
 using Threax.IdServer.Models;
 using Threax.IdServer.Repository;
@@ -70,8 +69,6 @@ namespace Threax.IdServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddThreaxProgressiveWebApp(o => Configuration.Bind("DisplayConfig", o));
-
-            services.AddSingleton<GrantTypeValueProvider>();
 
             services.AddSingleton<IApplicationGuidFactory>(s => new ApplicationGuidFactory(new Guid("65098b58-c5bf-4fc4-ae30-444e274efd7f"))); //This guid can never change, or you will have to fix permissions across all apps
             services.AddSingleton<ApplicationGuidResolver>();

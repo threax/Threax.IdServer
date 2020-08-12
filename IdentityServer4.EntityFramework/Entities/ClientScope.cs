@@ -1,15 +1,12 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
-
-#pragma warning disable 1591
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 
 namespace IdentityServer4.EntityFramework.Entities
 {
     public class ClientScope
     {
-        public int Id { get; set; }
-        public string Scope { get; set; }
-        public Client Client { get; set; }
+        public String Scope { get; set; }
     }
 }

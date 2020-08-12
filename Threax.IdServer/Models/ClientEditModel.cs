@@ -41,7 +41,7 @@ namespace Threax.IdServer.Areas.Api.Models
         public bool LogoutSessionRequired { get; set; } = true;
 
         [DisplayName("Allowed Grant Types")]
-        public List<String> AllowedGrantTypes { get; set; } = new List<string>();
+        public GrantTypes AllowedGrantTypes { get; set; }
 
         [DisplayName("Redirect Uris")]
         public List<String> RedirectUris { get; set; } = new List<string>();

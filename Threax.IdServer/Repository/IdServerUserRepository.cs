@@ -88,7 +88,7 @@ namespace Threax.IdServer.Repository
                 clientCreds = clientCreds.Skip(adjSkip).Take(limit);
                 var resultQuery = clientCreds.Select(c => new IdServerUserView()
                 {
-                    DisplayName = c.ClientName,
+                    DisplayName = c.Name,
                     UserId = guidFactory.CreateGuid(c),
                     UserName = c.ClientId
                 });

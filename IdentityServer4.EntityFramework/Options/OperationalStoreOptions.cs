@@ -37,14 +37,6 @@ namespace IdentityServer4.EntityFramework.Options
         public string DefaultSchema { get; set; } = null;
 
         /// <summary>
-        /// Gets or sets the persisted grants table configuration.
-        /// </summary>
-        /// <value>
-        /// The persisted grants.
-        /// </value>
-        public TableConfiguration PersistedGrants { get; set; } = new TableConfiguration("PersistedGrants");
-
-        /// <summary>
         /// Gets or sets a value indicating whether stale entries will be automatically cleaned up from the database.
         /// This is implemented by perodically connecting to the database (according to the TokenCleanupInterval) from the hosting application.
         /// Defaults to false.

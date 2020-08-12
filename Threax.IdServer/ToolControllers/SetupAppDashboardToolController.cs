@@ -1,5 +1,6 @@
 ﻿using IdentityModel;
 using IdentityServer4.Configuration;
+using IdentityServer4.EntityFramework.Entities;
 using IdentityServer4.EntityFramework.Interfaces;
 using IdentityServer4.EntityFramework.Mappers;
 using IdentityServer4.Models;
@@ -36,21 +37,27 @@ namespace Threax.IdServer.ToolControllers
 
         public async Task Run(String appDashboardHost, String clientSecretFile)
         {
-            Secret secret = null;
-            if(clientSecretFile != null)
+            ClientSecret secret = null;
+            if (clientSecretFile != null)
             {
                 var secretString = AddFromMetadataToolController.TrimNewLine(File.ReadAllText(clientSecretFile));
-                secret = new Secret(HashExtensions.Sha256(secretString));
+                secret = new ClientSecret()
+                {
+                    Secret = HashExtensions.Sha256(secretString)
+                };
                 logger.LogInformation($"Updating app dashboard to host '{appDashboardHost}' with secret from '{clientSecretFile}'.");
             }
             else
             {
-                secret = new Secret(appConfig.DefaultSecret.Sha256());
+                secret = new ClientSecret()
+                {
+                    Secret = appConfig.DefaultSecret.Sha256()
+                };
                 logger.LogWarning($"Adding App dashboard '{appDashboardHost}' with default secret. This is not suitable for production deployments.");
             }
 
             var redirectUri = $"https://{appDashboardHost}/signin-oidc";
-            var frontChannelLogoutUri = $"https://{appDashboardHost}/Account/SignoutCleanup";
+            var logoutUri = $"https://{appDashboardHost}/Account/SignoutCleanup";
             var clientEntity = await configContext.Clients
                             .Include(i => i.AllowedGrantTypes)
                             .Include(i => i.RedirectUris)
@@ -60,59 +67,46 @@ namespace Threax.IdServer.ToolControllers
 
             if (clientEntity != null)
             {
-                clientEntity.RedirectUris = new List<IdentityServer4.EntityFramework.Entities.ClientRedirectUri>()
+                clientEntity.RedirectUris = new List<ClientRedirectUri>()
                 {
-                    new IdentityServer4.EntityFramework.Entities.ClientRedirectUri()
+                    new ClientRedirectUri()
                     {
-                        RedirectUri = redirectUri
+                        Uri = redirectUri
                     }
                 };
-                clientEntity.FrontChannelLogoutUri = frontChannelLogoutUri;
+                clientEntity.LogoutUri = logoutUri;
 
                 clientEntity.ClientSecrets.Clear();
-                clientEntity.ClientSecrets.Add(new IdentityServer4.EntityFramework.Entities.ClientSecret()
-                {
-                    Client = clientEntity,
-                    Value = secret.Value,
-                    Description = secret.Description,
-                    Expiration = secret.Expiration,
-                    Type = secret.Type
-                });
+                clientEntity.ClientSecrets.Add(secret);
             }
             else
             {
-                var client = new Client
+                var client = new IdentityServer4.EntityFramework.Entities.Client
                 {
                     ClientId = "AppDashboard",
-                    ClientName = "App Dashboard",
-                    AllowedGrantTypes = GrantTypes.Hybrid,
+                    Name = "App Dashboard",
+                    AllowedGrantTypes = IdentityServer4.EntityFramework.Entities.GrantTypes.Hybrid,
 
-                    ClientSecrets = new List<Secret>
-                        {
-                            secret
-                        },
-
-                    AllowedScopes = new List<string>
-                        {
-                            StandardScopes.OpenId,
-                            StandardScopes.Profile,
-                            StandardScopes.OfflineAccess,
-                            "Threax.IdServer"
-                        },
-                    RequireConsent = false,
-                    AllowRememberConsent = true,
-                    FrontChannelLogoutSessionRequired = true,
+                    ClientSecrets = new List<ClientSecret>
+                    {
+                        secret
+                    },
+                    AllowedScopes = new List<ClientScope>
+                    {
+                        new ClientScope() { Scope = StandardScopes.OpenId },
+                        new ClientScope() { Scope = StandardScopes.Profile },
+                        new ClientScope() { Scope = StandardScopes.OfflineAccess },
+                        new ClientScope() { Scope = "Threax.IdServer" },
+                    },
                     EnableLocalLogin = true,
-                    AllowOfflineAccess = true
+                    RedirectUris = new List<ClientRedirectUri>()
+                    {
+                        new ClientRedirectUri() { Uri = redirectUri }
+                    },
+                    LogoutUri = logoutUri
                 };
 
-                client.RedirectUris = new List<string>
-                {
-                    redirectUri
-                };
-                client.FrontChannelLogoutUri = frontChannelLogoutUri;
-
-                configContext.Clients.Add(client.ToEntity());
+                configContext.Clients.Add(client);
             }
 
             await configContext.SaveChangesAsync();

@@ -40,7 +40,7 @@ namespace Threax.IdServer.Repository
                 return new ApiResourceEditModelCollection(query, 1, new ApiResourceEditModel[] { client });
             }
 
-            IQueryable<ApiResource> resources = configDb.ApiResources.Include(i => i.Scopes);
+            IQueryable<Scope> resources = configDb.Scopes;
 
             if (!String.IsNullOrEmpty(query.Name))
             {
@@ -57,15 +57,15 @@ namespace Threax.IdServer.Repository
 
         public async Task<ApiResourceEditModel> Get(int id)
         {
-            var resources = configDb.ApiResources.Include(i => i.Scopes).Where(i => i.Id == id); //Don't send secrets back to client
+            var resources = configDb.Scopes.Where(i => i.Id == id);
             var resource = await resources.FirstOrDefaultAsync();
             return mapper.Map<ApiResourceEditModel>(resource);
         }
 
         public async Task Add(ApiResourceInput value)
         {
-            var resource = mapper.Map<ApiResource>(value);
-            configDb.ApiResources.Add(resource);
+            var resource = mapper.Map<Scope>(value);
+            configDb.Scopes.Add(resource);
             await configDb.SaveChangesAsync();
         }
 
@@ -77,8 +77,8 @@ namespace Threax.IdServer.Repository
                 throw new InvalidOperationException($"Cannot find resource with id '{id}'.");
             }
 
-            mapper.Map<ApiResourceInput, ApiResource>(value, resource);
-            configDb.ApiResources.Update(resource);
+            mapper.Map<ApiResourceInput, Scope>(value, resource);
+            configDb.Scopes.Update(resource);
             await configDb.SaveChangesAsync();
         }
 
@@ -91,8 +91,8 @@ namespace Threax.IdServer.Repository
             }
             else
             {
-                mapper.Map<ApiResourceInput, ApiResource>(value, existing);
-                configDb.ApiResources.Update(existing);
+                mapper.Map<ApiResourceInput, Scope>(value, existing);
+                configDb.Scopes.Update(existing);
                 await configDb.SaveChangesAsync();
             }
         }
@@ -105,16 +105,13 @@ namespace Threax.IdServer.Repository
                 throw new InvalidOperationException($"Cannot find an api resource to delete to with id {id}");
             }
 
-            configDb.ApiResources.Remove(resource);
+            configDb.Scopes.Remove(resource);
             await configDb.SaveChangesAsync();
         }
 
-        private IQueryable<ApiResource> SelectFullEntity()
+        private IQueryable<Scope> SelectFullEntity()
         {
-            return configDb.ApiResources
-                .Include(i => i.Scopes)
-                .Include(i => i.Secrets)
-                .Include(i => i.UserClaims);
+            return configDb.Scopes;
         }
     }
 }

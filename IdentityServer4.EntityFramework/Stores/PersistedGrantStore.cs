@@ -6,11 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer4.EntityFramework.Interfaces;
-using IdentityServer4.EntityFramework.Mappers;
 using IdentityServer4.Models;
 using IdentityServer4.Stores;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using System;
+using IdentityServer4.EntityFramework.Mappers;
 
 namespace IdentityServer4.EntityFramework.Stores
 {
@@ -83,19 +84,17 @@ namespace IdentityServer4.EntityFramework.Stores
             return Task.FromResult(model);
         }
 
-        /// <summary>
-        /// Gets all grants for a given subject id.
-        /// </summary>
-        /// <param name="subjectId">The subject identifier.</param>
-        /// <returns></returns>
-        public Task<IEnumerable<PersistedGrant>> GetAllAsync(string subjectId)
+        /// <inheritdoc/>
+        public async Task<IEnumerable<PersistedGrant>> GetAllAsync(PersistedGrantFilter filter)
         {
-            var persistedGrants = _context.PersistedGrants.Where(x => x.SubjectId == subjectId).ToList();
+            var persistedGrants = await Filter(_context.PersistedGrants.AsQueryable(), filter).ToArrayAsync();
+            persistedGrants = Filter(persistedGrants.AsQueryable(), filter).ToArray();
+
             var model = persistedGrants.Select(x => x.ToModel());
 
-            _logger.LogDebug("{persistedGrantCount} persisted grants found for {subjectId}", persistedGrants.Count, subjectId);
+            _logger.LogDebug("{persistedGrantCount} persisted grants found for {@filter}", persistedGrants.Length, filter);
 
-            return Task.FromResult(model);
+            return model;
         }
 
         /// <summary>
@@ -155,34 +154,47 @@ namespace IdentityServer4.EntityFramework.Stores
             return Task.FromResult(0);
         }
 
-        /// <summary>
-        /// Removes all grants of a give type for a given subject id and client id combination.
-        /// </summary>
-        /// <param name="subjectId">The subject identifier.</param>
-        /// <param name="clientId">The client identifier.</param>
-        /// <param name="type">The type.</param>
-        /// <returns></returns>
-        public Task RemoveAllAsync(string subjectId, string clientId, string type)
+        /// <inheritdoc/>
+        public async Task RemoveAllAsync(PersistedGrantFilter filter)
         {
-            var persistedGrants = _context.PersistedGrants.Where(x =>
-                x.SubjectId == subjectId &&
-                x.ClientId == clientId &&
-                x.Type == type).ToList();
+            var persistedGrants = await Filter(_context.PersistedGrants.AsQueryable(), filter).ToArrayAsync();
+            persistedGrants = Filter(persistedGrants.AsQueryable(), filter).ToArray();
 
-            _logger.LogDebug("removing {persistedGrantCount} persisted grants from database for subject {subjectId}, clientId {clientId}, grantType {persistedGrantType}", persistedGrants.Count, subjectId, clientId, type);
+            _logger.LogDebug("removing {persistedGrantCount} persisted grants from database for {@filter}", persistedGrants.Length, filter);
 
             _context.PersistedGrants.RemoveRange(persistedGrants);
 
             try
             {
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                _logger.LogInformation("exception removing {persistedGrantCount} persisted grants from database for subject {subjectId}, clientId {clientId}, grantType {persistedGrantType}: {error}", persistedGrants.Count, subjectId, clientId, type, ex.Message);
+                _logger.LogInformation("removing {persistedGrantCount} persisted grants from database for subject {@filter}: {error}", persistedGrants.Length, filter, ex.Message);
+            }
+        }
+
+
+        private IQueryable<Entities.PersistedGrant> Filter(IQueryable<Entities.PersistedGrant> query, PersistedGrantFilter filter)
+        {
+            if (!String.IsNullOrWhiteSpace(filter.ClientId))
+            {
+                query = query.Where(x => x.ClientId == filter.ClientId);
+            }
+            //if (!String.IsNullOrWhiteSpace(filter.SessionId))
+            //{
+            //    query = query.Where(x => x.SessionId == filter.SessionId);
+            //}
+            if (!String.IsNullOrWhiteSpace(filter.SubjectId))
+            {
+                query = query.Where(x => x.SubjectId == filter.SubjectId);
+            }
+            if (!String.IsNullOrWhiteSpace(filter.Type))
+            {
+                query = query.Where(x => x.Type == filter.Type);
             }
 
-            return Task.FromResult(0);
+            return query;
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using IdentityServer4.EntityFramework.Entities;
+using System;
 using System.Collections.Generic;
 using Threax.AspNetCore.Halcyon.Ext;
 using Threax.AspNetCore.Halcyon.Ext.ValueProviders;
 using Threax.AspNetCore.Models;
-using Threax.IdServer.Areas.Api.ValueProviders;
 
 namespace Threax.IdServer.InputModels
 {
@@ -17,10 +17,9 @@ namespace Threax.IdServer.InputModels
 
         [UiSearch]
         [UiOrder]
-        [ValueProvider(typeof(GrantTypeValueProvider))]
         [NullValueLabel("Any")]
         [CheckboxUiType]
-        public List<String> GrantTypes { get; set; }
+        public GrantTypes? GrantTypes { get; set; }
 
         [UiSearch]
         [UiOrder]

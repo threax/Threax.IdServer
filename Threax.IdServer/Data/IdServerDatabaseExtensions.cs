@@ -133,38 +133,19 @@ namespace Threax.IdServer.Data
         {
             var configContext = scope.ServiceProvider.GetRequiredService<IConfigurationDbContext>();
 
-            if (!configContext.IdentityResources.Any())
-            {
-                configContext.IdentityResources.Add(new IdentityResources.Address().ToEntity());
-                configContext.IdentityResources.Add(new IdentityResources.Email().ToEntity());
-                configContext.IdentityResources.Add(new IdentityResources.OpenId().ToEntity());
-                configContext.IdentityResources.Add(new IdentityResources.Phone().ToEntity());
-                configContext.IdentityResources.Add(new IdentityResources.Profile().ToEntity());
-
-                configContext.SaveChanges();
-            }
-
             //Uncomment to force db to reload
             //configContext.Clients.RemoveRange(configContext.Clients);
             //configContext.ApiResources.RemoveRange(configContext.ApiResources);
             //configContext.SaveChanges();
 
-            if (!configContext.ApiResources.Any())
+            if (!configContext.Scopes.Any())
             {
-                var idServerResource = new ApiResource()
+                var idServerScope = new IdentityServer4.EntityFramework.Entities.Scope()
                 {
                     Name = "Threax.IdServer",
-                    Enabled = true,
                     DisplayName = "Identity Server",
-                    Scopes = new List<Scope>()
-                        {
-                            new Scope()
-                            {
-                                Name = "Threax.IdServer"
-                            }
-                        }
-                }.ToEntity();
-                configContext.ApiResources.Add(idServerResource);
+                };
+                configContext.Scopes.Add(idServerScope);
 
                 configContext.SaveChanges();
             }

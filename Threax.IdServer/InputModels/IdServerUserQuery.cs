@@ -28,7 +28,7 @@ namespace Threax.IdServer.InputModels
 
         public IQueryable<IdentityServer4.EntityFramework.Entities.Client> Create(IQueryable<IdentityServer4.EntityFramework.Entities.Client> query, IApplicationGuidFactory guidFactory)
         {
-            query = query.Where(i => i.AllowedGrantTypes.Any(g => g.GrantType == IdentityModel.OidcConstants.GrantTypes.ClientCredentials));
+            query = query.Where(i => (i.AllowedGrantTypes & GrantTypes.ClientCredentials) == GrantTypes.ClientCredentials);
 
             if (UserId != null)
             {

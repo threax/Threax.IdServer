@@ -56,15 +56,15 @@ namespace Threax.IdServer.Repository
                 clients = clients.Where(i => EF.Functions.Like(i.ClientId, $"%{query.ClientId}%"));
             }
 
-            if (query.GrantTypes != null && query.GrantTypes.Count > 0)
+            if (query.GrantTypes != null)
             {
-                clients = clients.Where(i => i.AllowedGrantTypes.Any(j => query.GrantTypes.Contains(j.GrantType)));
+                clients = clients.Where(i => (i.AllowedGrantTypes & query.GrantTypes) != 0);
             }
 
             if (query.HasMissingOrDefaultSecret == true)
             {
                 var hash = appConfig.DefaultSecret.Sha256();
-                clients = clients.Where(i => !i.ClientSecrets.Any() || i.ClientSecrets.Where(j => j.Value == hash).Any());
+                clients = clients.Where(i => !i.ClientSecrets.Any() || i.ClientSecrets.Where(j => j.Secret == hash).Any());
             }
 
             int total = await clients.CountAsync();
@@ -98,8 +98,7 @@ namespace Threax.IdServer.Repository
                 {
                     new ClientSecret()
                     {
-                        Client = entity,
-                        Value = appConfig.DefaultSecret.Sha256(),
+                        Secret = appConfig.DefaultSecret.Sha256(),
                     }
                 };
             }
@@ -134,11 +133,7 @@ namespace Threax.IdServer.Repository
                 {
                     new ClientSecret()
                     {
-                        Client = entity,
-                        Value = clientSecret.Value,
-                        Description = clientSecret.Description,
-                        Expiration = clientSecret.Expiration,
-                        Type = clientSecret.Type
+                        Secret = clientSecret.Value,
                     }
                 };
 
@@ -150,11 +145,7 @@ namespace Threax.IdServer.Repository
                 existing.ClientSecrets.Clear();
                 existing.ClientSecrets.Add(new ClientSecret()
                 {
-                    Client = existing,
-                    Value = clientSecret.Value,
-                    Description = clientSecret.Description,
-                    Expiration = clientSecret.Expiration,
-                    Type = clientSecret.Type
+                    Secret = clientSecret.Value
                 });
                 configDb.Clients.Update(existing);
             }
@@ -207,11 +198,7 @@ namespace Threax.IdServer.Repository
             client.ClientSecrets.Clear();
             client.ClientSecrets.Add(new ClientSecret()
             {
-                Client = client,
-                Value = secret.Value,
-                Description = secret.Description,
-                Expiration = secret.Expiration,
-                Type = secret.Type
+                Secret = secret.Value
             });
             configDb.Clients.Update(client);
             await configDb.SaveChangesAsync();
