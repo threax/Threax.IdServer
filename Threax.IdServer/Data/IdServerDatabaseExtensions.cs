@@ -38,7 +38,7 @@ namespace Threax.IdServer.Data
             {
                 builder.ConfigureDbContext = o =>
                 {
-                    o.UseSqlite(config.ConnectionString, options =>
+                    o.UseSqlite(config.ConfigurationConnectionString ?? config.ConnectionString, options =>
                     {
                         options.MigrationsAssembly(migrationsAssemblyName);
                     });
@@ -49,7 +49,7 @@ namespace Threax.IdServer.Data
                 builder.EnableTokenCleanup = true;
                 builder.ConfigureDbContext = o =>
                 {
-                    o.UseSqlite(config.ConnectionString, options =>
+                    o.UseSqlite(config.OperationalConnectionString ?? config.ConnectionString, options =>
                     {
                         options.MigrationsAssembly(migrationsAssemblyName);
                     });

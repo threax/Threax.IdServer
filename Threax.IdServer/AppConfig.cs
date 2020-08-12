@@ -14,9 +14,20 @@ namespace Threax.IdServer
         public string BaseUrl { get; set; } = HalcyonConventionOptions.HostVariable;
 
         /// <summary>
-        /// The connection string for the app's primary database.
+        /// The connection string for the app's primary database with user information. This is also used if any of the other
+        /// db connection strings are not provided.
         /// </summary>
         public string ConnectionString { get; set; }
+
+        /// <summary>
+        /// The connection string to the database with the id server configuration. Can be null to use ConnectionString.
+        /// </summary>
+        public string ConfigurationConnectionString { get; set; }
+
+        /// <summary>
+        /// The connection string to the id server operational data like persisted grants. Can be null to use ConnectionString.
+        /// </summary>
+        public string OperationalConnectionString { get; set; }
 
         /// <summary>
         /// True to turn on detailed error messages. Default: false.
