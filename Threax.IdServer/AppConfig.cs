@@ -98,5 +98,10 @@ namespace Threax.IdServer
         /// It can be overwritten to make that value itself non-public. Default: 'notyetdefined'
         /// </summary>
         public String DefaultSecret { get; set; } = "notyetdefined";
+
+        /// <summary>
+        /// The path to store data protection keys.
+        /// </summary>
+        public String DataProtectionKeysPath { get; set; }
     }
 }
