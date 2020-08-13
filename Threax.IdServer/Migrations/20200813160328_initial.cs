@@ -43,8 +43,8 @@ namespace Threax.IdServer.Migrations
                 columns: table => new
                 {
                     ClientRedirectUriId = table.Column<Guid>(nullable: false),
-                    Uri = table.Column<string>(maxLength: 2000, nullable: true),
-                    ClientId = table.Column<int>(nullable: true)
+                    ClientId = table.Column<int>(nullable: false),
+                    Uri = table.Column<string>(maxLength: 2000, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -54,7 +54,7 @@ namespace Threax.IdServer.Migrations
                         column: x => x.ClientId,
                         principalTable: "Clients",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -62,8 +62,8 @@ namespace Threax.IdServer.Migrations
                 columns: table => new
                 {
                     ClientScopeId = table.Column<Guid>(nullable: false),
-                    Scope = table.Column<string>(maxLength: 2000, nullable: true),
-                    ClientId = table.Column<int>(nullable: true)
+                    ClientId = table.Column<int>(nullable: false),
+                    Scope = table.Column<string>(maxLength: 2000, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -73,7 +73,7 @@ namespace Threax.IdServer.Migrations
                         column: x => x.ClientId,
                         principalTable: "Clients",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,8 +81,8 @@ namespace Threax.IdServer.Migrations
                 columns: table => new
                 {
                     ClientSecretId = table.Column<Guid>(nullable: false),
-                    Secret = table.Column<string>(maxLength: 2000, nullable: true),
-                    ClientId = table.Column<int>(nullable: true)
+                    ClientId = table.Column<int>(nullable: false),
+                    Secret = table.Column<string>(maxLength: 2000, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -92,7 +92,7 @@ namespace Threax.IdServer.Migrations
                         column: x => x.ClientId,
                         principalTable: "Clients",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

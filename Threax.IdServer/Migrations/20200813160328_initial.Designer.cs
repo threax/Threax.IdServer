@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Threax.IdServer.Migrations
 {
     [DbContext(typeof(ConfigurationDbContext))]
-    [Migration("20200813150306_initial")]
+    [Migration("20200813160328_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,7 +53,7 @@ namespace Threax.IdServer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("ClientId")
+                    b.Property<int>("ClientId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Uri")
@@ -73,7 +73,7 @@ namespace Threax.IdServer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("ClientId")
+                    b.Property<int>("ClientId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Scope")
@@ -93,7 +93,7 @@ namespace Threax.IdServer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("ClientId")
+                    b.Property<int>("ClientId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Secret")
@@ -128,23 +128,29 @@ namespace Threax.IdServer.Migrations
 
             modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientRedirectUri", b =>
                 {
-                    b.HasOne("IdentityServer4.EntityFramework.Entities.Client", null)
+                    b.HasOne("IdentityServer4.EntityFramework.Entities.Client", "Client")
                         .WithMany("RedirectUris")
-                        .HasForeignKey("ClientId");
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientScope", b =>
                 {
-                    b.HasOne("IdentityServer4.EntityFramework.Entities.Client", null)
+                    b.HasOne("IdentityServer4.EntityFramework.Entities.Client", "Client")
                         .WithMany("AllowedScopes")
-                        .HasForeignKey("ClientId");
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientSecret", b =>
                 {
-                    b.HasOne("IdentityServer4.EntityFramework.Entities.Client", null)
+                    b.HasOne("IdentityServer4.EntityFramework.Entities.Client", "Client")
                         .WithMany("ClientSecrets")
-                        .HasForeignKey("ClientId");
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

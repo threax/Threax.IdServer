@@ -11,6 +11,10 @@ namespace IdentityServer4.EntityFramework.Entities
         [Key]
         public Guid ClientSecretId { get; set; }
 
+        public int ClientId { get; set; }
+
+        public Client Client { get; set; }
+
         [MaxLength(2000)]
         public String Secret { get; set; }
     }

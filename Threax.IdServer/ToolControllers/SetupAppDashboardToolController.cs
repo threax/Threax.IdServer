@@ -66,17 +66,21 @@ namespace Threax.IdServer.ToolControllers
 
             if (clientEntity != null)
             {
-                clientEntity.RedirectUris = new List<ClientRedirectUri>()
-                {
-                    new ClientRedirectUri()
-                    {
-                        Uri = redirectUri
-                    }
-                };
                 clientEntity.LogoutUri = logoutUri;
 
-                clientEntity.ClientSecrets.Clear();
-                clientEntity.ClientSecrets.Add(secret);
+                clientEntity.RedirectUris = clientEntity.RedirectUris ?? new List<ClientRedirectUri>();
+                if (clientEntity.RedirectUris.Count == 0)
+                {
+                    clientEntity.RedirectUris.Add(new ClientRedirectUri());
+                }
+                clientEntity.RedirectUris[0].Uri = redirectUri;
+
+                clientEntity.ClientSecrets = clientEntity.ClientSecrets ?? new List<ClientSecret>();
+                if (clientEntity.ClientSecrets.Count == 0)
+                {
+                    clientEntity.ClientSecrets.Add(new ClientSecret());
+                }
+                clientEntity.ClientSecrets[0].Secret = secret.Secret;
             }
             else
             {
