@@ -71,14 +71,14 @@ namespace IdentityServer4.EntityFramework.Stores
                 AllowedScopes = i.AllowedScopes.Select(i => i.Scope).ToList(),
                 ClientId = i.ClientId,
                 ClientSecrets = i.ClientSecrets.Select(i => new Secret(i.Secret)).ToList(),
-                EnableLocalLogin = i.EnableLocalLogin,
-                BackChannelLogoutSessionRequired = i.LogoutSessionRequired,
                 BackChannelLogoutUri = i.LogoutUri,
                 FrontChannelLogoutUri = i.LogoutUri,
                 ClientName = i.Name,
                 RedirectUris = i.RedirectUris.Select(i => i.Uri).ToList(),
 
                 //Hardcoded
+                EnableLocalLogin = true,
+                BackChannelLogoutSessionRequired = true,
                 RequireConsent = false,
                 AllowRememberConsent = true,
                 FrontChannelLogoutSessionRequired = true,

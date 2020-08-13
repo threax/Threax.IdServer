@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Threax.IdServer.Migrations
 {
     [DbContext(typeof(ConfigurationDbContext))]
-    [Migration("20200812213454_initial")]
+    [Migration("20200813150306_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,13 +33,6 @@ namespace Threax.IdServer.Migrations
                     b.Property<string>("ClientId")
                         .HasColumnType("TEXT")
                         .HasMaxLength(200);
-
-                    b.Property<bool>("EnableLocalLogin")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("LogoutSessionRequired")
-                        .HasColumnType("INTEGER")
-                        .HasMaxLength(2000);
 
                     b.Property<string>("LogoutUri")
                         .HasColumnType("TEXT")

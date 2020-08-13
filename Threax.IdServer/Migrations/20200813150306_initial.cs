@@ -16,9 +16,7 @@ namespace Threax.IdServer.Migrations
                     ClientId = table.Column<string>(maxLength: 200, nullable: true),
                     Name = table.Column<string>(maxLength: 200, nullable: true),
                     LogoutUri = table.Column<string>(maxLength: 2000, nullable: true),
-                    LogoutSessionRequired = table.Column<bool>(maxLength: 2000, nullable: false),
                     AllowedGrantTypes = table.Column<int>(nullable: false),
-                    EnableLocalLogin = table.Column<bool>(nullable: false),
                     AccessTokenLifetime = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

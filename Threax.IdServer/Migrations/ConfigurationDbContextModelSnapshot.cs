@@ -32,13 +32,6 @@ namespace Threax.IdServer.Migrations
                         .HasColumnType("TEXT")
                         .HasMaxLength(200);
 
-                    b.Property<bool>("EnableLocalLogin")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("LogoutSessionRequired")
-                        .HasColumnType("INTEGER")
-                        .HasMaxLength(2000);
-
                     b.Property<string>("LogoutUri")
                         .HasColumnType("TEXT")
                         .HasMaxLength(2000);

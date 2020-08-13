@@ -85,7 +85,6 @@ namespace Threax.IdServer.ToolControllers
                     ClientId = "AppDashboard",
                     Name = "App Dashboard",
                     AllowedGrantTypes = IdentityServer4.EntityFramework.Entities.GrantTypes.Hybrid,
-
                     ClientSecrets = new List<ClientSecret>
                     {
                         secret
@@ -97,7 +96,6 @@ namespace Threax.IdServer.ToolControllers
                         new ClientScope() { Scope = StandardScopes.OfflineAccess },
                         new ClientScope() { Scope = "Threax.IdServer" },
                     },
-                    EnableLocalLogin = true,
                     RedirectUris = new List<ClientRedirectUri>()
                     {
                         new ClientRedirectUri() { Uri = redirectUri }

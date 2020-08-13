@@ -19,9 +19,6 @@ namespace IdentityServer4.EntityFramework.Entities
         [MaxLength(2000)]
         public String LogoutUri { get; set; }
 
-        [MaxLength(2000)]
-        public bool LogoutSessionRequired { get; set; } = true;
-
         public GrantTypes AllowedGrantTypes { get; set; }
 
         public List<ClientRedirectUri> RedirectUris { get; set; } = new List<ClientRedirectUri>();
@@ -29,8 +26,6 @@ namespace IdentityServer4.EntityFramework.Entities
         public List<ClientScope> AllowedScopes { get; set; } = new List<ClientScope>();
 
         public List<ClientSecret> ClientSecrets { get; set; } = new List<ClientSecret>();
-
-        public bool EnableLocalLogin { get; set; }
 
         public int AccessTokenLifetime { get; set; } = 3600;
     }
