@@ -95,7 +95,7 @@ namespace Threax.IdServer.Repository
             var entity = mapper.Map<IdentityServer4.EntityFramework.Entities.Client>(value);
 
             //Any new client gets the secret notyetdefined
-            if (entity.ClientSecrets == null)
+            if (entity.ClientSecrets == null || entity.ClientSecrets.Count == 0)
             {
                 entity.ClientSecrets = new List<ClientSecret>()
                 {

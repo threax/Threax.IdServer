@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Threax.AspNetCore.Halcyon.Ext;
+using IdentityServer4.EntityFramework.Entities;
 
 namespace Threax.IdServer.Areas.Api.Models
 {
@@ -26,7 +27,7 @@ namespace Threax.IdServer.Areas.Api.Models
         public String LogoutUri { get; set; }
 
         [DisplayName("Allowed Grant Types")]
-        public List<String> AllowedGrantTypes { get; set; } = new List<string>();
+        public List<GrantTypes> AllowedGrantTypes { get; set; } = new List<GrantTypes>();
 
         [DisplayName("Redirect Uris")]
         public List<String> RedirectUris { get; set; } = new List<string>();
