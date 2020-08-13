@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>3.0.2</Version>
+    <TargetFrameworks>netstandard2.0;netcoreapp3.1</TargetFrameworks>
+    <Version>3.0.3</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes>Updated to Threax.AspNetCore.Halcyon.Client 9.0.0.</PackageReleaseNotes>
@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Threax.AspNetCore.Halcyon.Client" Version="10.0.0" />
+    <PackageReference Include="Threax.AspNetCore.Halcyon.Client" Version="10.0.1" />
   </ItemGroup>
 
 </Project>
