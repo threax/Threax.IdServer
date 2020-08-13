@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -266,6 +267,8 @@ namespace Threax.IdServer
 
             var dirInfo = new DirectoryInfo(appConfig.DataProtectionKeysPath);
             services.AddDataProtection().PersistKeysToFileSystem(dirInfo);
+
+            IdentityModelEventSource.ShowPII = appConfig.ShowPII;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

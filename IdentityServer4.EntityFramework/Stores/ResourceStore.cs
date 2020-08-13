@@ -62,7 +62,10 @@ namespace IdentityServer4.EntityFramework.Stores
         public Task<IEnumerable<ApiResource>> FindApiResourcesByScopeNameAsync(IEnumerable<string> scopeNames)
         {
             //Return everything incoming thats in the scopes table as an api resource
-            IEnumerable<ApiResource> result = Context.Scopes.Where(i => scopeNames.Contains(i.Name)).Select(i => new ApiResource(i.Name, i.DisplayName));
+            IEnumerable<ApiResource> result = Context.Scopes.Where(i => scopeNames.Contains(i.Name)).Select(i => new ApiResource(i.Name, i.DisplayName)
+            {
+                Scopes = new List<String> { i.Name }
+            });
             return Task.FromResult(result);
         }
 

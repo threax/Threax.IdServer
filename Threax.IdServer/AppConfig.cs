@@ -119,5 +119,10 @@ namespace Threax.IdServer
         /// Set this to true to add user secrets. Good for development. Default: false
         /// </summary>
         public bool AddUserSecrets { get; set; }
+
+        /// <summary>
+        /// Set this to true to ShowPII in the logs.
+        /// </summary>
+        public bool ShowPII { get; set; }
     }
 }
