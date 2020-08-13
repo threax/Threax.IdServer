@@ -37,9 +37,6 @@ namespace Threax.IdServer.Areas.Api.Models
         [DisplayName("Logout Uri")]
         public String LogoutUri { get; set; }
 
-        [DisplayName("Logout Session Required")]
-        public bool LogoutSessionRequired { get; set; } = true;
-
         [DisplayName("Allowed Grant Types")]
         public List<GrantTypes> AllowedGrantTypes { get; set; }
 
@@ -48,9 +45,6 @@ namespace Threax.IdServer.Areas.Api.Models
 
         [DisplayName("Allowed Scopes")]
         public List<String> AllowedScopes { get; set; } = new List<string>();
-
-        [DisplayName("Allow External Users")]
-        public bool EnableLocalLogin { get; set; }
 
         [DisplayName("Access Token Lifetime")]
         public int AccessTokenLifetime { get; set; } = 3600;
