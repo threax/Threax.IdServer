@@ -22,6 +22,33 @@ namespace Threax.IdServer.Mappers
             CreateMap<ClientMetadata, ClientInput>();
             CreateMap<ApiResourceMetadata, ApiResourceInput>();
 
+            CreateMap<List<String>, List<GrantTypes>>()
+                .ConvertUsing((s, d) =>
+                {
+                    if(s == null)
+                    {
+                        return null;
+                    }
+
+                    var grantTypes = new List<GrantTypes>();
+                    foreach(var i in s)
+                    {
+                        switch (i.ToLowerInvariant())
+                        {
+                            case "client_credentials":
+                                grantTypes.Add(GrantTypes.ClientCredentials);
+                                break;
+                            case "hybrid":
+                                grantTypes.Add(GrantTypes.Hybrid);
+                                break;
+                            case "authorization_code":
+                                grantTypes.Add(GrantTypes.AuthorizationCode);
+                                break;
+                        }
+                    }
+                    return grantTypes;
+                });
+
             CreateMap<ApiResourceInput, Scope>()
                 .ForMember(d => d.Id, opt => opt.Ignore())
                 .ForMember(d => d.Name, opt => opt.MapFrom(s => s.ScopeName))
@@ -32,6 +59,7 @@ namespace Threax.IdServer.Mappers
 
             CreateMap<ClientInput, IdentityServer4.EntityFramework.Entities.Client>()
                 .ForMember(d => d.Id, opt => opt.Ignore())
+                .ForMember(d => d.ClientSecrets, opt => opt.Ignore())
                 .ForMember(d => d.AllowedGrantTypes, o => o.MapFrom((ClientInput s, IdentityServer4.EntityFramework.Entities.Client d) =>
                 {
                     GrantTypes result = (GrantTypes)0;

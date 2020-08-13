@@ -46,9 +46,12 @@ namespace Threax.IdServer.ToolControllers
             var clientSecret = clientSecretFile != null ? TrimNewLine(File.ReadAllText(clientSecretFile)) : appConfig.DefaultSecret;
             var clientCredsSecret = clientCredsSecretFile != null ? TrimNewLine(File.ReadAllText(clientCredsSecretFile)) : appConfig.DefaultSecret;
 
-            var scope = mapper.Map<ApiResourceInput>(await metadataClient.ScopeAsync(url));
-            var client = mapper.Map<ClientInput>(await metadataClient.ClientAsync(url));
-            var clientCreds = mapper.Map<ClientInput>(await metadataClient.ClientCredentialsAsync(url));
+            var scopeMeta = await metadataClient.ScopeAsync(url);
+            var scope = mapper.Map<ApiResourceInput>(scopeMeta);
+            var clientMeta = await metadataClient.ClientAsync(url);
+            var client = mapper.Map<ClientInput>(clientMeta);
+            var clientCredsMeta = await metadataClient.ClientCredentialsAsync(url);
+            var clientCreds = mapper.Map<ClientInput>(clientCredsMeta);
 
             await apiResourceRepository.AddOrUpdate(scope);
             await clientRepository.AddOrUpdateWithSecret(client, clientSecret);
