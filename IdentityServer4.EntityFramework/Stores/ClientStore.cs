@@ -48,7 +48,12 @@ namespace IdentityServer4.EntityFramework.Stores
                 .Include(i => i.AllowedScopes)
                 .Include(i => i.ClientSecrets)
                 .Include(i => i.RedirectUris)
-                .FirstOrDefaultAsync()) ?? throw new InvalidOperationException($"Cannot find client '{clientId}'.");
+                .FirstOrDefaultAsync());
+
+            if(i == null)
+            {
+                return null;
+            }
 
             var allowedGrantTypes = new List<String>();
             if((i.AllowedGrantTypes & Entities.GrantTypes.AuthorizationCode) == Entities.GrantTypes.AuthorizationCode)
