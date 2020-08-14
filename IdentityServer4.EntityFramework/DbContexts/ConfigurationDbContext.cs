@@ -47,6 +47,19 @@ namespace IdentityServer4.EntityFramework.DbContexts
         /// </value>
         public DbSet<Scope> Scopes { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Scope>()
+                .HasIndex(u => u.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<Client>()
+                .HasIndex(u => u.ClientId)
+                .IsUnique();
+        }
+
         /// <summary>
         /// Saves the changes.
         /// </summary>
