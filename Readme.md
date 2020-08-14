@@ -3,6 +3,22 @@ This is an implementation of the [IdentityServer4](https://identityserver4.readt
 
 Please see the [Installing Id Server](https://www.threax.com/HypermediaDocs/installing-id-server) page for more info.
 
+## Setup
+1. Select Threax.IdServer.
+1. Choose the startup mode to be SetupDb then run it.
+1. Next choose SetupAppDashboard and run it.
+1. Change back to IIS Express and run the app.
+1. Visit https://localhost:44390/Account/Manage and create an account. Copy the guid from the manage page.
+1. Stop the program and run the command `dotnet run tools "addadmin GUID"` where GUID is the guid from above.
+1. Now choose multiple startup projects and run both AppDashboard and Threax.IdServer. You should be able to log into the app dashboard.
+
+## Adding Other Apps
+Use the addfrommetadata command
+```
+dotnet run tools "addfrommetadata https://localhost:44354/"
+```
+Substitute the target app url for the url in the example.
+
 ## Building Dockerfile
 To build this image you will need to use the experimental buildkit. This applies to any projects built with this template.
 
