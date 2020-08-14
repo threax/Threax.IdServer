@@ -30,7 +30,8 @@
     <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen.Tools" Version="6.0.1" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen" Version="12.3.2" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="14.4.1" />
-    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="5.1.1" />
+    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="6.0.0" />
+    <PackageReference Include="Threax.AspNetCore.JwtCookieAuth" Version="4.0.0" />
     <PackageReference Include="Threax.AspNetCore.IdServerMetadata" Version="3.1.1" />
     <PackageReference Include="Threax.AspNetCore.IdServerMetadata.Client" Version="2.1.1" />
     <PackageReference Include="Threax.AspNetCore.Models" Version="7.0.1" />
@@ -47,6 +48,7 @@
     <PackageReference Include="Threax.AspNetCore.UserLookup.Mvc" Version="3.0.0" />
     <PackageReference Include="Threax.ProgressiveWebApp" Version="1.0.1" />
     <PackageReference Include="IdentityModel" Version="4.3.1" />
+    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
     <PackageReference Include="Threax.DeployConfig" Version="1.0.1" />
     <PackageReference Include="Threax.DockerBuildConfig" Version="1.0.1" />
   </ItemGroup>

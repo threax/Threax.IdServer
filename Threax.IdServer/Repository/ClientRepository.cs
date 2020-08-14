@@ -26,6 +26,7 @@ namespace Threax.IdServer.Repository
         /// </summary>
         /// <param name="mapper">The mapper.</param>
         /// <param name="configDb">The configuration db context.</param>
+        /// <param name="appConfig">The app config.</param>
         public ClientRepository(IConfigurationDbContext configDb, IMapper mapper, AppConfig appConfig)
         {
             this.configDb = configDb;
