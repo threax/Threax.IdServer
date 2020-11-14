@@ -15,7 +15,7 @@ Please see the [Installing Id Server](https://www.threax.com/HypermediaDocs/inst
 ## Adding Other Apps
 Use the addfrommetadata command
 ```
-dotnet run tools "addfrommetadata https://localhost:44354/"
+dotnet run tools "addfrommetadata https://localhost:44321/"
 ```
 Substitute the target app url for the url in the example.
 
