@@ -1,0 +1,15 @@
+{
+  "clientId": "TestFileApp",
+  "name": "App Added From File",
+  "logoutUri": null,
+  "logoutSessionRequired": false,
+  "allowedGrantTypes": [
+    "client_credentials"
+  ],
+  "redirectUris": [],
+  "allowedScopes": [
+    "Threax.TestApp"
+  ],
+  "enableLocalLogin": false,
+  "accessTokenLifetime": 3600
+}

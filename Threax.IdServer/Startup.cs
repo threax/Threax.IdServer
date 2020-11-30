@@ -225,6 +225,16 @@ namespace Threax.IdServer
                     }
                     await toolController.Run(a.Args[0], jwtKey, clientCredsKey);
                 }))
+                .AddTool("addfromclientcredsfile", new ToolCommand("Add an app from metadata. Arguments: filePath clientCredentialSecret", async a =>
+                {
+                    var toolController = a.Scope.ServiceProvider.GetRequiredService<AddFromClientCredsFileToolController>();
+                    String clientCredsKey = null;
+                    if (a.Args.Count > 1)
+                    {
+                        clientCredsKey = a.Args[1];
+                    }
+                    await toolController.Run(a.Args[0], clientCredsKey);
+                }))
                 .UseClientGenTools();
             });
 
@@ -248,6 +258,7 @@ namespace Threax.IdServer
             services.AddScoped<ChangePassword>();
             services.AddScoped<UnlockAccount>();
             services.AddScoped<AddFromMetadataToolController>();
+            services.AddScoped<AddFromClientCredsFileToolController>();
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<IApiResourceRepository, ApiResourceRepository>();
 
