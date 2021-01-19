@@ -68,9 +68,9 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Add Notes Metadata": {
+    "Add AppTemplate Metadata": {
       "commandName": "Project",
-      "commandLineArgs": "tools \"addfrommetadata https://localhost:44346\"",
+      "commandLineArgs": "tools \"addfrommetadata https://localhost:44321\"",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
