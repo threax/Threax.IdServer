@@ -324,7 +324,6 @@ namespace Threax.IdServer
             if (appConfig.ErrorPages)
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
             }
             else
             {

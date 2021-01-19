@@ -9,16 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0">
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.2" />
     <PackageReference Include="IdentityServer4" Version="4.1.1" />
     <PackageReference Include="HtmlRapier.TagHelpers" Version="8.2.1" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.Client" Version="10.0.1" />
@@ -30,24 +30,24 @@
     <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen.Tools" Version="6.0.1" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen" Version="12.3.2" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="14.4.1" />
-    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="6.0.0" />
-    <PackageReference Include="Threax.AspNetCore.JwtCookieAuth" Version="4.0.0" />
-    <PackageReference Include="Threax.AspNetCore.IdServerMetadata" Version="3.1.1" />
+    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="7.0.0" />
+    <PackageReference Include="Threax.AspNetCore.JwtCookieAuth" Version="5.0.0" />
+    <PackageReference Include="Threax.AspNetCore.IdServerMetadata" Version="4.0.0" />
     <PackageReference Include="Threax.AspNetCore.IdServerMetadata.Client" Version="2.1.1" />
     <PackageReference Include="Threax.AspNetCore.Models" Version="7.0.1" />
     <PackageReference Include="Threax.AspNetCore.Tracking" Version="2.0.4" />
     <PackageReference Include="Threax.AspNetCore.UrlFix" Version="1.1.5" />
-    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities.Mvc" Version="6.0.1" />
-    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities" Version="5.0.1" />
-    <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="3.3.1" />
+    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities.Mvc" Version="7.0.0" />
+    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities" Version="6.0.0" />
+    <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="4.0.0" />
     <PackageReference Include="Threax.AspNetCore.Validators" Version="2.0.2" />
     <PackageReference Include="Threax.ReflectedServices" Version="1.0.1" />
     <PackageReference Include="Threax.Sqlite.Ext" Version="2.0.1" />
     <PackageReference Include="Threax.Extensions.Configuration.SchemaBinder" Version="2.0.1" />
-    <PackageReference Include="Threax.AspNetCore.UserLookup" Version="1.0.1" />
-    <PackageReference Include="Threax.AspNetCore.UserLookup.Mvc" Version="3.0.0" />
+    <PackageReference Include="Threax.AspNetCore.UserLookup" Version="2.0.0" />
+    <PackageReference Include="Threax.AspNetCore.UserLookup.Mvc" Version="4.0.0" />
     <PackageReference Include="Threax.ProgressiveWebApp" Version="1.0.1" />
-    <PackageReference Include="IdentityModel" Version="4.4.0" />
+    <PackageReference Include="IdentityModel" Version="5.0.0" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
     <PackageReference Include="Threax.DeployConfig" Version="1.0.1" />
     <PackageReference Include="Threax.DockerBuildConfig" Version="1.0.1" />
