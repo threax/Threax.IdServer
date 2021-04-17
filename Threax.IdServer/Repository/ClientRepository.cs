@@ -126,7 +126,7 @@ namespace Threax.IdServer.Repository
 
         public async Task AddOrUpdateWithSecret(ClientInput value, String secret)
         {
-            var clientSecret = new IdentityServer4.Models.Secret(IdentityServer4.Models.HashExtensions.Sha256(secret));
+            var clientSecret = HashExtensions.Sha256(secret);
 
             var existing = await SelectFullEntity().Where(i => i.ClientId == value.ClientId).FirstOrDefaultAsync();
             if(existing == null)
@@ -137,7 +137,7 @@ namespace Threax.IdServer.Repository
                 {
                     new ClientSecret()
                     {
-                        Secret = clientSecret.Value,
+                        Secret = clientSecret,
                     }
                 };
 
@@ -149,7 +149,7 @@ namespace Threax.IdServer.Repository
                 existing.ClientSecrets.Clear();
                 existing.ClientSecrets.Add(new ClientSecret()
                 {
-                    Secret = clientSecret.Value
+                    Secret = clientSecret
                 });
                 configDb.Clients.Update(existing);
             }
@@ -197,12 +197,12 @@ namespace Threax.IdServer.Repository
                 throw new InvalidOperationException($"Cannot find a client to add a secret to with id {id}.");
             }
 
-            var secret = new IdentityServer4.Models.Secret(IdentityServer4.Models.HashExtensions.Sha256(secretString));
+            var secret = HashExtensions.Sha256(secretString);
 
             client.ClientSecrets.Clear();
             client.ClientSecrets.Add(new ClientSecret()
             {
-                Secret = secret.Value
+                Secret = secret
             });
             configDb.Clients.Update(client);
             await configDb.SaveChangesAsync();

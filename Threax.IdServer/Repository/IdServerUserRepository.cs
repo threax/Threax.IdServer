@@ -1,6 +1,4 @@
-﻿using IdentityServer4.EntityFramework.Entities;
-using IdentityServer4.EntityFramework.Interfaces;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +13,7 @@ using Threax.IdServer.Models;
 using Threax.IdServer.Services;
 using System.Collections;
 using System.Collections.Generic;
+using IdentityServer4.EntityFramework.Interfaces;
 
 namespace Threax.IdServer.Repository
 {

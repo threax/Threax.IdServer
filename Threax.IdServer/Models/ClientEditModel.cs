@@ -1,6 +1,5 @@
 ﻿using Halcyon.HAL.Attributes;
 using IdentityServer4.EntityFramework.Entities;
-using IdentityServer4.EntityFramework.Mappers;
 using Threax.IdServer.Areas.Api.Controllers;
 using System;
 using System.Collections.Generic;

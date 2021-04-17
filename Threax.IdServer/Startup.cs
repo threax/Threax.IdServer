@@ -1,5 +1,4 @@
 ﻿using IdentityServer4.EntityFramework.DbContexts;
-using IdentityServer4.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
@@ -111,15 +110,52 @@ namespace Threax.IdServer
                 .AddEntityFrameworkStores<UsersDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.TryAddTransient<IClaimsService, ClaimsService>();
-
             services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AppUserClaimsPrincipalFactory>();
 
 
-            // Adds IdentityServer
-            services.AddIdentityServer()
-                .AddThreaxConfig(appConfig)
-                .AddAspNetIdentity<ApplicationUser>();
+            //// Adds IdentityServer
+            //services.AddIdentityServer()
+            //    .AddThreaxConfig(appConfig)
+            //    .AddAspNetIdentity<ApplicationUser>();
+
+
+            services.AddOpenIddict()
+            // Register the OpenIddict core components.
+            .AddCore(options =>
+            {
+                // Configure OpenIddict to use the Entity Framework Core stores and models.
+                // Note: call ReplaceDefaultEntities() to replace the default entities.
+                //options.UseEntityFrameworkCore()
+                //       .UseDbContext<ApplicationDbContext>();
+            })
+
+            // Register the OpenIddict server components.
+            .AddServer(options =>
+            {
+                // Enable the token endpoint.
+                options.SetTokenEndpointUris("/connect/token");
+
+                // Enable the client credentials flow.
+                options.AllowClientCredentialsFlow();
+
+                // Register the signing and encryption credentials.
+                options.AddDevelopmentEncryptionCertificate()
+                      .AddDevelopmentSigningCertificate();
+
+                // Register the ASP.NET Core host and configure the ASP.NET Core options.
+                options.UseAspNetCore()
+                      .EnableTokenEndpointPassthrough();
+            })
+
+            // Register the OpenIddict validation components.
+            .AddValidation(options =>
+            {
+                // Import the configuration from the local OpenIddict server instance.
+                options.UseLocalServer();
+
+                // Register the ASP.NET Core host.
+                options.UseAspNetCore();
+            });
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
@@ -169,13 +205,13 @@ namespace Threax.IdServer
                 return new ToolRunner()
                 .AddTool("migrate", new ToolCommand("Migrate database to newest version. Run anytime new migrations have been added.", async a =>
                 {
-                    a.Scope.MigrateIdServerDatabase();
+                    //a.Scope.MigrateIdServerDatabase();
                     await a.Migrate();
                     await a.MigrateUserDb();
                 }))
                 .AddTool("seed", new ToolCommand("Seed database data. Only needed for an empty database.", async a =>
                 {
-                    a.Scope.SeedIdServerDatabase();
+                    //a.Scope.SeedIdServerDatabase();
                     await a.Seed();
                 }))
                 .AddTool("addadmin", new ToolCommand("Add given guids as a user with permissions to all roles in the database.", async a =>

@@ -1,10 +1,7 @@
 ﻿using IdentityModel;
-using IdentityServer4.Configuration;
 using IdentityServer4.EntityFramework.Entities;
 using IdentityServer4.EntityFramework.Interfaces;
-using IdentityServer4.EntityFramework.Mappers;
 using IdentityServer4.Models;
-using IdentityServer4.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +15,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-using static IdentityServer4.IdentityServerConstants;
+using static IdentityModel.OidcConstants;
 
 namespace Threax.IdServer.ToolControllers
 {

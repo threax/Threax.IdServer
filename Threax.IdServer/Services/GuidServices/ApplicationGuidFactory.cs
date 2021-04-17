@@ -15,11 +15,6 @@ namespace Threax.IdServer.Services
             this.guidNamespace = guidNamespace;
         }
 
-        public Guid CreateGuid(IdentityServer4.Models.Client client)
-        {
-            return GuidUtility.Create(guidNamespace, client.ClientId);
-        }
-
         public Guid CreateGuid(IdentityServer4.EntityFramework.Entities.Client client)
         {
             return GuidUtility.Create(guidNamespace, client.ClientId);

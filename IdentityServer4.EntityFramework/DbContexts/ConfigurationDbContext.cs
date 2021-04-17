@@ -47,6 +47,12 @@ namespace IdentityServer4.EntityFramework.DbContexts
         /// </value>
         public DbSet<Scope> Scopes { get; set; }
 
+        public DbSet<ClientRedirectUri> RedirectUris { get; set; }
+
+        public DbSet<ClientScope> AllowedScopes { get; set; }
+
+        public DbSet<ClientSecret> ClientSecrets { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
