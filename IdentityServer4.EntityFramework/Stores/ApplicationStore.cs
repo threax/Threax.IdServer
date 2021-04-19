@@ -116,7 +116,7 @@ namespace IdentityServer4.EntityFramework.Stores
 
         public async ValueTask<string> GetClientTypeAsync(Client application, CancellationToken cancellationToken)
         {
-            return ClientTypes.Public;
+            return ClientTypes.Confidential;
         }
 
         public async ValueTask<string> GetConsentTypeAsync(Client application, CancellationToken cancellationToken)
