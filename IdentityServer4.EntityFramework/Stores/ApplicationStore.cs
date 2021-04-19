@@ -18,21 +18,21 @@ namespace IdentityServer4.EntityFramework.Stores
 
     class ApplicationStore : IOpenIddictApplicationStore<Client>
     {
-        private readonly ConfigurationDbContext configurationDbContext;
+        private readonly ConfigurationDbContext dbContext;
 
-        public ApplicationStore(ConfigurationDbContext configurationDbContext)
+        public ApplicationStore(ConfigurationDbContext dbContext)
         {
-            this.configurationDbContext = configurationDbContext;
+            this.dbContext = dbContext;
         }
 
         public async ValueTask<long> CountAsync(CancellationToken cancellationToken)
         {
-            return await configurationDbContext.Clients.CountAsync(cancellationToken);
+            return await dbContext.Clients.AsNoTracking().CountAsync(cancellationToken);
         }
 
         public async ValueTask<long> CountAsync<TResult>(Func<IQueryable<Client>, IQueryable<TResult>> query, CancellationToken cancellationToken)
         {
-            return await query(configurationDbContext.Clients).CountAsync(cancellationToken);
+            return await query(dbContext.Clients.AsNoTracking()).CountAsync(cancellationToken);
         }
 
         public async ValueTask CreateAsync(Client application, CancellationToken cancellationToken)
@@ -47,28 +47,40 @@ namespace IdentityServer4.EntityFramework.Stores
 
         public async ValueTask<Client> FindByClientIdAsync(string identifier, CancellationToken cancellationToken)
         {
-            return await configurationDbContext.Clients.Where(i => i.ClientId == identifier).FirstAsync(cancellationToken);
+            return await dbContext.Clients
+                .AsNoTracking()
+                .Where(i => i.ClientId == identifier)
+                .FirstAsync(cancellationToken);
         }
 
         public async ValueTask<Client> FindByIdAsync(string identifier, CancellationToken cancellationToken)
         {
             int parsedId = int.Parse(identifier);
-            return await configurationDbContext.Clients.Where(i => i.Id == parsedId).FirstAsync(cancellationToken);
+            return await dbContext.Clients
+                .AsNoTracking()
+                .Where(i => i.Id == parsedId)
+                .FirstAsync(cancellationToken);
         }
 
         public IAsyncEnumerable<Client> FindByPostLogoutRedirectUriAsync(string address, CancellationToken cancellationToken)
         {
-            return configurationDbContext.Clients.Where(i => i.LogoutUri == address).AsAsyncEnumerable();
+            return dbContext.Clients
+                .AsNoTracking()
+                .Where(i => i.LogoutUri == address)
+                .AsAsyncEnumerable();
         }
 
         public IAsyncEnumerable<Client> FindByRedirectUriAsync(string address, CancellationToken cancellationToken)
         {
-            return configurationDbContext.Clients.Where(i => i.RedirectUris.Any(i => i.Uri == address)).AsAsyncEnumerable();
+            return dbContext.Clients
+                .AsNoTracking()
+                .Where(i => i.RedirectUris.Any(i => i.Uri == address))
+                .AsAsyncEnumerable();
         }
 
         public async ValueTask<TResult> GetAsync<TState, TResult>(Func<IQueryable<Client>, TState, IQueryable<TResult>> query, TState state, CancellationToken cancellationToken)
         {
-            return await query(configurationDbContext.Clients, state).FirstOrDefaultAsync(cancellationToken);
+            return await query(dbContext.Clients.AsNoTracking(), state).FirstOrDefaultAsync(cancellationToken);
         }
 
         public async ValueTask<string> GetClientIdAsync(Client application, CancellationToken cancellationToken)
@@ -78,7 +90,8 @@ namespace IdentityServer4.EntityFramework.Stores
 
         public async ValueTask<string> GetClientSecretAsync(Client application, CancellationToken cancellationToken)
         {
-            var secret = await configurationDbContext.ClientSecrets
+            var secret = await dbContext.ClientSecrets
+                .AsNoTracking()
                 .Where(i => i.ClientId == application.Id)
                 .Select(i => i.Secret)
                 .FirstAsync(cancellationToken);
@@ -115,7 +128,8 @@ namespace IdentityServer4.EntityFramework.Stores
 
         public async ValueTask<ImmutableArray<string>> GetPermissionsAsync(Client application, CancellationToken cancellationToken)
         {
-            var result = await configurationDbContext.AllowedScopes
+            var result = await dbContext.AllowedScopes
+                        .AsNoTracking()
                         .Where(i => i.ClientId == application.Id)
                         .Select(i => i.Scope)
                         .ToListAsync(cancellationToken);
@@ -135,7 +149,8 @@ namespace IdentityServer4.EntityFramework.Stores
 
         public async ValueTask<ImmutableArray<string>> GetRedirectUrisAsync(Client application, CancellationToken cancellationToken)
         {
-            var result = await configurationDbContext.RedirectUris
+            var result = await dbContext.RedirectUris
+                .AsNoTracking()
                 .Where(i => i.ClientId == application.Id)
                 .Select(i => i.Uri)
                 .ToListAsync(cancellationToken);
@@ -148,28 +163,28 @@ namespace IdentityServer4.EntityFramework.Stores
             return ValueTask.FromResult(Array.Empty<string>().ToImmutableArray());
         }
 
-        public async ValueTask<Client> InstantiateAsync(CancellationToken cancellationToken)
+        public ValueTask<Client> InstantiateAsync(CancellationToken cancellationToken)
         {
-            return new Client();
+            return ValueTask.FromResult(new Client());
         }
 
         public IAsyncEnumerable<Client> ListAsync(int? count, int? offset, CancellationToken cancellationToken)
         {
-            IQueryable<Client> query = configurationDbContext.Clients;
+            IQueryable<Client> query = dbContext.Clients.AsNoTracking();
             if(offset != null)
             {
-                query.Skip(offset.Value);
+                query = query.Skip(offset.Value);
             }
             if(count != null)
             {
-                query.Take(count.Value);
+                query = query.Take(count.Value);
             }
             return query.AsAsyncEnumerable();
         }
 
         public IAsyncEnumerable<TResult> ListAsync<TState, TResult>(Func<IQueryable<Client>, TState, IQueryable<TResult>> query, TState state, CancellationToken cancellationToken)
         {
-            return query(configurationDbContext.Clients, state).AsAsyncEnumerable();
+            return query(dbContext.Clients.AsNoTracking(), state).AsAsyncEnumerable();
         }
 
         public async ValueTask SetClientIdAsync(Client application, string identifier, CancellationToken cancellationToken)

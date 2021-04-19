@@ -16,21 +16,21 @@ namespace IdentityServer4.EntityFramework.Stores
 {
     class ScopeStore : IOpenIddictScopeStore<Scope>
     {
-        private readonly ConfigurationDbContext configurationDbContext;
+        private readonly ConfigurationDbContext dbContext;
 
-        public ScopeStore(ConfigurationDbContext configurationDbContext)
+        public ScopeStore(ConfigurationDbContext dbContext)
         {
-            this.configurationDbContext = configurationDbContext;
+            this.dbContext = dbContext;
         }
 
         public async ValueTask<long> CountAsync(CancellationToken cancellationToken)
         {
-            return await configurationDbContext.Scopes.CountAsync();
+            return await dbContext.Scopes.AsNoTracking().CountAsync();
         }
 
         public async ValueTask<long> CountAsync<TResult>(Func<IQueryable<Scope>, IQueryable<TResult>> query, CancellationToken cancellationToken)
         {
-            return await query(configurationDbContext.Scopes).CountAsync(cancellationToken);
+            return await query(dbContext.Scopes.AsNoTracking()).CountAsync(cancellationToken);
         }
 
         public ValueTask CreateAsync(Scope scope, CancellationToken cancellationToken)
@@ -46,27 +46,39 @@ namespace IdentityServer4.EntityFramework.Stores
         public async ValueTask<Scope> FindByIdAsync(string identifier, CancellationToken cancellationToken)
         {
             var intId = int.Parse(identifier);
-            return await configurationDbContext.Scopes.Where(i => i.Id == intId).FirstAsync(cancellationToken);
+            return await dbContext.Scopes
+                .AsNoTracking()
+                .Where(i => i.Id == intId)
+                .FirstAsync(cancellationToken);
         }
 
         public async ValueTask<Scope> FindByNameAsync(string name, CancellationToken cancellationToken)
         {
-            return await configurationDbContext.Scopes.Where(i => i.Name == name).FirstAsync(cancellationToken);
+            return await dbContext.Scopes
+                .AsNoTracking()
+                .Where(i => i.Name == name)
+                .FirstAsync(cancellationToken);
         }
 
         public IAsyncEnumerable<Scope> FindByNamesAsync(ImmutableArray<string> names, CancellationToken cancellationToken)
         {
-            return configurationDbContext.Scopes.Where(i => names.Contains(i.Name)).AsAsyncEnumerable();
+            return dbContext.Scopes
+                .AsNoTracking()
+                .Where(i => names.Contains(i.Name))
+                .AsAsyncEnumerable();
         }
 
         public IAsyncEnumerable<Scope> FindByResourceAsync(string resource, CancellationToken cancellationToken)
         {
-            return configurationDbContext.Scopes.Where(i => i.Name == resource).AsAsyncEnumerable();
+            return dbContext.Scopes
+                .AsNoTracking()
+                .Where(i => i.Name == resource)
+                .AsAsyncEnumerable();
         }
 
         public async ValueTask<TResult> GetAsync<TState, TResult>(Func<IQueryable<Scope>, TState, IQueryable<TResult>> query, TState state, CancellationToken cancellationToken)
         {
-            return await query(configurationDbContext.Scopes, state).FirstOrDefaultAsync(cancellationToken);
+            return await query(dbContext.Scopes.AsNoTracking(), state).FirstOrDefaultAsync(cancellationToken);
         }
 
         public ValueTask<string> GetDescriptionAsync(Scope scope, CancellationToken cancellationToken)
@@ -121,7 +133,7 @@ namespace IdentityServer4.EntityFramework.Stores
 
         public IAsyncEnumerable<Scope> ListAsync(int? count, int? offset, CancellationToken cancellationToken)
         {
-            IQueryable<Scope> query = configurationDbContext.Scopes;
+            IQueryable<Scope> query = dbContext.Scopes.AsNoTracking();
             if (offset != null)
             {
                 query.Skip(offset.Value);
@@ -135,7 +147,7 @@ namespace IdentityServer4.EntityFramework.Stores
 
         public IAsyncEnumerable<TResult> ListAsync<TState, TResult>(Func<IQueryable<Scope>, TState, IQueryable<TResult>> query, TState state, CancellationToken cancellationToken)
         {
-            return query(configurationDbContext.Scopes, state).AsAsyncEnumerable();
+            return query(dbContext.Scopes.AsNoTracking(), state).AsAsyncEnumerable();
         }
 
         public ValueTask SetDescriptionAsync(Scope scope, string description, CancellationToken cancellationToken)
