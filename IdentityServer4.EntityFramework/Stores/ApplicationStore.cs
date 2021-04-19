@@ -143,9 +143,9 @@ namespace IdentityServer4.EntityFramework.Stores
                 return result.ToImmutableArray();
         }
 
-        public async ValueTask<ImmutableArray<string>> GetRequirementsAsync(Client application, CancellationToken cancellationToken)
+        public ValueTask<ImmutableArray<string>> GetRequirementsAsync(Client application, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return ValueTask.FromResult(Array.Empty<string>().ToImmutableArray());
         }
 
         public async ValueTask<Client> InstantiateAsync(CancellationToken cancellationToken)
@@ -153,14 +153,23 @@ namespace IdentityServer4.EntityFramework.Stores
             return new Client();
         }
 
-        public async IAsyncEnumerable<Client> ListAsync(int? count, int? offset, CancellationToken cancellationToken)
+        public IAsyncEnumerable<Client> ListAsync(int? count, int? offset, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            IQueryable<Client> query = configurationDbContext.Clients;
+            if(offset != null)
+            {
+                query.Skip(offset.Value);
+            }
+            if(count != null)
+            {
+                query.Take(count.Value);
+            }
+            return query.AsAsyncEnumerable();
         }
 
-        public async IAsyncEnumerable<TResult> ListAsync<TState, TResult>(Func<IQueryable<Client>, TState, IQueryable<TResult>> query, TState state, CancellationToken cancellationToken)
+        public IAsyncEnumerable<TResult> ListAsync<TState, TResult>(Func<IQueryable<Client>, TState, IQueryable<TResult>> query, TState state, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return query(configurationDbContext.Clients, state).AsAsyncEnumerable();
         }
 
         public async ValueTask SetClientIdAsync(Client application, string identifier, CancellationToken cancellationToken)
