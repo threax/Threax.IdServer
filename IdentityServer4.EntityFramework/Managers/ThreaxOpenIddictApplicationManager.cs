@@ -6,6 +6,7 @@ using OpenIddict.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,23 +23,14 @@ namespace IdentityServer4.EntityFramework.Managers
 
         protected override ValueTask<bool> ValidateClientSecretAsync(string secret, string comparand, CancellationToken cancellationToken = default)
         {
+            //Constant time comparisons here are important. Otherwise the secrets can be guessed.
             var hashed = HashExtensions.Sha256(secret);
+            var hashedBytes = Encoding.UTF8.GetBytes(hashed);
+            var comparendBytes = Encoding.UTF8.GetBytes(comparand);
 
-            if(hashed.Length != comparand.Length)
-            {
-                throw new InvalidOperationException("The hashed secret value did not match the length of the hashed databas value.");
-            }
+            var equal = CryptographicOperations.FixedTimeEquals(hashedBytes, comparendBytes);
 
-            var count = hashed.Length;
-            bool constTimeResult = true;
-            for(var i = 0; i < count; ++i)
-            {
-                //Don't bail this early, go through the whole thing each time.
-                //Keep order here, want to always compare
-                constTimeResult = hashed[i] == comparand[i] && constTimeResult;
-            }
-
-            return ValueTask.FromResult(constTimeResult);
+            return ValueTask.FromResult(equal);
         }
     }
 }
