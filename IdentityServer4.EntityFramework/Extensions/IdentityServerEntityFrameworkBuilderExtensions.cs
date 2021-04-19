@@ -48,10 +48,15 @@ namespace Microsoft.Extensions.DependencyInjection
                    .SetDefaultScopeEntity<Scope>()
                    .SetDefaultTokenEntity<Token>();
 
-            builder.Services.TryAddScoped<IOpenIddictApplicationStore<Client>, ApplicationStore>();
-            builder.Services.TryAddScoped<IOpenIddictAuthorizationStore<Authorization>, AuthorizationStore>();
-            builder.Services.TryAddScoped<IOpenIddictScopeStore<Scope>, ScopeStore>();
-            builder.Services.TryAddScoped<IOpenIddictTokenStore<Token>, TokenStore>();
+            builder.ReplaceApplicationStoreResolver<ApplicationStoreResolver>()
+                   .ReplaceAuthorizationStoreResolver<AuthorizationStoreResolver>()
+                   .ReplaceScopeStoreResolver<ScopeStoreResolver>()
+                   .ReplaceTokenStoreResolver<TokenStoreResolver>();
+
+            builder.Services.TryAddScoped<ApplicationStore>();
+            builder.Services.TryAddScoped<AuthorizationStore>();
+            builder.Services.TryAddScoped<ScopeStore>();
+            builder.Services.TryAddScoped<TokenStore>();
 
             builder.Services.AddDbContext<ConfigurationDbContext>(o =>
             {

@@ -16,6 +16,21 @@ using static OpenIddict.Abstractions.OpenIddictConstants;
 namespace IdentityServer4.EntityFramework.Stores
 {
 
+    class ApplicationStoreResolver : IOpenIddictApplicationStoreResolver
+    {
+        private readonly IServiceProvider provider;
+
+        public ApplicationStoreResolver(IServiceProvider provider)
+        {
+            this.provider = provider;
+        }
+
+        IOpenIddictApplicationStore<TApplication> IOpenIddictApplicationStoreResolver.Get<TApplication>()
+        {
+            return provider.GetService(typeof(ApplicationStore)) as IOpenIddictApplicationStore<TApplication>;
+        }
+    }
+
     class ApplicationStore : IOpenIddictApplicationStore<Client>
     {
         private readonly ConfigurationDbContext dbContext;
@@ -131,8 +146,19 @@ namespace IdentityServer4.EntityFramework.Stores
             var result = await dbContext.AllowedScopes
                         .AsNoTracking()
                         .Where(i => i.ClientId == application.Id)
-                        .Select(i => i.Scope)
+                        .Select(i => Permissions.Prefixes.Scope + i.Scope)
                         .ToListAsync(cancellationToken);
+
+            //application.AllowedGrantTypes == Entities.GrantTypes.
+            //Handle grant types here
+            
+            result.AddRange(new String[] { 
+                Permissions.Endpoints.Authorization, 
+                Permissions.GrantTypes.AuthorizationCode, 
+                Permissions.GrantTypes.Implicit, 
+                Permissions.GrantTypes.RefreshToken,
+                Permissions.ResponseTypes.CodeIdToken
+            });
 
             return result.ToImmutableArray();
         }

@@ -17,6 +17,21 @@ using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace IdentityServer4.EntityFramework.Stores
 {
+    class TokenStoreResolver : IOpenIddictTokenStoreResolver
+    {
+        private readonly IServiceProvider provider;
+
+        public TokenStoreResolver(IServiceProvider provider)
+        {
+            this.provider = provider;
+        }
+
+        IOpenIddictTokenStore<TToken> IOpenIddictTokenStoreResolver.Get<TToken>()
+        {
+            return provider.GetService(typeof(TokenStore)) as IOpenIddictTokenStore<TToken>;
+        }
+    }
+
     class TokenStore : IOpenIddictTokenStore<Token>
     {
         private readonly OperationDbContext dbContext;

@@ -17,6 +17,21 @@ using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace IdentityServer4.EntityFramework.Stores
 {
+    class AuthorizationStoreResolver : IOpenIddictAuthorizationStoreResolver
+    {
+        private readonly IServiceProvider provider;
+
+        public AuthorizationStoreResolver(IServiceProvider provider)
+        {
+            this.provider = provider;
+        }
+
+        IOpenIddictAuthorizationStore<TAuthorization> IOpenIddictAuthorizationStoreResolver.Get<TAuthorization>()
+        {
+            return provider.GetService(typeof(AuthorizationStore)) as IOpenIddictAuthorizationStore<TAuthorization>;
+        }
+    }
+
     class AuthorizationStore : IOpenIddictAuthorizationStore<Authorization>
     {
         private readonly OperationDbContext dbContext;

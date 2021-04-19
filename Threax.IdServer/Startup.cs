@@ -32,6 +32,7 @@ using Threax.IdServer.Repository;
 using Threax.IdServer.Services;
 using Threax.IdServer.ToolControllers;
 using Threax.Sqlite.Ext.EfCore3;
+using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace Threax.IdServer
 {
@@ -112,13 +113,6 @@ namespace Threax.IdServer
 
             services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AppUserClaimsPrincipalFactory>();
 
-
-            //// Adds IdentityServer
-            //services.AddIdentityServer()
-            //    .AddThreaxConfig(appConfig)
-            //    .AddAspNetIdentity<ApplicationUser>();
-
-
             services.AddOpenIddict()
             // Register the OpenIddict core components.
             .AddCore(options =>
@@ -138,25 +132,48 @@ namespace Threax.IdServer
                     };
                 });
             })
-
             // Register the OpenIddict server components.
             .AddServer(options =>
             {
-                // Enable the token endpoint.
-                options.SetTokenEndpointUris("/connect/token");
+                // Enable the authorization, device, logout, token, userinfo and verification endpoints.
+                options.SetAuthorizationEndpointUris("/connect/authorize")
+                       //.SetDeviceEndpointUris("/connect/device")
+                       .SetLogoutEndpointUris("/connect/logout")
+                       .SetTokenEndpointUris("/connect/token")
+                       .SetUserinfoEndpointUris("/connect/userinfo")
+                       .SetVerificationEndpointUris("/connect/verify");
 
-                // Enable the client credentials flow.
-                options.AllowClientCredentialsFlow();
+                // Note: this sample uses the code, device code, password and refresh token flows, but you
+                // can enable the other flows if you need to support implicit or client credentials.
+                options
+                       .AllowAuthorizationCodeFlow()
+                       .AllowImplicitFlow()
+                       .AllowHybridFlow()
+                       .AllowClientCredentialsFlow()
+                       //.AllowDeviceCodeFlow()
+                       //.AllowPasswordFlow()
+                       .AllowRefreshTokenFlow();
+
+                options.RegisterScopes(Scopes.Profile);
 
                 // Register the signing and encryption credentials.
                 options.AddDevelopmentEncryptionCertificate()
-                      .AddDevelopmentSigningCertificate();
+                       .AddDevelopmentSigningCertificate();
 
-                // Register the ASP.NET Core host and configure the ASP.NET Core options.
+                // Force client applications to use Proof Key for Code Exchange (PKCE).
+                //Want this one
+                //options.RequireProofKeyForCodeExchange();
+
+                // Register the ASP.NET Core host and configure the ASP.NET Core-specific options.
                 options.UseAspNetCore()
-                      .EnableTokenEndpointPassthrough();
+                       .EnableStatusCodePagesIntegration()
+                       .EnableAuthorizationEndpointPassthrough()
+                       .EnableLogoutEndpointPassthrough()
+                       .EnableTokenEndpointPassthrough()
+                       .EnableUserinfoEndpointPassthrough()
+                       .EnableVerificationEndpointPassthrough();
+                       //.DisableTransportSecurityRequirement(); // During development, you can disable the HTTPS requirement.
             })
-
             // Register the OpenIddict validation components.
             .AddValidation(options =>
             {
