@@ -123,10 +123,18 @@ namespace Threax.IdServer
             // Register the OpenIddict core components.
             .AddCore(options =>
             {
-                // Configure OpenIddict to use the Entity Framework Core stores and models.
-                // Note: call ReplaceDefaultEntities() to replace the default entities.
-                //options.UseEntityFrameworkCore()
-                //       .UseDbContext<ApplicationDbContext>();
+                options.UseThreaxIdServerEf(o =>
+                {
+                    o.SetupConfigurationDbContext = c =>
+                    {
+                        c.UseSqlite(appConfig.ConfigurationConnectionString ?? appConfig.ConnectionString);
+                    };
+
+                    o.SetupOperationDbContext = c =>
+                    {
+                        c.UseSqlite(appConfig.OperationalConnectionString ?? appConfig.ConnectionString);
+                    };
+                });
             })
 
             // Register the OpenIddict server components.
@@ -225,9 +233,9 @@ namespace Threax.IdServer
                 }))
                 .AddTool("purgeRefreshTokens", new ToolCommand("Remove all the refresh tokens.", async a =>
                 {
-                    var grantsDb = a.Scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>();
-                    grantsDb.PersistedGrants.RemoveRange(grantsDb.PersistedGrants);
-                    await grantsDb.SaveChangesAsync();
+                    //var grantsDb = a.Scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>();
+                    //grantsDb.PersistedGrants.RemoveRange(grantsDb.PersistedGrants);
+                    //await grantsDb.SaveChangesAsync();
                 }))
                 .AddTool("createCert", new ToolCommand("Create a self signed ssl cert. Also good as an id server signing cert. Include a common name as the 1st argument and the number of years until expiration as the 2nd and a filename as the 3rd.", async a =>
                 {
@@ -392,7 +400,7 @@ namespace Threax.IdServer
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseIdentityServer();
+            //app.UseIdentityServer();
 
             app.UseEndpoints(endpoints =>
             {

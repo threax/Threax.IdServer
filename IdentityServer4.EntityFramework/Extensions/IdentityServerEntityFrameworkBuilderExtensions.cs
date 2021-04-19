@@ -1,153 +1,70 @@
-﻿//// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-//// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-//using IdentityServer4.EntityFramework.DbContexts;
-//using IdentityServer4.EntityFramework.Interfaces;
-//using IdentityServer4.EntityFramework.Stores;
-//using IdentityServer4.Services;
-//using IdentityServer4.Stores;
-//using System;
-//using IdentityServer4.EntityFramework.Options;
-//using IdentityServer4.EntityFramework;
-//using Microsoft.EntityFrameworkCore;
-//using System.Threading;
-//using System.Threading.Tasks;
+using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.EntityFramework.Interfaces;
+using IdentityServer4.EntityFramework.Stores;
+using System;
+using IdentityServer4.EntityFramework.Options;
+using IdentityServer4.EntityFramework;
+using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
+using IdentityServer4.EntityFramework.Entities;
+using OpenIddict.Abstractions;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
-//namespace Microsoft.Extensions.DependencyInjection
-//{
-//    /// <summary>
-//    /// Extension methods to add EF database support to IdentityServer.
-//    /// </summary>
-//    public static class IdentityServerEntityFrameworkBuilderExtensions
-//    {
-//        /// <summary>
-//        /// Configures EF implementation of IClientStore, IResourceStore, and ICorsPolicyService with IdentityServer.
-//        /// </summary>
-//        /// <param name="builder">The builder.</param>
-//        /// <param name="storeOptionsAction">The store options action.</param>
-//        /// <returns></returns>
-//        public static IIdentityServerBuilder AddConfigurationStore(
-//            this IIdentityServerBuilder builder,
-//            Action<ConfigurationStoreOptions> storeOptionsAction = null)
-//        {
-//            return builder.AddConfigurationStore<ConfigurationDbContext>(storeOptionsAction);
-//        }
+namespace Microsoft.Extensions.DependencyInjection
+{
+    /// <summary>
+    /// Extension methods to add EF database support to IdentityServer.
+    /// </summary>
+    public static class IdentityServerEntityFrameworkBuilderExtensions
+    {
+        public class Options
+        {
+            public Action<DbContextOptionsBuilder> SetupConfigurationDbContext { get; set; }
 
-//        /// <summary>
-//        /// Configures EF implementation of IClientStore, IResourceStore, and ICorsPolicyService with IdentityServer.
-//        /// </summary>
-//        /// <typeparam name="TContext">The IConfigurationDbContext to use.</typeparam>
-//        /// <param name="builder">The builder.</param>
-//        /// <param name="storeOptionsAction">The store options action.</param>
-//        /// <returns></returns>
-//        public static IIdentityServerBuilder AddConfigurationStore<TContext>(
-//            this IIdentityServerBuilder builder,
-//            Action<ConfigurationStoreOptions> storeOptionsAction = null)
-//            where TContext : DbContext, IConfigurationDbContext
-//        {
-//            var options = new ConfigurationStoreOptions();
-//            builder.Services.AddSingleton(options);
-//            storeOptionsAction?.Invoke(options);
+            public Action<DbContextOptionsBuilder> SetupOperationDbContext { get; set; }
+        }
 
-//            if (options.ResolveDbContextOptions != null)
-//            {
-//                builder.Services.AddDbContext<TContext>(options.ResolveDbContextOptions);
-//            }
-//            else
-//            {
-//                builder.Services.AddDbContext<TContext>(dbCtxBuilder =>
-//                {
-//                    options.ConfigureDbContext?.Invoke(dbCtxBuilder);
-//                });
-//            }
-//            builder.Services.AddScoped<IConfigurationDbContext, TContext>();
+        public static OpenIddictCoreBuilder UseThreaxIdServerEf(this OpenIddictCoreBuilder builder, Action<Options> configure)
+        {
+            var options = new Options();
+            configure.Invoke(options);
 
-//            builder.Services.AddTransient<IClientStore, ClientStore>();
-//            builder.Services.AddTransient<IResourceStore, ResourceStore>();
-//            //builder.Services.AddTransient<ICorsPolicyService, CorsPolicyService>();
+            if (builder is null)
+            {
+                throw new ArgumentNullException(nameof(builder));
+            }
 
-//            return builder;
-//        }
+            // Since Entity Framework Core may be used with databases performing case-insensitive
+            // or culture-sensitive comparisons, ensure the additional filtering logic is enforced
+            // in case case-sensitive stores were registered before this extension was called.
+            builder.Configure(options => options.DisableAdditionalFiltering = false);
 
-//        /// <summary>
-//        /// Configures EF implementation of IPersistedGrantStore with IdentityServer.
-//        /// </summary>
-//        /// <param name="builder">The builder.</param>
-//        /// <param name="storeOptionsAction">The store options action.</param>
-//        /// <returns></returns>
-//        public static IIdentityServerBuilder AddOperationalStore(
-//            this IIdentityServerBuilder builder,
-//            Action<OperationalStoreOptions> storeOptionsAction = null)
-//        {
-//            return builder.AddOperationalStore<PersistedGrantDbContext>(storeOptionsAction);
-//        }
+            builder.SetDefaultApplicationEntity<Client>()
+                   .SetDefaultAuthorizationEntity<Authorization>()
+                   .SetDefaultScopeEntity<Scope>()
+                   .SetDefaultTokenEntity<Token>();
 
-//        /// <summary>
-//        /// Configures EF implementation of IPersistedGrantStore with IdentityServer.
-//        /// </summary>
-//        /// <typeparam name="TContext">The IPersistedGrantDbContext to use.</typeparam>
-//        /// <param name="builder">The builder.</param>
-//        /// <param name="storeOptionsAction">The store options action.</param>
-//        /// <returns></returns>
-//        public static IIdentityServerBuilder AddOperationalStore<TContext>(
-//            this IIdentityServerBuilder builder,
-//            Action<OperationalStoreOptions> storeOptionsAction = null)
-//            where TContext : DbContext, IPersistedGrantDbContext
-//        {
-//            builder.Services.AddSingleton<TokenCleanup>();
-//            builder.Services.AddSingleton<IHostedService, TokenCleanupHost>();
+            builder.Services.TryAddScoped<IOpenIddictApplicationStore<Client>, ApplicationStore>();
+            builder.Services.TryAddScoped<IOpenIddictAuthorizationStore<Authorization>, AuthorizationStore>();
+            builder.Services.TryAddScoped<IOpenIddictScopeStore<Scope>, ScopeStore>();
+            builder.Services.TryAddScoped<IOpenIddictTokenStore<Token>, TokenStore>();
 
-//            var storeOptions = new OperationalStoreOptions();
-//            builder.Services.AddSingleton(storeOptions);
-//            storeOptionsAction?.Invoke(storeOptions);
+            builder.Services.AddDbContext<ConfigurationDbContext>(o =>
+            {
+                options.SetupConfigurationDbContext.Invoke(o);
+            });
 
-//            if (storeOptions.ResolveDbContextOptions != null)
-//            {
-//                builder.Services.AddDbContext<TContext>(storeOptions.ResolveDbContextOptions);
-//            }
-//            else
-//            {
-//                builder.Services.AddDbContext<TContext>(dbCtxBuilder =>
-//                {
-//                    storeOptions.ConfigureDbContext?.Invoke(dbCtxBuilder);
-//                });
-//            }
+            builder.Services.AddDbContext<OperationDbContext>(o =>
+            {
+                options.SetupOperationDbContext.Invoke(o);
+            });
 
-//            builder.Services.AddScoped<IPersistedGrantDbContext, TContext>();
-//            builder.Services.AddTransient<IPersistedGrantStore, PersistedGrantStore>();
-
-//            return builder;
-//        }
-
-//        class TokenCleanupHost : IHostedService
-//        {
-//            private readonly TokenCleanup _tokenCleanup;
-//            private readonly OperationalStoreOptions _options;
-
-//            public TokenCleanupHost(TokenCleanup tokenCleanup, OperationalStoreOptions options)
-//            {
-//                _tokenCleanup = tokenCleanup;
-//                _options = options;
-//            }
-
-//            public Task StartAsync(CancellationToken cancellationToken)
-//            {
-//                if (_options.EnableTokenCleanup)
-//                {
-//                    _tokenCleanup.Start(cancellationToken);
-//                }
-//                return Task.CompletedTask;
-//            }
-
-//            public Task StopAsync(CancellationToken cancellationToken)
-//            {
-//                if (_options.EnableTokenCleanup)
-//                {
-//                    _tokenCleanup.Stop();
-//                }
-//                return Task.CompletedTask;
-//            }
-//        }
-//    }
-//}
+            return builder;
+        }
+    }
+}
