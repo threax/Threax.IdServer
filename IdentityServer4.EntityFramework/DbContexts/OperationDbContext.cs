@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace IdentityServer4.EntityFramework.DbContexts
 {
-    class OperationDbContext : DbContext
+    public class OperationDbContext : DbContext
     {
-        public OperationDbContext(DbContextOptions<ConfigurationDbContext> options)
+        public OperationDbContext(DbContextOptions<OperationDbContext> options)
             : base(options)
         {
 

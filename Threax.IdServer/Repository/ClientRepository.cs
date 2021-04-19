@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Entities;
-using IdentityServer4.EntityFramework.Interfaces;
 using IdentityServer4.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,7 +17,7 @@ namespace Threax.IdServer.Repository
 {
     public class ClientRepository : IClientRepository
     {
-        private IConfigurationDbContext configDb;
+        private ConfigurationDbContext configDb;
         private IMapper mapper;
         private readonly AppConfig appConfig;
 
@@ -27,7 +27,7 @@ namespace Threax.IdServer.Repository
         /// <param name="mapper">The mapper.</param>
         /// <param name="configDb">The configuration db context.</param>
         /// <param name="appConfig">The app config.</param>
-        public ClientRepository(IConfigurationDbContext configDb, IMapper mapper, AppConfig appConfig)
+        public ClientRepository(ConfigurationDbContext configDb, IMapper mapper, AppConfig appConfig)
         {
             this.configDb = configDb;
             this.mapper = mapper;

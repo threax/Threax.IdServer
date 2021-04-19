@@ -5,7 +5,6 @@
 using System;
 using System.Threading.Tasks;
 using IdentityServer4.EntityFramework.Entities;
-using IdentityServer4.EntityFramework.Interfaces;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +15,7 @@ namespace IdentityServer4.EntityFramework.DbContexts
     /// </summary>
     /// <seealso cref="Microsoft.EntityFrameworkCore.DbContext" />
     /// <seealso cref="IdentityServer4.EntityFramework.Interfaces.IConfigurationDbContext" />
-    public class ConfigurationDbContext : DbContext, IConfigurationDbContext
+    public class ConfigurationDbContext : DbContext
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ConfigurationDbContext"/> class.
@@ -63,24 +62,6 @@ namespace IdentityServer4.EntityFramework.DbContexts
             modelBuilder.Entity<Client>()
                 .HasIndex(u => u.ClientId)
                 .IsUnique();
-        }
-
-        /// <summary>
-        /// Saves the changes.
-        /// </summary>
-        /// <returns></returns>
-        public override int SaveChanges()
-        {
-            return base.SaveChanges();
-        }
-
-        /// <summary>
-        /// Saves the changes.
-        /// </summary>
-        /// <returns></returns>
-        public Task<int> SaveChangesAsync()
-        {
-            return base.SaveChangesAsync();
         }
     }
 }

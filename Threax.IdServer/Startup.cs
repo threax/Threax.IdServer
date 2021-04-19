@@ -127,12 +127,14 @@ namespace Threax.IdServer
                 {
                     o.SetupConfigurationDbContext = c =>
                     {
-                        c.UseSqlite(appConfig.ConfigurationConnectionString ?? appConfig.ConnectionString);
+                        c.UseSqlite(appConfig.ConfigurationConnectionString ?? appConfig.ConnectionString,
+                            o => o.MigrationsAssembly(typeof(Startup).Assembly.GetName().Name));
                     };
 
                     o.SetupOperationDbContext = c =>
                     {
-                        c.UseSqlite(appConfig.OperationalConnectionString ?? appConfig.ConnectionString);
+                        c.UseSqlite(appConfig.OperationalConnectionString ?? appConfig.ConnectionString,
+                            o => o.MigrationsAssembly(typeof(Startup).Assembly.GetName().Name));
                     };
                 });
             })
@@ -216,6 +218,8 @@ namespace Threax.IdServer
                     //a.Scope.MigrateIdServerDatabase();
                     await a.Migrate();
                     await a.MigrateUserDb();
+                    await a.MigrateConfigurationDb();
+                    await a.MigrateOperationDb();
                 }))
                 .AddTool("seed", new ToolCommand("Seed database data. Only needed for an empty database.", async a =>
                 {

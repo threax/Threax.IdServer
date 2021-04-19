@@ -6,6 +6,7 @@ using System.Text;
 
 namespace IdentityServer4.EntityFramework.Entities
 {
+    [Table("ClientSecret")]
     public class ClientSecret
     {
         [Key]

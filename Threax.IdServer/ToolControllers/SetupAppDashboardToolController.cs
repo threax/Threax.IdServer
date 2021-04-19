@@ -1,6 +1,6 @@
 ﻿using IdentityModel;
+using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Entities;
-using IdentityServer4.EntityFramework.Interfaces;
 using IdentityServer4.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,11 +21,11 @@ namespace Threax.IdServer.ToolControllers
 {
     public class SetupAppDashboardToolController
     {
-        private IConfigurationDbContext configContext;
+        private ConfigurationDbContext configContext;
         private readonly ILogger<SetupAppDashboardToolController> logger;
         private readonly AppConfig appConfig;
 
-        public SetupAppDashboardToolController(IConfigurationDbContext configContext, ILogger<SetupAppDashboardToolController> logger, AppConfig appConfig)
+        public SetupAppDashboardToolController(ConfigurationDbContext configContext, ILogger<SetupAppDashboardToolController> logger, AppConfig appConfig)
         {
             this.configContext = configContext;
             this.logger = logger;

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using IdentityServer4.EntityFramework.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -105,6 +106,44 @@ namespace Threax.IdServer.Data
         {
             var context = toolArgs.Scope.ServiceProvider.GetRequiredService<UsersDbContext>();
             return context.Database.MigrateAsync();
+        }
+
+        public static Task MigrateConfigurationDb(this ToolArgs toolArgs)
+        {
+            var context = toolArgs.Scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
+            return context.Database.MigrateAsync();
+        }
+
+        public static Task MigrateOperationDb(this ToolArgs toolArgs)
+        {
+            var context = toolArgs.Scope.ServiceProvider.GetRequiredService<OperationDbContext>();
+            return context.Database.MigrateAsync();
+        }
+
+        /// <summary>
+        /// Seed the id server database with fresh data.
+        /// </summary>
+        /// <param name="scope">The scope to use.</param>
+        public static void SeedIdServerDatabase(this IServiceScope scope)
+        {
+            var configContext = scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
+
+            //Uncomment to force db to reload
+            //configContext.Clients.RemoveRange(configContext.Clients);
+            //configContext.ApiResources.RemoveRange(configContext.ApiResources);
+            //configContext.SaveChanges();
+
+            if (!configContext.Scopes.Any())
+            {
+                var idServerScope = new IdentityServer4.EntityFramework.Entities.Scope()
+                {
+                    Name = "Threax.IdServer",
+                    DisplayName = "Identity Server",
+                };
+                configContext.Scopes.Add(idServerScope);
+
+                configContext.SaveChanges();
+            }
         }
 
         /// <summary>

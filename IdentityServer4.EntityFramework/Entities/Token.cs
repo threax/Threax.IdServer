@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IdentityServer4.EntityFramework.Entities
 {
-    class Token
+    public class Token
     {
         [Key]
         public Guid TokenId { get; set; }

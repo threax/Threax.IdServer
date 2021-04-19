@@ -3,7 +3,6 @@
 
 
 using IdentityServer4.EntityFramework.DbContexts;
-using IdentityServer4.EntityFramework.Interfaces;
 using IdentityServer4.EntityFramework.Stores;
 using System;
 using IdentityServer4.EntityFramework.Options;

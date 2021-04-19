@@ -1,15 +1,9 @@
 ﻿using AutoMapper;
-using IdentityServer4.EntityFramework.Entities;
-using IdentityServer4.EntityFramework.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Threax.AspNetCore.AuthCore;
-using Threax.AspNetCore.ExceptionFilter;
 using Threax.AspNetCore.Halcyon.Ext;
 using Threax.AspNetCore.IdServerMetadata.Client;
 using Threax.IdServer.Areas.Api.InputModels;

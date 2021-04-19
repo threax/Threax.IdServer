@@ -29,16 +29,16 @@ namespace Threax.IdServer.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("ClientId")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(200);
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("LogoutUri")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(2000);
+                        .HasMaxLength(2000)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(200);
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -58,8 +58,8 @@ namespace Threax.IdServer.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Uri")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(2000);
+                        .HasMaxLength(2000)
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ClientRedirectUriId");
 
@@ -78,8 +78,8 @@ namespace Threax.IdServer.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Scope")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(2000);
+                        .HasMaxLength(2000)
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ClientScopeId");
 
@@ -98,8 +98,8 @@ namespace Threax.IdServer.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Secret")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(2000);
+                        .HasMaxLength(2000)
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ClientSecretId");
 
@@ -115,12 +115,12 @@ namespace Threax.IdServer.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("DisplayName")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(1000)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(1000);
+                        .HasMaxLength(1000)
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -137,6 +137,8 @@ namespace Threax.IdServer.Migrations
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientScope", b =>
@@ -146,6 +148,8 @@ namespace Threax.IdServer.Migrations
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientSecret", b =>
@@ -155,6 +159,17 @@ namespace Threax.IdServer.Migrations
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Client");
+                });
+
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.Client", b =>
+                {
+                    b.Navigation("AllowedScopes");
+
+                    b.Navigation("ClientSecrets");
+
+                    b.Navigation("RedirectUris");
                 });
 #pragma warning restore 612, 618
         }

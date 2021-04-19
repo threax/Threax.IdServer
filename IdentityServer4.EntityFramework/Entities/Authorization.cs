@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IdentityServer4.EntityFramework.Entities
 {
-    class Authorization
+    public class Authorization
     {
         [Key]
         public Guid AuthorizationId { get; set; }

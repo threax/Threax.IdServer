@@ -13,7 +13,7 @@ using Threax.IdServer.Models;
 using Threax.IdServer.Services;
 using System.Collections;
 using System.Collections.Generic;
-using IdentityServer4.EntityFramework.Interfaces;
+using IdentityServer4.EntityFramework.DbContexts;
 
 namespace Threax.IdServer.Repository
 {
@@ -22,7 +22,7 @@ namespace Threax.IdServer.Repository
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly ILogger logger;
-        private readonly IConfigurationDbContext configDb;
+        private readonly ConfigurationDbContext configDb;
         private readonly Data.UsersDbContext userDb;
         private readonly IApplicationGuidFactory guidFactory;
 
@@ -30,7 +30,7 @@ namespace Threax.IdServer.Repository
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILoggerFactory loggerFactory,
-            IConfigurationDbContext configDb, 
+            ConfigurationDbContext configDb, 
             Data.UsersDbContext userDb, 
             IApplicationGuidFactory guidFactory)
         {

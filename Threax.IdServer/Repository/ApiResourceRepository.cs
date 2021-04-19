@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Entities;
-using IdentityServer4.EntityFramework.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -14,7 +14,7 @@ namespace Threax.IdServer.Repository
 {
     public class ApiResourceRepository : IApiResourceRepository
     {
-        private IConfigurationDbContext configDb;
+        private ConfigurationDbContext configDb;
         private IMapper mapper;
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace Threax.IdServer.Repository
         /// </summary>
         /// <param name="configDb">The configuration db to use to store scopes.</param>
         /// <param name="mapper">The mapper</param>
-        public ApiResourceRepository(IConfigurationDbContext configDb, IMapper mapper)
+        public ApiResourceRepository(ConfigurationDbContext configDb, IMapper mapper)
         {
             this.configDb = configDb;
             this.mapper = mapper;
