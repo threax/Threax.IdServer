@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Routing;
 
-namespace Threax.IdServer.Helpers
+namespace Threax.IdServer.Extensions
 {
     public sealed class FormValueRequiredAttribute : ActionMethodSelectorAttribute
     {

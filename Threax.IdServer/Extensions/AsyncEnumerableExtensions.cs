@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Threax.IdServer.Helpers
+namespace Threax.IdServer.Extensions
 {
     public static class AsyncEnumerableExtensions
     {

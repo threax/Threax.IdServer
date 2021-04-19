@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using IdentityServer4.EntityFramework.Entities;
 using OpenIddict.Abstractions;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using IdentityServer4.EntityFramework.Managers;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -52,6 +53,8 @@ namespace Microsoft.Extensions.DependencyInjection
                    .ReplaceAuthorizationStoreResolver<AuthorizationStoreResolver>()
                    .ReplaceScopeStoreResolver<ScopeStoreResolver>()
                    .ReplaceTokenStoreResolver<TokenStoreResolver>();
+
+            builder.ReplaceApplicationManager(typeof(ThreaxOpenIddictApplicationManager<>));
 
             builder.Services.TryAddScoped<ApplicationStore>();
             builder.Services.TryAddScoped<AuthorizationStore>();
