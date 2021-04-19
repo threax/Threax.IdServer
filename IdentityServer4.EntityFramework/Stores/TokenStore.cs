@@ -117,10 +117,26 @@ namespace IdentityServer4.EntityFramework.Stores
 
         public async ValueTask<Token> FindByReferenceIdAsync(string identifier, CancellationToken cancellationToken)
         {
-            return await dbContext.Tokens
+            var result = await dbContext.Tokens
                 .AsNoTracking()
                 .Where(i => i.ReferenceId == identifier)
-                .FirstAsync();
+                .FirstOrDefaultAsync();
+
+            if(result == null)
+            {
+                //The db may not have written the changes yet, so check the local store
+                result = dbContext.ChangeTracker.Entries<Token>()
+                    .Where(i => i.Entity.ReferenceId == identifier)
+                    .Select(i => i.Entity)
+                    .FirstOrDefault();
+
+                if(result == null)
+                {
+                    throw new KeyNotFoundException("Cannot find token for identifier.");
+                }
+            }
+
+            return result;
         }
 
         public IAsyncEnumerable<Token> FindBySubjectAsync(string subject, CancellationToken cancellationToken)
