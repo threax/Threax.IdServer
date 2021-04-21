@@ -140,7 +140,6 @@ namespace Threax.IdServer
 
                 // Enable the authorization, device, logout, token, userinfo and verification endpoints.
                 options.SetAuthorizationEndpointUris("/connect/authorize")
-                       //.SetDeviceEndpointUris("/connect/device")
                        .SetLogoutEndpointUris("/connect/logout")
                        .SetTokenEndpointUris("/connect/token")
                        .SetUserinfoEndpointUris("/connect/userinfo")
@@ -153,15 +152,16 @@ namespace Threax.IdServer
                        .AllowImplicitFlow()
                        .AllowHybridFlow()
                        .AllowClientCredentialsFlow()
-                       //.AllowDeviceCodeFlow()
-                       //.AllowPasswordFlow()
                        .AllowRefreshTokenFlow();
 
                 options.RegisterScopes(Scopes.Profile);
 
                 // Register the signing and encryption credentials.
-                options.AddDevelopmentEncryptionCertificate()
-                       .AddDevelopmentSigningCertificate();
+                options.AddCertificate(appConfig.SigningCredentialCertThumb);
+                if (!string.IsNullOrEmpty(appConfig.RolloverCertThumb))
+                {
+                    options.AddCertificate(appConfig.RolloverCertThumb);
+                }
 
                 // Force client applications to use Proof Key for Code Exchange (PKCE).
                 //Want this one
@@ -175,7 +175,6 @@ namespace Threax.IdServer
                        .EnableTokenEndpointPassthrough()
                        .EnableUserinfoEndpointPassthrough()
                        .EnableVerificationEndpointPassthrough();
-                //.DisableTransportSecurityRequirement(); // During development, you can disable the HTTPS requirement.
 
                 options.AddCustomClaims();
             })
