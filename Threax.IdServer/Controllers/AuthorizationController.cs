@@ -453,9 +453,7 @@ namespace Threax.IdServer.Controllers
                 var app = (await _applicationManager.FindByClientIdAsync(request.ClientId)) as Client; //This will be correct if using the backend library
 
                 var subject = guidFactory.CreateGuid(app).ToString();
-
                 identity.AddClaim(new Claim(Claims.Subject, subject));
-                identity.AddClaim(new Claim(Threax.AspNetCore.AuthCore.ClaimTypes.ObjectGuid, subject));
 
                 // Note: in this sample, the granted scopes match the requested scope
                 // but you may want to allow the user to uncheck specific scopes.

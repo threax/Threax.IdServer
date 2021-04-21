@@ -27,9 +27,6 @@ namespace Threax.IdServer.Services
         {
         }
 
-        public const String ObjectGuid = "objectGUID";
-        public const String UserName = "username";
-
         /// <summary>
         /// Create the user.
         /// </summary>
@@ -39,13 +36,13 @@ namespace Threax.IdServer.Services
         {
             var principal = await base.CreateAsync(user);
 
-            var claimsId = principal.Identity as ClaimsIdentity;
-            if (claimsId != null)
-            {
-                claimsId.AddClaims(new[] {
-                    new Claim(ObjectGuid, user.Id.ToString())
-                });
-            }
+            //var claimsId = principal.Identity as ClaimsIdentity;
+            //if (claimsId != null)
+            //{
+            //    claimsId.AddClaims(new[] {
+            //        new Claim(ObjectGuid, user.Id.ToString())
+            //    });
+            //}
 
             return principal;
         }

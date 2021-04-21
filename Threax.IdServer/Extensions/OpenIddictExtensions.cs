@@ -45,7 +45,7 @@ namespace Threax.IdServer.Extensions
 
         public static OpenIddictServerBuilder AddCustomClaims(this OpenIddictServerBuilder options)
         {
-            options.RegisterClaims(Claims.NotBefore, Threax.AspNetCore.AuthCore.ClaimTypes.ObjectGuid);
+            options.RegisterClaims(Claims.NotBefore);
 
             options.AddEventHandler<ProcessSignInContext>(builder =>
             {
@@ -58,12 +58,6 @@ namespace Threax.IdServer.Extensions
                     {
                         ClaimsIdentity ci = context.AccessTokenPrincipal.Identity as ClaimsIdentity;
                         ci.AddClaim(Claims.NotBefore, EpochTime.GetIntDate(DateTime.UtcNow).ToString());
-                        var objectGuidClaim = ci.FindFirst(Threax.AspNetCore.AuthCore.ClaimTypes.ObjectGuid);
-                        if(objectGuidClaim == null)
-                        {
-                            var sub = ci.FindFirst(Claims.Subject);
-                            ci.AddClaim(Threax.AspNetCore.AuthCore.ClaimTypes.ObjectGuid, sub.Value);
-                        }
                         return default;
                     });
             });

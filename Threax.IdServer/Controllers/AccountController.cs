@@ -76,7 +76,6 @@ namespace IdentityServer4.Quickstart.UI.Controllers
 
                     //Setup claims for user
                     claims.Add(new Claim("sub", user.Id.ToString()));
-                    claims.Add(new Claim(Threax.AspNetCore.AuthCore.ClaimTypes.ObjectGuid, user.Id.ToString()));
                     claims.Add(new Claim("username", user.UserName));
 
                     // issue authentication cookie for user
