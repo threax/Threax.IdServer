@@ -177,7 +177,7 @@ namespace Threax.IdServer
                        .EnableVerificationEndpointPassthrough();
                 //.DisableTransportSecurityRequirement(); // During development, you can disable the HTTPS requirement.
 
-                options.AddNotBeforeClaim();
+                options.AddCustomClaims();
             })
             // Register the OpenIddict validation components.
             .AddValidation(options =>

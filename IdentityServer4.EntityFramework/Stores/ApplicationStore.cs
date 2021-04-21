@@ -165,6 +165,8 @@ namespace IdentityServer4.EntityFramework.Stores
             if ((application.AllowedGrantTypes & Entities.GrantTypes.ClientCredentials) == Entities.GrantTypes.ClientCredentials)
             {
                 //Will need something here when client creds start logging in.
+                otherPermissions.Add(Permissions.Endpoints.Token);
+                otherPermissions.Add(Permissions.GrantTypes.ClientCredentials);
             }
 
             result.AddRange(otherPermissions);

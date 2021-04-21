@@ -12,7 +12,7 @@ namespace IdentityServer4.EntityFramework.Entities
         [Key]
         public Guid TokenId { get; set; }
 
-        public Guid AuthorizationId { get; set; }
+        public Guid? AuthorizationId { get; set; }
 
         public int ApplicationId { get; set; }
 

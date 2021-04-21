@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using IdentityServer4.EntityFramework.Entities;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
@@ -13,6 +14,7 @@ using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
 using Threax.IdServer.Extensions;
 using Threax.IdServer.Models;
+using Threax.IdServer.Services;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace Threax.IdServer.Controllers
@@ -24,19 +26,22 @@ namespace Threax.IdServer.Controllers
         private readonly IOpenIddictScopeManager _scopeManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IApplicationGuidFactory guidFactory;
 
         public AuthorizationController(
             IOpenIddictApplicationManager applicationManager,
             IOpenIddictAuthorizationManager authorizationManager,
             IOpenIddictScopeManager scopeManager,
             SignInManager<ApplicationUser> signInManager,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IApplicationGuidFactory guidFactory)
         {
             _applicationManager = applicationManager;
             _authorizationManager = authorizationManager;
             _scopeManager = scopeManager;
             _signInManager = signInManager;
             _userManager = userManager;
+            this.guidFactory = guidFactory;
         }
 
         #region Authorization code, implicit and hybrid flows
@@ -428,34 +433,29 @@ namespace Threax.IdServer.Controllers
             var request = HttpContext.GetOpenIddictServerRequest() ??
                 throw new InvalidOperationException("The OpenID Connect request cannot be retrieved.");
 
-            if (request.IsPasswordGrantType())
+            if (request.IsClientCredentialsGrantType())
             {
-                var user = await _userManager.FindByNameAsync(request.Username);
-                if (user is null)
-                {
-                    return Forbid(
-                        authenticationSchemes: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme,
-                        properties: new AuthenticationProperties(new Dictionary<string, string>
-                        {
-                            [OpenIddictServerAspNetCoreConstants.Properties.Error] = Errors.InvalidGrant,
-                            [OpenIddictServerAspNetCoreConstants.Properties.ErrorDescription] = "The username/password couple is invalid."
-                        }));
-                }
+                // Note: the client credentials are automatically validated by OpenIddict:
+                // if client_id or client_secret are invalid, this action won't be invoked.
 
-                // Validate the username/password parameters and ensure the account is not locked out.
-                var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, lockoutOnFailure: true);
-                if (!result.Succeeded)
-                {
-                    return Forbid(
-                        authenticationSchemes: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme,
-                        properties: new AuthenticationProperties(new Dictionary<string, string>
-                        {
-                            [OpenIddictServerAspNetCoreConstants.Properties.Error] = Errors.InvalidGrant,
-                            [OpenIddictServerAspNetCoreConstants.Properties.ErrorDescription] = "The username/password couple is invalid."
-                        }));
-                }
+                var identity = new ClaimsIdentity(OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
 
-                var principal = await _signInManager.CreateUserPrincipalAsync(user);
+                // Subject (sub) is a required field, we use the client id as the subject identifier here.
+                //identity.AddClaim(OpenIddictConstants.Claims.Subject, request.ClientId ?? throw new InvalidOperationException());
+
+                //// Add some claim, don't forget to add destination otherwise it won't be added to the access token.
+                //identity.AddClaim("some-claim", "some-value", OpenIddictConstants.Destinations.AccessToken);
+
+                var principal = new ClaimsPrincipal(identity);
+
+                principal.SetScopes(request.GetScopes());
+
+                var app = (await _applicationManager.FindByClientIdAsync(request.ClientId)) as Client; //This will be correct if using the backend library
+
+                var subject = guidFactory.CreateGuid(app).ToString();
+
+                identity.AddClaim(new Claim(Claims.Subject, subject));
+                identity.AddClaim(new Claim(Threax.AspNetCore.AuthCore.ClaimTypes.ObjectGuid, subject));
 
                 // Note: in this sample, the granted scopes match the requested scope
                 // but you may want to allow the user to uncheck specific scopes.
@@ -463,14 +463,51 @@ namespace Threax.IdServer.Controllers
                 principal.SetScopes(request.GetScopes());
                 principal.SetResources(await _scopeManager.ListResourcesAsync(principal.GetScopes()).ToListAsync());
 
-                foreach (var claim in principal.Claims)
-                {
-                    claim.SetDestinations(GetDestinations(claim, principal));
-                }
-
-                // Returning a SignInResult will ask OpenIddict to issue the appropriate access/identity tokens.
                 return SignIn(principal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
             }
+            //else if (request.IsPasswordGrantType())
+            //{
+            //    var user = await _userManager.FindByNameAsync(request.Username);
+            //    if (user is null)
+            //    {
+            //        return Forbid(
+            //            authenticationSchemes: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme,
+            //            properties: new AuthenticationProperties(new Dictionary<string, string>
+            //            {
+            //                [OpenIddictServerAspNetCoreConstants.Properties.Error] = Errors.InvalidGrant,
+            //                [OpenIddictServerAspNetCoreConstants.Properties.ErrorDescription] = "The username/password couple is invalid."
+            //            }));
+            //    }
+
+            //    // Validate the username/password parameters and ensure the account is not locked out.
+            //    var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, lockoutOnFailure: true);
+            //    if (!result.Succeeded)
+            //    {
+            //        return Forbid(
+            //            authenticationSchemes: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme,
+            //            properties: new AuthenticationProperties(new Dictionary<string, string>
+            //            {
+            //                [OpenIddictServerAspNetCoreConstants.Properties.Error] = Errors.InvalidGrant,
+            //                [OpenIddictServerAspNetCoreConstants.Properties.ErrorDescription] = "The username/password couple is invalid."
+            //            }));
+            //    }
+
+            //    var principal = await _signInManager.CreateUserPrincipalAsync(user);
+
+            //    // Note: in this sample, the granted scopes match the requested scope
+            //    // but you may want to allow the user to uncheck specific scopes.
+            //    // For that, simply restrict the list of scopes before calling SetScopes.
+            //    principal.SetScopes(request.GetScopes());
+            //    principal.SetResources(await _scopeManager.ListResourcesAsync(principal.GetScopes()).ToListAsync());
+
+            //    foreach (var claim in principal.Claims)
+            //    {
+            //        claim.SetDestinations(GetDestinations(claim, principal));
+            //    }
+
+            //    // Returning a SignInResult will ask OpenIddict to issue the appropriate access/identity tokens.
+            //    return SignIn(principal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
+            //}
 
             else if (request.IsAuthorizationCodeGrantType() || request.IsDeviceCodeGrantType() || request.IsRefreshTokenGrantType())
             {

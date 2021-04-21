@@ -10,11 +10,11 @@ using static OpenIddict.Server.OpenIddictServerHandlers;
 
 namespace Threax.IdServer.Extensions
 {
-    public static class NotBeforeClaimHandler
+    public static class CustomClaimHandler
     {
-        public static OpenIddictServerBuilder AddNotBeforeClaim(this OpenIddictServerBuilder options)
+        public static OpenIddictServerBuilder AddCustomClaims(this OpenIddictServerBuilder options)
         {
-            options.RegisterClaims(Claims.NotBefore);
+            options.RegisterClaims(Claims.NotBefore, Threax.AspNetCore.AuthCore.ClaimTypes.ObjectGuid);
 
             options.AddEventHandler<ProcessSignInContext>(builder =>
             {
@@ -25,9 +25,14 @@ namespace Threax.IdServer.Extensions
                     .SetType(OpenIddict.Server.OpenIddictServerHandlerType.Custom)
                     .UseInlineHandler(context =>
                     {
-                            // Clone the existing AccessTokenPrincipal without the private OpenIddict claims
-                            ClaimsIdentity ci = context.AccessTokenPrincipal.Identity as ClaimsIdentity;
+                        ClaimsIdentity ci = context.AccessTokenPrincipal.Identity as ClaimsIdentity;
                         ci.AddClaim(Claims.NotBefore, EpochTime.GetIntDate(DateTime.UtcNow).ToString());
+                        var objectGuidClaim = ci.FindFirst(Threax.AspNetCore.AuthCore.ClaimTypes.ObjectGuid);
+                        if(objectGuidClaim == null)
+                        {
+                            var sub = ci.FindFirst(Claims.Subject);
+                            ci.AddClaim(Threax.AspNetCore.AuthCore.ClaimTypes.ObjectGuid, sub.Value);
+                        }
                         return default;
                     });
             });

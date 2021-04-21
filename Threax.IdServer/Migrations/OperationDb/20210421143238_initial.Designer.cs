@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Threax.IdServer.Migrations.OperationDb
 {
     [DbContext(typeof(OperationDbContext))]
-    [Migration("20210419190023_initial")]
+    [Migration("20210421143238_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,7 +63,7 @@ namespace Threax.IdServer.Migrations.OperationDb
                     b.Property<int>("ApplicationId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<Guid>("AuthorizationId")
+                    b.Property<Guid?>("AuthorizationId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("Created")
@@ -105,9 +105,7 @@ namespace Threax.IdServer.Migrations.OperationDb
                 {
                     b.HasOne("IdentityServer4.EntityFramework.Entities.Authorization", "Authorization")
                         .WithMany("Tokens")
-                        .HasForeignKey("AuthorizationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AuthorizationId");
 
                     b.Navigation("Authorization");
                 });

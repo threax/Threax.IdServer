@@ -30,7 +30,7 @@ namespace Threax.IdServer.Migrations.OperationDb
                 columns: table => new
                 {
                     TokenId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    AuthorizationId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    AuthorizationId = table.Column<Guid>(type: "TEXT", nullable: true),
                     ApplicationId = table.Column<int>(type: "INTEGER", nullable: false),
                     Subject = table.Column<string>(type: "TEXT", maxLength: 400, nullable: true),
                     Status = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
@@ -49,7 +49,7 @@ namespace Threax.IdServer.Migrations.OperationDb
                         column: x => x.AuthorizationId,
                         principalTable: "Authorizations",
                         principalColumn: "AuthorizationId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

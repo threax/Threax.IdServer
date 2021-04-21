@@ -61,7 +61,7 @@ namespace Threax.IdServer.Migrations.OperationDb
                     b.Property<int>("ApplicationId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<Guid>("AuthorizationId")
+                    b.Property<Guid?>("AuthorizationId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("Created")
@@ -103,9 +103,7 @@ namespace Threax.IdServer.Migrations.OperationDb
                 {
                     b.HasOne("IdentityServer4.EntityFramework.Entities.Authorization", "Authorization")
                         .WithMany("Tokens")
-                        .HasForeignKey("AuthorizationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AuthorizationId");
 
                     b.Navigation("Authorization");
                 });

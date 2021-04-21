@@ -351,7 +351,7 @@ namespace IdentityServer4.EntityFramework.Stores
 
         public ValueTask SetAuthorizationIdAsync(Token token, string identifier, CancellationToken cancellationToken)
         {
-            token.AuthorizationId = Guid.Parse(identifier);
+            token.AuthorizationId = identifier != null ? Guid.Parse(identifier) : null;
             return ValueTask.CompletedTask;
         }
 
