@@ -112,8 +112,6 @@ namespace Threax.IdServer
                 .AddEntityFrameworkStores<UsersDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AppUserClaimsPrincipalFactory>();
-
             services.AddOpenIddict()
             // Register the OpenIddict core components.
             .AddCore(options =>
