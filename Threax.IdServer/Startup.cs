@@ -27,6 +27,7 @@ using Threax.AspNetCore.UserLookup.Mvc.Controllers;
 using Threax.Extensions.Configuration.SchemaBinder;
 using Threax.IdServer.Areas.Api.Controllers;
 using Threax.IdServer.Data;
+using Threax.IdServer.Extensions;
 using Threax.IdServer.Models;
 using Threax.IdServer.Repository;
 using Threax.IdServer.Services;
@@ -174,7 +175,9 @@ namespace Threax.IdServer
                        .EnableTokenEndpointPassthrough()
                        .EnableUserinfoEndpointPassthrough()
                        .EnableVerificationEndpointPassthrough();
-                       //.DisableTransportSecurityRequirement(); // During development, you can disable the HTTPS requirement.
+                //.DisableTransportSecurityRequirement(); // During development, you can disable the HTTPS requirement.
+
+                options.AddNotBeforeClaim();
             })
             // Register the OpenIddict validation components.
             .AddValidation(options =>
