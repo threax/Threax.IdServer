@@ -135,6 +135,8 @@ namespace Threax.IdServer
             // Register the OpenIddict server components.
             .AddServer(options =>
             {
+                options.DisableAccessTokenEncryption();
+
                 // Enable the authorization, device, logout, token, userinfo and verification endpoints.
                 options.SetAuthorizationEndpointUris("/connect/authorize")
                        //.SetDeviceEndpointUris("/connect/device")

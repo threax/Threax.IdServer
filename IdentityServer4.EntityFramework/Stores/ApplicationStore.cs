@@ -151,19 +151,12 @@ namespace IdentityServer4.EntityFramework.Stores
 
             //Set permissions based on grant types.
             var otherPermissions = new HashSet<string>();
-            if ((application.AllowedGrantTypes & Entities.GrantTypes.AuthorizationCode) == Entities.GrantTypes.AuthorizationCode)
-            {
-                //Not sure what to do with auth code
-                otherPermissions.Add(Permissions.Endpoints.Authorization);
-                otherPermissions.Add(Permissions.GrantTypes.AuthorizationCode);
-                otherPermissions.Add(Permissions.GrantTypes.Implicit);
-                otherPermissions.Add(Permissions.GrantTypes.RefreshToken);
-                otherPermissions.Add(Permissions.ResponseTypes.CodeIdToken);
-            }
-            if ((application.AllowedGrantTypes & Entities.GrantTypes.Hybrid) == Entities.GrantTypes.Hybrid)
+            if ((application.AllowedGrantTypes & Entities.GrantTypes.Hybrid) == Entities.GrantTypes.Hybrid
+                || (application.AllowedGrantTypes & Entities.GrantTypes.AuthorizationCode) == Entities.GrantTypes.AuthorizationCode)
             {
                 //Apps login users with hybrid flow
                 otherPermissions.Add(Permissions.Endpoints.Authorization);
+                otherPermissions.Add(Permissions.Endpoints.Token);
                 otherPermissions.Add(Permissions.GrantTypes.AuthorizationCode);
                 otherPermissions.Add(Permissions.GrantTypes.Implicit);
                 otherPermissions.Add(Permissions.GrantTypes.RefreshToken);
