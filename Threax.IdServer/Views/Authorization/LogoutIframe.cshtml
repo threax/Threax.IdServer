@@ -7,7 +7,7 @@
 
     //Use a custom locked down csp since this does not use the standard layout
     var csp = new Threax.AspNetCore.CSP.CSPOptions();
-    csp.AddDefault().AddSelf();
+    csp.AddDefault().AddNone();
     var frames = csp.AddFrame();
     frames.Entries.AddRange(Model.LogoutCallbackUrls);
     cspHeaderWriter.AddContentSecurityPolicy(csp);
