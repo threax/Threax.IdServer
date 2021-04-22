@@ -54,7 +54,7 @@ namespace Threax.IdServer.ToolControllers
             }
 
             var redirectUri = $"https://{appDashboardHost}/signin-oidc";
-            var logoutUri = $"https://{appDashboardHost}/Account/SignoutCleanup";
+            var logoutUri = $"https://{appDashboardHost}/signout-callback-oidc";
             var clientEntity = await configContext.Clients
                             .Include(i => i.RedirectUris)
                             .Include(i => i.AllowedScopes)

@@ -109,27 +109,6 @@ namespace IdentityServer4.Quickstart.UI.Controllers
             return View(vm);
         }
 
-        /// <summary>
-        /// initiate roundtrip to external authentication provider. The external provide is
-        /// the adfs node, so the external here stands for where users come from from the 
-        /// id server's perspective.
-        /// </summary>
-        [HttpGet]
-        public IActionResult External(string provider, string returnUrl)
-        {
-            if (returnUrl != null)
-            {
-                returnUrl = UrlEncoder.Default.Encode(returnUrl);
-            }
-            returnUrl = "/account/externalcallback?returnUrl=" + returnUrl;
-
-            // start challenge and roundtrip the return URL
-            return new ChallengeResult(provider, new AuthenticationProperties
-            {
-                RedirectUri = returnUrl
-            });
-        }
-
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
@@ -165,53 +144,6 @@ namespace IdentityServer4.Quickstart.UI.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
-        }
-
-        /// <summary>
-        /// Show logout page
-        /// </summary>
-        [HttpGet]
-        public async Task<IActionResult> Logout(string logoutId)
-        {
-            //Find the user in the local storage
-            ApplicationUser user = null;
-            if (HttpContext.User.Identity != null && HttpContext.User.Identity.Name != null)
-            {
-                user = await userManager.FindByNameAsync(HttpContext.User.Identity.Name);
-            }
-            //If they are not found, throw an exception
-            if (user == null)
-            {
-                throw new InvalidOperationException($"Cannot find user {HttpContext.User.Identity.Name}");
-            }
-
-            // delete authentication cookie
-            await HttpContext.SignOutAsync((await schemeProvider.GetDefaultAuthenticateSchemeAsync()).Name);
-
-            // set this so UI rendering sees an anonymous user
-            HttpContext.User = new ClaimsPrincipal(new ClaimsIdentity());
-
-            throw new InvalidOperationException("Need to implement OpenIddict logout");
-
-            //// get context information (client name, post logout redirect URI and iframe for federated signout)
-            //var logout = await interaction.GetLogoutContextAsync(logoutId);
-
-            //var vm = new LoggedOutViewModel
-            //{
-            //    PostLogoutRedirectUri = logout?.PostLogoutRedirectUri,
-            //    ClientName = logout?.ClientId,
-            //    SignOutIframeUrl = logout?.SignOutIFrameUrl
-            //};
-
-            //return View("LoggedOut", vm);
-        }
-
-        /// <summary>
-        /// This function adds a potato p3p header to make ie happy when setting cookies in iframes.
-        /// </summary>
-        private void addPotato()
-        {
-            Response.Headers.Add("P3P", "CP=\"Potato\""); //For IE iframe cookies
         }
 
         private Task<LoginViewModel> BuildLoginViewModelAsync(string returnUrl)

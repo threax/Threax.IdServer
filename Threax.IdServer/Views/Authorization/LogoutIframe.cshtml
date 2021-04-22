@@ -1,0 +1,19 @@
+﻿@model Threax.IdServer.Models.AccountViewModels.LogoutIframeViewModel
+@inject Threax.AspNetCore.CSP.ICspHeaderWriter cspHeaderWriter
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Logout iframe";
+
+    //Use a custom locked down csp since this does not use the standard layout
+    var csp = new Threax.AspNetCore.CSP.CSPOptions();
+    csp.AddDefault().AddSelf();
+    var frames = csp.AddFrame();
+    frames.Entries.AddRange(Model.LogoutCallbackUrls);
+    cspHeaderWriter.AddContentSecurityPolicy(csp);
+}
+
+@foreach (var url in Model.LogoutCallbackUrls)
+{
+    <iframe src="@url"></iframe>
+}

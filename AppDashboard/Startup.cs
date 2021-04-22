@@ -78,10 +78,6 @@ namespace AppDashboard
                 o.CookiePath = appConfig.PathBase;
                 o.ActAsApi = false;
                 o.AccessDeniedPath = "/Account/AccessDenied";
-                o.CustomizeCookies = cookOpt =>
-                {
-                    cookOpt.BearerHttpOnly = false;
-                };
             });
 
             services.AddMvc()

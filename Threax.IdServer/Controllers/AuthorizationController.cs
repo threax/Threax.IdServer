@@ -2,18 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
+using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Entities;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Primitives;
 using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
+using Threax.AspNetCore.CSP;
 using Threax.IdServer.Extensions;
 using Threax.IdServer.Models;
+using Threax.IdServer.Models.AccountViewModels;
+using Threax.IdServer.Repository;
 using Threax.IdServer.Services;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
@@ -21,12 +27,17 @@ namespace Threax.IdServer.Controllers
 {
     public class AuthorizationController : Controller
     {
+        private const string CurrentClients = "Idserver.CurrentClients";
+        private const string AllowLogout = "IdServer.AllowLogout";
+        private const string AllowLogoutTrue = "true";
+
         private readonly IOpenIddictApplicationManager _applicationManager;
         private readonly IOpenIddictAuthorizationManager _authorizationManager;
         private readonly IOpenIddictScopeManager _scopeManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IApplicationGuidFactory guidFactory;
+        private readonly ConfigurationDbContext configDb;
 
         public AuthorizationController(
             IOpenIddictApplicationManager applicationManager,
@@ -34,7 +45,8 @@ namespace Threax.IdServer.Controllers
             IOpenIddictScopeManager scopeManager,
             SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
-            IApplicationGuidFactory guidFactory)
+            IApplicationGuidFactory guidFactory,
+            ConfigurationDbContext configDb)
         {
             _applicationManager = applicationManager;
             _authorizationManager = authorizationManager;
@@ -42,6 +54,7 @@ namespace Threax.IdServer.Controllers
             _signInManager = signInManager;
             _userManager = userManager;
             this.guidFactory = guidFactory;
+            this.configDb = configDb;
         }
 
         #region Authorization code, implicit and hybrid flows
@@ -196,6 +209,21 @@ namespace Threax.IdServer.Controllers
                     {
                         claim.SetDestinations(GetDestinations(claim, principal));
                     }
+
+                    if (!HttpContext.Request.Cookies.TryGetValue(CurrentClients, out var currentClientsCookie))
+                    {
+                        currentClientsCookie = "[]";
+                    }
+                    var currentClients = JsonSerializer.Deserialize<HashSet<String>>(currentClientsCookie);
+                    currentClients.Add(request.ClientId);
+                    currentClientsCookie = JsonSerializer.Serialize(currentClients);
+                    HttpContext.Response.Cookies.Append(CurrentClients, currentClientsCookie, new CookieOptions()
+                    {
+                        Secure = true,
+                        HttpOnly = true,
+                        SameSite = SameSiteMode.Lax,
+                        Path = "/connect"
+                    });
 
                     return SignIn(principal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
 
@@ -401,25 +429,74 @@ namespace Threax.IdServer.Controllers
         // flows like the authorization code flow or the implicit flow.
 
         [HttpGet("~/connect/logout")]
-        public IActionResult Logout() => View();
-
-        [ActionName(nameof(Logout)), HttpPost("~/connect/logout"), ValidateAntiForgeryToken]
-        public async Task<IActionResult> LogoutPost()
+        public IActionResult Logout()
         {
-            // Ask ASP.NET Core Identity to delete the local and external cookies created
-            // when the user agent is redirected from the external identity provider
-            // after a successful authentication flow (e.g Google or Facebook).
+            if (HttpContext.Request.Cookies.TryGetValue(CurrentClients, out var currentClientsCookie))
+            {
+                //If the current clients cookie is set return the confirmation view
+                return View();
+            }
+            else
+            {
+                //If no current clients cookie is set, this is part of a federated logout, do it right away
+                return SignOut(
+                    authenticationSchemes: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme,
+                    properties: new AuthenticationProperties
+                    {
+                        RedirectUri = "/"
+                    });
+            }            
+        }
+
+        [ActionName(nameof(LoggedOut)), HttpPost("~/connect/logout"), ValidateAntiForgeryToken]
+        public async Task<IActionResult> LoggedOut()
+        {
+            //This displays the page with the iframe on it that actually logs the user out
+            HttpContext.Response.Cookies.Append(AllowLogout, AllowLogoutTrue, new CookieOptions()
+            {
+                Secure = true,
+                HttpOnly = true,
+                SameSite = SameSiteMode.Lax,
+                Path = "/connect"
+            });
+
+            var model = new LoggedOutViewModel()
+            {
+                SignOutIframeUrl = Url.Content("~/connect/logout-iframe")
+            };
+
+            return View(model);
+        }
+
+        [ActionName(nameof(LogoutIframe)), HttpGet("~/connect/logout-iframe")]
+        public async Task<IActionResult> LogoutIframe()
+        {
+            //This is the iframe displayed on the page to log the user out
+            //It itself has iframes that call back to the apps to log them out
+            if (!HttpContext.Request.Cookies.TryGetValue(AllowLogout, out var allowLogout) || allowLogout != AllowLogoutTrue)
+            {
+                throw new InvalidOperationException($"You must include a cookie named '{AllowLogout}' set to '{AllowLogoutTrue}'.");
+            }
+
+            if (!HttpContext.Request.Cookies.TryGetValue(CurrentClients, out var currentClientsCookie))
+            {
+                throw new InvalidOperationException($"Cannot logout without a '{CurrentClients}' cookie.");
+            }
+            var currentClients = JsonSerializer.Deserialize<HashSet<String>>(currentClientsCookie);
+
+            var logoutUrls = await configDb.Clients.Where(i => currentClients.Contains(i.ClientId)).Select(i => i.LogoutUri).ToListAsync();
+
+            //Sign out of the application
             await _signInManager.SignOutAsync();
 
-            // Returning a SignOutResult will ask OpenIddict to redirect the user agent
-            // to the post_logout_redirect_uri specified by the client application or to
-            // the RedirectUri specified in the authentication properties if none was set.
-            return SignOut(
-                authenticationSchemes: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme,
-                properties: new AuthenticationProperties
-                {
-                    RedirectUri = "/"
-                });
+            var model = new LogoutIframeViewModel()
+            {
+                LogoutCallbackUrls = logoutUrls
+            };
+
+            Response.Cookies.Delete(AllowLogout);
+            Response.Cookies.Delete(CurrentClients);
+            return View(model);
         }
         #endregion
 

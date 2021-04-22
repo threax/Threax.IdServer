@@ -1,0 +1,19 @@
+﻿@model Threax.IdServer.Models.AccountViewModels.LoggedOutViewModel
+
+@{
+    ViewData["Title"] = "Logged out";
+}
+
+<div class="page-header">
+    <h1>
+        Logout
+        <small>You are now logged out</small>
+    </h1>
+
+    <p>Close your browser window to ensure you are completely logged out.</p>
+
+    @if (Model.SignOutIframeUrl != null)
+    {
+        <iframe width="0" height="0" class="signout" src="@Model.SignOutIframeUrl"></iframe>
+    }
+</div>

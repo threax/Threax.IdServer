@@ -14,8 +14,8 @@
     <PackageReference Include="HtmlRapier.TagHelpers" Version="8.2.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.KeyPerFile" Version="5.0.5" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.Client" Version="10.0.1" />
-    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="8.0.0" />
-    <PackageReference Include="Threax.AspNetCore.JwtCookieAuth" Version="6.0.0" />
+    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="8.1.0" />
+    <PackageReference Include="Threax.AspNetCore.JwtCookieAuth" Version="6.1.0" />
     <PackageReference Include="Threax.AspNetCore.Mvc.CacheUi" Version="3.0.2" />
     <PackageReference Include="Threax.AspNetCore.UrlFix" Version="1.1.5" />
     <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="5.0.0" />

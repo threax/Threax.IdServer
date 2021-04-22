@@ -157,6 +157,7 @@ namespace IdentityServer4.EntityFramework.Stores
                 //Apps login users with hybrid flow
                 otherPermissions.Add(Permissions.Endpoints.Authorization);
                 otherPermissions.Add(Permissions.Endpoints.Token);
+                otherPermissions.Add(Permissions.Endpoints.Logout);
                 otherPermissions.Add(Permissions.GrantTypes.AuthorizationCode);
                 otherPermissions.Add(Permissions.GrantTypes.Implicit);
                 otherPermissions.Add(Permissions.GrantTypes.RefreshToken);
