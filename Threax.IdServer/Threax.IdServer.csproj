@@ -50,7 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IdentityServer4.EntityFramework\IdentityServer4.EntityFramework.csproj" />
+    <ProjectReference Include="..\Threax.IdServer.EntityFramework\Threax.IdServer.EntityFramework.csproj" />
     <ProjectReference Include="..\Threax.IdServer.Sqlite\Threax.IdServer.Sqlite.csproj" />
   </ItemGroup>
 
