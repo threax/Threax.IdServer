@@ -3,10 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using Threax.AspNetCore.Halcyon.Ext.ValueProviders;
-using Threax.AspNetCore.IdServerMetadata;
 using Threax.AspNetCore.Models;
-using IdentityServer4.EntityFramework.Entities;
+using Threax.IdServer.EntityFramework.Entities;
 
 namespace Threax.IdServer.Areas.Api.InputModels
 {

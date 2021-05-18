@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using IdentityServer4.EntityFramework.DbContexts;
+using Threax.IdServer.EntityFramework.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -103,7 +103,7 @@ namespace Threax.IdServer.Data
 
             if (!configContext.Scopes.Any())
             {
-                var idServerScope = new IdentityServer4.EntityFramework.Entities.Scope()
+                var idServerScope = new Threax.IdServer.EntityFramework.Entities.Scope()
                 {
                     Name = "Threax.IdServer",
                     DisplayName = "Identity Server",

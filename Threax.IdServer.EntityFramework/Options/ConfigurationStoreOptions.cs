@@ -5,7 +5,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 
-namespace IdentityServer4.EntityFramework.Options
+namespace Threax.IdServer.EntityFramework.Options
 {
     /// <summary>
     /// Options for configuring the configuration context.

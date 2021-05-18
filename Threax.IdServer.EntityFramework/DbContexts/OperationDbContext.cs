@@ -1,12 +1,7 @@
-﻿using IdentityServer4.EntityFramework.Entities;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Threax.IdServer.EntityFramework.Entities;
 
-namespace IdentityServer4.EntityFramework.DbContexts
+namespace Threax.IdServer.EntityFramework.DbContexts
 {
     public class OperationDbContext : DbContext
     {

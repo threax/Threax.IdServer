@@ -2,19 +2,17 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using System;
-using System.Threading.Tasks;
-using IdentityServer4.EntityFramework.Entities;
-using IdentityServer4.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
+using System;
+using Threax.IdServer.EntityFramework.Entities;
 
-namespace IdentityServer4.EntityFramework.DbContexts
+namespace Threax.IdServer.EntityFramework.DbContexts
 {
     /// <summary>
     /// DbContext for the IdentityServer configuration data.
     /// </summary>
     /// <seealso cref="Microsoft.EntityFrameworkCore.DbContext" />
-    /// <seealso cref="IdentityServer4.EntityFramework.Interfaces.IConfigurationDbContext" />
+    /// <seealso cref="Threax.IdServer.EntityFramework.Interfaces.IConfigurationDbContext" />
     public class ConfigurationDbContext : DbContext
     {
         /// <summary>

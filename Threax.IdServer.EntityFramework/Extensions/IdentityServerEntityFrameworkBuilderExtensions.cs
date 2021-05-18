@@ -2,18 +2,13 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using IdentityServer4.EntityFramework.DbContexts;
-using IdentityServer4.EntityFramework.Stores;
-using System;
-using IdentityServer4.EntityFramework.Options;
-using IdentityServer4.EntityFramework;
 using Microsoft.EntityFrameworkCore;
-using System.Threading;
-using System.Threading.Tasks;
-using IdentityServer4.EntityFramework.Entities;
-using OpenIddict.Abstractions;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using IdentityServer4.EntityFramework.Managers;
+using System;
+using Threax.IdServer.EntityFramework.DbContexts;
+using Threax.IdServer.EntityFramework.Entities;
+using Threax.IdServer.EntityFramework.Managers;
+using Threax.IdServer.EntityFramework.Stores;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

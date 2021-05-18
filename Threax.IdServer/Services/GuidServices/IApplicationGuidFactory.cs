@@ -1,4 +1,5 @@
 ﻿using System;
+using Threax.IdServer.EntityFramework.Entities;
 
 namespace Threax.IdServer.Services
 {
@@ -13,6 +14,6 @@ namespace Threax.IdServer.Services
         /// </summary>
         /// <param name="client">The client to generate a guid for.</param>
         /// <returns>A new deterministic guid for the client.</returns>
-        Guid CreateGuid(IdentityServer4.EntityFramework.Entities.Client client);
+        Guid CreateGuid(Client client);
     }
 }

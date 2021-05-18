@@ -1,12 +1,11 @@
 ﻿using Halcyon.HAL.Attributes;
-using IdentityServer4.EntityFramework.Entities;
-using Threax.IdServer.Areas.Api.Controllers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using Threax.AspNetCore.Halcyon.Ext;
+using Threax.IdServer.Areas.Api.Controllers;
+using Threax.IdServer.EntityFramework.Entities;
 
 namespace Threax.IdServer.Areas.Api.Models
 {

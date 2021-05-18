@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
-using IdentityServer4.EntityFramework.Entities;
-using Threax.IdServer.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Threax.AspNetCore.IdServerMetadata;
 using Threax.IdServer.Areas.Api.InputModels;
 using Threax.IdServer.Areas.Api.Models;
+using Threax.IdServer.EntityFramework.Entities;
+using Threax.IdServer.Services;
 
 namespace Threax.IdServer.Mappers
 {
@@ -57,10 +56,10 @@ namespace Threax.IdServer.Mappers
             CreateMap<Scope, ApiResourceEditModel>()
                 .ForMember(d => d.ScopeName, opt => opt.MapFrom(s => s.Name));
 
-            CreateMap<ClientInput, IdentityServer4.EntityFramework.Entities.Client>()
+            CreateMap<ClientInput, Client>()
                 .ForMember(d => d.Id, opt => opt.Ignore())
                 .ForMember(d => d.ClientSecrets, opt => opt.Ignore())
-                .ForMember(d => d.AllowedGrantTypes, o => o.MapFrom((ClientInput s, IdentityServer4.EntityFramework.Entities.Client d) =>
+                .ForMember(d => d.AllowedGrantTypes, o => o.MapFrom((ClientInput s, Client d) =>
                 {
                     GrantTypes result = (GrantTypes)0;
                     foreach(var type in s.AllowedGrantTypes)
@@ -70,14 +69,14 @@ namespace Threax.IdServer.Mappers
 
                     return result;
                 }))
-                .ForMember(d => d.RedirectUris, opt => opt.MapFrom((ClientInput s, IdentityServer4.EntityFramework.Entities.Client d) =>
+                .ForMember(d => d.RedirectUris, opt => opt.MapFrom((ClientInput s, Client d) =>
                 {
                     return s.RedirectUris.Select(i => new ClientRedirectUri()
                     {
                         Uri = i
                     });
                 }))
-                .ForMember(d => d.AllowedScopes, opt => opt.MapFrom((ClientInput s, IdentityServer4.EntityFramework.Entities.Client d) =>
+                .ForMember(d => d.AllowedScopes, opt => opt.MapFrom((ClientInput s, Client d) =>
                 {
                     return s.AllowedScopes.Select(i => new ClientScope()
                     {
@@ -85,9 +84,9 @@ namespace Threax.IdServer.Mappers
                     });
                 }));
 
-            CreateMap<IdentityServer4.EntityFramework.Entities.Client, ClientEditModel>()
+            CreateMap<Client, ClientEditModel>()
                 .ForMember(d => d.ApplicationGuid, opt => opt.MapFrom<ApplicationGuidResolver>())
-                .ForMember(d => d.AllowedGrantTypes, o => o.MapFrom((IdentityServer4.EntityFramework.Entities.Client s, ClientEditModel d) =>
+                .ForMember(d => d.AllowedGrantTypes, o => o.MapFrom((Client s, ClientEditModel d) =>
                 {
                     var grantTypes = new List<GrantTypes>();
                     if((s.AllowedGrantTypes & GrantTypes.AuthorizationCode) != 0)
@@ -104,11 +103,11 @@ namespace Threax.IdServer.Mappers
                     }
                     return grantTypes;
                 }))
-                .ForMember(d => d.RedirectUris, opt => opt.MapFrom((IdentityServer4.EntityFramework.Entities.Client s, ClientEditModel d) =>
+                .ForMember(d => d.RedirectUris, opt => opt.MapFrom((Client s, ClientEditModel d) =>
                 {
                     return s.RedirectUris.Select(i => i.Uri);
                 }))
-                .ForMember(d => d.AllowedScopes, opt => opt.MapFrom((IdentityServer4.EntityFramework.Entities.Client s, ClientEditModel d) =>
+                .ForMember(d => d.AllowedScopes, opt => opt.MapFrom((Client s, ClientEditModel d) =>
                 {
                     return s.AllowedScopes.Select(i => i.Scope);
                 }));

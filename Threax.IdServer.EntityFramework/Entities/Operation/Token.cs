@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IdentityServer4.EntityFramework.Entities
+namespace Threax.IdServer.EntityFramework.Entities
 {
     public class Token
     {

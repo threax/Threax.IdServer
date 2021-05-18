@@ -1,6 +1,4 @@
-﻿using IdentityServer4.EntityFramework.DbContexts;
-using IdentityServer4.EntityFramework.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using OpenIddict.Abstractions;
@@ -9,13 +7,14 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Threax.IdServer.EntityFramework.DbContexts;
+using Threax.IdServer.EntityFramework.Entities;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
-namespace IdentityServer4.EntityFramework.Stores
+namespace Threax.IdServer.EntityFramework.Stores
 {
     class TokenStoreResolver : IOpenIddictTokenStoreResolver
     {

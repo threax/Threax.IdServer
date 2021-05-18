@@ -1,8 +1,6 @@
 ﻿using Logos.Utility;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Threax.IdServer.EntityFramework.Entities;
 
 namespace Threax.IdServer.Services
 {
@@ -15,7 +13,7 @@ namespace Threax.IdServer.Services
             this.guidNamespace = guidNamespace;
         }
 
-        public Guid CreateGuid(IdentityServer4.EntityFramework.Entities.Client client)
+        public Guid CreateGuid(Client client)
         {
             return GuidUtility.Create(guidNamespace, client.ClientId);
         }

@@ -1,19 +1,16 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Threax.IdServer.InputModels;
-using Threax.IdServer.Models.Api;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Threax.AspNetCore.Halcyon.Ext;
+using Threax.IdServer.EntityFramework.DbContexts;
+using Threax.IdServer.InputModels;
 using Threax.IdServer.Models;
+using Threax.IdServer.Models.Api;
 using Threax.IdServer.Services;
-using System.Collections;
-using System.Collections.Generic;
-using IdentityServer4.EntityFramework.DbContexts;
 
 namespace Threax.IdServer.Repository
 {

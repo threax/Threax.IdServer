@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace IdentityServer4.EntityFramework.Entities
+namespace Threax.IdServer.EntityFramework.Entities
 {
     [Flags]
     public enum GrantTypes

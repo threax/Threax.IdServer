@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using IdentityServer4.EntityFramework.DbContexts;
-using IdentityServer4.EntityFramework.Entities;
+using Threax.IdServer.EntityFramework.DbContexts;
+using Threax.IdServer.EntityFramework.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;

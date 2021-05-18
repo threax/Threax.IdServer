@@ -1,9 +1,9 @@
-﻿using IdentityServer4.EntityFramework.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Threax.AspNetCore.Halcyon.Ext;
 using Threax.AspNetCore.Halcyon.Ext.ValueProviders;
 using Threax.AspNetCore.Models;
+using Threax.IdServer.EntityFramework.Entities;
 
 namespace Threax.IdServer.InputModels
 {

@@ -4,21 +4,21 @@
     <Description>EntityFramework persistence layer for IdentityServer4</Description>
     <Authors>Brock Allen;Dominick Baier;Scott Brady</Authors>
     <TargetFramework>net5.0</TargetFramework>
-    <AssemblyName>IdentityServer4.EntityFramework</AssemblyName>
-    <PackageId>IdentityServer4.EntityFramework</PackageId>
+    <AssemblyName>Threax.IdServer.EntityFramework</AssemblyName>
+    <PackageId>Threax.IdServer.EntityFramework</PackageId>
     <PackageTags>OAuth2;OAuth 2.0;OpenID Connect;Security;Identity;IdentityServer;EntityFramework</PackageTags>
     <PackageIconUrl>https://raw.githubusercontent.com/IdentityServer/Artwork/master/Logos/IDserver_icon128.jpg</PackageIconUrl>
-    <PackageProjectUrl>https://github.com/IdentityServer/IdentityServer4.EntityFramework</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/IdentityServer/IdentityServer4.EntityFramework/blob/release/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/IdentityServer/Threax.IdServer.EntityFramework</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/IdentityServer/Threax.IdServer.EntityFramework/blob/release/LICENSE</PackageLicenseUrl>
     <VersionPrefix>2.1.1.1</VersionPrefix>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\IdentityServer4.EntityFramework.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard2.0\Threax.IdServer.EntityFramework.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\IdentityServer4.EntityFramework.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netstandard2.0\Threax.IdServer.EntityFramework.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

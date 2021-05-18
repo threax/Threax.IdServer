@@ -3,15 +3,12 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OpenIddict.Abstractions;
 using OpenIddict.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace IdentityServer4.EntityFramework.Managers
+namespace Threax.IdServer.EntityFramework.Managers
 {
     class ThreaxOpenIddictApplicationManager<TApplication> : OpenIddictApplicationManager<TApplication>
          where TApplication : class

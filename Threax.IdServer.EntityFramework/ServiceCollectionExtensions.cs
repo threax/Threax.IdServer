@@ -1,10 +1,5 @@
-﻿using IdentityServer4.EntityFramework.DbContexts;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Threax.IdServer.EntityFramework.DbContexts;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

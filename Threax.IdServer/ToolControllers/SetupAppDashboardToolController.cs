@@ -1,20 +1,12 @@
-﻿using IdentityModel;
-using IdentityServer4.EntityFramework.DbContexts;
-using IdentityServer4.EntityFramework.Entities;
-using IdentityServer4.Models;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+﻿using IdentityServer4.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Threax.IdServer.EntityFramework.DbContexts;
+using Threax.IdServer.EntityFramework.Entities;
 using static IdentityModel.OidcConstants;
 
 namespace Threax.IdServer.ToolControllers
@@ -81,11 +73,11 @@ namespace Threax.IdServer.ToolControllers
             }
             else
             {
-                var client = new IdentityServer4.EntityFramework.Entities.Client
+                var client = new Client
                 {
                     ClientId = "AppDashboard",
                     Name = "App Dashboard",
-                    AllowedGrantTypes = IdentityServer4.EntityFramework.Entities.GrantTypes.Hybrid,
+                    AllowedGrantTypes = EntityFramework.Entities.GrantTypes.Hybrid,
                     ClientSecrets = new List<ClientSecret>
                     {
                         secret

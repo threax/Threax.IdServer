@@ -1,15 +1,13 @@
 ﻿using Halcyon.HAL.Attributes;
 using Microsoft.EntityFrameworkCore;
-using Threax.IdServer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Threax.AspNetCore.Halcyon.Ext;
 using Threax.AspNetCore.Models;
+using Threax.IdServer.EntityFramework.Entities;
+using Threax.IdServer.Models;
 using Threax.IdServer.Services;
-using IdentityServer4.EntityFramework.Entities;
-using Threax.AspNetCore.UserLookup;
 
 namespace Threax.IdServer.InputModels
 {
@@ -26,7 +24,7 @@ namespace Threax.IdServer.InputModels
         [UiOrder]
         public String UserName { get; set; }
 
-        public IQueryable<IdentityServer4.EntityFramework.Entities.Client> Create(IQueryable<IdentityServer4.EntityFramework.Entities.Client> query, IApplicationGuidFactory guidFactory)
+        public IQueryable<Client> Create(IQueryable<Client> query, IApplicationGuidFactory guidFactory)
         {
             query = query.Where(i => (i.AllowedGrantTypes & GrantTypes.ClientCredentials) == GrantTypes.ClientCredentials);
 

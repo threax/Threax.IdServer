@@ -1,16 +1,10 @@
 ﻿using AutoMapper;
-using IdentityServer4.EntityFramework.Entities;
-using IdentityServer4.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Threax.AspNetCore.IdServerMetadata.Client;
 using Threax.IdServer.Areas.Api.InputModels;
-using Threax.IdServer.Models;
 using Threax.IdServer.Repository;
 
 namespace Threax.IdServer.ToolControllers

@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using IdentityServer4.EntityFramework.DbContexts;
-using IdentityServer4.EntityFramework.Entities;
 using IdentityServer4.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,6 +9,8 @@ using System.Threading.Tasks;
 using Threax.AspNetCore.Halcyon.Ext;
 using Threax.IdServer.Areas.Api.InputModels;
 using Threax.IdServer.Areas.Api.Models;
+using Threax.IdServer.EntityFramework.DbContexts;
+using Threax.IdServer.EntityFramework.Entities;
 using Threax.IdServer.InputModels;
 
 namespace Threax.IdServer.Repository
@@ -47,7 +47,7 @@ namespace Threax.IdServer.Repository
             }
 
             //Don't want secrets here
-            IQueryable<IdentityServer4.EntityFramework.Entities.Client> clients = configDb.Clients
+            IQueryable<Client> clients = configDb.Clients
                                   .Include(i => i.RedirectUris)
                                   .Include(i => i.AllowedScopes);
 
@@ -58,7 +58,7 @@ namespace Threax.IdServer.Repository
 
             if (query.GrantTypes != null)
             {
-                IdentityServer4.EntityFramework.Entities.GrantTypes grantTypes = (IdentityServer4.EntityFramework.Entities.GrantTypes)0;
+                GrantTypes grantTypes = 0;
                 foreach(var i in query.GrantTypes)
                 {
                     grantTypes |= i;
@@ -93,7 +93,7 @@ namespace Threax.IdServer.Repository
 
         public async Task Add(ClientInput value)
         {
-            var entity = mapper.Map<IdentityServer4.EntityFramework.Entities.Client>(value);
+            var entity = mapper.Map<Client>(value);
 
             //Any new client gets the secret notyetdefined
             if (entity.ClientSecrets == null || entity.ClientSecrets.Count == 0)
@@ -119,7 +119,7 @@ namespace Threax.IdServer.Repository
                 throw new InvalidOperationException($"Cannot find client with id '{id}'.");
             }
 
-            mapper.Map<ClientInput, IdentityServer4.EntityFramework.Entities.Client>(value, client);
+            mapper.Map<ClientInput, Client>(value, client);
             configDb.Clients.Update(client);
             await configDb.SaveChangesAsync();
         }
@@ -131,7 +131,7 @@ namespace Threax.IdServer.Repository
             var existing = await SelectFullEntity().Where(i => i.ClientId == value.ClientId).FirstOrDefaultAsync();
             if(existing == null)
             {
-                var entity = mapper.Map<IdentityServer4.EntityFramework.Entities.Client>(value);
+                var entity = mapper.Map<Client>(value);
 
                 entity.ClientSecrets = new List<ClientSecret>()
                 {
@@ -145,7 +145,7 @@ namespace Threax.IdServer.Repository
             }
             else
             {
-                mapper.Map<ClientInput, IdentityServer4.EntityFramework.Entities.Client>(value, existing);
+                mapper.Map<ClientInput, Client>(value, existing);
                 existing.ClientSecrets.Clear();
                 existing.ClientSecrets.Add(new ClientSecret()
                 {
@@ -208,12 +208,12 @@ namespace Threax.IdServer.Repository
             await configDb.SaveChangesAsync();
         }
 
-        private Task<IdentityServer4.EntityFramework.Entities.Client> GetFullClientEntity(int id)
+        private Task<Client> GetFullClientEntity(int id)
         {
             return SelectFullEntity().Where(i => i.Id == id).FirstOrDefaultAsync();
         }
 
-        private IQueryable<IdentityServer4.EntityFramework.Entities.Client> SelectFullEntity()
+        private IQueryable<Client> SelectFullEntity()
         {
             return configDb.Clients
                             .Include(i => i.RedirectUris)

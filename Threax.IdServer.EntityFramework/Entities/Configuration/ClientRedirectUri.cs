@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
-namespace IdentityServer4.EntityFramework.Entities
+namespace Threax.IdServer.EntityFramework.Entities
 {
     [Table("ClientRedirectUri")]
     public class ClientRedirectUri

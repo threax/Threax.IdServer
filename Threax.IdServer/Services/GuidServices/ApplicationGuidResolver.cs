@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
-using IdentityServer4.EntityFramework.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Threax.IdServer.Areas.Api.Models;
+using Threax.IdServer.EntityFramework.Entities;
 
 namespace Threax.IdServer.Services
 {
-    public class ApplicationGuidResolver : IValueResolver<IdentityServer4.EntityFramework.Entities.Client, ClientEditModel, Guid>
+    public class ApplicationGuidResolver : IValueResolver<Client, ClientEditModel, Guid>
     {
         private IApplicationGuidFactory guidFactory;
 
@@ -17,7 +14,7 @@ namespace Threax.IdServer.Services
             this.guidFactory = guidFactory;
         }
 
-        public Guid Resolve(IdentityServer4.EntityFramework.Entities.Client source, ClientEditModel destination, Guid destMember, ResolutionContext context)
+        public Guid Resolve(Client source, ClientEditModel destination, Guid destMember, ResolutionContext context)
         {
             return guidFactory.CreateGuid(source);
         }
