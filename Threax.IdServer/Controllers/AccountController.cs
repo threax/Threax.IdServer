@@ -68,18 +68,7 @@ namespace IdentityServer4.Quickstart.UI.Controllers
                 if (result.Succeeded)
                 {
                     var user = await userManager.FindByNameAsync(model.Email);
-                    var claims = new List<Claim>();
-
-                    //Setup claims for user
-                    claims.Add(new Claim("sub", user.Id.ToString()));
-                    claims.Add(new Claim("username", user.UserName));
-
-                    // issue authentication cookie for user
-                    var provider = await schemeProvider.GetDefaultAuthenticateSchemeAsync();
-                    var claimsIdentity = new ClaimsIdentity(claims, provider.Name, "username", ClaimsIdentity.DefaultRoleClaimType);
-                    var principal = new ClaimsPrincipal(claimsIdentity);
-
-                    await HttpContext.SignInAsync(provider.Name, principal);
+                    await SignInUser(user);
 
                     //Redirect
                     logger.LogInformation(1, "User logged in.");
@@ -131,7 +120,7 @@ namespace IdentityServer4.Quickstart.UI.Controllers
                     //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     //await emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
-                    await signInManager.SignInAsync(user, isPersistent: false);
+                    await SignInUser(user);
                     logger.LogInformation("User created a new account with password.");
                     return RedirectToLocal(returnUrl);
                 }
@@ -181,6 +170,22 @@ namespace IdentityServer4.Quickstart.UI.Controllers
         public IActionResult AccessToken()
         {
             return new EmptyResult();
+        }
+
+        private async Task SignInUser(ApplicationUser user)
+        {
+            var claims = new List<Claim>();
+
+            //Setup claims for user
+            claims.Add(new Claim("sub", user.Id.ToString()));
+            claims.Add(new Claim("username", user.UserName));
+
+            // issue authentication cookie for user
+            var provider = await schemeProvider.GetDefaultAuthenticateSchemeAsync();
+            var claimsIdentity = new ClaimsIdentity(claims, provider.Name, "username", ClaimsIdentity.DefaultRoleClaimType);
+            var principal = new ClaimsPrincipal(claimsIdentity);
+
+            await HttpContext.SignInAsync(provider.Name, principal);
         }
     }
 }
