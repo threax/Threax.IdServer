@@ -449,7 +449,7 @@ namespace Threax.IdServer.Controllers
         }
 
         [ActionName(nameof(LoggedOut)), HttpPost("~/connect/logout"), ValidateAntiForgeryToken]
-        public async Task<IActionResult> LoggedOut()
+        public IActionResult LoggedOut()
         {
             //This displays the page with the iframe on it that actually logs the user out
             HttpContext.Response.Cookies.Append(AllowLogout, AllowLogoutTrue, new CookieOptions()

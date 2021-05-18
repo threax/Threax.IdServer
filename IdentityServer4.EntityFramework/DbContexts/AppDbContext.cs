@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using Threax.AspNetCore.Models;
 using Threax.AspNetCore.UserBuilder.Entities;
 
 namespace Threax.IdServer.Data

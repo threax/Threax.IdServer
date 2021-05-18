@@ -1,4 +1,4 @@
-﻿using IdentityServer4.EntityFramework.DbContexts;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
@@ -15,7 +15,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Threading.Tasks;
 using Threax.AspNetCore.BuiltInTools;
 using Threax.AspNetCore.CorsManager;
 using Threax.AspNetCore.Halcyon.ClientGen;
@@ -32,7 +31,6 @@ using Threax.IdServer.Models;
 using Threax.IdServer.Repository;
 using Threax.IdServer.Services;
 using Threax.IdServer.ToolControllers;
-using Threax.Sqlite.Ext.EfCore3;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace Threax.IdServer
@@ -104,9 +102,16 @@ namespace Threax.IdServer
 
             services.UseAppDatabase(appConfig.ConnectionString);
 
+            //Setup the mapper
+            var mapperConfig = AppDatabaseServiceExtensions.SetupMappings();
+            services.AddScoped<IMapper>(s => mapperConfig.CreateMapper(s.GetRequiredService));
+
+            //Setup repositories
+            services.ConfigureReflectedServices(typeof(AppDatabaseServiceExtensions).GetTypeInfo().Assembly);
+
             services.AddDbContext<UsersDbContext>(options =>
             {
-                options.UseSqlite(appConfig.ConnectionString);
+                options.UseConnectedDb(appConfig.ConnectionString);
             });
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<UsersDbContext>()
@@ -120,14 +125,12 @@ namespace Threax.IdServer
                 {
                     o.SetupConfigurationDbContext = c =>
                     {
-                        c.UseSqlite(appConfig.ConfigurationConnectionString ?? appConfig.ConnectionString,
-                            o => o.MigrationsAssembly(typeof(Startup).Assembly.GetName().Name));
+                        c.UseConnectedDb(appConfig.ConfigurationConnectionString ?? appConfig.ConnectionString);
                     };
 
                     o.SetupOperationDbContext = c =>
                     {
-                        c.UseSqlite(appConfig.OperationalConnectionString ?? appConfig.ConnectionString,
-                            o => o.MigrationsAssembly(typeof(Startup).Assembly.GetName().Name));
+                        c.UseConnectedDb(appConfig.OperationalConnectionString ?? appConfig.ConnectionString);
                     };
                 });
             })

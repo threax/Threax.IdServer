@@ -49,47 +49,15 @@ namespace Threax.IdServer.Data
         /// <returns></returns>
         public static IServiceCollection UseAppDatabase(this IServiceCollection services, string connectionString)
         {
-            SqliteFileExtensions.TryCreateFile(connectionString);
-
-            TryCreateFile(connectionString);
 
             //Add the database
             services.AddAuthorizationDatabase<AppDbContext>()
                 .AddDbContext<AppDbContext>(o =>
                 {
-                    o.UseSqlite(connectionString);
+                    o.UseConnectedDb(connectionString);
                 });
 
-            //Setup the mapper
-            var mapperConfig = SetupMappings();
-            services.AddScoped<IMapper>(s => mapperConfig.CreateMapper(s.GetRequiredService));
-
-            //Setup repositories
-            services.ConfigureReflectedServices(typeof(AppDatabaseServiceExtensions).GetTypeInfo().Assembly);
-
             return services;
-        }
-
-        private static String DataSourceStart = "Data Source=";
-        private static char DataSourceEnd = ';';
-
-        private static void TryCreateFile(string connectionString)
-        {
-            if (connectionString.StartsWith(DataSourceStart) && connectionString.EndsWith(DataSourceEnd))
-            {
-                var file = connectionString.Substring(DataSourceStart.Length);
-                file = file.TrimEnd(DataSourceEnd);
-                file = Path.GetFullPath(file);
-                if (!File.Exists(file))
-                {
-                    var dir = Path.GetDirectoryName(file);
-                    if (!Directory.Exists(dir))
-                    {
-                        Directory.CreateDirectory(dir);
-                    }
-                    File.Create(file);
-                }
-            }
         }
 
         /// <summary>
