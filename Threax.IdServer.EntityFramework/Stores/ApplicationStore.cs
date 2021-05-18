@@ -50,12 +50,12 @@ namespace IdentityServer4.EntityFramework.Stores
             return await query(dbContext.Clients.AsNoTracking()).CountAsync(cancellationToken);
         }
 
-        public async ValueTask CreateAsync(Client application, CancellationToken cancellationToken)
+        public ValueTask CreateAsync(Client application, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public async ValueTask DeleteAsync(Client application, CancellationToken cancellationToken)
+        public ValueTask DeleteAsync(Client application, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
@@ -98,9 +98,9 @@ namespace IdentityServer4.EntityFramework.Stores
             return await query(dbContext.Clients.AsNoTracking(), state).FirstOrDefaultAsync(cancellationToken);
         }
 
-        public async ValueTask<string> GetClientIdAsync(Client application, CancellationToken cancellationToken)
+        public ValueTask<string> GetClientIdAsync(Client application, CancellationToken cancellationToken)
         {
-            return application.ClientId;
+            return ValueTask.FromResult(application.ClientId);
         }
 
         public async ValueTask<string> GetClientSecretAsync(Client application, CancellationToken cancellationToken)
@@ -114,19 +114,19 @@ namespace IdentityServer4.EntityFramework.Stores
             return secret;
         }
 
-        public async ValueTask<string> GetClientTypeAsync(Client application, CancellationToken cancellationToken)
+        public ValueTask<string> GetClientTypeAsync(Client application, CancellationToken cancellationToken)
         {
-            return ClientTypes.Confidential;
+            return ValueTask.FromResult(ClientTypes.Confidential);
         }
 
-        public async ValueTask<string> GetConsentTypeAsync(Client application, CancellationToken cancellationToken)
+        public ValueTask<string> GetConsentTypeAsync(Client application, CancellationToken cancellationToken)
         {
-            return ConsentTypes.Implicit;
+            return ValueTask.FromResult(ConsentTypes.Implicit);
         }
 
-        public async ValueTask<string> GetDisplayNameAsync(Client application, CancellationToken cancellationToken)
+        public ValueTask<string> GetDisplayNameAsync(Client application, CancellationToken cancellationToken)
         {
-            return application.Name;
+            return ValueTask.FromResult(application.Name);
         }
 
         public ValueTask<ImmutableDictionary<CultureInfo, string>> GetDisplayNamesAsync(Client application, CancellationToken cancellationToken)
@@ -136,9 +136,9 @@ namespace IdentityServer4.EntityFramework.Stores
             return ValueTask.FromResult(builder.ToImmutable());
         }
 
-        public async ValueTask<string> GetIdAsync(Client application, CancellationToken cancellationToken)
+        public ValueTask<string> GetIdAsync(Client application, CancellationToken cancellationToken)
         {
-            return application.Id.ToString();
+            return ValueTask.FromResult(application.Id.ToString());
         }
 
         public async ValueTask<ImmutableArray<string>> GetPermissionsAsync(Client application, CancellationToken cancellationToken)
@@ -225,62 +225,62 @@ namespace IdentityServer4.EntityFramework.Stores
             return query(dbContext.Clients.AsNoTracking(), state).AsAsyncEnumerable();
         }
 
-        public async ValueTask SetClientIdAsync(Client application, string identifier, CancellationToken cancellationToken)
+        public ValueTask SetClientIdAsync(Client application, string identifier, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public async ValueTask SetClientSecretAsync(Client application, string secret, CancellationToken cancellationToken)
+        public ValueTask SetClientSecretAsync(Client application, string secret, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public async ValueTask SetClientTypeAsync(Client application, string type, CancellationToken cancellationToken)
+        public ValueTask SetClientTypeAsync(Client application, string type, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public async ValueTask SetConsentTypeAsync(Client application, string type, CancellationToken cancellationToken)
+        public ValueTask SetConsentTypeAsync(Client application, string type, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public async ValueTask SetDisplayNameAsync(Client application, string name, CancellationToken cancellationToken)
+        public ValueTask SetDisplayNameAsync(Client application, string name, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public async ValueTask SetDisplayNamesAsync(Client application, ImmutableDictionary<CultureInfo, string> names, CancellationToken cancellationToken)
+        public ValueTask SetDisplayNamesAsync(Client application, ImmutableDictionary<CultureInfo, string> names, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public async ValueTask SetPermissionsAsync(Client application, ImmutableArray<string> permissions, CancellationToken cancellationToken)
+        public ValueTask SetPermissionsAsync(Client application, ImmutableArray<string> permissions, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public async ValueTask SetPostLogoutRedirectUrisAsync(Client application, ImmutableArray<string> addresses, CancellationToken cancellationToken)
+        public ValueTask SetPostLogoutRedirectUrisAsync(Client application, ImmutableArray<string> addresses, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public async ValueTask SetPropertiesAsync(Client application, ImmutableDictionary<string, JsonElement> properties, CancellationToken cancellationToken)
+        public ValueTask SetPropertiesAsync(Client application, ImmutableDictionary<string, JsonElement> properties, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public async ValueTask SetRedirectUrisAsync(Client application, ImmutableArray<string> addresses, CancellationToken cancellationToken)
+        public ValueTask SetRedirectUrisAsync(Client application, ImmutableArray<string> addresses, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public async ValueTask SetRequirementsAsync(Client application, ImmutableArray<string> requirements, CancellationToken cancellationToken)
+        public ValueTask SetRequirementsAsync(Client application, ImmutableArray<string> requirements, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public async ValueTask UpdateAsync(Client application, CancellationToken cancellationToken)
+        public ValueTask UpdateAsync(Client application, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

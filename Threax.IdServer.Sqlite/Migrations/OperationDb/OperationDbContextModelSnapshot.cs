@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Threax.IdServer.Migrations.OperationDb
+namespace Threax.IdServer.SqLite.Migrations.OperationDb
 {
     [DbContext(typeof(OperationDbContext))]
     partial class OperationDbContextModelSnapshot : ModelSnapshot

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Threax.IdServer.Migrations
+namespace Threax.IdServer.SqLite.Migrations
 {
     public partial class unique : Migration
     {

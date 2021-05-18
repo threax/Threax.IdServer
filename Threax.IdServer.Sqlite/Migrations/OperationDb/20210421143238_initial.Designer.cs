@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Threax.IdServer.Migrations.OperationDb
+namespace Threax.IdServer.SqLite.Migrations.OperationDb
 {
     [DbContext(typeof(OperationDbContext))]
     [Migration("20210421143238_initial")]

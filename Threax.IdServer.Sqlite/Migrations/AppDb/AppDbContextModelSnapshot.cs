@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using Threax.IdServer.Data;
 
-namespace Threax.IdServer.Migrations.AppDb
+namespace Threax.IdServer.SqLite.Migrations.AppDb
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot

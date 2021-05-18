@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Threax.IdServer.Migrations.UsersDb
+namespace Threax.IdServer.SqLite.Migrations.UsersDb
 {
     public partial class initial : Migration
     {

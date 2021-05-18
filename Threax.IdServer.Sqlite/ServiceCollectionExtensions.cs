@@ -9,13 +9,15 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
+        class AssemblyRefClass { }
+
         public static DbContextOptionsBuilder UseConnectedDb(this DbContextOptionsBuilder options, String connectionString)
         {
             SqliteFileExtensions.TryCreateFile(connectionString);
 
             options.UseSqlite(connectionString, o =>
             {
-                o.MigrationsAssembly(typeof(ServiceCollectionExtensions).Assembly.GetName().Name);
+                o.MigrationsAssembly(typeof(AssemblyRefClass).Assembly.GetName().Name);
             });
 
             return options;

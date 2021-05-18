@@ -214,9 +214,9 @@ namespace IdentityServer4.EntityFramework.Stores
             // entities in a single command without having to retrieve and materialize them first.
             // To work around this limitation, entities are manually listed and deleted using a batch logic.
 
-            List<Exception>? exceptions = null;
+            List<Exception> exceptions = null;
 
-            async ValueTask<IDbContextTransaction?> CreateTransactionAsync()
+            async ValueTask<IDbContextTransaction> CreateTransactionAsync()
             {
                 // Note: transactions that specify an explicit isolation level are only supported by
                 // relational providers and trying to use them with a different provider results in

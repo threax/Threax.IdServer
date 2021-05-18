@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Threax.IdServer.Migrations.OperationDb
+namespace Threax.IdServer.SqLite.Migrations.OperationDb
 {
     public partial class initial : Migration
     {

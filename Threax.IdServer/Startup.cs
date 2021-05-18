@@ -257,12 +257,7 @@ namespace Threax.IdServer
                     var json = await Configuration.CreateSchema();
                     await File.WriteAllTextAsync("appsettings.schema.json", json);
                 }))
-                .AddTool("purgeRefreshTokens", new ToolCommand("Remove all the refresh tokens.", async a =>
-                {
-                    //var grantsDb = a.Scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>();
-                    //grantsDb.PersistedGrants.RemoveRange(grantsDb.PersistedGrants);
-                    //await grantsDb.SaveChangesAsync();
-                }))
+                .AddTool("purgeRefreshTokens", new ToolCommand("Remove all the refresh tokens.", a => a.Scope.PurgeOperationDb()))
                 .AddTool("createCert", new ToolCommand("Create a self signed ssl cert. Also good as an id server signing cert. Include a common name as the 1st argument and the number of years until expiration as the 2nd and a filename as the 3rd.", async a =>
                 {
                     var toolController = a.Scope.ServiceProvider.GetRequiredService<CreateCertToolController>();

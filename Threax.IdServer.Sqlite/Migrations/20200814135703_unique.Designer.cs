@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Threax.IdServer.Migrations
+namespace Threax.IdServer.SqLite.Migrations
 {
     [DbContext(typeof(ConfigurationDbContext))]
     [Migration("20200814135703_unique")]

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using Threax.IdServer.Data;
 
-namespace Threax.IdServer.Migrations.UsersDb
+namespace Threax.IdServer.SqLite.Migrations.UsersDb
 {
     [DbContext(typeof(UsersDbContext))]
     [Migration("20180218150217_initial")]
