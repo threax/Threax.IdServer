@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using OpenIddict.Abstractions;
 using System;
@@ -15,32 +16,42 @@ namespace Threax.IdServer.Extensions
 {
     public static class OpenIddictExtensions
     {
-        public static OpenIddictServerBuilder AddCertificate(this OpenIddictServerBuilder options, String thumbprint)
+        public static OpenIddictServerBuilder AddCertificate(this OpenIddictServerBuilder options, String thumbprint, IConfiguration configuration)
         {
-            var cert = Load(thumbprint);
+            var cert = Load(thumbprint, configuration);
             options.AddEncryptionCertificate(cert);
             options.AddSigningCertificate(cert);
             return options;
         }
 
-        private static X509Certificate2 Load(string thumbprint)
+        private static X509Certificate2 Load(string thumbprint, IConfiguration configuration)
         {
             if (File.Exists(thumbprint))
             {
                 return new X509Certificate2(thumbprint);
             }
-            else
+            else if (configuration[thumbprint] != null)
             {
-                var store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
-                store.Open(OpenFlags.ReadOnly);
-                var cert = store.Certificates.OfType<X509Certificate2>().FirstOrDefault(i => thumbprint.Equals(i.Thumbprint, System.StringComparison.OrdinalIgnoreCase));
-                if (cert == null)
+                var certStr = configuration[thumbprint];
+                if (certStr != null)
                 {
-                    throw new InvalidOperationException($"Cannot find token certificate with thumbprint {thumbprint} in the Local Computer's Personal Certificate Store.");
+                    var pfxBytes = Convert.FromBase64String(certStr);
+                    var x509Cert = new X509Certificate2(pfxBytes, (string)null, X509KeyStorageFlags.MachineKeySet);
+                    return x509Cert;
                 }
-
-                return cert;
+                else
+                {
+                    var store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
+                    store.Open(OpenFlags.ReadOnly);
+                    var cert = store.Certificates.OfType<X509Certificate2>().FirstOrDefault(i => thumbprint.Equals(i.Thumbprint, System.StringComparison.OrdinalIgnoreCase));
+                    if (cert != null)
+                    {
+                        return cert;
+                    }
+                }
             }
+
+            throw new InvalidOperationException($"Cannot find token certificate with thumbprint '{thumbprint}'. Searched the file system, in the configuration and in the Local Computer's Personal Certificate Store.");
         }
 
         public static OpenIddictServerBuilder AddCustomClaims(this OpenIddictServerBuilder options)

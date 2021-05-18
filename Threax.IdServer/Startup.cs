@@ -159,10 +159,10 @@ namespace Threax.IdServer
                 options.RegisterScopes(Scopes.Profile);
 
                 // Register the signing and encryption credentials.
-                options.AddCertificate(appConfig.SigningCredentialCertThumb);
+                options.AddCertificate(appConfig.SigningCredentialCertThumb, Configuration);
                 if (!string.IsNullOrEmpty(appConfig.RolloverCertThumb))
                 {
-                    options.AddCertificate(appConfig.RolloverCertThumb);
+                    options.AddCertificate(appConfig.RolloverCertThumb, Configuration);
                 }
 
                 // Force client applications to use Proof Key for Code Exchange (PKCE).

@@ -60,13 +60,15 @@ namespace Threax.IdServer
 
         /// <summary>
         /// The server signing credentials certififcate thumbprint. Must be stored in LocalMachine -> My.
-        /// It can also be a file on the filesystem.
+        /// It can also be a file on the filesystem or the name of a key in the configuration holding a base64 version of the cert.
+        /// Search order is filesystem, config, machine storage.
         /// </summary>
         public string SigningCredentialCertThumb { get; set; }
 
         /// <summary>
         /// The server rollover certififcate thumbprint. Must be stored in LocalMachine -> My.
-        /// It can also be a file on the filesystem.
+        /// It can also be a file on the filesystem or the name of a key in the configuration holding a base64 version of the cert.
+        /// Search order is filesystem, config, machine storage.
         /// </summary>
         public string RolloverCertThumb { get; set; }
 
