@@ -13,7 +13,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.IdServer.Sqlite", "T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.IdServer.EntityFramework", "Threax.IdServer.EntityFramework\Threax.IdServer.EntityFramework.csproj", "{9E840484-A9E5-47D8-A686-6FA6E493690C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Threax.IdServer.SqlServer", "Threax.IdServer.SqlServer\Threax.IdServer.SqlServer.csproj", "{9567C7A6-2DB5-46F3-B322-3E4C3E527F81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.IdServer.SqlServer", "Threax.IdServer.SqlServer\Threax.IdServer.SqlServer.csproj", "{9567C7A6-2DB5-46F3-B322-3E4C3E527F81}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EEAF7182-DD1A-4421-AEFC-88D627690C8D}"
+	ProjectSection(SolutionItems) = preProject
+		Readme.md = Readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
