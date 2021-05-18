@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +6,6 @@ using System.Threading.Tasks;
 using Threax.AspNetCore.Halcyon.Ext;
 using Threax.IdServer.EntityFramework.DbContexts;
 using Threax.IdServer.InputModels;
-using Threax.IdServer.Models;
 using Threax.IdServer.Models.Api;
 using Threax.IdServer.Services;
 
@@ -16,24 +13,15 @@ namespace Threax.IdServer.Repository
 {
     public class IdServerUserRepository : IIdServerUserRepository
     {
-        private readonly UserManager<ApplicationUser> userManager;
-        private readonly SignInManager<ApplicationUser> signInManager;
-        private readonly ILogger logger;
         private readonly ConfigurationDbContext configDb;
-        private readonly Data.UsersDbContext userDb;
+        private readonly UsersDbContext userDb;
         private readonly IApplicationGuidFactory guidFactory;
 
         public IdServerUserRepository(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            ILoggerFactory loggerFactory,
             ConfigurationDbContext configDb, 
-            Data.UsersDbContext userDb, 
+            UsersDbContext userDb, 
             IApplicationGuidFactory guidFactory)
         {
-            this.userManager = userManager;
-            this.signInManager = signInManager;
-            this.logger = loggerFactory.CreateLogger<IdServerUserRepository>();
             this.configDb = configDb;
             this.userDb = userDb;
             this.guidFactory = guidFactory;

@@ -1,19 +1,15 @@
 ﻿using AutoMapper;
-using Threax.IdServer.EntityFramework.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Threax.AspNetCore.BuiltInTools;
-using Threax.AspNetCore.Models;
 using Threax.AspNetCore.UserBuilder.Entities;
-using Threax.Sqlite.Ext;
+using Threax.IdServer.EntityFramework.DbContexts;
 
-namespace Threax.IdServer.Data
+namespace Threax.IdServer.EntityFramework
 {
     public static class AppDatabaseServiceExtensions
     {
@@ -72,7 +68,7 @@ namespace Threax.IdServer.Data
 
         public static Task MigrateUserDb(this ToolArgs toolArgs)
         {
-            var context = toolArgs.Scope.ServiceProvider.GetRequiredService<UsersDbContext>();
+            var context = toolArgs.Scope.ServiceProvider.GetRequiredService<DbContexts.UsersDbContext>();
             return context.Database.MigrateAsync();
         }
 

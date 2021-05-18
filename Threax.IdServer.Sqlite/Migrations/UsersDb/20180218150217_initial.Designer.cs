@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
-using Threax.IdServer.Data;
+using Threax.IdServer.EntityFramework.DbContexts;
 
 namespace Threax.IdServer.SqLite.Migrations.UsersDb
 {
@@ -127,7 +127,7 @@ namespace Threax.IdServer.SqLite.Migrations.UsersDb
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Threax.IdServer.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Threax.IdServer.EntityFramework.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -187,7 +187,7 @@ namespace Threax.IdServer.SqLite.Migrations.UsersDb
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Threax.IdServer.Models.ApplicationUser")
+                    b.HasOne("Threax.IdServer.EntityFramework.Entities.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -195,7 +195,7 @@ namespace Threax.IdServer.SqLite.Migrations.UsersDb
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Threax.IdServer.Models.ApplicationUser")
+                    b.HasOne("Threax.IdServer.EntityFramework.Entities.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -208,7 +208,7 @@ namespace Threax.IdServer.SqLite.Migrations.UsersDb
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Threax.IdServer.Models.ApplicationUser")
+                    b.HasOne("Threax.IdServer.EntityFramework.Entities.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -216,7 +216,7 @@ namespace Threax.IdServer.SqLite.Migrations.UsersDb
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Threax.IdServer.Models.ApplicationUser")
+                    b.HasOne("Threax.IdServer.EntityFramework.Entities.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

@@ -1,4 +1,5 @@
 ﻿@using Threax.IdServer.Views.Manage
+@using Threax.IdServer.EntityFramework.Entities 
 @inject SignInManager<ApplicationUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();

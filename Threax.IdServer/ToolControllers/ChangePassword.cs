@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Threax.IdServer.Models;
+using Threax.IdServer.EntityFramework.Entities;
 
 namespace Threax.IdServer.ToolControllers
 {
