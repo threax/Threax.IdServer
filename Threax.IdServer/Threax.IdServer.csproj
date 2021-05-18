@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Threax.IdServer.LocalHost\Threax.IdServer.LocalHost.csproj" />
     <ProjectReference Include="..\Threax.IdServer.Sqlite\Threax.IdServer.Sqlite.csproj" />
   </ItemGroup>
 

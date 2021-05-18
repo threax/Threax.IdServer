@@ -70,15 +70,6 @@ namespace Threax.IdServer
                         config.AddJsonFile($"appsettings.{toolsConfigName}.json", optional: true);
                     }
 
-                    //./../appsettings.{environment}.json - Deployed settings file, loaded per environment, allows you to put the production configs 1 level above the site in produciton, which keeps that config separate from the code
-                    config.AddJsonFile(Path.GetFullPath($"../appsettings.{env.EnvironmentName}.json"), optional: true, reloadOnChange: true);
-
-                    //./../appsettings.tools.json - Deployed tools settings file, loaded in tools mode, allows you to put the production tools configs 1 level above the site in produciton, which keeps that config separate from the code
-                    if (toolsConfigName != null)
-                    {
-                        config.AddJsonFile(Path.GetFullPath($"../appsettings.{toolsConfigName}.json"), optional: true);
-                    }
-
                     //Secrets
                     if (File.Exists("appsettings.secrets.json"))
                     {
@@ -91,6 +82,8 @@ namespace Threax.IdServer
 
                     //Environment variables
                     config.AddEnvironmentVariables();
+
+                    config.UseConnectedConfig();
                 });
 
             return webHostBuilder.Build();
