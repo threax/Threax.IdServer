@@ -110,12 +110,12 @@ namespace Threax.IdServer
             //Setup repositories
             services.ConfigureReflectedServices(typeof(AppDatabaseServiceExtensions).GetTypeInfo().Assembly);
 
-            services.AddDbContext<UsersDbContext>(options =>
+            services.AddDbContext<IdentityUsersDbContext>(options =>
             {
                 options.UseConnectedDb(appConfig.ConnectionString);
             });
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<UsersDbContext>()
+                .AddEntityFrameworkStores<IdentityUsersDbContext>()
                 .AddDefaultTokenProviders();
 
             services.AddOpenIddict()

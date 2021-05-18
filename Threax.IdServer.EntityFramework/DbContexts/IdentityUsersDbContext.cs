@@ -4,9 +4,9 @@ using Threax.IdServer.EntityFramework.Entities;
 
 namespace Threax.IdServer.EntityFramework.DbContexts
 {
-    public class UsersDbContext : IdentityDbContext<ApplicationUser>
+    public class IdentityUsersDbContext : IdentityDbContext<ApplicationUser>
     {
-        public UsersDbContext(DbContextOptions<UsersDbContext> options)
+        public IdentityUsersDbContext(DbContextOptions<IdentityUsersDbContext> options)
             : base(options)
         {
         }

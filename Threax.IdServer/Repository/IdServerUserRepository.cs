@@ -14,12 +14,12 @@ namespace Threax.IdServer.Repository
     public class IdServerUserRepository : IIdServerUserRepository
     {
         private readonly ConfigurationDbContext configDb;
-        private readonly UsersDbContext userDb;
+        private readonly IdentityUsersDbContext userDb;
         private readonly IApplicationGuidFactory guidFactory;
 
         public IdServerUserRepository(
             ConfigurationDbContext configDb, 
-            UsersDbContext userDb, 
+            IdentityUsersDbContext userDb, 
             IApplicationGuidFactory guidFactory)
         {
             this.configDb = configDb;

@@ -99,6 +99,22 @@ namespace Threax.IdServer.ToolControllers
                 configContext.Clients.Add(client);
             }
 
+            var scope = await configContext.Scopes.FirstOrDefaultAsync(i => i.Name == "Threax.IdServer");
+            if(scope != null)
+            {
+                scope.DisplayName = "Threax.IdServer";
+            }
+            else
+            {
+                scope = new Scope()
+                {
+                    Name = "Threax.IdServer",
+                    DisplayName = "Threax.IdServer"
+                };
+
+                configContext.Scopes.Add(scope);
+            }
+
             await configContext.SaveChangesAsync();
 
             if (clientSecretFile != null)

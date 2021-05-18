@@ -10,11 +10,10 @@ using Threax.IdServer.EntityFramework.DbContexts;
 
 namespace Threax.IdServer.SqLite.Migrations.UsersDb
 {
-    [DbContext(typeof(UsersDbContext))]
-    [Migration("20180218150217_initial")]
-    partial class initial
+    [DbContext(typeof(IdentityUsersDbContext))]
+    partial class IdentityUsersDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -68,7 +68,7 @@ namespace Threax.IdServer.EntityFramework
 
         public static Task MigrateUserDb(this ToolArgs toolArgs)
         {
-            var context = toolArgs.Scope.ServiceProvider.GetRequiredService<DbContexts.UsersDbContext>();
+            var context = toolArgs.Scope.ServiceProvider.GetRequiredService<IdentityUsersDbContext>();
             return context.Database.MigrateAsync();
         }
 
