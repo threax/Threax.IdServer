@@ -42,9 +42,11 @@ namespace Threax.IdServer.EntityFramework
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="connectionString">The connection string for the database.</param>
+        /// <param name="schema">The name to set for the db schema.</param>
         /// <returns></returns>
-        public static IServiceCollection UseAppDatabase(this IServiceCollection services, string connectionString)
+        public static IServiceCollection UseAppDatabase(this IServiceCollection services, string connectionString, string schema)
         {
+            AppDbContext.SchemaName = schema;
 
             //Add the database
             services.AddAuthorizationDatabase<AppDbContext>()

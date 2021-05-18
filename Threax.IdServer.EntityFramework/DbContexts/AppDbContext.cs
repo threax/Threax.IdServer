@@ -10,7 +10,8 @@ namespace Threax.IdServer.EntityFramework.DbContexts
     /// </summary>
     public class AppDbContext : UsersDbContext
     {
-        public const String Schema = "id";
+        public static string SchemaName { get; set; } = "dbo"; //Keep this here, it is needed during ef tools runs
+                                                               //After creating a migration replace "dbo" with AppDbContext.SchemaName
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -20,7 +21,7 @@ namespace Threax.IdServer.EntityFramework.DbContexts
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.HasDefaultSchema(AppDbContext.Schema);
+            modelBuilder.HasDefaultSchema(AppDbContext.SchemaName);
         }
     }
 }

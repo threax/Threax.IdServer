@@ -15,7 +15,7 @@ namespace Threax.IdServer.EntityFramework.DbContexts
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.HasDefaultSchema(AppDbContext.Schema);
+            modelBuilder.HasDefaultSchema(AppDbContext.SchemaName);
         }
     }
 }

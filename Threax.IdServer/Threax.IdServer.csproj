@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Threax.IdServer.Sqlite\Threax.IdServer.Sqlite.csproj" />
+    <ProjectReference Include="..\Threax.IdServer.SqlServer\Threax.IdServer.SqlServer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

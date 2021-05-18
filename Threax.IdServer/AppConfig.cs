@@ -124,5 +124,10 @@ namespace Threax.IdServer
         /// Set this to true to ShowPII in the logs.
         /// </summary>
         public bool ShowPII { get; set; }
+
+        /// <summary>
+        /// Set the app db schema name.
+        /// </summary>
+        public string DbSchema { get; set; } = "dbo";
     }
 }

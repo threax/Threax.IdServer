@@ -101,7 +101,7 @@ namespace Threax.IdServer
                 }
             });
 
-            services.UseAppDatabase(appConfig.ConnectionString);
+            services.UseAppDatabase(appConfig.ConnectionString, appConfig.DbSchema);
 
             //Setup the mapper
             var mapperConfig = AppDatabaseServiceExtensions.SetupMappings();

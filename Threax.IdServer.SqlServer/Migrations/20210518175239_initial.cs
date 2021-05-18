@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Threax.IdServer.EntityFramework.DbContexts;
 
 namespace Threax.IdServer.SqlServer.Migrations
 {
@@ -8,11 +9,11 @@ namespace Threax.IdServer.SqlServer.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "id");
+                name: AppDbContext.SchemaName);
 
             migrationBuilder.CreateTable(
                 name: "Clients",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -30,7 +31,7 @@ namespace Threax.IdServer.SqlServer.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Scopes",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -45,7 +46,7 @@ namespace Threax.IdServer.SqlServer.Migrations
 
             migrationBuilder.CreateTable(
                 name: "ClientRedirectUri",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 columns: table => new
                 {
                     ClientRedirectUriId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -58,7 +59,7 @@ namespace Threax.IdServer.SqlServer.Migrations
                     table.ForeignKey(
                         name: "FK_ClientRedirectUri_Clients_ClientId",
                         column: x => x.ClientId,
-                        principalSchema: "id",
+                        principalSchema: AppDbContext.SchemaName,
                         principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -66,7 +67,7 @@ namespace Threax.IdServer.SqlServer.Migrations
 
             migrationBuilder.CreateTable(
                 name: "ClientScope",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 columns: table => new
                 {
                     ClientScopeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -79,7 +80,7 @@ namespace Threax.IdServer.SqlServer.Migrations
                     table.ForeignKey(
                         name: "FK_ClientScope_Clients_ClientId",
                         column: x => x.ClientId,
-                        principalSchema: "id",
+                        principalSchema: AppDbContext.SchemaName,
                         principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -87,7 +88,7 @@ namespace Threax.IdServer.SqlServer.Migrations
 
             migrationBuilder.CreateTable(
                 name: "ClientSecret",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 columns: table => new
                 {
                     ClientSecretId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -100,7 +101,7 @@ namespace Threax.IdServer.SqlServer.Migrations
                     table.ForeignKey(
                         name: "FK_ClientSecret_Clients_ClientId",
                         column: x => x.ClientId,
-                        principalSchema: "id",
+                        principalSchema: AppDbContext.SchemaName,
                         principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -108,13 +109,13 @@ namespace Threax.IdServer.SqlServer.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClientRedirectUri_ClientId",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 table: "ClientRedirectUri",
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Clients_ClientId",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 table: "Clients",
                 column: "ClientId",
                 unique: true,
@@ -122,19 +123,19 @@ namespace Threax.IdServer.SqlServer.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClientScope_ClientId",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 table: "ClientScope",
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClientSecret_ClientId",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 table: "ClientSecret",
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Scopes_Name",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 table: "Scopes",
                 column: "Name",
                 unique: true,
@@ -145,23 +146,23 @@ namespace Threax.IdServer.SqlServer.Migrations
         {
             migrationBuilder.DropTable(
                 name: "ClientRedirectUri",
-                schema: "id");
+                schema: AppDbContext.SchemaName);
 
             migrationBuilder.DropTable(
                 name: "ClientScope",
-                schema: "id");
+                schema: AppDbContext.SchemaName);
 
             migrationBuilder.DropTable(
                 name: "ClientSecret",
-                schema: "id");
+                schema: AppDbContext.SchemaName);
 
             migrationBuilder.DropTable(
                 name: "Scopes",
-                schema: "id");
+                schema: AppDbContext.SchemaName);
 
             migrationBuilder.DropTable(
                 name: "Clients",
-                schema: "id");
+                schema: AppDbContext.SchemaName);
         }
     }
 }

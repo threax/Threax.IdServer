@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Threax.IdServer.EntityFramework.DbContexts;
 
 namespace Threax.IdServer.SqlServer.Migrations.OperationDb
 {
@@ -8,11 +9,11 @@ namespace Threax.IdServer.SqlServer.Migrations.OperationDb
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "id");
+                name: AppDbContext.SchemaName);
 
             migrationBuilder.CreateTable(
                 name: "Authorizations",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 columns: table => new
                 {
                     AuthorizationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -31,7 +32,7 @@ namespace Threax.IdServer.SqlServer.Migrations.OperationDb
 
             migrationBuilder.CreateTable(
                 name: "Tokens",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 columns: table => new
                 {
                     TokenId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -52,7 +53,7 @@ namespace Threax.IdServer.SqlServer.Migrations.OperationDb
                     table.ForeignKey(
                         name: "FK_Tokens_Authorizations_AuthorizationId",
                         column: x => x.AuthorizationId,
-                        principalSchema: "id",
+                        principalSchema: AppDbContext.SchemaName,
                         principalTable: "Authorizations",
                         principalColumn: "AuthorizationId",
                         onDelete: ReferentialAction.Restrict);
@@ -60,7 +61,7 @@ namespace Threax.IdServer.SqlServer.Migrations.OperationDb
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tokens_AuthorizationId",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 table: "Tokens",
                 column: "AuthorizationId");
         }
@@ -69,11 +70,11 @@ namespace Threax.IdServer.SqlServer.Migrations.OperationDb
         {
             migrationBuilder.DropTable(
                 name: "Tokens",
-                schema: "id");
+                schema: AppDbContext.SchemaName);
 
             migrationBuilder.DropTable(
                 name: "Authorizations",
-                schema: "id");
+                schema: AppDbContext.SchemaName);
         }
     }
 }

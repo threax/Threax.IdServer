@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Threax.IdServer.EntityFramework.DbContexts;
 
 namespace Threax.IdServer.SqlServer.Migrations.IdentityUsersDb
 {
@@ -8,11 +9,11 @@ namespace Threax.IdServer.SqlServer.Migrations.IdentityUsersDb
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "id");
+                name: AppDbContext.SchemaName);
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -27,7 +28,7 @@ namespace Threax.IdServer.SqlServer.Migrations.IdentityUsersDb
 
             migrationBuilder.CreateTable(
                 name: "AspNetUsers",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -53,7 +54,7 @@ namespace Threax.IdServer.SqlServer.Migrations.IdentityUsersDb
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -68,7 +69,7 @@ namespace Threax.IdServer.SqlServer.Migrations.IdentityUsersDb
                     table.ForeignKey(
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
-                        principalSchema: "id",
+                        principalSchema: AppDbContext.SchemaName,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -76,7 +77,7 @@ namespace Threax.IdServer.SqlServer.Migrations.IdentityUsersDb
 
             migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -91,7 +92,7 @@ namespace Threax.IdServer.SqlServer.Migrations.IdentityUsersDb
                     table.ForeignKey(
                         name: "FK_AspNetUserClaims_AspNetUsers_UserId",
                         column: x => x.UserId,
-                        principalSchema: "id",
+                        principalSchema: AppDbContext.SchemaName,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -99,7 +100,7 @@ namespace Threax.IdServer.SqlServer.Migrations.IdentityUsersDb
 
             migrationBuilder.CreateTable(
                 name: "AspNetUserLogins",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 columns: table => new
                 {
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -113,7 +114,7 @@ namespace Threax.IdServer.SqlServer.Migrations.IdentityUsersDb
                     table.ForeignKey(
                         name: "FK_AspNetUserLogins_AspNetUsers_UserId",
                         column: x => x.UserId,
-                        principalSchema: "id",
+                        principalSchema: AppDbContext.SchemaName,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -121,7 +122,7 @@ namespace Threax.IdServer.SqlServer.Migrations.IdentityUsersDb
 
             migrationBuilder.CreateTable(
                 name: "AspNetUserRoles",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -133,14 +134,14 @@ namespace Threax.IdServer.SqlServer.Migrations.IdentityUsersDb
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
                         column: x => x.RoleId,
-                        principalSchema: "id",
+                        principalSchema: AppDbContext.SchemaName,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
-                        principalSchema: "id",
+                        principalSchema: AppDbContext.SchemaName,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -148,7 +149,7 @@ namespace Threax.IdServer.SqlServer.Migrations.IdentityUsersDb
 
             migrationBuilder.CreateTable(
                 name: "AspNetUserTokens",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -162,7 +163,7 @@ namespace Threax.IdServer.SqlServer.Migrations.IdentityUsersDb
                     table.ForeignKey(
                         name: "FK_AspNetUserTokens_AspNetUsers_UserId",
                         column: x => x.UserId,
-                        principalSchema: "id",
+                        principalSchema: AppDbContext.SchemaName,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -170,13 +171,13 @@ namespace Threax.IdServer.SqlServer.Migrations.IdentityUsersDb
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 table: "AspNetRoleClaims",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 table: "AspNetRoles",
                 column: "NormalizedName",
                 unique: true,
@@ -184,31 +185,31 @@ namespace Threax.IdServer.SqlServer.Migrations.IdentityUsersDb
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 table: "AspNetUserClaims",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserLogins_UserId",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 table: "AspNetUserLogins",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserRoles_RoleId",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 table: "AspNetUserRoles",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
-                schema: "id",
+                schema: AppDbContext.SchemaName,
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true,
@@ -219,31 +220,31 @@ namespace Threax.IdServer.SqlServer.Migrations.IdentityUsersDb
         {
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims",
-                schema: "id");
+                schema: AppDbContext.SchemaName);
 
             migrationBuilder.DropTable(
                 name: "AspNetUserClaims",
-                schema: "id");
+                schema: AppDbContext.SchemaName);
 
             migrationBuilder.DropTable(
                 name: "AspNetUserLogins",
-                schema: "id");
+                schema: AppDbContext.SchemaName);
 
             migrationBuilder.DropTable(
                 name: "AspNetUserRoles",
-                schema: "id");
+                schema: AppDbContext.SchemaName);
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens",
-                schema: "id");
+                schema: AppDbContext.SchemaName);
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles",
-                schema: "id");
+                schema: AppDbContext.SchemaName);
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers",
-                schema: "id");
+                schema: AppDbContext.SchemaName);
         }
     }
 }
