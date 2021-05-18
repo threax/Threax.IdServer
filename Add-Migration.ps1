@@ -11,7 +11,7 @@ function Test-Error([string] $msg, [int] $code = 0){
     }
 }
 
-Push-Location "$scriptPath/Threax.IdServer.Sqlite"
+Push-Location "$scriptPath/Threax.IdServer.Db.Sqlite"
 
 dotnet ef migrations add -c ConfigurationDbContext $migrationName; Test-Error "Error updating db context"
 dotnet ef migrations add -c OperationDbContext $migrationName; Test-Error "Error updating db context"
@@ -21,7 +21,7 @@ dotnet ef migrations add -c IdentityUsersDbContext $migrationName; Test-Error "E
 Pop-Location
 
 
-Push-Location "$scriptPath/Threax.IdServer.SqlServer"
+Push-Location "$scriptPath/Threax.IdServer.Db.SqlServer"
 
 dotnet ef migrations add -c ConfigurationDbContext $migrationName; Test-Error "Error updating db context"
 dotnet ef migrations add -c OperationDbContext $migrationName; Test-Error "Error updating db context"
