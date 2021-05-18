@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.IdServer.Sqlite", "T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.IdServer.EntityFramework", "Threax.IdServer.EntityFramework\Threax.IdServer.EntityFramework.csproj", "{9E840484-A9E5-47D8-A686-6FA6E493690C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Threax.IdServer.SqlServer", "Threax.IdServer.SqlServer\Threax.IdServer.SqlServer.csproj", "{9567C7A6-2DB5-46F3-B322-3E4C3E527F81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{9E840484-A9E5-47D8-A686-6FA6E493690C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E840484-A9E5-47D8-A686-6FA6E493690C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E840484-A9E5-47D8-A686-6FA6E493690C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9567C7A6-2DB5-46F3-B322-3E4C3E527F81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9567C7A6-2DB5-46F3-B322-3E4C3E527F81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9567C7A6-2DB5-46F3-B322-3E4C3E527F81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9567C7A6-2DB5-46F3-B322-3E4C3E527F81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

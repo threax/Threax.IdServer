@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Threax.IdServer.Sqlite\Threax.IdServer.Sqlite.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.5">
@@ -35,7 +39,7 @@
     <PackageReference Include="Threax.AspNetCore.Tracking" Version="2.0.4" />
     <PackageReference Include="Threax.AspNetCore.UrlFix" Version="1.1.5" />
     <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities.Mvc" Version="7.0.0" />
-    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities" Version="6.0.0" />
+    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities" Version="6.0.1-pre01" />
     <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="5.0.0" />
     <PackageReference Include="Threax.AspNetCore.Validators" Version="2.0.2" />
     <PackageReference Include="Threax.ReflectedServices" Version="1.0.1" />
@@ -51,7 +55,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Threax.IdServer.EntityFramework\Threax.IdServer.EntityFramework.csproj" />
-    <ProjectReference Include="..\Threax.IdServer.Sqlite\Threax.IdServer.Sqlite.csproj" />
   </ItemGroup>
 
 </Project>

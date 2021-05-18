@@ -19,7 +19,7 @@
     <PackageReference Include="Threax.AspNetCore.Mvc.CacheUi" Version="3.0.2" />
     <PackageReference Include="Threax.AspNetCore.UrlFix" Version="1.1.5" />
     <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="5.0.0" />
-    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities" Version="6.0.0" />
+    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities" Version="6.0.1-pre01" />
     <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities.Mvc" Version="7.0.0" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="14.4.1" />
     <PackageReference Include="Threax.AspNetCore.BuiltInTools" Version="5.3.1" />

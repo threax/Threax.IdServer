@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using Threax.AspNetCore.UserBuilder.Entities;
 
 namespace Threax.IdServer.EntityFramework.DbContexts
 {
@@ -7,7 +8,7 @@ namespace Threax.IdServer.EntityFramework.DbContexts
     /// By default the app db context extends the UsersDbContext from Authorization. 
     /// This gives it the Users, Roles and UsersToRoles tables.
     /// </summary>
-    public class AppDbContext : Threax.AspNetCore.UserBuilder.Entities.UsersDbContext
+    public class AppDbContext : UsersDbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
