@@ -15,6 +15,7 @@ namespace Threax.IdServer.SqlServer.Migrations.IdentityUsersDb
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("id")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);

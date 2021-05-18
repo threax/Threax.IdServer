@@ -14,5 +14,12 @@ namespace Threax.IdServer.EntityFramework.DbContexts
         public DbSet<Authorization> Authorizations { get; set; }
 
         public DbSet<Token> Tokens { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.HasDefaultSchema(AppDbContext.Schema);
+        }
     }
 }

@@ -7,8 +7,12 @@ namespace Threax.IdServer.SqlServer.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "id");
+
             migrationBuilder.CreateTable(
                 name: "Clients",
+                schema: "id",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -26,6 +30,7 @@ namespace Threax.IdServer.SqlServer.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Scopes",
+                schema: "id",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -40,6 +45,7 @@ namespace Threax.IdServer.SqlServer.Migrations
 
             migrationBuilder.CreateTable(
                 name: "ClientRedirectUri",
+                schema: "id",
                 columns: table => new
                 {
                     ClientRedirectUriId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -52,6 +58,7 @@ namespace Threax.IdServer.SqlServer.Migrations
                     table.ForeignKey(
                         name: "FK_ClientRedirectUri_Clients_ClientId",
                         column: x => x.ClientId,
+                        principalSchema: "id",
                         principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -59,6 +66,7 @@ namespace Threax.IdServer.SqlServer.Migrations
 
             migrationBuilder.CreateTable(
                 name: "ClientScope",
+                schema: "id",
                 columns: table => new
                 {
                     ClientScopeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -71,6 +79,7 @@ namespace Threax.IdServer.SqlServer.Migrations
                     table.ForeignKey(
                         name: "FK_ClientScope_Clients_ClientId",
                         column: x => x.ClientId,
+                        principalSchema: "id",
                         principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -78,6 +87,7 @@ namespace Threax.IdServer.SqlServer.Migrations
 
             migrationBuilder.CreateTable(
                 name: "ClientSecret",
+                schema: "id",
                 columns: table => new
                 {
                     ClientSecretId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -90,6 +100,7 @@ namespace Threax.IdServer.SqlServer.Migrations
                     table.ForeignKey(
                         name: "FK_ClientSecret_Clients_ClientId",
                         column: x => x.ClientId,
+                        principalSchema: "id",
                         principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -97,11 +108,13 @@ namespace Threax.IdServer.SqlServer.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClientRedirectUri_ClientId",
+                schema: "id",
                 table: "ClientRedirectUri",
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Clients_ClientId",
+                schema: "id",
                 table: "Clients",
                 column: "ClientId",
                 unique: true,
@@ -109,16 +122,19 @@ namespace Threax.IdServer.SqlServer.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClientScope_ClientId",
+                schema: "id",
                 table: "ClientScope",
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClientSecret_ClientId",
+                schema: "id",
                 table: "ClientSecret",
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Scopes_Name",
+                schema: "id",
                 table: "Scopes",
                 column: "Name",
                 unique: true,
@@ -128,19 +144,24 @@ namespace Threax.IdServer.SqlServer.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ClientRedirectUri");
+                name: "ClientRedirectUri",
+                schema: "id");
 
             migrationBuilder.DropTable(
-                name: "ClientScope");
+                name: "ClientScope",
+                schema: "id");
 
             migrationBuilder.DropTable(
-                name: "ClientSecret");
+                name: "ClientSecret",
+                schema: "id");
 
             migrationBuilder.DropTable(
-                name: "Scopes");
+                name: "Scopes",
+                schema: "id");
 
             migrationBuilder.DropTable(
-                name: "Clients");
+                name: "Clients",
+                schema: "id");
         }
     }
 }

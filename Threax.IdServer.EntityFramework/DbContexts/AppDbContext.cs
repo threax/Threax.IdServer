@@ -10,8 +10,17 @@ namespace Threax.IdServer.EntityFramework.DbContexts
     /// </summary>
     public class AppDbContext : UsersDbContext
     {
+        public const String Schema = "id";
+
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.HasDefaultSchema(AppDbContext.Schema);
         }
     }
 }

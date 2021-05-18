@@ -7,8 +7,12 @@ namespace Threax.IdServer.SqlServer.Migrations.OperationDb
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "id");
+
             migrationBuilder.CreateTable(
                 name: "Authorizations",
+                schema: "id",
                 columns: table => new
                 {
                     AuthorizationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -27,6 +31,7 @@ namespace Threax.IdServer.SqlServer.Migrations.OperationDb
 
             migrationBuilder.CreateTable(
                 name: "Tokens",
+                schema: "id",
                 columns: table => new
                 {
                     TokenId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -47,6 +52,7 @@ namespace Threax.IdServer.SqlServer.Migrations.OperationDb
                     table.ForeignKey(
                         name: "FK_Tokens_Authorizations_AuthorizationId",
                         column: x => x.AuthorizationId,
+                        principalSchema: "id",
                         principalTable: "Authorizations",
                         principalColumn: "AuthorizationId",
                         onDelete: ReferentialAction.Restrict);
@@ -54,6 +60,7 @@ namespace Threax.IdServer.SqlServer.Migrations.OperationDb
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tokens_AuthorizationId",
+                schema: "id",
                 table: "Tokens",
                 column: "AuthorizationId");
         }
@@ -61,10 +68,12 @@ namespace Threax.IdServer.SqlServer.Migrations.OperationDb
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Tokens");
+                name: "Tokens",
+                schema: "id");
 
             migrationBuilder.DropTable(
-                name: "Authorizations");
+                name: "Authorizations",
+                schema: "id");
         }
     }
 }

@@ -7,8 +7,12 @@ namespace Threax.IdServer.SqlServer.Migrations.AppDb
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "id");
+
             migrationBuilder.CreateTable(
                 name: "spc.auth.Roles",
+                schema: "id",
                 columns: table => new
                 {
                     RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -21,6 +25,7 @@ namespace Threax.IdServer.SqlServer.Migrations.AppDb
 
             migrationBuilder.CreateTable(
                 name: "spc.auth.Users",
+                schema: "id",
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -33,6 +38,7 @@ namespace Threax.IdServer.SqlServer.Migrations.AppDb
 
             migrationBuilder.CreateTable(
                 name: "spc.auth.UsersToRoles",
+                schema: "id",
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -44,12 +50,14 @@ namespace Threax.IdServer.SqlServer.Migrations.AppDb
                     table.ForeignKey(
                         name: "FK_spc.auth.UsersToRoles_spc.auth.Roles_RoleId",
                         column: x => x.RoleId,
+                        principalSchema: "id",
                         principalTable: "spc.auth.Roles",
                         principalColumn: "RoleId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_spc.auth.UsersToRoles_spc.auth.Users_UserId",
                         column: x => x.UserId,
+                        principalSchema: "id",
                         principalTable: "spc.auth.Users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
@@ -57,6 +65,7 @@ namespace Threax.IdServer.SqlServer.Migrations.AppDb
 
             migrationBuilder.CreateIndex(
                 name: "IX_spc.auth.UsersToRoles_RoleId",
+                schema: "id",
                 table: "spc.auth.UsersToRoles",
                 column: "RoleId");
         }
@@ -64,13 +73,16 @@ namespace Threax.IdServer.SqlServer.Migrations.AppDb
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "spc.auth.UsersToRoles");
+                name: "spc.auth.UsersToRoles",
+                schema: "id");
 
             migrationBuilder.DropTable(
-                name: "spc.auth.Roles");
+                name: "spc.auth.Roles",
+                schema: "id");
 
             migrationBuilder.DropTable(
-                name: "spc.auth.Users");
+                name: "spc.auth.Users",
+                schema: "id");
         }
     }
 }

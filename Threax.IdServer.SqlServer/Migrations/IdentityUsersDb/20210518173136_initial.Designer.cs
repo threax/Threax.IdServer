@@ -10,13 +10,14 @@ using Threax.IdServer.EntityFramework.DbContexts;
 namespace Threax.IdServer.SqlServer.Migrations.IdentityUsersDb
 {
     [DbContext(typeof(IdentityUsersDbContext))]
-    [Migration("20210518152852_initial")]
+    [Migration("20210518173136_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("id")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);

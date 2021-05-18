@@ -53,6 +53,8 @@ namespace Threax.IdServer.EntityFramework.DbContexts
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.HasDefaultSchema(AppDbContext.Schema);
+
             modelBuilder.Entity<Scope>()
                 .HasIndex(u => u.Name)
                 .IsUnique();
