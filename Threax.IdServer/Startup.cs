@@ -345,6 +345,8 @@ namespace Threax.IdServer
             var dirInfo = new DirectoryInfo(appConfig.DataProtectionKeysPath);
             services.AddDataProtection().PersistKeysToFileSystem(dirInfo);
 
+            services.AddConnectedServices(Configuration);
+
             IdentityModelEventSource.ShowPII = appConfig.ShowPII;
         }
 

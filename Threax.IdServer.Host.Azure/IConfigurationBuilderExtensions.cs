@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
+using Microsoft.Extensions.DependencyInjection;
+using Threax.Extensions.Configuration.SchemaBinder;
 
 namespace Threax.IdServer
 {
@@ -10,6 +11,13 @@ namespace Threax.IdServer
             config.AddThreaxKeyVaultConfig();
 
             return config;
+        }
+
+        public static IServiceCollection AddConnectedServices(this IServiceCollection services, SchemaConfigurationBinder configuration)
+        {
+            services.AddThreaxAzureStorageDataProtection(o => configuration.Bind("Storage", o), o => configuration.Bind("AzureDataProtection", o));
+
+            return services;
         }
     }
 }
