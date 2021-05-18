@@ -37,12 +37,4 @@ docker build . -f .\AppDashboard\Dockerfile -t appdashboard --progress=plain
 Icon used from [Font Awesome](https://fontawesome.com/) under the [Creative Commons](https://en.wikipedia.org/wiki/en:Creative_Commons) [Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/deed.en) license. Modifications were made to the original image.
 
 ## Migrations
-This app has 4 db contexts and supports multiple backends. When db changes are made go to both the Threax.IdServer.Sqlite and Threax.IdServer.SqlServer folders and run the following commands. Replace `MIGRATION_NAME` as needed:
-```
-dotnet ef migrations add -c ConfigurationDbContext MIGRATION_NAME
-dotnet ef migrations add -c OperationDbContext MIGRATION_NAME
-dotnet ef migrations add -c AppDbContext MIGRATION_NAME
-dotnet ef migrations add -c IdentityUsersDbContext MIGRATION_NAME
-```
-
-This will create all the migrations for each db backend.
+This app has 4 db contexts and supports multiple backends. When db changes migrations need to be updated in multiple projects. To do this easily run Add-Migration.ps1 in the project root. This will create all the migrations for each db backend.
