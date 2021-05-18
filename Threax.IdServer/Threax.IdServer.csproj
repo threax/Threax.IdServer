@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Threax.IdServer.LocalHost\Threax.IdServer.LocalHost.csproj" />
-    <ProjectReference Include="..\Threax.IdServer.Sqlite\Threax.IdServer.Sqlite.csproj" />
+    <ProjectReference Include="..\Threax.IdServer.Host.Local\Threax.IdServer.Host.Local.csproj" />
+    <ProjectReference Include="..\Threax.IdServer.Db.Sqlite\Threax.IdServer.Db.Sqlite.csproj" />
   </ItemGroup>
 
   <ItemGroup>

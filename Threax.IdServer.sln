@@ -9,11 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppDashboard", "AppDashboar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.IdServer.Client", "Threax.IdServer.Client\Threax.IdServer.Client.csproj", "{52890D09-2594-49FC-8E32-17808209C2C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.IdServer.Sqlite", "Threax.IdServer.Sqlite\Threax.IdServer.Sqlite.csproj", "{C89FDD7E-8EDD-4950-A1D9-DC5B652253C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.IdServer.Db.Sqlite", "Threax.IdServer.Db.Sqlite\Threax.IdServer.Db.Sqlite.csproj", "{C89FDD7E-8EDD-4950-A1D9-DC5B652253C9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.IdServer.EntityFramework", "Threax.IdServer.EntityFramework\Threax.IdServer.EntityFramework.csproj", "{9E840484-A9E5-47D8-A686-6FA6E493690C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.IdServer.SqlServer", "Threax.IdServer.SqlServer\Threax.IdServer.SqlServer.csproj", "{9567C7A6-2DB5-46F3-B322-3E4C3E527F81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threax.IdServer.Db.SqlServer", "Threax.IdServer.Db.SqlServer\Threax.IdServer.Db.SqlServer.csproj", "{9567C7A6-2DB5-46F3-B322-3E4C3E527F81}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EEAF7182-DD1A-4421-AEFC-88D627690C8D}"
 	ProjectSection(SolutionItems) = preProject
@@ -21,9 +21,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Readme.md = Readme.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Threax.IdServer.AzureHost", "Threax.IdServer.AzureHost\Threax.IdServer.AzureHost.csproj", "{CC312DE7-E3D8-45A6-B9D3-45F213B5AADA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Threax.IdServer.Host.Azure", "Threax.IdServer.Host.Azure\Threax.IdServer.Host.Azure.csproj", "{CC312DE7-E3D8-45A6-B9D3-45F213B5AADA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Threax.IdServer.LocalHost", "Threax.IdServer.LocalHost\Threax.IdServer.LocalHost.csproj", "{87B76BA3-21A2-48BD-8D8E-2CD821B48598}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Threax.IdServer.Host.Local", "Threax.IdServer.Host.Local\Threax.IdServer.Host.Local.csproj", "{87B76BA3-21A2-48BD-8D8E-2CD821B48598}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
