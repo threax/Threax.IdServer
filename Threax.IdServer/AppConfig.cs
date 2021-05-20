@@ -73,6 +73,11 @@ namespace Threax.IdServer
         public string RolloverCertThumb { get; set; }
 
         /// <summary>
+        /// Set this to true (default) to load the signing certs when starting the app. This is only reccomended to disable in tools mode.
+        /// </summary>
+        public bool LoadSigningCerts { get; set; } = true;
+
+        /// <summary>
         /// The values for the frame-ancestors CSP directive. Each entry is an item in the array.
         /// Self is already included.
         /// </summary>

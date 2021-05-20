@@ -159,10 +159,13 @@ namespace Threax.IdServer
                 options.RegisterScopes(Scopes.Profile);
 
                 // Register the signing and encryption credentials.
-                options.AddCertificate(appConfig.SigningCredentialCertThumb, Configuration);
-                if (!string.IsNullOrEmpty(appConfig.RolloverCertThumb))
+                if (appConfig.LoadSigningCerts)
                 {
-                    options.AddCertificate(appConfig.RolloverCertThumb, Configuration);
+                    options.AddCertificate(appConfig.SigningCredentialCertThumb, Configuration);
+                    if (!string.IsNullOrEmpty(appConfig.RolloverCertThumb))
+                    {
+                        options.AddCertificate(appConfig.RolloverCertThumb, Configuration);
+                    }
                 }
 
                 // Force client applications to use Proof Key for Code Exchange (PKCE).
@@ -238,7 +241,6 @@ namespace Threax.IdServer
                 return new ToolRunner()
                 .AddTool("migrate", new ToolCommand("Migrate database to newest version. Run anytime new migrations have been added.", async a =>
                 {
-                    //a.Scope.MigrateIdServerDatabase();
                     await a.Migrate();
                     await a.MigrateUserDb();
                     await a.MigrateConfigurationDb();
@@ -246,7 +248,6 @@ namespace Threax.IdServer
                 }))
                 .AddTool("seed", new ToolCommand("Seed database data. Only needed for an empty database.", async a =>
                 {
-                    //a.Scope.SeedIdServerDatabase();
                     await a.Seed();
                 }))
                 .AddTool("addadmin", new ToolCommand("Add given guids as a user with permissions to all roles in the database.", async a =>
