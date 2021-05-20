@@ -82,6 +82,7 @@ namespace Threax.IdServer
 
                     //Environment variables
                     config.AddEnvironmentVariables();
+                    config.AddCommandLine(args);
 
                     config.UseConnectedConfig();
                 });
