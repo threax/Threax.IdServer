@@ -6,11 +6,14 @@
     <UserSecretsId>aspnet-Threax.IdServer-e380f0e5-022e-4d78-8466-2d9e8557c2f0</UserSecretsId>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>1701;1702;1705;1591</NoWarn>
+    <DefineConstants>HOST_LOCAL;DB_SQLITE</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Threax.IdServer.Host.Local\Threax.IdServer.Host.Local.csproj" />
-    <ProjectReference Include="..\Threax.IdServer.Db.Sqlite\Threax.IdServer.Db.Sqlite.csproj" />
+    <ProjectReference Include="..\Threax.IdServer.Db.Sqlite\Threax.IdServer.Db.Sqlite.csproj" Condition="$(DefineConstants.Contains(DB_SQLITE))" />
+    <ProjectReference Include="..\Threax.IdServer.Db.SqlServer\Threax.IdServer.Db.SqlServer.csproj" Condition="$(DefineConstants.Contains(DB_SQLSERVER))" />
+    <ProjectReference Include="..\Threax.IdServer.Host.Local\Threax.IdServer.Host.Local.csproj" Condition="$(DefineConstants.Contains(HOST_LOCAL))" />
+    <ProjectReference Include="..\Threax.IdServer.Host.Azure\Threax.IdServer.Host.Azure.csproj" Condition="$(DefineConstants.Contains(HOST_AZURE))" />
   </ItemGroup>
 
   <ItemGroup>
