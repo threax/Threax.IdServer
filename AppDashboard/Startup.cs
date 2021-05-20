@@ -16,6 +16,7 @@ using Threax.AspNetCore.Halcyon.Ext;
 using Threax.AspNetCore.IdServerAuth;
 using Threax.AspNetCore.UserBuilder;
 using Threax.Extensions.Configuration.SchemaBinder;
+using Threax.IdServer;
 
 namespace AppDashboard
 {
@@ -135,6 +136,8 @@ namespace AppDashboard
             {
                 services.AddResponseCompression();
             }
+
+            services.AddConnectedServices(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

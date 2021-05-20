@@ -346,9 +346,9 @@ namespace Threax.IdServer
             var dirInfo = new DirectoryInfo(appConfig.DataProtectionKeysPath);
             services.AddDataProtection().PersistKeysToFileSystem(dirInfo);
 
-            services.AddConnectedServices(Configuration);
-
             IdentityModelEventSource.ShowPII = appConfig.ShowPII;
+
+            services.AddConnectedServices(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

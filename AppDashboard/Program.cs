@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore;
 using Microsoft.Extensions.Configuration;
 using Threax.AspNetCore.BuiltInTools;
+using Threax.IdServer;
 
 namespace AppDashboard
 {
@@ -92,6 +93,8 @@ namespace AppDashboard
                     //Environment variables
                     config.AddEnvironmentVariables();
                     config.AddCommandLine(args);
+
+                    config.UseConnectedConfig();
                 });
 
             return webHostBuilder.Build();
