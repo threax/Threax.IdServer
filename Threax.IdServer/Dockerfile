@@ -4,7 +4,6 @@ WORKDIR /app
 
 FROM threax/build-dotnet:5.0 AS build
 ARG BUILD_CONSTANTS
-RUN echo $BUILD_CONSTANTS
 WORKDIR /src
 COPY . .
 WORKDIR /src/Threax.IdServer

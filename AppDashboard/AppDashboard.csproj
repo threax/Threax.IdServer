@@ -6,10 +6,12 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>1701;1702;1705;1591</NoWarn>
     <UserSecretsId>aspnet-Threax.AppDashboard-27f32ce9-ea0e-4e97-a74d-852cce8b7891</UserSecretsId>
+    <DefineConstants>HOST_LOCAL</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Threax.IdServer.Host.Local\Threax.IdServer.Host.Local.csproj" />
+    <ProjectReference Include="..\Threax.IdServer.Host.Local\Threax.IdServer.Host.Local.csproj" Condition="$(DefineConstants.Contains(HOST_LOCAL))" />
+    <ProjectReference Include="..\Threax.IdServer.Host.Azure\Threax.IdServer.Host.Azure.csproj" Condition="$(DefineConstants.Contains(HOST_AZURE))" />
   </ItemGroup>
 
   <ItemGroup>
