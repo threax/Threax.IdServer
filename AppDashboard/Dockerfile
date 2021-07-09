@@ -2,7 +2,7 @@ ARG BUILD_CONSTANTS=HOST_LOCAL
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
 
-FROM threax/build-dotnet:5.0 AS build
+FROM docker.io/threax/build-dotnet:5.0 AS build
 ARG BUILD_CONSTANTS
 WORKDIR /src
 COPY . .
