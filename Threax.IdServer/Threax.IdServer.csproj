@@ -17,26 +17,26 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.6">
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.6" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.6" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.8" />
     <PackageReference Include="HtmlRapier.TagHelpers" Version="8.2.1" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.Client" Version="10.0.1" />
     <PackageReference Include="Threax.AspNetCore.BuiltInTools" Version="5.3.1" />
     <PackageReference Include="Threax.AspNetCore.CorsManager" Version="3.1.2" />
     <PackageReference Include="Threax.AspNetCore.CSP" Version="1.4.0" />
     <PackageReference Include="Threax.AspNetCore.ExceptionFilter" Version="6.0.1" />
-    <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen.Tools" Version="6.0.1" />
-    <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen" Version="12.3.2" />
+    <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen.Tools" Version="7.0.0" />
+    <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen" Version="14.0.0" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="14.4.1" />
-    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="8.1.0" />
-    <PackageReference Include="Threax.AspNetCore.JwtCookieAuth" Version="6.1.0" />
+    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="9.0.0" />
+    <PackageReference Include="Threax.AspNetCore.JwtCookieAuth" Version="7.0.0" />
     <PackageReference Include="Threax.AspNetCore.IdServerMetadata" Version="4.0.0" />
     <PackageReference Include="Threax.AspNetCore.IdServerMetadata.Client" Version="3.0.0" />
     <PackageReference Include="Threax.AspNetCore.Models" Version="7.1.0" />
@@ -53,8 +53,8 @@
     <PackageReference Include="Threax.ProgressiveWebApp" Version="1.0.1" />
     <PackageReference Include="IdentityModel" Version="5.1.0" />
     <PackageReference Include="Threax.DeployConfig" Version="1.1.0" />
-    <PackageReference Include="Threax.DockerBuildConfig" Version="1.0.1" />
-    <PackageReference Include="OpenIddict.AspNetCore" Version="3.0.4" />
+    <PackageReference Include="Threax.DockerBuildConfig" Version="1.1.0" />
+    <PackageReference Include="OpenIddict.AspNetCore" Version="3.1.0" />
   </ItemGroup>
 
   <ItemGroup>
