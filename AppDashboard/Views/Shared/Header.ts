@@ -1,7 +1,7 @@
-﻿import * as controller from 'hr.controller';
-import * as startup from 'clientlibs.startup';
-import * as menu from 'hr.appmenu.AppMenu';
-import * as client from 'clientlibs.IdServerClient';
+﻿import * as controller from 'htmlrapier/src/controller';
+import * as startup from 'Client/Libs/startup';
+import * as menu from 'htmlrapier.appmenu/src/AppMenu';
+import * as client from 'Client/Libs/IdServerClient';
 
 class AppMenuInjector extends menu.AppMenuInjector<client.EntryPointsResult> {
     public static get InjectorArgs(): controller.DiFunction<any>[] {

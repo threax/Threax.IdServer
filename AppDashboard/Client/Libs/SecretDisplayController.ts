@@ -1,5 +1,5 @@
-﻿import { Group } from 'hr.toggles';
-import * as controller from 'hr.controller';
+﻿import { Group } from 'htmlrapier/src/toggles';
+import * as controller from 'htmlrapier/src/controller';
 
 export class SecretDisplayController {
     public static get InjectorArgs(): controller.DiFunction<any>[] {

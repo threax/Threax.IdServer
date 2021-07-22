@@ -1,11 +1,11 @@
-﻿import * as injectors from 'clientlibs.ServiceClientInjectors';
-import * as crudPageCore from 'hr.widgets.StandardCrudPage';
-import * as client from 'clientlibs.IdServerClient';
-import * as crudPage from 'hr.widgets.CrudPage';
-import * as controller from 'hr.controller';
-import * as promptWidget from 'hr.widgets.prompt';
-import * as startup from 'clientlibs.startup';
-import * as deepLink from 'hr.deeplink';
+﻿import * as injectors from 'Client/Libs/ServiceClientInjectors';
+import * as crudPageCore from 'htmlrapier.widgets/src/StandardCrudPage';
+import * as client from 'Client/Libs/IdServerClient';
+import * as crudPage from 'htmlrapier.widgets/src/CrudPage';
+import * as controller from 'htmlrapier/src/controller';
+import * as promptWidget from 'htmlrapier.widgets/src/prompt';
+import * as startup from 'Client/Libs/startup';
+import * as deepLink from 'htmlrapier/src/deeplink';
 
 export class AddFromMetadataController {
     public static get InjectorArgs(): controller.DiFunction<any>[] {

@@ -15,13 +15,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.6" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.8" />
     <PackageReference Include="HtmlRapier.TagHelpers" Version="8.2.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.KeyPerFile" Version="5.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.KeyPerFile" Version="5.0.8" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.Client" Version="10.0.1" />
-    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="8.1.0" />
-    <PackageReference Include="Threax.AspNetCore.JwtCookieAuth" Version="6.1.0" />
+    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="9.0.0" />
+    <PackageReference Include="Threax.AspNetCore.JwtCookieAuth" Version="7.0.0" />
     <PackageReference Include="Threax.AspNetCore.Mvc.CacheUi" Version="3.0.2" />
     <PackageReference Include="Threax.AspNetCore.UrlFix" Version="1.1.5" />
     <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="5.0.0" />
@@ -35,7 +35,7 @@
     <PackageReference Include="IdentityModel" Version="5.1.0" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
     <PackageReference Include="Threax.DeployConfig" Version="1.1.0" />
-    <PackageReference Include="Threax.DockerBuildConfig" Version="1.0.1" />
+    <PackageReference Include="Threax.DockerBuildConfig" Version="1.1.0" />
   </ItemGroup>
   
 </Project>
