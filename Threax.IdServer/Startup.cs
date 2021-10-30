@@ -193,6 +193,8 @@ namespace Threax.IdServer
                 options.UseAspNetCore();
             });
 
+            services.AddRazorViewStringRenderer();
+
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 

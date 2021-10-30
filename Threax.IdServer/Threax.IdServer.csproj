@@ -40,6 +40,7 @@
     <PackageReference Include="Threax.AspNetCore.IdServerMetadata" Version="4.0.0" />
     <PackageReference Include="Threax.AspNetCore.IdServerMetadata.Client" Version="3.0.0" />
     <PackageReference Include="Threax.AspNetCore.Models" Version="7.2.0" />
+    <PackageReference Include="Threax.AspNetCore.RazorExt" Version="2.1.0-pre01" />
     <PackageReference Include="Threax.AspNetCore.Tracking" Version="2.0.4" />
     <PackageReference Include="Threax.AspNetCore.UrlFix" Version="1.1.5" />
     <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities.Mvc" Version="7.0.0" />
