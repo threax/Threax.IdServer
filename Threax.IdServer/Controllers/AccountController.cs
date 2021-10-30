@@ -1,8 +1,4 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
-
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -11,35 +7,37 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Threax.IdServer.Controllers;
+using Threax.AspNetCore.RazorExt;
 using Threax.IdServer.EntityFramework.Entities;
 using Threax.IdServer.Models;
 using Threax.IdServer.Models.AccountViewModels;
+using Threax.IdServer.Services;
 
-namespace IdentityServer4.Quickstart.UI.Controllers
+namespace Threax.IdServer.Controllers
 {
-    /// <summary>
-    /// This sample controller implements a typical login/logout/provision workflow for local and external accounts.
-    /// The login service encapsulates the interactions with the user data store. This data store is in-memory only and cannot be used for production!
-    /// The interaction service provides a way for the UI to communicate with identityserver for validation and context retrieval
-    /// </summary>
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly ILogger logger;
-        private IAuthenticationSchemeProvider schemeProvider;
+        private readonly IAuthenticationSchemeProvider schemeProvider;
+        private readonly IRazorViewStringRenderer razorViewStringRenderer;
+        private readonly IEmailSender emailSender;
 
         public AccountController(
             SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
             ILoggerFactory loggerFactory,
-            IAuthenticationSchemeProvider schemeProvider)
+            IAuthenticationSchemeProvider schemeProvider,
+            IRazorViewStringRenderer razorViewStringRenderer,
+            IEmailSender emailSender)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
             logger = loggerFactory.CreateLogger<AccountController>();
             this.schemeProvider = schemeProvider;
+            this.razorViewStringRenderer = razorViewStringRenderer;
+            this.emailSender = emailSender;
         }
 
         /// <summary>
@@ -186,6 +184,63 @@ namespace IdentityServer4.Quickstart.UI.Controllers
             var principal = new ClaimsPrincipal(claimsIdentity);
 
             await HttpContext.SignInAsync(provider.Name, principal);
+        }
+
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel forgotPasswordModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(forgotPasswordModel);
+            }
+
+            var user = await userManager.FindByEmailAsync(forgotPasswordModel.Email);
+            if (user == null)
+            {
+                return RedirectToAction(nameof(ForgotPasswordConfirmation));
+            }
+
+            var token = await userManager.GeneratePasswordResetTokenAsync(user);
+            var emailModel = new ResetPasswordEmail()
+            {
+                Token = token,
+                Email = user.Email
+            };
+
+            var message = await razorViewStringRenderer.RenderAsync("Views/Emails/ResetPassword.cshtml", emailModel);
+            await emailSender.SendEmailAsync(user.Email, "Password Reset", message);
+
+            return RedirectToAction(nameof(ForgotPasswordConfirmation));
+        }
+
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult ResetPassword(string token, string email)
+        {
+            var model = new ResetPasswordViewModel { Token = token, Email = email };
+            return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel resetPasswordModel)
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult ResetPasswordConfirmation()
+        {
+            return View();
         }
     }
 }
