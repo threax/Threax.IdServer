@@ -196,7 +196,15 @@ namespace Threax.IdServer
             services.AddRazorViewStringRenderer();
 
             // Add application services.
-            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddSingleton<EmailConfig>(appConfig.Email);
+            if (appConfig.Email.Enabled)
+            {
+                services.AddTransient<IEmailSender, EmailSender>();
+            }
+            else
+            {
+                services.AddTransient<IEmailSender, NullEmailSender>();
+            }
 
             var halOptions = new HalcyonConventionOptions()
             {

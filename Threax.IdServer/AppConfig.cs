@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MailKit.Security;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -136,5 +137,31 @@ namespace Threax.IdServer
         /// Set the app db schema name.
         /// </summary>
         public string DbSchema { get; set; } = "dbo";
+
+        /// <summary>
+        /// Config for e-mail.
+        /// </summary>
+        public EmailConfig Email { get; set; } = new EmailConfig();
+    }
+
+    public class EmailConfig
+    {
+        public bool Enabled { get; set; }
+
+        public String FromName { get; set; }
+
+        public String FromEmail { get; set; }
+
+        public SecureSocketOptions SslOptions { get; set; } = SecureSocketOptions.Auto;
+
+        public string Host { get; set; }
+
+        public int Port { get; set; } = 465;
+
+        public bool UseAuthentication { get; set; }
+
+        public String User { get; set; }
+
+        public String Password { get; set; }
     }
 }
