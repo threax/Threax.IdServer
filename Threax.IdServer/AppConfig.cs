@@ -142,26 +142,58 @@ namespace Threax.IdServer
         /// Config for e-mail.
         /// </summary>
         public EmailConfig Email { get; set; } = new EmailConfig();
+
+        /// <summary>
+        /// Set this to true to show the reset password link. You need to configure e-mail for this to work.
+        /// </summary>
+        public bool AllowResetPassword { get; set; }
     }
 
     public class EmailConfig
     {
+        /// <summary>
+        /// Set this to true to enable e-mail sending. Default: false
+        /// </summary>
         public bool Enabled { get; set; }
 
+        /// <summary>
+        /// The name e-mails are sent from.
+        /// </summary>
         public String FromName { get; set; }
 
+        /// <summary>
+        /// The from field
+        /// </summary>
         public String FromEmail { get; set; }
 
+        /// <summary>
+        /// The ssl options. Default is auto based on the port.
+        /// </summary>
         public SecureSocketOptions SslOptions { get; set; } = SecureSocketOptions.Auto;
 
+        /// <summary>
+        /// The host
+        /// </summary>
         public string Host { get; set; }
 
+        /// <summary>
+        /// The port, default 465
+        /// </summary>
         public int Port { get; set; } = 465;
 
+        /// <summary>
+        /// Set this to true to use authentication. Default: false
+        /// </summary>
         public bool UseAuthentication { get; set; }
 
+        /// <summary>
+        /// The username. Not needed if UseAuthentication is false.
+        /// </summary>
         public String User { get; set; }
 
+        /// <summary>
+        /// The password. Not needed if UseAuthentication is false.
+        /// </summary>
         public String Password { get; set; }
     }
 }

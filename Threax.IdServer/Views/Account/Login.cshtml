@@ -1,4 +1,5 @@
 ﻿@model Threax.IdServer.Models.AccountViewModels.LoginViewModel
+@inject Threax.IdServer.AppConfig AppConfig
 
 @{
     ViewData["Title"] = "Login";
@@ -29,7 +30,10 @@
                 </fieldset>
             </form>
             <p>Don't have an account? <a href="/Account/Register?returnUrl=@System.Net.WebUtility.UrlEncode(Model.ReturnUrl)">Register Now.</a></p>
+            @if (AppConfig.AllowResetPassword)
+            {
             <a asp-action="ForgotPassword">Forgot Password?</a>
+            }
         </div>
     </div>
 </div>
