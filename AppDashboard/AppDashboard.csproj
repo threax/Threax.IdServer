@@ -23,15 +23,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Threax.AspNetCore.Halcyon.Client" Version="10.0.1" />
-    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="9.0.0" />
-    <PackageReference Include="Threax.AspNetCore.JwtCookieAuth" Version="7.0.0" />
+    <PackageReference Include="Threax.AspNetCore.Halcyon.Client" Version="11.0.0-pre01" />
+    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="10.0.0-pre01" />
+    <PackageReference Include="Threax.AspNetCore.JwtCookieAuth" Version="8.0.0-pre01" />
     <PackageReference Include="Threax.AspNetCore.Mvc.CacheUi" Version="3.0.2" />
     <PackageReference Include="Threax.AspNetCore.UrlFix" Version="1.1.5" />
-    <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="5.0.0" />
-    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities" Version="6.0.1" />
-    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities.Mvc" Version="7.0.0" />
-    <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="14.4.1" />
+    <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="6.0.0-pre01" />
+    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities" Version="7.0.0-pre01" />
+    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities.Mvc" Version="8.0.0-pre01" />
+    <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="15.0.0-pre01" />
     <PackageReference Include="Threax.AspNetCore.BuiltInTools" Version="5.3.1" />
     <PackageReference Include="Threax.Extensions.Configuration.SchemaBinder" Version="2.0.1" />
     <PackageReference Include="Threax.AspNetCore.CSP" Version="1.4.0" />

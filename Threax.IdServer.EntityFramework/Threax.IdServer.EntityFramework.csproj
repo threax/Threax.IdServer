@@ -1,34 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>EntityFramework persistence layer for IdentityServer4</Description>
-    <Authors>Brock Allen;Dominick Baier;Scott Brady</Authors>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>Threax.IdServer.EntityFramework</AssemblyName>
     <PackageId>Threax.IdServer.EntityFramework</PackageId>
-    <PackageTags>OAuth2;OAuth 2.0;OpenID Connect;Security;Identity;IdentityServer;EntityFramework</PackageTags>
-    <PackageIconUrl>https://raw.githubusercontent.com/IdentityServer/Artwork/master/Logos/IDserver_icon128.jpg</PackageIconUrl>
     <PackageProjectUrl>https://github.com/IdentityServer/Threax.IdServer.EntityFramework</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/IdentityServer/Threax.IdServer.EntityFramework/blob/release/LICENSE</PackageLicenseUrl>
     <VersionPrefix>2.1.1.1</VersionPrefix>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\Threax.IdServer.EntityFramework.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\Threax.IdServer.EntityFramework.xml</DocumentationFile>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.6" />
-    <PackageReference Include="OpenIddict.Core" Version="3.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.3" />
+    <PackageReference Include="OpenIddict.Core" Version="3.1.1" />
     <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities" Version="6.0.1" />
     <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="5.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.3" />
   </ItemGroup>
 
 </Project>
