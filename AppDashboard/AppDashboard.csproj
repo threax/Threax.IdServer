@@ -30,9 +30,9 @@
     <PackageReference Include="Threax.AspNetCore.UrlFix" Version="1.1.5" />
     <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="6.0.0-pre01" />
     <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities" Version="7.0.0-pre01" />
-    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities.Mvc" Version="8.0.0-pre01" />
+    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities.Mvc" Version="8.0.0-pre02" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="15.0.0-pre01" />
-    <PackageReference Include="Threax.AspNetCore.BuiltInTools" Version="5.3.1" />
+    <PackageReference Include="Threax.AspNetCore.BuiltInTools" Version="6.0.0-pre01" />
     <PackageReference Include="Threax.Extensions.Configuration.SchemaBinder" Version="2.0.1" />
     <PackageReference Include="Threax.AspNetCore.CSP" Version="1.4.0" />
     <PackageReference Include="Threax.ProgressiveWebApp" Version="1.0.1" />
