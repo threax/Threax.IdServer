@@ -1,8 +1,8 @@
 ARG BUILD_CONSTANTS=HOST_LOCAL;DB_SQLITE
-FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 
-FROM docker.io/threax/build-dotnet:5.0 AS build
+FROM docker.io/threax/build-dotnet:6.0 AS build
 ARG BUILD_CONSTANTS
 WORKDIR /src
 COPY . .
