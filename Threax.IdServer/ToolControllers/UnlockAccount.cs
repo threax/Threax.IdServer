@@ -9,9 +9,9 @@ namespace Threax.IdServer.ToolControllers
     public class UnlockAccount
     {
         private UserManager<ApplicationUser> userManager;
-        private ILogger<ChangePassword> logger;
+        private ILogger<UnlockAccount> logger;
 
-        public UnlockAccount(UserManager<ApplicationUser> userManager, ILogger<ChangePassword> logger)
+        public UnlockAccount(UserManager<ApplicationUser> userManager, ILogger<UnlockAccount> logger)
         {
             this.userManager = userManager;
             this.logger = logger;

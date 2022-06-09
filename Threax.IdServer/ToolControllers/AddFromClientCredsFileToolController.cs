@@ -12,13 +12,13 @@ namespace Threax.IdServer.ToolControllers
 {
     public class AddFromClientCredsFileToolController
     {
-        private readonly ILogger<AddFromMetadataToolController> logger;
+        private readonly ILogger<AddFromClientCredsFileToolController> logger;
         private readonly IMapper mapper;
         private readonly IClientRepository clientRepository;
         private readonly AppConfig appConfig;
 
         public AddFromClientCredsFileToolController(
-            ILogger<AddFromMetadataToolController> logger,
+            ILogger<AddFromClientCredsFileToolController> logger,
             IMapper mapper,
             IClientRepository clientRepository,
             AppConfig appConfig)
