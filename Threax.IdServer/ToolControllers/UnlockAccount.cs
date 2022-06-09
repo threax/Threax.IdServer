@@ -17,9 +17,9 @@ namespace Threax.IdServer.ToolControllers
             this.logger = logger;
         }
 
-        public async Task Run(String userId)
+        public async Task Run(String email)
         {
-            var user = await userManager.FindByIdAsync(userId);
+            var user = await userManager.FindByEmailAsync(email);
             logger.LogCritical($"Unlocking account {user.Email}");
 
             var result = await userManager.SetLockoutEnabledAsync(user, false);

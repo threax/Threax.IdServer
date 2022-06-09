@@ -286,7 +286,7 @@ namespace Threax.IdServer
                     var toolController = a.Scope.ServiceProvider.GetRequiredService<ChangePassword>();
                     await toolController.Run(a.Args[0]);
                 }))
-                .AddTool("unlockAccount", new ToolCommand("Unlock the account for the given user guid.", async a =>
+                .AddTool("unlockAccount", new ToolCommand("Unlock the account for the given user email.", async a =>
                 {
                     var toolController = a.Scope.ServiceProvider.GetRequiredService<UnlockAccount>();
                     await toolController.Run(a.Args[0]);
