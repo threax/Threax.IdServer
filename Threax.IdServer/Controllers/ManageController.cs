@@ -431,10 +431,17 @@ namespace Threax.IdServer.Controllers
 
         private async Task<ApplicationUser> GetUser()
         {
-            var user = await _userManager.FindByIdAsync(User.FindFirst("sub").Value);
+            var userId = _userManager.GetUserId(User);
+            if(userId == null)
+            {
+                throw new ApplicationException("Cannot find user id.");
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                throw new ApplicationException($"Unable to load user with ID '{userId}'.");
             }
 
             return user;

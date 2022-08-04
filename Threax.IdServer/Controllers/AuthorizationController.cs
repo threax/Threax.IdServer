@@ -144,8 +144,8 @@ namespace Threax.IdServer.Controllers
             }
 
             // Retrieve the profile of the logged in user.
-            var subject = result.Principal.FindFirst(Claims.Subject);
-            var user = await _userManager.FindByIdAsync(subject.Value) ??
+            var subject = _userManager.GetUserId(result.Principal);
+            var user = await _userManager.FindByIdAsync(subject) ??
                 throw new InvalidOperationException("The user details cannot be retrieved.");
 
             // Retrieve the application details from the database.
@@ -182,7 +182,7 @@ namespace Threax.IdServer.Controllers
                     var principal = await _signInManager.CreateUserPrincipalAsync(user);
 
                     var claimIdentity = (ClaimsIdentity)principal.Identity;
-                    claimIdentity.AddClaim(new Claim(Claims.Subject, subject.Value));
+                    claimIdentity.AddClaim(new Claim(Claims.Subject, subject));
 
                     // Note: in this sample, the granted scopes match the requested scope
                     // but you may want to allow the user to uncheck specific scopes.

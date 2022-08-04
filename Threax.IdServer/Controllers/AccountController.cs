@@ -65,9 +65,6 @@ namespace Threax.IdServer.Controllers
                 var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, false, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
-                    var user = await userManager.FindByNameAsync(model.Email);
-                    await SignInUser(user);
-
                     //Redirect
                     logger.LogInformation(1, "User logged in.");
                     if (model.ReturnUrl == null)
@@ -118,9 +115,13 @@ namespace Threax.IdServer.Controllers
                     //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     //await emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
-                    await SignInUser(user);
-                    logger.LogInformation("User created a new account with password.");
-                    return RedirectToLocal(returnUrl);
+                    var loginResult = await signInManager.PasswordSignInAsync(model.Email, model.Password, false, lockoutOnFailure: true);
+                    if (loginResult.Succeeded)
+                    {
+                        //Redirect
+                        logger.LogInformation(1, "User auto logged in after registration.");
+                        return RedirectToLocal(returnUrl);
+                    }
                 }
                 AddErrors(result);
             }
@@ -168,22 +169,6 @@ namespace Threax.IdServer.Controllers
         public IActionResult AccessToken()
         {
             return new EmptyResult();
-        }
-
-        private async Task SignInUser(ApplicationUser user)
-        {
-            var claims = new List<Claim>();
-
-            //Setup claims for user
-            claims.Add(new Claim("sub", user.Id.ToString()));
-            claims.Add(new Claim("username", user.UserName));
-
-            // issue authentication cookie for user
-            var provider = await schemeProvider.GetDefaultAuthenticateSchemeAsync();
-            var claimsIdentity = new ClaimsIdentity(claims, provider.Name, "username", ClaimsIdentity.DefaultRoleClaimType);
-            var principal = new ClaimsPrincipal(claimsIdentity);
-
-            await HttpContext.SignInAsync(provider.Name, principal);
         }
 
         [HttpGet]
