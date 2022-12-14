@@ -281,10 +281,10 @@ namespace Threax.IdServer
                     var toolController = a.Scope.ServiceProvider.GetRequiredService<SetupAppDashboardToolController>();
                     await toolController.Run(a.Args[0], a.Args.Count > 1 ? a.Args[1] : null);
                 }))
-                .AddTool("changePassword", new ToolCommand("Change the password for the given user guid. This is interactive and will prompt for the password.", async a =>
+                .AddTool("changePassword", new ToolCommand("Change the password for the given user email. This is interactive and will prompt for the password if one is not provided.", async a =>
                 {
                     var toolController = a.Scope.ServiceProvider.GetRequiredService<ChangePassword>();
-                    await toolController.Run(a.Args[0]);
+                    await toolController.Run(a.Args[0], a.Args.Count > 1 ? a.Args[1] : null);
                 }))
                 .AddTool("unlockAccount", new ToolCommand("Unlock the account for the given user email.", async a =>
                 {

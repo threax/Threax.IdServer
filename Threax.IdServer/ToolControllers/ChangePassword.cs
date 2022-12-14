@@ -17,19 +17,22 @@ namespace Threax.IdServer.ToolControllers
             this.logger = logger;
         }
 
-        public async Task Run(String userId)
+        public async Task Run(String email, String password)
         {
-            var user = await userManager.FindByIdAsync(userId);
-            logger.LogCritical($"Enter new password for {user.Email}");
-            logger.LogCritical("");
-            var password = ReadSecureString();
-            logger.LogCritical("Confirm password:");
-            logger.LogCritical("");
-            var confirm = ReadSecureString();
-            if (password != confirm)
+            var user = await userManager.FindByEmailAsync(email);
+            if(password == null)
             {
-                logger.LogError("Passwords do not match, no changes made.");
-                return;
+                logger.LogCritical($"Enter new password for {user.Email}");
+                logger.LogCritical("");
+                password = ReadSecureString();
+                logger.LogCritical("Confirm password:");
+                logger.LogCritical("");
+                var confirm = ReadSecureString();
+                if (password != confirm)
+                {
+                    logger.LogError("Passwords do not match, no changes made.");
+                    return;
+                }
             }
 
             var result = await userManager.RemovePasswordAsync(user);
