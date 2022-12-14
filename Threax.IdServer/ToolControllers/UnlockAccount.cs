@@ -17,9 +17,20 @@ namespace Threax.IdServer.ToolControllers
             this.logger = logger;
         }
 
-        public async Task Run(String email)
+        public async Task Run(String identifier)
         {
-            var user = await userManager.FindByEmailAsync(email);
+            ApplicationUser user;
+            if (Guid.TryParse(identifier, out var userId))
+            {
+                logger.LogInformation("Got valid guid. Searching for user by id.");
+                user = await userManager.FindByIdAsync(identifier);
+            }
+            else
+            {
+                logger.LogInformation("Got invalid guid. Searching for user by e-mail.");
+                user = await userManager.FindByEmailAsync(identifier);
+            }
+
             logger.LogCritical($"Unlocking account {user.Email}");
 
             var result = await userManager.SetLockoutEnabledAsync(user, false);

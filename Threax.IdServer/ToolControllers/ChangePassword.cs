@@ -17,9 +17,19 @@ namespace Threax.IdServer.ToolControllers
             this.logger = logger;
         }
 
-        public async Task Run(String guid, String password)
+        public async Task Run(String identifier, String password)
         {
-            var user = await userManager.FindByIdAsync(guid);
+            ApplicationUser user;
+            if(Guid.TryParse(identifier, out var userId))
+            {
+                logger.LogInformation("Got valid guid. Searching for user by id.");
+                user = await userManager.FindByIdAsync(identifier);
+            }
+            else
+            {
+                logger.LogInformation("Got invalid guid. Searching for user by e-mail.");
+                user = await userManager.FindByEmailAsync(identifier);
+            }
             if(password == null)
             {
                 logger.LogCritical($"Enter new password for {user.Email}");
