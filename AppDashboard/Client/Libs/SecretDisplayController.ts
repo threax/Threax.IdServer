@@ -6,8 +6,8 @@ export class SecretDisplayController {
         return [controller.BindingCollection];
     }
 
-    private secretModel: controller.Model<any>;
-    private errorModel: controller.Model<any>;
+    private secretModel: controller.IView<any>;
+    private errorModel: controller.IView<any>;
     private dialog: controller.OnOffToggle;
     private toggleGroup: Group;
     private mainToggle: controller.OnOffToggle;
@@ -15,8 +15,8 @@ export class SecretDisplayController {
     private errorToggle: controller.OnOffToggle;
 
     constructor(bindings: controller.BindingCollection) {
-        this.secretModel = bindings.getModel('secret');
-        this.errorModel = bindings.getModel('error');
+        this.secretModel = bindings.getView('secret');
+        this.errorModel = bindings.getView('error');
 
         this.dialog = bindings.getToggle('dialog');
         this.dialog.offEvent.add(() => this.closed());
