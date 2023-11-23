@@ -34,6 +34,7 @@ namespace Threax.IdServer.ToolControllers
             if(user == null)
             {
                 logger.LogError($"Cannot find user '{identifier}'");
+                return;
             }
 
             if(password == null)
