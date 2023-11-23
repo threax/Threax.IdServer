@@ -30,6 +30,12 @@ namespace Threax.IdServer.ToolControllers
                 logger.LogInformation("Got invalid guid. Searching for user by e-mail.");
                 user = await userManager.FindByEmailAsync(identifier);
             }
+
+            if(user == null)
+            {
+                logger.LogError($"Cannot find user '{identifier}'");
+            }
+
             if(password == null)
             {
                 logger.LogCritical($"Enter new password for {user.Email}");
