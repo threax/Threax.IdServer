@@ -342,6 +342,15 @@ namespace Threax.IdServer.EntityFramework.Stores
             }
         }
 
+        public async ValueTask<long> RevokeByAuthorizationIdAsync(string identifier, CancellationToken cancellationToken)
+        {
+            var guidId = Guid.Parse(identifier);
+            var currentAuth = await dbContext.Tokens.Where(i => i.AuthorizationId == guidId).ToListAsync();
+            dbContext.Tokens.RemoveRange(currentAuth);
+            await dbContext.SaveChangesAsync();
+            return currentAuth.Count;
+        }
+
         public ValueTask SetApplicationIdAsync(Token token, string identifier, CancellationToken cancellationToken)
         {
             token.ApplicationId = int.Parse(identifier);
@@ -412,6 +421,14 @@ namespace Threax.IdServer.EntityFramework.Stores
             var currentAuth = await dbContext.Tokens.Where(i => i.TokenId == token.TokenId).FirstAsync();
             token.CopyTo(currentAuth);
             await dbContext.SaveChangesAsync();
+        }
+
+        async ValueTask<long> IOpenIddictTokenStore<Token>.PruneAsync(DateTimeOffset threshold, CancellationToken cancellationToken)
+        {
+            var currentAuth = await dbContext.Tokens.Where(i => i.Expires < threshold).ToListAsync();
+            dbContext.Tokens.RemoveRange(currentAuth);
+            await dbContext.SaveChangesAsync();
+            return currentAuth.Count;
         }
     }
 }

@@ -344,5 +344,10 @@ namespace Threax.IdServer.EntityFramework.Stores
             authorization.CopyTo(currentAuth);
             await dbContext.SaveChangesAsync();
         }
+
+        ValueTask<long> IOpenIddictAuthorizationStore<Authorization>.PruneAsync(DateTimeOffset threshold, CancellationToken cancellationToken)
+        {
+            return ValueTask.FromResult(0L);
+        }
     }
 }

@@ -60,8 +60,8 @@ namespace Threax.IdServer.Extensions
 
             options.AddEventHandler<ProcessSignInContext>(builder =>
             {
-                // Make this event handler run just before GenerateIdentityModelAccessToken
-                builder.SetOrder(GenerateIdentityModelAccessToken.Descriptor.Order - 1)
+                // Make this event handler run just before GenerateAccessToken
+                builder.SetOrder(GenerateAccessToken.Descriptor.Order - 1)
                     // Only run the event handler if an access token was generated
                     .AddFilter<RequireAccessTokenGenerated>()
                     .SetType(OpenIddict.Server.OpenIddictServerHandlerType.Custom)

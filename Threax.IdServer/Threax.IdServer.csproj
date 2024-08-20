@@ -57,7 +57,7 @@
     <PackageReference Include="IdentityModel" Version="7.0.0" />
     <PackageReference Include="Threax.DeployConfig" Version="1.1.0" />
     <PackageReference Include="Threax.DockerBuildConfig" Version="1.1.0" />
-    <PackageReference Include="OpenIddict.AspNetCore" Version="3.1.1" />
+    <PackageReference Include="OpenIddict.AspNetCore" Version="5.7.1" />
   </ItemGroup>
 
   <ItemGroup>

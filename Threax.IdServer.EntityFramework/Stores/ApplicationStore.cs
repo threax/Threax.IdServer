@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using OpenIddict.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -92,6 +93,11 @@ namespace Threax.IdServer.EntityFramework.Stores
                 .AsAsyncEnumerable();
         }
 
+        public ValueTask<string> GetApplicationTypeAsync(Client application, CancellationToken cancellationToken)
+        {
+            return ValueTask.FromResult(default(string));
+        }
+
         public async ValueTask<TResult> GetAsync<TState, TResult>(Func<IQueryable<Client>, TState, IQueryable<TResult>> query, TState state, CancellationToken cancellationToken)
         {
             return await query(dbContext.Clients.AsNoTracking(), state).FirstOrDefaultAsync(cancellationToken);
@@ -138,6 +144,11 @@ namespace Threax.IdServer.EntityFramework.Stores
         public ValueTask<string> GetIdAsync(Client application, CancellationToken cancellationToken)
         {
             return ValueTask.FromResult(application.Id.ToString());
+        }
+
+        public ValueTask<JsonWebKeySet> GetJsonWebKeySetAsync(Client application, CancellationToken cancellationToken)
+        {
+            return ValueTask.FromResult(default(JsonWebKeySet));
         }
 
         public async ValueTask<ImmutableArray<string>> GetPermissionsAsync(Client application, CancellationToken cancellationToken)
@@ -200,6 +211,11 @@ namespace Threax.IdServer.EntityFramework.Stores
             return ValueTask.FromResult(Array.Empty<string>().ToImmutableArray());
         }
 
+        public ValueTask<ImmutableDictionary<string, string>> GetSettingsAsync(Client application, CancellationToken cancellationToken)
+        {
+            return ValueTask.FromResult(new Dictionary<string, string>().ToImmutableDictionary());
+        }
+
         public ValueTask<Client> InstantiateAsync(CancellationToken cancellationToken)
         {
             return ValueTask.FromResult(new Client());
@@ -222,6 +238,11 @@ namespace Threax.IdServer.EntityFramework.Stores
         public IAsyncEnumerable<TResult> ListAsync<TState, TResult>(Func<IQueryable<Client>, TState, IQueryable<TResult>> query, TState state, CancellationToken cancellationToken)
         {
             return query(dbContext.Clients.AsNoTracking(), state).AsAsyncEnumerable();
+        }
+
+        public ValueTask SetApplicationTypeAsync(Client application, string type, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
 
         public ValueTask SetClientIdAsync(Client application, string identifier, CancellationToken cancellationToken)
@@ -254,6 +275,11 @@ namespace Threax.IdServer.EntityFramework.Stores
             throw new NotImplementedException();
         }
 
+        public ValueTask SetJsonWebKeySetAsync(Client application, JsonWebKeySet set, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
         public ValueTask SetPermissionsAsync(Client application, ImmutableArray<string> permissions, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
@@ -275,6 +301,11 @@ namespace Threax.IdServer.EntityFramework.Stores
         }
 
         public ValueTask SetRequirementsAsync(Client application, ImmutableArray<string> requirements, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ValueTask SetSettingsAsync(Client application, ImmutableDictionary<string, string> settings, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
