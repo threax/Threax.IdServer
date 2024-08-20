@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <UserSecretsId>aspnet-Threax.IdServer-e380f0e5-022e-4d78-8466-2d9e8557c2f0</UserSecretsId>
@@ -19,15 +19,15 @@
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="3.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.3">
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
     <PackageReference Include="HtmlRapier.TagHelpers" Version="8.2.1" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.Client" Version="11.0.1" />
     <PackageReference Include="Threax.AspNetCore.BuiltInTools" Version="6.0.0" />
@@ -37,24 +37,24 @@
     <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen.Tools" Version="8.0.0" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen" Version="15.0.0" />
     <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="15.0.0" />
-    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="10.0.0" />
-    <PackageReference Include="Threax.AspNetCore.JwtCookieAuth" Version="8.0.0" />
-    <PackageReference Include="Threax.AspNetCore.IdServerMetadata" Version="5.0.0" />
-    <PackageReference Include="Threax.AspNetCore.IdServerMetadata.Client" Version="4.0.0" />
+    <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="11.0.0" />
+    <PackageReference Include="Threax.AspNetCore.JwtCookieAuth" Version="11.0.0" />
+    <PackageReference Include="Threax.AspNetCore.IdServerMetadata" Version="11.0.0" />
+    <PackageReference Include="Threax.AspNetCore.IdServerMetadata.Client" Version="11.0.0" />
     <PackageReference Include="Threax.AspNetCore.Models" Version="8.0.0" />
     <PackageReference Include="Threax.AspNetCore.RazorExt" Version="2.1.0" />
     <PackageReference Include="Threax.AspNetCore.Tracking" Version="2.0.4" />
     <PackageReference Include="Threax.AspNetCore.UrlFix" Version="1.1.5" />
-    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities.Mvc" Version="8.0.0" />
-    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities" Version="7.0.0" />
-    <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="6.0.0" />
+    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities.Mvc" Version="11.0.0" />
+    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities" Version="11.0.0" />
+    <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="11.0.0" />
     <PackageReference Include="Threax.AspNetCore.Validators" Version="2.0.2" />
     <PackageReference Include="Threax.ReflectedServices" Version="1.0.1" />
     <PackageReference Include="Threax.Extensions.Configuration.SchemaBinder" Version="2.0.1" />
-    <PackageReference Include="Threax.AspNetCore.UserLookup" Version="3.0.0" />
-    <PackageReference Include="Threax.AspNetCore.UserLookup.Mvc" Version="5.0.0" />
+    <PackageReference Include="Threax.AspNetCore.UserLookup" Version="11.0.0" />
+    <PackageReference Include="Threax.AspNetCore.UserLookup.Mvc" Version="11.0.0" />
     <PackageReference Include="Threax.ProgressiveWebApp" Version="1.0.1" />
-    <PackageReference Include="IdentityModel" Version="6.0.0" />
+    <PackageReference Include="IdentityModel" Version="7.0.0" />
     <PackageReference Include="Threax.DeployConfig" Version="1.1.0" />
     <PackageReference Include="Threax.DockerBuildConfig" Version="1.1.0" />
     <PackageReference Include="OpenIddict.AspNetCore" Version="3.1.1" />
