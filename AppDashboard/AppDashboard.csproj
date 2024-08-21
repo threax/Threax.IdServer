@@ -18,13 +18,13 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.8" />
-    <PackageReference Include="HtmlRapier.TagHelpers" Version="8.2.1" />
+    <PackageReference Include="HtmlRapier.TagHelpers" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.KeyPerFile" Version="8.0.8" />
     <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.5.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Threax.AspNetCore.Halcyon.Client" Version="11.0.1" />
+    <PackageReference Include="Threax.AspNetCore.Halcyon.Client" Version="18.0.0" />
     <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="11.0.0" />
     <PackageReference Include="Threax.AspNetCore.JwtCookieAuth" Version="11.0.0" />
     <PackageReference Include="Threax.AspNetCore.Mvc.CacheUi" Version="3.0.2" />
@@ -32,7 +32,7 @@
     <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="11.0.0" />
     <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities" Version="11.0.0" />
     <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities.Mvc" Version="11.0.0" />
-    <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="15.0.0" />
+    <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="18.0.0" />
     <PackageReference Include="Threax.AspNetCore.BuiltInTools" Version="6.0.0" />
     <PackageReference Include="Threax.Extensions.Configuration.SchemaBinder" Version="2.0.1" />
     <PackageReference Include="Threax.AspNetCore.CSP" Version="1.4.0" />
