@@ -239,7 +239,7 @@ namespace Threax.IdServer
 
             services.ConfigureHtmlRapierTagHelpers(o =>
             {
-                o.FrontEndLibrary = HtmlRapier.TagHelpers.FrontEndLibrary.Bootstrap4;
+                o.FrontEndLibrary = HtmlRapier.TagHelpers.FrontEndLibrary.Bootstrap5;
             });
 
             services.AddIdServerMetadataClient();

@@ -28,20 +28,20 @@
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
-    <PackageReference Include="HtmlRapier.TagHelpers" Version="8.2.1" />
-    <PackageReference Include="Threax.AspNetCore.Halcyon.Client" Version="11.0.1" />
+    <PackageReference Include="HtmlRapier.TagHelpers" Version="9.0.0" />
+    <PackageReference Include="Threax.AspNetCore.Halcyon.Client" Version="18.0.0" />
     <PackageReference Include="Threax.AspNetCore.BuiltInTools" Version="6.0.0" />
     <PackageReference Include="Threax.AspNetCore.CorsManager" Version="3.1.2" />
     <PackageReference Include="Threax.AspNetCore.CSP" Version="1.4.0" />
     <PackageReference Include="Threax.AspNetCore.ExceptionFilter" Version="6.0.2" />
-    <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen.Tools" Version="8.0.0" />
-    <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen" Version="15.0.0" />
-    <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="15.0.0" />
+    <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen.Tools" Version="18.0.0" />
+    <PackageReference Include="Threax.AspNetCore.Halcyon.ClientGen" Version="18.0.0" />
+    <PackageReference Include="Threax.AspNetCore.Halcyon.Ext" Version="18.0.0" />
     <PackageReference Include="Threax.AspNetCore.IdServerAuth" Version="11.0.0" />
     <PackageReference Include="Threax.AspNetCore.JwtCookieAuth" Version="11.0.0" />
     <PackageReference Include="Threax.AspNetCore.IdServerMetadata" Version="11.0.0" />
     <PackageReference Include="Threax.AspNetCore.IdServerMetadata.Client" Version="11.0.0" />
-    <PackageReference Include="Threax.AspNetCore.Models" Version="8.0.0" />
+    <PackageReference Include="Threax.AspNetCore.Models" Version="18.0.0" />
     <PackageReference Include="Threax.AspNetCore.RazorExt" Version="2.1.0" />
     <PackageReference Include="Threax.AspNetCore.Tracking" Version="2.0.4" />
     <PackageReference Include="Threax.AspNetCore.UrlFix" Version="1.1.5" />
