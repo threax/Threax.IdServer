@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <AssemblyName>Threax.IdServer.EntityFramework</AssemblyName>
     <PackageId>Threax.IdServer.EntityFramework</PackageId>
     <PackageProjectUrl>https://github.com/IdentityServer/Threax.IdServer.EntityFramework</PackageProjectUrl>
@@ -11,12 +11,12 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.8" />
-    <PackageReference Include="OpenIddict.Core" Version="5.7.1" />
-    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities" Version="11.0.0" />
-    <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="11.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.2" />
+    <PackageReference Include="OpenIddict.Core" Version="7.2.0" />
+    <PackageReference Include="Threax.AspNetCore.UserBuilder.Entities" Version="12.0.0-pre01" />
+    <PackageReference Include="Threax.AspNetCore.UserBuilder" Version="12.0.0-pre01" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.2" />
   </ItemGroup>
 
 </Project>

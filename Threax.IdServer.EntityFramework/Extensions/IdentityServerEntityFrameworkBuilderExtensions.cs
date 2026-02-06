@@ -4,6 +4,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using OpenIddict.Abstractions;
 using System;
 using Threax.IdServer.EntityFramework.DbContexts;
 using Threax.IdServer.EntityFramework.Entities;
@@ -44,10 +45,10 @@ namespace Microsoft.Extensions.DependencyInjection
                    .SetDefaultScopeEntity<Scope>()
                    .SetDefaultTokenEntity<Token>();
 
-            builder.ReplaceApplicationStoreResolver<ApplicationStoreResolver>()
-                   .ReplaceAuthorizationStoreResolver<AuthorizationStoreResolver>()
-                   .ReplaceScopeStoreResolver<ScopeStoreResolver>()
-                   .ReplaceTokenStoreResolver<TokenStoreResolver>();
+            builder.ReplaceApplicationStore<Client, ApplicationStore>()
+                   .ReplaceAuthorizationStore<Authorization, AuthorizationStore>()
+                   .ReplaceScopeStore<Scope, ScopeStore>()
+                   .ReplaceTokenStore<Token, TokenStore>();
 
             builder.ReplaceApplicationManager(typeof(ThreaxOpenIddictApplicationManager<>));
 

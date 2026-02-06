@@ -7,7 +7,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Threax.IdServer.EntityFramework.DbContexts;
 using Threax.IdServer.EntityFramework.Entities;
-using static IdentityModel.OidcConstants;
+using static Duende.IdentityModel.OidcConstants;
 
 namespace Threax.IdServer.ToolControllers
 {

@@ -15,22 +15,6 @@ using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace Threax.IdServer.EntityFramework.Stores
 {
-
-    class ApplicationStoreResolver : IOpenIddictApplicationStoreResolver
-    {
-        private readonly IServiceProvider provider;
-
-        public ApplicationStoreResolver(IServiceProvider provider)
-        {
-            this.provider = provider;
-        }
-
-        IOpenIddictApplicationStore<TApplication> IOpenIddictApplicationStoreResolver.Get<TApplication>()
-        {
-            return provider.GetService(typeof(ApplicationStore)) as IOpenIddictApplicationStore<TApplication>;
-        }
-    }
-
     class ApplicationStore : IOpenIddictApplicationStore<Client>
     {
         private readonly ConfigurationDbContext dbContext;
@@ -167,7 +151,7 @@ namespace Threax.IdServer.EntityFramework.Stores
                 //Apps login users with hybrid flow
                 otherPermissions.Add(Permissions.Endpoints.Authorization);
                 otherPermissions.Add(Permissions.Endpoints.Token);
-                otherPermissions.Add(Permissions.Endpoints.Logout);
+                otherPermissions.Add(Permissions.Endpoints.EndSession);
                 otherPermissions.Add(Permissions.GrantTypes.AuthorizationCode);
                 otherPermissions.Add(Permissions.GrantTypes.Implicit);
                 otherPermissions.Add(Permissions.GrantTypes.RefreshToken);

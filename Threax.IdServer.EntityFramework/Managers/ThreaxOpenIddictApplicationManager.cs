@@ -13,8 +13,8 @@ namespace Threax.IdServer.EntityFramework.Managers
     class ThreaxOpenIddictApplicationManager<TApplication> : OpenIddictApplicationManager<TApplication>
          where TApplication : class
     {
-        public ThreaxOpenIddictApplicationManager(IOpenIddictApplicationCache<TApplication> cache, ILogger<OpenIddictApplicationManager<TApplication>> logger, IOptionsMonitor<OpenIddictCoreOptions> options, IOpenIddictApplicationStoreResolver resolver) 
-            : base(cache, logger, options, resolver)
+        public ThreaxOpenIddictApplicationManager(IOpenIddictApplicationCache<TApplication> cache, ILogger<OpenIddictApplicationManager<TApplication>> logger, IOptionsMonitor<OpenIddictCoreOptions> options, IOpenIddictApplicationStore<TApplication> store) 
+            : base(cache, logger, options, store)
         {
         }
 

@@ -16,21 +16,6 @@ using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace Threax.IdServer.EntityFramework.Stores
 {
-    class AuthorizationStoreResolver : IOpenIddictAuthorizationStoreResolver
-    {
-        private readonly IServiceProvider provider;
-
-        public AuthorizationStoreResolver(IServiceProvider provider)
-        {
-            this.provider = provider;
-        }
-
-        IOpenIddictAuthorizationStore<TAuthorization> IOpenIddictAuthorizationStoreResolver.Get<TAuthorization>()
-        {
-            return provider.GetService(typeof(AuthorizationStore)) as IOpenIddictAuthorizationStore<TAuthorization>;
-        }
-    }
-
     class AuthorizationStore : IOpenIddictAuthorizationStore<Authorization>
     {
         private readonly OperationDbContext dbContext;
@@ -103,6 +88,32 @@ namespace Threax.IdServer.EntityFramework.Stores
             }
         }
 
+        public async IAsyncEnumerable<Authorization> FindAsync(string subject, string client, string status, string type, ImmutableArray<string>? scopes, CancellationToken cancellationToken)
+        {
+            var authorizations = dbContext.Authorizations
+                .AsNoTracking()
+                .Where(i => i.Subject == subject && i.Client == client && i.Status == status && i.Type == type)
+                .AsAsyncEnumerable();
+
+            if (scopes != null)
+            {
+                await foreach (var authorization in authorizations)
+                {
+                    if (new HashSet<string>(await GetScopesAsync(authorization, cancellationToken), StringComparer.Ordinal).IsSupersetOf(scopes))
+                    {
+                        yield return authorization;
+                    }
+                }
+            }
+            else
+            {
+                await foreach (var authorization in authorizations)
+                {
+                    yield return authorization;
+                }
+            }
+        }
+
         public IAsyncEnumerable<Authorization> FindByApplicationIdAsync(string identifier, CancellationToken cancellationToken)
         {
             var appId = int.Parse(identifier);
@@ -142,7 +153,7 @@ namespace Threax.IdServer.EntityFramework.Stores
         public ValueTask<DateTimeOffset?> GetCreationDateAsync(Authorization authorization, CancellationToken cancellationToken)
         {
             DateTimeOffset? result = null;
-            if(authorization.Created != null)
+            if (authorization.Created != null)
             {
                 result = DateTime.SpecifyKind(authorization.Created.Value, DateTimeKind.Utc);
             }
@@ -260,12 +271,12 @@ namespace Threax.IdServer.EntityFramework.Stores
                 var date = threshold.UtcDateTime;
 
                 var authorizations =
-                    await(from authorization in dbContext.Authorizations.Include(authorization => authorization.Tokens).AsTracking()
-                          where authorization.Created < date
-                          where authorization.Status != Statuses.Valid ||
-                               (authorization.Type == AuthorizationTypes.AdHoc && !authorization.Tokens.Any())
-                          orderby authorization.AuthorizationId
-                          select authorization).Take(1_000).ToListAsync(cancellationToken);
+                    await (from authorization in dbContext.Authorizations.Include(authorization => authorization.Tokens).AsTracking()
+                           where authorization.Created < date
+                           where authorization.Status != Statuses.Valid ||
+                                (authorization.Type == AuthorizationTypes.AdHoc && !authorization.Tokens.Any())
+                           orderby authorization.AuthorizationId
+                           select authorization).Take(1_000).ToListAsync(cancellationToken);
 
                 if (authorizations.Count == 0)
                 {
@@ -295,6 +306,87 @@ namespace Threax.IdServer.EntityFramework.Stores
             {
                 throw new AggregateException("Exceptions occured pruning results", exceptions);
             }
+        }
+
+        public ValueTask<long> RevokeAsync(string subject, string client, string status, string type, CancellationToken cancellationToken)
+        {
+            IQueryable<Authorization> query = dbContext.Authorizations;
+
+            if (!string.IsNullOrEmpty(subject))
+            {
+                query = query.Where(token => token.Subject == subject);
+            }
+
+            if (!string.IsNullOrEmpty(client))
+            {
+                query = query.Where(token => token.Client == client);
+            }
+
+            if (!string.IsNullOrEmpty(status))
+            {
+                query = query.Where(token => token.Status == status);
+            }
+
+            if (!string.IsNullOrEmpty(type))
+            {
+                query = query.Where(token => token.Type == type);
+            }
+
+            return DoRevokeOnQuery(query, cancellationToken);
+        }
+
+        private async ValueTask<long> DoRevokeOnQuery(IQueryable<Authorization> query, CancellationToken cancellationToken)
+        {
+            List<Exception> exceptions = null;
+
+            var result = 0L;
+
+            foreach (var token in await query.ToListAsync(cancellationToken))
+            {
+                token.Status = Statuses.Revoked;
+
+                try
+                {
+                    await dbContext.SaveChangesAsync(cancellationToken);
+                }
+
+                catch (Exception exception)
+                {
+                    // Reset the state of the entity to prevents future calls to SaveChangesAsync() from failing.
+                    dbContext.Entry(token).State = EntityState.Unchanged;
+
+                    exceptions ??= [];
+                    exceptions.Add(exception);
+
+                    continue;
+                }
+
+                result++;
+            }
+
+            if (exceptions is not null)
+            {
+                throw new AggregateException("An error occured revoking tokens", exceptions);
+            }
+
+            return result;
+        }
+
+        public ValueTask<long> RevokeByApplicationIdAsync(string identifier, CancellationToken cancellationToken)
+        {
+            var appId = int.Parse(identifier);
+            var query = dbContext.Authorizations
+                .Where(i => i.ApplicationId == appId);
+
+            return DoRevokeOnQuery(query, cancellationToken);
+        }
+
+        public ValueTask<long> RevokeBySubjectAsync(string subject, CancellationToken cancellationToken)
+        {
+            var query = dbContext.Authorizations
+                .Where(i => i.Subject == subject);
+
+            return DoRevokeOnQuery(query, cancellationToken);
         }
 
         public ValueTask SetApplicationIdAsync(Authorization authorization, string identifier, CancellationToken cancellationToken)

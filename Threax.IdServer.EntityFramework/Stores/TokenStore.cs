@@ -16,21 +16,6 @@ using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace Threax.IdServer.EntityFramework.Stores
 {
-    class TokenStoreResolver : IOpenIddictTokenStoreResolver
-    {
-        private readonly IServiceProvider provider;
-
-        public TokenStoreResolver(IServiceProvider provider)
-        {
-            this.provider = provider;
-        }
-
-        IOpenIddictTokenStore<TToken> IOpenIddictTokenStoreResolver.Get<TToken>()
-        {
-            return provider.GetService(typeof(TokenStore)) as IOpenIddictTokenStore<TToken>;
-        }
-    }
-
     class TokenStore : IOpenIddictTokenStore<Token>
     {
         private readonly OperationDbContext dbContext;
@@ -342,10 +327,41 @@ namespace Threax.IdServer.EntityFramework.Stores
             }
         }
 
-        public async ValueTask<long> RevokeByAuthorizationIdAsync(string identifier, CancellationToken cancellationToken)
+        public ValueTask<long> RevokeAsync(string subject, string client, string status, string type, CancellationToken cancellationToken)
+        {
+            var query = dbContext.Tokens
+            .Where(i => i.Subject == subject && i.Authorization.Client == client && i.Status == status && i.Type == type);
+
+            return RevokeQuery(query, cancellationToken);
+        }
+
+        public ValueTask<long> RevokeByApplicationIdAsync(string identifier, CancellationToken cancellationToken = default)
+        {
+            var parsed = int.Parse(identifier);
+            var query = dbContext.Tokens
+                .Where(i => i.ApplicationId == parsed);
+
+            return RevokeQuery(query, cancellationToken);
+        }
+
+        public ValueTask<long> RevokeByAuthorizationIdAsync(string identifier, CancellationToken cancellationToken)
         {
             var guidId = Guid.Parse(identifier);
-            var currentAuth = await dbContext.Tokens.Where(i => i.AuthorizationId == guidId).ToListAsync();
+            var query = dbContext.Tokens.Where(i => i.AuthorizationId == guidId);
+            return RevokeQuery(query, cancellationToken);
+        }
+
+        public ValueTask<long> RevokeBySubjectAsync(string subject, CancellationToken cancellationToken = default)
+        {
+            var query = dbContext.Tokens
+                .Where(i => i.Subject == subject);
+
+            return RevokeQuery(query, cancellationToken);
+        }
+
+        private async ValueTask<long> RevokeQuery(IQueryable<Token> query, CancellationToken cancellationToken)
+        {
+            var currentAuth = await query.ToListAsync();
             dbContext.Tokens.RemoveRange(currentAuth);
             await dbContext.SaveChangesAsync();
             return currentAuth.Count;

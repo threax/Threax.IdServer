@@ -142,10 +142,8 @@ namespace Threax.IdServer
 
                 // Enable the authorization, device, logout, token, userinfo and verification endpoints.
                 options.SetAuthorizationEndpointUris("/connect/authorize")
-                       .SetLogoutEndpointUris("/connect/logout")
-                       .SetTokenEndpointUris("/connect/token")
-                       .SetUserinfoEndpointUris("/connect/userinfo")
-                       .SetVerificationEndpointUris("/connect/verify");
+                       .SetEndSessionEndpointUris("/connect/logout")
+                       .SetTokenEndpointUris("/connect/token");
 
                 // Note: this sample uses the code, device code, password and refresh token flows, but you
                 // can enable the other flows if you need to support implicit or client credentials.
@@ -176,10 +174,8 @@ namespace Threax.IdServer
                 options.UseAspNetCore()
                        .EnableStatusCodePagesIntegration()
                        .EnableAuthorizationEndpointPassthrough()
-                       .EnableLogoutEndpointPassthrough()
-                       .EnableTokenEndpointPassthrough()
-                       .EnableUserinfoEndpointPassthrough()
-                       .EnableVerificationEndpointPassthrough();
+                       .EnableEndSessionEndpointPassthrough()
+                       .EnableTokenEndpointPassthrough();
 
                 options.AddCustomClaims();
             })

@@ -13,21 +13,6 @@ using Threax.IdServer.EntityFramework.Entities;
 
 namespace Threax.IdServer.EntityFramework.Stores
 {
-    class ScopeStoreResolver : IOpenIddictScopeStoreResolver
-    {
-        private readonly IServiceProvider provider;
-
-        public ScopeStoreResolver(IServiceProvider provider)
-        {
-            this.provider = provider;
-        }
-
-        public IOpenIddictScopeStore<TScope> Get<TScope>() where TScope : class
-        {
-            return provider.GetService(typeof(ScopeStore)) as IOpenIddictScopeStore<TScope>;
-        }
-    }
-
     class ScopeStore : IOpenIddictScopeStore<Scope>
     {
         private readonly ConfigurationDbContext dbContext;
