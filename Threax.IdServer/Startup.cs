@@ -112,6 +112,7 @@ namespace Threax.IdServer
 
             services.AddDbContext<IdentityUsersDbContext>(options =>
             {
+                options.ConfigureWarnings(w => w.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning));
                 options.UseConnectedDb(appConfig.ConnectionString);
             });
             services.AddIdentity<ApplicationUser, IdentityRole>()
