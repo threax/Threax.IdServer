@@ -127,11 +127,13 @@ namespace Threax.IdServer
                 {
                     o.SetupConfigurationDbContext = c =>
                     {
+                        c.ConfigureWarnings(w => w.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning));
                         c.UseConnectedDb(appConfig.ConfigurationConnectionString ?? appConfig.ConnectionString);
                     };
 
                     o.SetupOperationDbContext = c =>
                     {
+                        c.ConfigureWarnings(w => w.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning));
                         c.UseConnectedDb(appConfig.OperationalConnectionString ?? appConfig.ConnectionString);
                     };
                 });
