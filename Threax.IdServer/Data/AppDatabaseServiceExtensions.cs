@@ -52,6 +52,7 @@ namespace Threax.IdServer.EntityFramework
             services.AddAuthorizationDatabase<AppDbContext>()
                 .AddDbContext<AppDbContext>(o =>
                 {
+                    o.ConfigureWarnings(w => w.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning));
                     o.UseConnectedDb(connectionString);
                 });
 
