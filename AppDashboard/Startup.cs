@@ -145,13 +145,14 @@ namespace AppDashboard
         {
             Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
 
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            var forwardOptions = new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedProto
-                //Can add ForwardedHeaders.XForwardedFor later, but tricky with container proxy since we don't know its ip
-                //This is enough to get https detection working again, however.
-                //https://github.com/aspnet/Docs/issues/2384
-            });
+            };
+            //Allow proto header from any network
+            forwardOptions.KnownIPNetworks.Clear();
+            forwardOptions.KnownProxies.Clear();
+            app.UseForwardedHeaders(forwardOptions);
 
             app.UseUrlFix(o =>
             {
