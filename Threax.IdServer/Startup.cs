@@ -219,7 +219,7 @@ namespace Threax.IdServer
             });
 
             // Add framework services.
-            services.AddMvc(o =>
+            var mvcBuilder = services.AddMvc(o =>
             {
                 o.UseExceptionErrorFilters();
                 o.UseConventionalHalcyon(halOptions);
@@ -233,8 +233,12 @@ namespace Threax.IdServer
             {
                 o.UserSearchServiceType = typeof(UserSearchService);
             })
-            .AddRazorRuntimeCompilation()
             .AddConventionalIdServerMvc();
+
+            if (appConfig.UseRazorRuntimeCompilation)
+            {
+                mvcBuilder.AddRazorRuntimeCompilation();
+            }
 
             services.ConfigureHtmlRapierTagHelpers(o =>
             {

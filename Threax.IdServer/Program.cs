@@ -54,15 +54,15 @@ namespace Threax.IdServer
                     config.Sources.Clear();
 
                     //./appsettings.json - Main settings file, shared between all instances
-                    config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                    config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
 
                     //./appsettings.{environment}.json - Local development settings files, loaded per environment, no need to deploy to server
-                    config.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+                    config.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: false);
 
                     //./appsettings.tools.json - Local development tools settings files, loaded in tools mode, no need to deploy to server
                     if (toolsConfigName != null)
                     {
-                        config.AddJsonFile($"appsettings.{toolsConfigName}.json", optional: true);
+                        config.AddJsonFile($"appsettings.{toolsConfigName}.json", optional: true, reloadOnChange: false);
                     }
 
                     //Secrets

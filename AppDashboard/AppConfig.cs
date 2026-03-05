@@ -57,5 +57,7 @@ namespace AppDashboard
         /// Add the user secrets. Useful during development, otherwise disable.
         /// </summary>
         public bool AddUserSecrets { get; set; }
+
+        public bool UseRazorRuntimeCompilation { get; set; }
     }
 }

@@ -147,6 +147,8 @@ namespace Threax.IdServer
         /// Set this to true to show the reset password link. You need to configure e-mail for this to work.
         /// </summary>
         public bool AllowResetPassword { get; set; }
+
+        public bool UseRazorRuntimeCompilation { get; set; }
     }
 
     public class EmailConfig

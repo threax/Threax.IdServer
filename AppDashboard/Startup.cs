@@ -81,18 +81,22 @@ namespace AppDashboard
                 o.AccessDeniedPath = "/Account/AccessDenied";
             });
 
-            services.AddMvc()
+            var mvcBuilder = services.AddMvc()
             .AddNewtonsoftJson(o =>
             {
                 o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 o.SerializerSettings.Converters.Add(new StringEnumConverter());
             })
-            .AddRazorRuntimeCompilation()
             .AddConventionalIdServerMvc()
             .AddThreaxCacheUi(appConfig.CacheToken, o =>
             {
                 o.CacheControlHeader = appConfig.CacheControlHeaderString;
             });
+
+            if (appConfig.UseRazorRuntimeCompilation)
+            {
+                mvcBuilder.AddRazorRuntimeCompilation();
+            }
 
             services.AddUserBuilderForAnybody(opt => //This is anybody, but it is further restricted below
             {
