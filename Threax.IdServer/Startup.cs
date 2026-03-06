@@ -315,6 +315,11 @@ namespace Threax.IdServer
                     }
                     await toolController.Run(a.Args[0], clientCredsKey);
                 }))
+                .AddTool("prune", new ToolCommand("Prune old tokens from the db.", async a =>
+                {
+                    var toolController = a.Scope.ServiceProvider.GetRequiredService<PruneTokensToolController>();
+                    await toolController.Run();
+                }))
                 .UseClientGenTools();
             });
 
@@ -341,6 +346,7 @@ namespace Threax.IdServer
             services.AddScoped<AddFromClientCredsFileToolController>();
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<IApiResourceRepository, ApiResourceRepository>();
+            services.AddScoped<PruneTokensToolController>();
 
             services.AddLogging(o =>
             {

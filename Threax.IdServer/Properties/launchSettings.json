@@ -63,6 +63,13 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    },
+    "Prune Tokens": {
+      "commandName": "Project",
+      "commandLineArgs": "tools prune",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     }
   }
 }

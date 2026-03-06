@@ -441,10 +441,10 @@ namespace Threax.IdServer.EntityFramework.Stores
 
         async ValueTask<long> IOpenIddictTokenStore<Token>.PruneAsync(DateTimeOffset threshold, CancellationToken cancellationToken)
         {
-            var currentAuth = await dbContext.Tokens.Where(i => i.Expires < threshold).ToListAsync();
-            dbContext.Tokens.RemoveRange(currentAuth);
+            var toRemove = await dbContext.Tokens.Where(i => i.Expires < threshold.Date).ToListAsync();
+            dbContext.Tokens.RemoveRange(toRemove);
             await dbContext.SaveChangesAsync();
-            return currentAuth.Count;
+            return toRemove.Count;
         }
     }
 }

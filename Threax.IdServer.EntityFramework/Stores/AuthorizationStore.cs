@@ -437,9 +437,12 @@ namespace Threax.IdServer.EntityFramework.Stores
             await dbContext.SaveChangesAsync();
         }
 
-        ValueTask<long> IOpenIddictAuthorizationStore<Authorization>.PruneAsync(DateTimeOffset threshold, CancellationToken cancellationToken)
+        async ValueTask<long> IOpenIddictAuthorizationStore<Authorization>.PruneAsync(DateTimeOffset threshold, CancellationToken cancellationToken)
         {
-            return ValueTask.FromResult(0L);
+            var toRemove = await dbContext.Authorizations.Where(i => i.Created < threshold.Date).ToListAsync();
+            dbContext.Authorizations.RemoveRange(toRemove);
+            await dbContext.SaveChangesAsync();
+            return toRemove.Count;
         }
     }
 }
