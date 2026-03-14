@@ -1,10 +1,10 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 using Threax.AspNetCore.IdServerMetadata.Client;
 using Threax.IdServer.Areas.Api.InputModels;
+using Threax.IdServer.Mappers;
 using Threax.IdServer.Repository;
 
 namespace Threax.IdServer.ToolControllers
@@ -13,12 +13,12 @@ namespace Threax.IdServer.ToolControllers
     {
         private readonly IMetadataClient metadataClient;
         private readonly ILogger<AddFromMetadataToolController> logger;
-        private readonly IMapper mapper;
+        private readonly AppMapper mapper;
         private readonly IClientRepository clientRepository;
         private readonly IApiResourceRepository apiResourceRepository;
         private readonly AppConfig appConfig;
 
-        public AddFromMetadataToolController(IMetadataClient metadataClient, ILogger<AddFromMetadataToolController> logger, IMapper mapper, IClientRepository clientRepository, IApiResourceRepository apiResourceRepository, AppConfig appConfig)
+        public AddFromMetadataToolController(IMetadataClient metadataClient, ILogger<AddFromMetadataToolController> logger, AppMapper mapper, IClientRepository clientRepository, IApiResourceRepository apiResourceRepository, AppConfig appConfig)
         {
             this.metadataClient = metadataClient;
             this.logger = logger;
@@ -41,11 +41,11 @@ namespace Threax.IdServer.ToolControllers
             var clientCredsSecret = clientCredsSecretFile != null ? TrimNewLine(File.ReadAllText(clientCredsSecretFile)) : appConfig.DefaultSecret;
 
             var scopeMeta = await metadataClient.ScopeAsync(url);
-            var scope = mapper.Map<ApiResourceInput>(scopeMeta);
+            var scope = mapper.MapApiResource(scopeMeta, new ApiResourceInput());
             var clientMeta = await metadataClient.ClientAsync(url);
-            var client = mapper.Map<ClientInput>(clientMeta);
+            var client = mapper.MapClient(clientMeta, new ClientInput());
             var clientCredsMeta = await metadataClient.ClientCredentialsAsync(url);
-            var clientCreds = mapper.Map<ClientInput>(clientCredsMeta);
+            var clientCreds = mapper.MapClient(clientCredsMeta, new ClientInput());
 
             await apiResourceRepository.AddOrUpdate(scope);
             await clientRepository.AddOrUpdateWithSecret(client, clientSecret);

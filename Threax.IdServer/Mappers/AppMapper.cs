@@ -1,0 +1,25 @@
+﻿using System;
+using Threax.IdServer.Services;
+
+namespace Threax.IdServer.Mappers
+{
+    /// <summary>
+    /// The app mapper defines all the object mappings that this application can perform.
+    /// Usually this is just a thin wrapper over automapper, but it establishes what mappings
+    /// are supported and enables more advanced mappings between multiple objects.
+    /// </summary>
+    public partial class AppMapper
+    {
+        private readonly IApplicationGuidFactory guidFactory;
+
+        public AppMapper(IApplicationGuidFactory guidFactory)
+        {
+            this.guidFactory = guidFactory;
+        }
+
+        private DateTime GetCreated(DateTime created)
+        {
+            return created == DateTime.MinValue ? DateTime.UtcNow : created;
+        }
+    }
+}

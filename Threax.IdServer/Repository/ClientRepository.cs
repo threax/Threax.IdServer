@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using IdentityServer4.Models;
+﻿using IdentityServer4.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,13 +11,14 @@ using Threax.IdServer.Areas.Api.Models;
 using Threax.IdServer.EntityFramework.DbContexts;
 using Threax.IdServer.EntityFramework.Entities;
 using Threax.IdServer.InputModels;
+using Threax.IdServer.Mappers;
 
 namespace Threax.IdServer.Repository
 {
     public class ClientRepository : IClientRepository
     {
         private ConfigurationDbContext configDb;
-        private IMapper mapper;
+        private AppMapper mapper;
         private readonly AppConfig appConfig;
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Threax.IdServer.Repository
         /// <param name="mapper">The mapper.</param>
         /// <param name="configDb">The configuration db context.</param>
         /// <param name="appConfig">The app config.</param>
-        public ClientRepository(ConfigurationDbContext configDb, IMapper mapper, AppConfig appConfig)
+        public ClientRepository(ConfigurationDbContext configDb, AppMapper mapper, AppConfig appConfig)
         {
             this.configDb = configDb;
             this.mapper = mapper;
@@ -75,7 +75,7 @@ namespace Threax.IdServer.Repository
             int total = await clients.CountAsync();
             clients = clients.OrderBy(i => i.ClientId);
             var results = clients.Skip(query.SkipTo(total)).Take(query.Limit);
-            var items = await results.Select(c => mapper.Map<ClientEditModel>(c)).ToListAsync();
+            var items = await results.Select(c => mapper.MapClient(c, new ClientEditModel())).ToListAsync();
 
             return new ClientEditModelCollectionView(query, total, items);
         }
@@ -88,12 +88,12 @@ namespace Threax.IdServer.Repository
                                   .Include(i => i.AllowedScopes)
                                   .Where(i => i.Id == id);
             var client = await clients.FirstOrDefaultAsync();
-            return mapper.Map<ClientEditModel>(client);
+            return mapper.MapClient(client, new ClientEditModel());
         }
 
         public async Task Add(ClientInput value)
         {
-            var entity = mapper.Map<Client>(value);
+            var entity = mapper.MapClient(value, new Client());
 
             //Any new client gets the secret notyetdefined
             if (entity.ClientSecrets == null || entity.ClientSecrets.Count == 0)
@@ -119,7 +119,7 @@ namespace Threax.IdServer.Repository
                 throw new InvalidOperationException($"Cannot find client with id '{id}'.");
             }
 
-            mapper.Map<ClientInput, Client>(value, client);
+            mapper.MapClient(value, client);
             configDb.Clients.Update(client);
             await configDb.SaveChangesAsync();
         }
@@ -131,7 +131,7 @@ namespace Threax.IdServer.Repository
             var existing = await SelectFullEntity().Where(i => i.ClientId == value.ClientId).FirstOrDefaultAsync();
             if(existing == null)
             {
-                var entity = mapper.Map<Client>(value);
+                var entity = mapper.MapClient(value, new Client());
 
                 entity.ClientSecrets = new List<ClientSecret>()
                 {
@@ -145,7 +145,7 @@ namespace Threax.IdServer.Repository
             }
             else
             {
-                mapper.Map<ClientInput, Client>(value, existing);
+                mapper.MapClient(value, existing);
                 existing.ClientSecrets.Clear();
                 existing.ClientSecrets.Add(new ClientSecret()
                 {

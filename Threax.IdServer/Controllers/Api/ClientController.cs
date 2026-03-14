@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
@@ -9,6 +8,7 @@ using Threax.AspNetCore.IdServerMetadata.Client;
 using Threax.IdServer.Areas.Api.InputModels;
 using Threax.IdServer.Areas.Api.Models;
 using Threax.IdServer.InputModels;
+using Threax.IdServer.Mappers;
 using Threax.IdServer.Repository;
 
 namespace Threax.IdServer.Areas.Api.Controllers
@@ -124,9 +124,9 @@ namespace Threax.IdServer.Areas.Api.Controllers
         [HttpGet]
         [Route("[action]")]
         [HalRel(Rels.LoadFromMetadata)]
-        public async Task<ClientMetadataView> FromMetadata([FromQuery] MetadataLookup lookupInfo, [FromServices] IMetadataClient client, [FromServices] IMapper mapper)
+        public async Task<ClientMetadataView> FromMetadata([FromQuery] MetadataLookup lookupInfo, [FromServices] IMetadataClient client, [FromServices] AppMapper mapper)
         {
-            var metadataView = mapper.Map<ClientMetadataView>(await client.ClientAsync(lookupInfo.TargetUrl));
+            var metadataView = mapper.MapClient(await client.ClientAsync(lookupInfo.TargetUrl), new ClientMetadataView());
             return metadataView;
         }
 
@@ -139,9 +139,9 @@ namespace Threax.IdServer.Areas.Api.Controllers
         [HttpGet]
         [Route("[action]")]
         [HalRel(nameof(FromClientCredentialsMetadata))]
-        public async Task<ClientMetadataView> FromClientCredentialsMetadata([FromQuery] MetadataLookup lookupInfo, [FromServices] IMetadataClient client, [FromServices] IMapper mapper)
+        public async Task<ClientMetadataView> FromClientCredentialsMetadata([FromQuery] MetadataLookup lookupInfo, [FromServices] IMetadataClient client, [FromServices] AppMapper mapper)
         {
-            return mapper.Map<ClientMetadataView>(await client.ClientCredentialsAsync(lookupInfo.TargetUrl));
+            return mapper.MapClient(await client.ClientCredentialsAsync(lookupInfo.TargetUrl), new ClientMetadataView());
         }
     }
 }

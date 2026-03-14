@@ -1,28 +1,28 @@
-﻿using AutoMapper;
-using Threax.IdServer.EntityFramework.DbContexts;
-using Threax.IdServer.EntityFramework.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Threax.AspNetCore.Halcyon.Ext;
 using Threax.IdServer.Areas.Api.InputModels;
 using Threax.IdServer.Areas.Api.Models;
+using Threax.IdServer.EntityFramework.DbContexts;
+using Threax.IdServer.EntityFramework.Entities;
 using Threax.IdServer.InputModels;
+using Threax.IdServer.Mappers;
 
 namespace Threax.IdServer.Repository
 {
     public class ApiResourceRepository : IApiResourceRepository
     {
         private ConfigurationDbContext configDb;
-        private IMapper mapper;
+        private AppMapper mapper;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="configDb">The configuration db to use to store scopes.</param>
         /// <param name="mapper">The mapper</param>
-        public ApiResourceRepository(ConfigurationDbContext configDb, IMapper mapper)
+        public ApiResourceRepository(ConfigurationDbContext configDb, AppMapper mapper)
         {
             this.configDb = configDb;
             this.mapper = mapper;
@@ -50,7 +50,7 @@ namespace Threax.IdServer.Repository
             int total = await resources.CountAsync();
             resources = resources.OrderBy(i => i.Name);
             var results = resources.Skip(query.SkipTo(total)).Take(query.Limit);
-            var items = (await results.Select(s => mapper.Map<ApiResourceEditModel>(s)).ToListAsync());
+            var items = (await results.Select(s => mapper.MapApiResource(s, new ApiResourceEditModel())).ToListAsync());
 
             return new ApiResourceEditModelCollection(query, total, items);
         }
@@ -59,12 +59,12 @@ namespace Threax.IdServer.Repository
         {
             var resources = configDb.Scopes.Where(i => i.Id == id);
             var resource = await resources.FirstOrDefaultAsync();
-            return mapper.Map<ApiResourceEditModel>(resource);
+            return mapper.MapApiResource(resource, new ApiResourceEditModel());
         }
 
         public async Task Add(ApiResourceInput value)
         {
-            var resource = mapper.Map<Scope>(value);
+            var resource = mapper.MapApiResource(value, new Scope());
             configDb.Scopes.Add(resource);
             await configDb.SaveChangesAsync();
         }
@@ -77,7 +77,7 @@ namespace Threax.IdServer.Repository
                 throw new InvalidOperationException($"Cannot find resource with id '{id}'.");
             }
 
-            mapper.Map<ApiResourceInput, Scope>(value, resource);
+            mapper.MapApiResource(value, resource);
             configDb.Scopes.Update(resource);
             await configDb.SaveChangesAsync();
         }
@@ -91,7 +91,7 @@ namespace Threax.IdServer.Repository
             }
             else
             {
-                mapper.Map<ApiResourceInput, Scope>(value, existing);
+                mapper.MapApiResource(value, existing);
                 configDb.Scopes.Update(existing);
                 await configDb.SaveChangesAsync();
             }

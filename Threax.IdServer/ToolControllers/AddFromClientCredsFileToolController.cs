@@ -1,11 +1,11 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 using Threax.AspNetCore.IdServerMetadata;
 using Threax.IdServer.Areas.Api.InputModels;
+using Threax.IdServer.Mappers;
 using Threax.IdServer.Repository;
 
 namespace Threax.IdServer.ToolControllers
@@ -13,13 +13,13 @@ namespace Threax.IdServer.ToolControllers
     public class AddFromClientCredsFileToolController
     {
         private readonly ILogger<AddFromClientCredsFileToolController> logger;
-        private readonly IMapper mapper;
+        private readonly AppMapper mapper;
         private readonly IClientRepository clientRepository;
         private readonly AppConfig appConfig;
 
         public AddFromClientCredsFileToolController(
             ILogger<AddFromClientCredsFileToolController> logger,
-            IMapper mapper,
+            AppMapper mapper,
             IClientRepository clientRepository,
             AppConfig appConfig)
         {
@@ -41,7 +41,7 @@ namespace Threax.IdServer.ToolControllers
             var clientCredsSecret = clientCredsSecretFile != null ? TrimNewLine(File.ReadAllText(clientCredsSecretFile)) : appConfig.DefaultSecret;
 
             var clientCredsMeta = JsonConvert.DeserializeObject<ClientMetadata>(File.ReadAllText(clientCredsMetadataFile));
-            var clientCreds = mapper.Map<ClientInput>(clientCredsMeta);
+            var clientCreds = mapper.MapClient(clientCredsMeta, new ClientInput());
 
             await clientRepository.AddOrUpdateWithSecret(clientCreds, clientCredsSecret);
 

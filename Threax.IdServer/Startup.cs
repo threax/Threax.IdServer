@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -29,6 +28,7 @@ using Threax.IdServer.EntityFramework;
 using Threax.IdServer.EntityFramework.DbContexts;
 using Threax.IdServer.EntityFramework.Entities;
 using Threax.IdServer.Extensions;
+using Threax.IdServer.Mappers;
 using Threax.IdServer.Repository;
 using Threax.IdServer.Services;
 using Threax.IdServer.ToolControllers;
@@ -72,7 +72,6 @@ namespace Threax.IdServer
             services.AddThreaxProgressiveWebApp(o => Configuration.Bind("DisplayConfig", o));
 
             services.AddSingleton<IApplicationGuidFactory>(s => new ApplicationGuidFactory(new Guid("65098b58-c5bf-4fc4-ae30-444e274efd7f"))); //This guid can never change, or you will have to fix permissions across all apps
-            services.AddSingleton<ApplicationGuidResolver>();
 
             services.AddConventionalIdServerAuthentication(o =>
             {
@@ -104,8 +103,7 @@ namespace Threax.IdServer
             services.UseAppDatabase(appConfig.ConnectionString, appConfig.DbSchema);
 
             //Setup the mapper
-            var mapperConfig = AppDatabaseServiceExtensions.SetupMappings();
-            services.AddScoped<IMapper>(s => mapperConfig.CreateMapper(s.GetRequiredService));
+            services.AddScoped<AppMapper>();
 
             //Setup repositories
             services.ConfigureReflectedServices(typeof(AppDatabaseServiceExtensions).GetTypeInfo().Assembly);

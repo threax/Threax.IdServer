@@ -1,116 +1,159 @@
-﻿using AutoMapper;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Threax.AspNetCore.IdServerMetadata;
 using Threax.IdServer.Areas.Api.InputModels;
 using Threax.IdServer.Areas.Api.Models;
 using Threax.IdServer.EntityFramework.Entities;
-using Threax.IdServer.Services;
 
 namespace Threax.IdServer.Mappers
 {
-    public class ApiResourceProfile : Profile
+    public partial class AppMapper
     {
-        public ApiResourceProfile()
+        public Client MapClient(ClientInput src, Client dest)
         {
-            CreateMap<ClientMetadata, ClientMetadataView>();
-            CreateMap<ApiResourceMetadata, ApiResourceMetadataView>();
+            dest.ClientId = src.ClientId;
+            dest.Name = src.Name;
+            dest.LogoutUri = src.LogoutUri;
+            dest.AllowedGrantTypes = GetGrantTypes(src.AllowedGrantTypes);
+            dest.RedirectUris = src.RedirectUris.Select(i => new ClientRedirectUri()
+            {
+                Uri = i
+            }).ToList();
+            dest.AllowedScopes = src.AllowedScopes.Select(i => new ClientScope()
+            {
+                Scope = i
+            }).ToList();
+            //ClientSecrets is ignored.
+            dest.AccessTokenLifetime = src.AccessTokenLifetime;
 
-            //These allow us to go straight from client metadata to the input. This is so the tools mode can use it.
-            CreateMap<ClientMetadata, ClientInput>();
-            CreateMap<ApiResourceMetadata, ApiResourceInput>();
+            return dest;
+        }
 
-            CreateMap<List<String>, List<GrantTypes>>()
-                .ConvertUsing((s, d) =>
+        public ClientMetadataView MapClient(ClientMetadata src, ClientMetadataView dest)
+        {
+            dest.ClientId = src.ClientId;
+            dest.Name = src.Name;
+            dest.LogoutUri = src.LogoutUri;
+            dest.AllowedGrantTypes = GetGrantTypes(src.AllowedGrantTypes).ToList();
+            dest.RedirectUris = src.RedirectUris;
+            dest.AllowedScopes = src.AllowedScopes;
+            dest.AccessTokenLifetime = src.AccessTokenLifetime;
+
+            return dest;
+        }
+
+        public ClientInput MapClient(ClientMetadata src, ClientInput dest)
+        {
+            dest.ClientId = src.ClientId;
+            dest.Name = src.Name;
+            dest.LogoutUri = src.LogoutUri;
+            dest.AllowedGrantTypes = GetGrantTypes(src.AllowedGrantTypes).ToList();
+            dest.RedirectUris = src.RedirectUris;
+            dest.AllowedScopes = src.AllowedScopes;
+            dest.AccessTokenLifetime = src.AccessTokenLifetime;
+
+            return dest;
+        }
+
+        public ClientEditModel MapClient(Client src, ClientEditModel dest)
+        {
+            dest.Id = src.Id;
+            dest.ClientId = src.ClientId;
+            dest.Name = src.Name;
+            dest.LogoutUri = src.LogoutUri;
+            dest.AllowedGrantTypes = GetGrantTypes(src.AllowedGrantTypes).ToList();
+            dest.RedirectUris = src.RedirectUris.Select(i => i.Uri).ToList();
+            dest.AllowedScopes = src.AllowedScopes.Select(i => i.Scope).ToList();
+            dest.AccessTokenLifetime = src.AccessTokenLifetime;
+            dest.ApplicationGuid = guidFactory.CreateGuid(src);
+
+            return dest;
+        }
+
+        public GrantTypes GetGrantTypes(IEnumerable<GrantTypes> allowedGrantTypes)
+        {
+            GrantTypes result = (GrantTypes)0;
+            foreach (var type in allowedGrantTypes)
+            {
+                result |= type;
+            }
+
+            return result;
+        }
+
+        public IEnumerable<GrantTypes> GetGrantTypes(IEnumerable<String> s)
+        {
+            if (s == null)
+            {
+                yield break;
+            }
+
+            foreach (var i in s)
+            {
+                switch (i.ToLowerInvariant())
                 {
-                    if(s == null)
-                    {
-                        return null;
-                    }
+                    case "client_credentials":
+                        yield return GrantTypes.ClientCredentials;
+                        break;
+                    case "hybrid":
+                        yield return GrantTypes.Hybrid;
+                        break;
+                    case "authorization_code":
+                        yield return GrantTypes.AuthorizationCode;
+                        break;
+                }
+            }
+        }
 
-                    var grantTypes = new List<GrantTypes>();
-                    foreach(var i in s)
-                    {
-                        switch (i.ToLowerInvariant())
-                        {
-                            case "client_credentials":
-                                grantTypes.Add(GrantTypes.ClientCredentials);
-                                break;
-                            case "hybrid":
-                                grantTypes.Add(GrantTypes.Hybrid);
-                                break;
-                            case "authorization_code":
-                                grantTypes.Add(GrantTypes.AuthorizationCode);
-                                break;
-                        }
-                    }
-                    return grantTypes;
-                });
+        public IEnumerable<GrantTypes> GetGrantTypes(GrantTypes allowedGrantTypes)
+        {
+            if ((allowedGrantTypes & GrantTypes.AuthorizationCode) != 0)
+            {
+                yield return GrantTypes.AuthorizationCode;
+            }
+            if ((allowedGrantTypes & GrantTypes.Hybrid) != 0)
+            {
+                yield return GrantTypes.Hybrid;
+            }
+            if ((allowedGrantTypes & GrantTypes.ClientCredentials) != 0)
+            {
+                yield return GrantTypes.ClientCredentials;
+            }
+        }
 
-            CreateMap<ApiResourceInput, Scope>()
-                .ForMember(d => d.Id, opt => opt.Ignore())
-                .ForMember(d => d.Name, opt => opt.MapFrom(s => s.ScopeName))
-                .ForMember(d => d.DisplayName, opt => opt.MapFrom(s => s.DisplayName));
+        public ApiResourceMetadataView MapApiResource(ApiResourceMetadata src, ApiResourceMetadataView dest)
+        {
+            dest.ScopeName = src.ScopeName;
+            dest.DisplayName = src.DisplayName;
 
-            CreateMap<Scope, ApiResourceEditModel>()
-                .ForMember(d => d.ScopeName, opt => opt.MapFrom(s => s.Name));
+            return dest;
+        }
 
-            CreateMap<ClientInput, Client>()
-                .ForMember(d => d.Id, opt => opt.Ignore())
-                .ForMember(d => d.ClientSecrets, opt => opt.Ignore())
-                .ForMember(d => d.AllowedGrantTypes, o => o.MapFrom((ClientInput s, Client d) =>
-                {
-                    GrantTypes result = (GrantTypes)0;
-                    foreach(var type in s.AllowedGrantTypes)
-                    {
-                        result |= type;
-                    }
+        public ApiResourceInput MapApiResource(ApiResourceMetadata src, ApiResourceInput dest)
+        {
+            dest.ScopeName = src.ScopeName;
+            dest.DisplayName = src.DisplayName;
 
-                    return result;
-                }))
-                .ForMember(d => d.RedirectUris, opt => opt.MapFrom((ClientInput s, Client d) =>
-                {
-                    return s.RedirectUris.Select(i => new ClientRedirectUri()
-                    {
-                        Uri = i
-                    });
-                }))
-                .ForMember(d => d.AllowedScopes, opt => opt.MapFrom((ClientInput s, Client d) =>
-                {
-                    return s.AllowedScopes.Select(i => new ClientScope()
-                    {
-                        Scope = i
-                    });
-                }));
+            return dest;
+        }
 
-            CreateMap<Client, ClientEditModel>()
-                .ForMember(d => d.ApplicationGuid, opt => opt.MapFrom<ApplicationGuidResolver>())
-                .ForMember(d => d.AllowedGrantTypes, o => o.MapFrom((Client s, ClientEditModel d) =>
-                {
-                    var grantTypes = new List<GrantTypes>();
-                    if((s.AllowedGrantTypes & GrantTypes.AuthorizationCode) != 0)
-                    {
-                        grantTypes.Add(GrantTypes.AuthorizationCode);
-                    }
-                    if ((s.AllowedGrantTypes & GrantTypes.Hybrid) != 0)
-                    {
-                        grantTypes.Add(GrantTypes.Hybrid);
-                    }
-                    if ((s.AllowedGrantTypes & GrantTypes.ClientCredentials) != 0)
-                    {
-                        grantTypes.Add(GrantTypes.ClientCredentials);
-                    }
-                    return grantTypes;
-                }))
-                .ForMember(d => d.RedirectUris, opt => opt.MapFrom((Client s, ClientEditModel d) =>
-                {
-                    return s.RedirectUris.Select(i => i.Uri);
-                }))
-                .ForMember(d => d.AllowedScopes, opt => opt.MapFrom((Client s, ClientEditModel d) =>
-                {
-                    return s.AllowedScopes.Select(i => i.Scope);
-                }));
+        public Scope MapApiResource(ApiResourceInput src, Scope dest)
+        {
+            //Ignore dest.Id
+            dest.Name = src.ScopeName;
+            dest.DisplayName = src.DisplayName;
+
+            return dest;
+        }
+
+        public ApiResourceEditModel MapApiResource(Scope src, ApiResourceEditModel dest)
+        {
+            dest.Id = src.Id;
+            dest.ScopeName = src.Name;
+            dest.DisplayName = src.DisplayName;
+
+            return dest;
         }
     }
 }

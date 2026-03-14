@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
@@ -13,30 +12,6 @@ namespace Threax.IdServer.EntityFramework
 {
     public static class AppDatabaseServiceExtensions
     {
-        /// <summary>
-        /// Setup mappings, this is separate so it can be called by a unit test without
-        /// spinning up the whole system. No need to call manually unless needed in a unit test.
-        /// </summary>
-        /// <returns></returns>
-        public static MapperConfiguration SetupMappings()
-        {
-            //Setup mappings between your objects here
-            //Check out the AutoMapper docs for more info
-            //https://github.com/AutoMapper/AutoMapper/wiki
-            var mapperConfig = new MapperConfiguration(cfg =>
-            {
-                //Auto find profile classes
-                var profiles = typeof(AppDatabaseServiceExtensions).GetTypeInfo().Assembly.GetTypes()
-                    .Where(t => t.IsSubclassOf(typeof(Profile)))
-                    .Select(i => Activator.CreateInstance(i) as Profile)
-                    .ToList();
-
-                cfg.AddProfiles(profiles);
-            });
-
-            return mapperConfig;
-        }
-
         /// <summary>
         /// Setup the app database, will also setup repositories and mappings.
         /// </summary>

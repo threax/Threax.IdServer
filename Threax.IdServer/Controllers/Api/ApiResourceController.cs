@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
@@ -9,6 +8,7 @@ using Threax.AspNetCore.IdServerMetadata.Client;
 using Threax.IdServer.Areas.Api.InputModels;
 using Threax.IdServer.Areas.Api.Models;
 using Threax.IdServer.InputModels;
+using Threax.IdServer.Mappers;
 using Threax.IdServer.Repository;
 
 namespace Threax.IdServer.Areas.Api.Controllers
@@ -111,9 +111,9 @@ namespace Threax.IdServer.Areas.Api.Controllers
         [HttpGet]
         [Route("[action]")]
         [HalRel(Rels.LoadFromMetadata)]
-        public async Task<ApiResourceMetadataView> FromMetadata([FromQuery] MetadataLookup lookupInfo, [FromServices] IMetadataClient client, [FromServices] IMapper mapper)
+        public async Task<ApiResourceMetadataView> FromMetadata([FromQuery] MetadataLookup lookupInfo, [FromServices] IMetadataClient client, [FromServices] AppMapper mapper)
         {
-            return mapper.Map<ApiResourceMetadataView>(await client.ScopeAsync(lookupInfo.TargetUrl));
+            return mapper.MapApiResource(await client.ScopeAsync(lookupInfo.TargetUrl), new ApiResourceMetadataView());
         }
     }
 }
