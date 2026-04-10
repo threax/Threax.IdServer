@@ -23,8 +23,9 @@ namespace Threax.IdServer.ToolControllers
         {
             logger.LogCritical($"Pruning tokens");
 
-            var tokenCount = await openIddictTokenManager.PruneAsync(DateTimeOffset.Now.AddDays(-3));
-            var authCount = await openIddictAuthorizationManager.PruneAsync(DateTimeOffset.Now.AddDays(-3));
+            var time = DateTimeOffset.Now.AddDays(-3);
+            var tokenCount = await openIddictTokenManager.PruneAsync(time);
+            var authCount = await openIddictAuthorizationManager.PruneAsync(time);
 
             logger.LogInformation($"Pruned {tokenCount} tokens.");
             logger.LogInformation($"Pruned {authCount} authorizations.");
